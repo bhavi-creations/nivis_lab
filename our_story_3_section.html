@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The /PHD/ Philosophy</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #e8e6e1;
+      --text: #1a1a1a;
+      --muted: #4a4a4a;
+      --line: #b0aba3;
+      --ball-idle: #e8e6e1;
+      --ball-border: #888;
+      --ball-active: #1a1a1a;
+      --ball-size: 18px;
+      --line-x: 28px;
+      /* centre of the ball / line from left of the track col */
+    }
+
+
+
+    /* ── Page wrapper ── */
+    .philosophy-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 72px 24px 120px;
+    }
+
+    /* ── Main heading ── */
+    .phd-heading {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 56px;
+      letter-spacing: -0.5px;
+    }
+
+    /* ── Track: vertical line + ball + items ── */
+    .track-wrap {
+      position: relative;
+      padding-left: 56px;
+      /* space for line + ball */
+    }
+
+    /* The continuous vertical line */
+    .track-line {
+      position: absolute;
+      left: calc(var(--line-x) - 1px);
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--line);
+      border-radius: 2px;
+    }
+
+    /* The moving ball */
+    .track-ball {
+      position: absolute;
+      left: calc(var(--line-x) - var(--ball-size) / 2);
+      width: var(--ball-size);
+      height: var(--ball-size);
+      border-radius: 50%;
+      background: var(--ball-idle);
+      border: 2px solid var(--ball-border);
+      transition: top 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+        background 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .track-ball.active {
+      background: var(--ball-active);
+      border-color: var(--ball-active);
+      box-shadow: 0 0 0 5px rgba(26, 26, 26, 0.12);
+    }
+
+    /* ── Each philosophy item ── */
+    .phd-item {
+      position: relative;
+      padding: 12px 0 64px;
+      transition: opacity 0.3s ease;
+    }
+
+    .phd-item:last-child {
+      padding-bottom: 12px;
+    }
+
+    .phd-item-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(16px, 2.5vw, 20px);
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 14px;
+      line-height: 1.35;
+      transition: color 0.3s ease;
+    }
+
+    .phd-item-body {
+      font-size: clamp(13px, 1.8vw, 15px);
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 820px;
+      font-weight: 400;
+      transition: color 0.3s ease;
+    }
+
+    /* Active item gets slightly bolder text */
+    .phd-item.is-active .phd-item-title {
+      color: #000;
+    }
+
+    .phd-item.is-active .phd-item-body {
+      color: #333;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 576px) {
+      .track-wrap {
+        padding-left: 36px;
+      }
+
+      :root {
+        --line-x: 18px;
+        --ball-size: 14px;
+      }
+
+      .phd-item {
+        padding-bottom: 48px;
+      }
+    }
+
+    /* ═══════════════════════════════════════
+       SECTION 4 — Hero / Promise banner
+    ═══════════════════════════════════════ */
+    .our_section_4 {
+      position: relative;
+      width: 100%;
+      min-height: 380px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Full-bleed background image layer */
+    .our_section_4__bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(105deg,
+          rgba(180, 155, 125, 0.72) 0%,
+          rgba(200, 175, 148, 0.55) 30%,
+          rgba(220, 200, 175, 0.35) 60%,
+          rgba(235, 218, 198, 0.20) 100%),
+        radial-gradient(ellipse 80% 100% at 75% 40%, #d4b896 0%, #c9a87a 40%, #b8956a 70%, #a07850 100%);
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Decorative skin-tone shapes (right side) */
+    .our_section_4__bg::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 55%;
+      background:
+        radial-gradient(ellipse 60% 80% at 80% 30%, rgba(210, 180, 150, 0.6) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 65% 70%, rgba(190, 155, 120, 0.4) 0%, transparent 65%);
+    }
+
+    /* Page label top-left */
+    .our_section_4__label {
+      position: relative;
+      z-index: 2;
+      padding: 28px 40px 0;
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(18px, 2.5vw, 26px);
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: -0.3px;
+    }
+
+    /* Centred content card */
+    .our_section_4__card-wrap {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px 60px;
+    }
+
+    .our_section_4__card {
+      background: rgba(240, 236, 228, 0.88);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: 4px;
+      padding: clamp(28px, 4vw, 48px) clamp(24px, 5vw, 72px);
+      max-width: 660px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .our_section_4__card-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(18px, 2.8vw, 26px);
+      font-weight: 400;
+      color: #1a1a1a;
+      margin-bottom: 18px;
+      line-height: 1.3;
+    }
+
+    .our_section_4__card-body {
+      font-size: clamp(13px, 1.5vw, 15px);
+      color: #3a3530;
+      line-height: 1.85;
+      font-weight: 400;
+    }
+
+    /* Scroll-up button (right edge, middle) */
+    .our_section_4__scroll-btn {
+      position: absolute;
+      right: 22px;
+      bottom: 22px;
+      z-index: 10;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      color: #333;
+      transition: background 0.2s, transform 0.2s;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    .our_section_4__scroll-btn:hover {
+      background: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* ═══════════════════════════════════════
+       SECTION 5 — Experts grid + copy
+    ═══════════════════════════════════════ */
+    .our_section_5 {
+      background: #f0ece6;
+      padding: clamp(52px, 7vw, 100px) clamp(20px, 5vw, 80px);
+    }
+
+    .our_section_5__inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-start;
+      gap: clamp(32px, 5vw, 72px);
+    }
+
+    /* ── Left: doctor photos ── */
+    .our_section_5__photos {
+      display: flex;
+      align-items: flex-end;
+      gap: 0;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .our_section_5__doc {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Each photo card */
+    .our_section_5__photo-wrap {
+      width: clamp(88px, 11vw, 148px);
+      aspect-ratio: 3 / 4;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #c8b8a4;
+      position: relative;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.10);
+    }
+
+    /* Staggered heights */
+    .our_section_5__doc:nth-child(1) .our_section_5__photo-wrap {
+      margin-top: 28px;
+    }
+
+    .our_section_5__doc:nth-child(2) .our_section_5__photo-wrap {
+      margin-top: 0;
+    }
+
+    .our_section_5__doc:nth-child(3) .our_section_5__photo-wrap {
+      margin-top: 48px;
+    }
+
+    .our_section_5__doc:nth-child(4) .our_section_5__photo-wrap {
+      margin-top: 16px;
+    }
+
+    /* Placeholder avatar inside each photo */
+    .our_section_5__avatar {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(32px, 5vw, 52px);
+      user-select: none;
+    }
+
+    /* Colour per doctor */
+    .our_section_5__doc:nth-child(1) .our_section_5__photo-wrap {
+      background: linear-gradient(170deg, #d4c4b0 0%, #b8a086 100%);
+    }
+
+    .our_section_5__doc:nth-child(2) .our_section_5__photo-wrap {
+      background: linear-gradient(170deg, #c8b8a0 0%, #a89070 100%);
+    }
+
+    .our_section_5__doc:nth-child(3) .our_section_5__photo-wrap {
+      background: linear-gradient(170deg, #d8caba 0%, #bca892 100%);
+    }
+
+    .our_section_5__doc:nth-child(4) .our_section_5__photo-wrap {
+      background: linear-gradient(170deg, #cfc0ae 0%, #b09880 100%);
+    }
+
+    /* White coat silhouette overlay */
+    .our_section_5__coat {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 45%;
+      background: rgba(255, 255, 255, 0.55);
+      border-radius: 0 0 6px 6px;
+      clip-path: polygon(10% 100%, 0% 30%, 30% 0%, 70% 0%, 100% 30%, 90% 100%);
+    }
+
+    /* Doctor name + credentials */
+    .our_section_5__doc-info {
+      text-align: center;
+      padding: 0 4px;
+      max-width: clamp(88px, 11vw, 148px);
+    }
+
+    .our_section_5__doc-name {
+      font-size: clamp(10px, 1.1vw, 13px);
+      font-weight: 600;
+      color: #1a1a1a;
+      line-height: 1.3;
+      margin-bottom: 2px;
+    }
+
+    .our_section_5__doc-role {
+      font-size: clamp(9px, 0.95vw, 11px);
+      color: #6a6560;
+      line-height: 1.45;
+    }
+
+    .our_section_5__doc-cred {
+      font-size: clamp(8px, 0.85vw, 10px);
+      color: #999;
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+
+    /* ── Right: copy ── */
+    .our_section_5__copy {
+      flex: 1;
+      padding-top: clamp(8px, 2vw, 28px);
+    }
+
+    .our_section_5__title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(22px, 3.5vw, 40px);
+      font-weight: 400;
+      color: #1a1a1a;
+      line-height: 1.2;
+      margin-bottom: 22px;
+      letter-spacing: -0.5px;
+    }
+
+    .our_section_5__para {
+      font-size: clamp(13px, 1.4vw, 15px);
+      color: #4a4540;
+      line-height: 1.85;
+      margin-bottom: 18px;
+      font-weight: 400;
+      max-width: 520px;
+    }
+
+    .our_section_5__cta {
+      display: inline-block;
+      margin-top: 8px;
+      background: #1a1a1a;
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      padding: 14px 36px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .our_section_5__cta:hover {
+      background: #333;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* ── Rewards pill (bottom-left) ── */
+    .our_section_5__rewards {
+      position: fixed;
+      bottom: 22px;
+      left: 22px;
+      z-index: 100;
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
+      transition: transform 0.2s, background 0.2s;
+      text-decoration: none;
+    }
+
+    .our_section_5__rewards:hover {
+      transform: translateY(-2px);
+      background: #333;
+      color: #fff;
+    }
+
+    .our_section_5__rewards-icon {
+      font-size: 16px;
+    }
+
+    /* ── Responsive stacking ── */
+    @media (max-width: 768px) {
+      .our_section_5__inner {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .our_section_5__photos {
+        justify-content: center;
+        width: 100%;
+      }
+
+      .our_section_5__copy {
+        text-align: center;
+        padding-top: 0;
+      }
+
+      .our_section_5__para {
+        max-width: 100%;
+      }
+
+      .our_section_5__doc:nth-child(1) .our_section_5__photo-wrap,
+      .our_section_5__doc:nth-child(2) .our_section_5__photo-wrap,
+      .our_section_5__doc:nth-child(3) .our_section_5__photo-wrap,
+      .our_section_5__doc:nth-child(4) .our_section_5__photo-wrap {
+        margin-top: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .our_section_4__label {
+        padding: 20px 20px 0;
+      }
+
+      .our_section_5 {
+        padding: 48px 16px;
+      }
+    }
+
+
+
+
+    /* ssection_2  */
+    .our_section_2 {
+      background-color: #fcfbf7;
+      /* Light cream background */
+      background-image: url('./assets/img/bg_img.png');
+      /* Background image path ikkada ivvandi */
+      background-size: cover;
+      background-position: right center;
+      background-repeat: no-repeat;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .our_section_2 .content-box {
+      /* Text box light transparency kosam */
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(5px);
+      border-radius: 8px;
+    }
+
+    .our_section_2 h2 {
+      font-weight: 300;
+      color: #333;
+      letter-spacing: 1px;
+    }
+
+    .our_section_2 h2 .text-danger {
+      color: #a52a2a !important;
+      /* Dark red/maroon color as per image */
+    }
+
+    .our_section_2 .description-text p {
+      color: #555;
+      line-height: 1.8;
+      font-size: 1.05rem;
+      max-width: 550px;
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 768px) {
+      .our_section_2 {
+        background-position: center;
+      }
+
+      .our_section_2 .content-box {
+        background: rgba(255, 255, 255, 0.8);
+      }
+    }
+
+    /* last section stylings  */
+    .last {
+      min-height: 100vh;
+      /* Screen motham cover avvadaniki */
+      background-image: url('./assets/img/bg_img.png');
+      /* Nee image path ikkada ivvu */
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      /* Parallax effect kosam optional */
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background image paina black shade ravadaniki */
+    .last .overlay-dark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      /* 50% darkness */
+      z-index: 1;
+    }
+
+    .last h1 {
+      font-family: sans-serif;
+      /* Nee daggara clean font unte adi set cheyyu */
+      letter-spacing: -1px;
+    }
+
+    .last .btn-light {
+      transition: all 0.3s ease;
+      border: none;
+      font-size: 0.9rem;
+      text-transform: capitalize;
+    }
+
+    .last .btn-light:hover {
+      background-color: #f0f0f0;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Mobile responsive font sizes */
+    @media (max-width: 768px) {
+      .last h1 {
+        font-size: 3rem;
+      }
+
+      .last {
+        min-height: 600px;
+        /* Mobile lo height konchem thaggisthe baguntundi */
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- section 2 -->
+  <section class="our_section_2 py-5">
+    <div class="container py-lg-5">
+      <div class="row align-items-center">
+        <div class="col-md-7">
+          <div class="content-box p-4 p-md-5">
+            <h6 class="text-uppercase fw-normal mb-3">What does /PHD/ stand for?</h6>
+            <h2 class="display-5 mb-4">
+              <span class="text-danger">P</span>roven
+              <span class="text-danger">H</span>onest
+              <span class="text-danger">D</span>erma
+            </h2>
+
+            <div class="description-text mt-4">
+              <p class="lead-sm mb-4">
+                We create proven formulations backed by science, maintain honest communication without gimmicks, and
+                ensure all our products are formulated with dermatologists to prioritize skin health over trends.
+              </p>
+              <p class="lead-sm mb-0">
+                Every ingredient is chosen with precision to deliver results you can trust.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-5 d-none d-md-block">
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- sectionm 3 -->
+
+  <section class="philosophy-section">
+
+    <h1 class="phd-heading">The /PHD/ Philosophy</h1>
+
+    <div class="track-wrap" id="trackWrap">
+
+      <!-- Vertical line -->
+      <div class="track-line" id="trackLine"></div>
+
+      <!-- Moving ball -->
+      <div class="track-ball" id="trackBall"></div>
+
+      <!-- Item 1 -->
+      <div class="phd-item" id="item-0">
+        <div class="phd-item-title">If it's not proven, we don't make it.</div>
+        <div class="phd-item-body">
+          Every /PHD/ formula is backed by clinical research and dermatological insights. We don't experiment with
+          unverified ingredients or chase untested claims—efficacy comes first.
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="phd-item" id="item-1">
+        <div class="phd-item-title">A dermatologist approves before the consumer even sees it.</div>
+        <div class="phd-item-body">
+          Every product is developed in collaboration with our /PHD/ Council—a team of global dermatologists who ensure
+          safety, effectiveness, and real-world results before a product reaches your hands.
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="phd-item" id="item-2">
+        <div class="phd-item-title">We don't follow trends blindly.</div>
+        <div class="phd-item-body">
+          Skincare should be science-led, not hype-driven. We focus on what truly benefits the skin, not fleeting fads
+          or marketing gimmicks.
+        </div>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="phd-item" id="item-3">
+        <div class="phd-item-title">We treat and teach skin</div>
+        <div class="phd-item-body">
+          At /PHD/, we go beyond creating products—we break down the science, decode ingredients, and share
+          dermatologist-backed insights so you truly understand what your skin needs.
+        </div>
+      </div>
+
+    </div><!-- /.track-wrap -->
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+     SECTION 4 — The /PHD/ Promise
+═══════════════════════════════════════ -->
+  <section class="our_section_4">
+
+    <!-- Background -->
+    <div class="our_section_4__bg"></div>
+
+    <!-- Top-left label -->
+    <div class="our_section_4__label">The /PHD/ Promise</div>
+
+    <!-- Centred card -->
+    <div class="our_section_4__card-wrap">
+      <div class="our_section_4__card">
+        <h2 class="our_section_4__card-title">
+          Skincare You Can Trust, Backed by Global Dermats
+        </h2>
+        <p class="our_section_4__card-body">
+          Ever looked at a skincare product and thought, "Will this actually work?" You're not alone. At /PHD/, you'll
+          never have to second-guess. Every formula is developed alongside global dermatologists.
+        </p>
+      </div>
+    </div>
+
+    <!-- Scroll-up button -->
+    <!-- <a href="#" class="our_section_4__scroll-btn" aria-label="Scroll to top">
+    ↑
+  </a> -->
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+     SECTION 5 — The experts behind every formula
+═══════════════════════════════════════ -->
+  <section class="our_section_5">
+    <div class="our_section_5__inner">
+
+      <!-- Left: doctor photos -->
+      <div class="our_section_5__photos">
+
+        <!-- Dr. Rachel Westbay -->
+        <div class="our_section_5__doc">
+          <div class="our_section_5__photo-wrap">
+            <div class="our_section_5__avatar">👩‍⚕️</div>
+            <div class="our_section_5__coat"></div>
+          </div>
+          <div class="our_section_5__doc-info">
+            <div class="our_section_5__doc-name">Dr. Rachel Westbay</div>
+            <div class="our_section_5__doc-role">Board-Certified Dermatologist<br>USA</div>
+            <div class="our_section_5__doc-cred">MD FAAD</div>
+          </div>
+        </div>
+
+        <!-- Dr. Anupriya Goel -->
+        <div class="our_section_5__doc">
+          <div class="our_section_5__photo-wrap">
+            <div class="our_section_5__avatar">👩‍⚕️</div>
+            <div class="our_section_5__coat"></div>
+          </div>
+          <div class="our_section_5__doc-info">
+            <div class="our_section_5__doc-name">Dr. Anupriya Goel</div>
+            <div class="our_section_5__doc-role">Aesthetic Dermatologist<br>India</div>
+            <div class="our_section_5__doc-cred">MBBS, MD, DPD (UK)<br>Diploma in Cosmetology (UK)</div>
+          </div>
+        </div>
+
+        <!-- Dr. Max Emmerich -->
+        <div class="our_section_5__doc">
+          <div class="our_section_5__photo-wrap">
+            <div class="our_section_5__avatar">👨‍⚕️</div>
+            <div class="our_section_5__coat"></div>
+          </div>
+          <div class="our_section_5__doc-info">
+            <div class="our_section_5__doc-name">Dr. Max Emmerich</div>
+            <div class="our_section_5__doc-role">Dermatologist<br>UK</div>
+            <div class="our_section_5__doc-cred">MA (Cantab.) BM BCh MRCP (UK)</div>
+          </div>
+        </div>
+
+        <!-- Dr. Trisha Khanna -->
+        <div class="our_section_5__doc">
+          <div class="our_section_5__photo-wrap">
+            <div class="our_section_5__avatar">👩‍⚕️</div>
+            <div class="our_section_5__coat"></div>
+          </div>
+          <div class="our_section_5__doc-info">
+            <div class="our_section_5__doc-name">Dr. Trisha Khanna</div>
+            <div class="our_section_5__doc-role">Board-Certified Dermatologist<br>USA</div>
+            <div class="our_section_5__doc-cred">MD FAAD</div>
+          </div>
+        </div>
+
+      </div><!-- /.our_section_5__photos -->
+
+      <!-- Right: copy -->
+      <div class="our_section_5__copy">
+        <h2 class="our_section_5__title">The experts behind every formula</h2>
+        <p class="our_section_5__para">
+          At /PHD/, every product is developed in collaboration with The /PHD/ Council
+          —a team of global dermatologists who ensure our formulations are research-backed, safe, and truly effective.
+        </p>
+        <p class="our_section_5__para">
+          From selecting clinically studied ingredients to perfecting skin-first formulations, their dermatological
+          expertise helps us create skincare that's rooted in science, not trends.
+        </p>
+        <a href="#" class="our_section_5__cta">Know more</a>
+      </div>
+
+    </div>
+  </section>
+
+
+
+  <!-- section last  -->
+
+  <section class="last position-relative d-flex align-items-center justify-content-center text-center">
+    <div class="overlay-dark"></div>
+    <div class="container position-relative text-white py-5" style="z-index: 2;">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <p class="text-uppercase mb-3 fw-light" style="letter-spacing: 2px;">Get your /PHD/</p>
+
+          <h1 class="display-3 fw-bold mb-4">Skin care.</h1>
+
+          <p class="h5 fw-normal mb-5 opacity-75">Formulated with Global Dermatologists.</p>
+
+          <div class="mt-4">
+            <a href="#" class="btn btn-light px-5 py-3 fw-semibold rounded-0 text-dark">
+              Shop all
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Fixed Rewards pill -->
+  <a href="#" class="our_section_5__rewards">
+    <span class="our_section_5__rewards-icon">🎁</span>
+    Rewards
+  </a>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const items = Array.from(document.querySelectorAll('.phd-item'));
+    const ball = document.getElementById('trackBall');
+    const trackWrap = document.getElementById('trackWrap');
+
+    let activeIndex = -1;
+
+    function getBallTargetTop(itemEl) {
+      // Position ball at the vertical centre of the item's title
+      const wrapTop = trackWrap.getBoundingClientRect().top + window.scrollY;
+      const itemTop = itemEl.getBoundingClientRect().top + window.scrollY;
+      const titleEl = itemEl.querySelector('.phd-item-title');
+      const titleMid = titleEl.offsetHeight / 2;
+      return (itemTop - wrapTop) + titleMid - (parseInt(getComputedStyle(document.documentElement).getPropertyValue('--ball-size')) / 2);
+    }
+
+    function update() {
+      const viewMid = window.scrollY + window.innerHeight * 0.42; // trigger point ~40% down viewport
+
+      let newActive = -1;
+      for (let i = items.length - 1; i >= 0; i--) {
+        const top = items[i].getBoundingClientRect().top + window.scrollY;
+        if (viewMid >= top) { newActive = i; break; }
+      }
+
+      // Clamp: never go below last item
+      if (newActive === -1 && window.scrollY > 0) newActive = 0;
+
+      if (newActive !== activeIndex) {
+        activeIndex = newActive;
+
+        // Toggle active class
+        items.forEach((el, i) => el.classList.toggle('is-active', i === activeIndex));
+
+        // Move ball
+        if (activeIndex >= 0) {
+          ball.classList.add('active');
+          ball.style.top = getBallTargetTop(items[activeIndex]) + 'px';
+        } else {
+          ball.classList.remove('active');
+          ball.style.top = '0px';
+        }
+      }
+    }
+
+    // Init ball position at top of first item
+    window.addEventListener('load', () => {
+      ball.style.top = getBallTargetTop(items[0]) + 'px';
+      update();
+    });
+
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+  </script>
+</body>
+
+</html>

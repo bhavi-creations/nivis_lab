@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ratings & Reviews</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --red: #b01b2e;
+      --dark-red: #8a1522;
+      --gold: #e2a800;
+      --gold-light: #fdf3d0;
+      --border: #e8e3dc;
+      --bg: #faf8f5;
+      --text: #1a1a1a;
+      --muted: #7a7167;
+      --card-bg: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 40px 0 80px;
+    }
+
+    /* ── Section title ── */
+    .section-heading {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      color: var(--text);
+      margin-bottom: 28px;
+      position: relative;
+      padding-bottom: 12px;
+    }
+    .section-heading::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 48px; height: 3px;
+      background: var(--red);
+      border-radius: 2px;
+    }
+
+    /* ── Rating summary box ── */
+    .rating-summary-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .big-score {
+      font-family: 'DM Serif Display', serif;
+      font-size: 52px;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .big-stars { font-size: 18px; color: var(--gold); letter-spacing: 2px; }
+    .review-count-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .verified-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: #eaf6ee; color: #27ae60;
+      font-size: 11px; font-weight: 600;
+      padding: 3px 8px; border-radius: 12px;
+      margin-top: 6px;
+    }
+
+    /* Bar chart */
+    .bar-row {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 6px; font-size: 12px;
+    }
+    .bar-label { width: 60px; color: var(--muted); font-size: 11px; white-space: nowrap; }
+    .bar-track {
+      flex: 1; height: 8px;
+      background: #ede8e1; border-radius: 4px; overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%; background: var(--gold); border-radius: 4px;
+      transition: width 0.8s ease;
+    }
+    .bar-count { width: 20px; text-align: right; color: var(--muted); font-size: 11px; }
+
+    /* Action buttons */
+    .btn-rate {
+      background: var(--text);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      border: none;
+      border-radius: 6px;
+      padding: 11px 22px;
+      width: 100%;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-rate:hover { background: #333; transform: translateY(-1px); }
+
+    .btn-ask {
+      background: #fff;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      border: 2px solid var(--text);
+      border-radius: 6px;
+      padding: 9px 22px;
+      width: 100%;
+      margin-top: 10px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-ask:hover { background: var(--text); color: #fff; }
+
+    /* ── Customer photos strip ── */
+    .photos-strip-wrap {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+    }
+    .photos-strip-title { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+    .photos-strip {
+      display: flex; gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+    }
+    .photos-strip::-webkit-scrollbar { display: none; }
+    .photo-thumb {
+      width: 56px; height: 56px; flex-shrink: 0;
+      border-radius: 6px;
+      object-fit: cover;
+      background: var(--border);
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.2s;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .photo-thumb:hover { border-color: var(--red); }
+    .photo-see-more {
+      width: 56px; height: 56px; flex-shrink: 0;
+      border-radius: 6px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      font-size: 10px; color: var(--muted);
+      cursor: pointer;
+      gap: 2px;
+    }
+
+    /* ── Filter/sort bar ── */
+    .filter-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px; flex-wrap: wrap; gap: 10px;
+    }
+    .sort-select {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      padding: 7px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      color: var(--text);
+    }
+    .btn-filter {
+      font-size: 12px;
+      padding: 7px 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--text);
+      cursor: pointer;
+      display: flex; align-items: center; gap: 6px;
+      transition: background 0.2s;
+    }
+    .btn-filter:hover { background: var(--bg); }
+
+    /* ── Review card ── */
+    .review-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-bottom: 16px;
+      transition: box-shadow 0.2s;
+      animation: fadeSlideIn 0.35s ease both;
+    }
+    .review-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.07); }
+
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reviewer-name { font-weight: 600; font-size: 14px; }
+    .reviewer-country { font-size: 11px; color: var(--muted); }
+    .reviewer-meta { font-size: 11px; color: var(--muted); line-height: 1.8; margin-top: 4px; }
+    .reviewer-meta span { display: block; }
+
+    .review-stars { font-size: 14px; color: var(--gold); letter-spacing: 1px; }
+    .review-title { font-weight: 600; font-size: 14px; margin: 4px 0 6px; }
+    .review-body { font-size: 13px; color: #3a3530; line-height: 1.75; }
+
+    .review-img {
+      width: 72px; height: 72px;
+      border-radius: 6px;
+      object-fit: cover;
+      background: var(--border);
+      margin-top: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+      overflow: hidden;
+    }
+
+    .vote-row {
+      display: flex; align-items: center; gap: 14px;
+      margin-top: 14px;
+    }
+    .vote-btn {
+      font-size: 12px; color: var(--muted);
+      background: none; border: 1px solid var(--border);
+      border-radius: 20px; padding: 4px 12px;
+      cursor: pointer; display: flex; align-items: center; gap: 5px;
+      transition: all 0.2s;
+    }
+    .vote-btn:hover { border-color: var(--text); color: var(--text); }
+    .vote-btn.liked { background: var(--gold-light); border-color: var(--gold); color: #7a5500; }
+
+    /* ── Q&A section ── */
+    .qa-section {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      margin-top: 10px;
+    }
+    .qa-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      margin-bottom: 18px;
+    }
+
+    /* Question card */
+    .question-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      animation: fadeSlideIn 0.35s ease both;
+    }
+    .question-header {
+      background: var(--bg);
+      padding: 12px 16px;
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .q-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--red);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .q-patient-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+    .q-name { font-size: 13px; font-weight: 600; }
+    .q-time { font-size: 11px; color: var(--muted); margin-left: auto; white-space: nowrap; padding-top: 2px; }
+    .q-text {
+      padding: 12px 16px;
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.7;
+      border-top: 1px solid var(--border);
+    }
+    .q-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: #fef3f3; color: var(--red);
+      font-size: 10px; font-weight: 700;
+      padding: 2px 8px; border-radius: 10px;
+      margin-right: 6px;
+    }
+
+    /* Ask question form */
+    .ask-form {
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      background: var(--bg);
+      margin-top: 6px;
+    }
+    .ask-form label { font-size: 13px; font-weight: 600; margin-bottom: 6px; display: block; }
+    .ask-form input, .ask-form textarea {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 14px;
+      width: 100%;
+      background: #fff;
+      color: var(--text);
+      resize: none;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .ask-form input:focus, .ask-form textarea:focus { border-color: var(--red); }
+    .btn-submit-q {
+      background: var(--red);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 24px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-submit-q:hover { background: var(--dark-red); transform: translateY(-1px); }
+    .btn-cancel-q {
+      background: none;
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      border: none;
+      padding: 10px 16px;
+      cursor: pointer;
+    }
+
+    /* Rate Us modal trigger */
+    .modal-content { border-radius: 12px; border: 1px solid var(--border); }
+    .modal-header { border-bottom: 1px solid var(--border); }
+    .star-picker { display: flex; gap: 8px; font-size: 32px; cursor: pointer; }
+    .star-picker span { color: #ddd; transition: color 0.15s; }
+    .star-picker span.lit { color: var(--gold); }
+    .form-control:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(176,27,46,0.1); }
+    .btn-submit-rate {
+      background: var(--red); color: #fff;
+      font-weight: 600; font-size: 14px;
+      border: none; border-radius: 6px;
+      padding: 11px 28px; cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-submit-rate:hover { background: var(--dark-red); }
+
+    /* divider */
+    .hr-soft { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+
+    /* empty state */
+    .empty-qa {
+      text-align: center; padding: 28px;
+      color: var(--muted); font-size: 13px;
+    }
+    .empty-qa i { font-size: 28px; margin-bottom: 10px; display: block; color: #ddd; }
+
+    @media (max-width: 576px) {
+      .big-score { font-size: 40px; }
+      .review-card { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" >
+
+  <!-- ════════════════════════════════
+       RATINGS & REVIEWS HEADER
+  ════════════════════════════════ -->
+  <h2 class="section-heading">Ratings &amp; Reviews</h2>
+
+  <!-- Summary row -->
+  <div class="rating-summary-card">
+    <div class="row g-3 align-items-center">
+
+      <!-- Left: big score -->
+      <div class="col-auto text-center" style="min-width:120px">
+        <div class="big-score">4.98</div>
+        <div class="big-stars">★★★★★</div>
+        <div class="review-count-label">Based on 54 reviews</div>
+        <div class="verified-badge"><i class="fa fa-circle-check" style="font-size:10px"></i> Verified</div>
+      </div>
+
+      <!-- Middle: bar chart -->
+      <div class="col">
+        <div class="bar-row">
+          <div class="bar-label"><span style="color:var(--gold)">★★★★★</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:96%"></div></div>
+          <div class="bar-count">51</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label"><span style="color:var(--gold)">★★★★</span><span style="color:#ddd">★</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:4%"></div></div>
+          <div class="bar-count">1</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label"><span style="color:var(--gold)">★★★</span><span style="color:#ddd">★★</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:0%"></div></div>
+          <div class="bar-count">0</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label"><span style="color:var(--gold)">★★</span><span style="color:#ddd">★★★</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:0%"></div></div>
+          <div class="bar-count">0</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label"><span style="color:var(--gold)">★</span><span style="color:#ddd">★★★★</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:0%"></div></div>
+          <div class="bar-count">0</div>
+        </div>
+      </div>
+
+      <!-- Right: buttons -->
+      <div class="col-auto" style="min-width:160px">
+        <button class="btn-rate" data-bs-toggle="modal" data-bs-target="#rateModal">
+          <i class="fa fa-star me-1" style="font-size:12px"></i> Rate Us
+        </button>
+        <button class="btn-ask" id="openAskForm">
+          <i class="fa fa-circle-question me-1" style="font-size:12px"></i> Ask a question
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Customer photos strip -->
+  <div class="photos-strip-wrap">
+    <div class="photos-strip-title">Customer Photos &amp; Videos</div>
+    <div class="photos-strip" id="photoStrip">
+      <div class="photo-thumb">🧴</div>
+      <div class="photo-thumb">✋</div>
+      <div class="photo-thumb">☀️</div>
+      <div class="photo-thumb">💧</div>
+      <div class="photo-thumb">🪞</div>
+      <div class="photo-thumb">📸</div>
+      <div class="photo-thumb">🌿</div>
+      <div class="photo-see-more">
+        <i class="fa fa-images" style="font-size:16px;color:var(--muted)"></i>
+        <span>See more</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter bar -->
+  <div class="filter-bar">
+    <select class="sort-select" id="sortSelect" onchange="sortReviews()">
+      <option value="helpful">Most Helpful</option>
+      <option value="recent">Most Recent</option>
+      <option value="high">Highest Rated</option>
+      <option value="low">Lowest Rated</option>
+    </select>
+    <button class="btn-filter">
+      <i class="fa fa-sliders"></i> Filters
+    </button>
+  </div>
+
+  <!-- ════════════════════════════════
+       REVIEW CARDS
+  ════════════════════════════════ -->
+  <div id="reviewList">
+
+    <!-- Review 1 -->
+    <div class="review-card" data-helpful="72" data-rating="5" data-date="2024-03-10">
+      <div class="row g-0">
+        <div class="col-12 col-sm-3 col-md-2 mb-3 mb-sm-0">
+          <div class="reviewer-name">Vama Sheth</div>
+          <div class="reviewer-country">India</div>
+          <div class="reviewer-meta">
+            <span>Gender: Female</span>
+            <span>Age: 18 to 24 years old</span>
+            <span>Skin Type: Normal</span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-9 col-md-10 ps-sm-3">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-title">Bought it on day of launch!</div>
+          <div class="review-body">
+            I ordered this as soon as I received a Whatsapp message about the new launch and the product got
+            delivered within a day! Pretty much like other products… PHD has nailed this sunscreen. I just did a
+            swatch test as soon as I received the product… super super light and hydrating. Cannot wait to use this everyday.
+          </div>
+          <div class="review-img">🧴</div>
+          <div class="vote-row">
+            <button class="vote-btn" onclick="likeReview(this)">
+              <i class="fa fa-thumbs-up"></i> <span class="vote-num">72</span>
+            </button>
+            <button class="vote-btn dislike-btn">
+              <i class="fa fa-thumbs-down"></i> <span class="vote-num">5</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Review 2 -->
+    <div class="review-card" data-helpful="3" data-rating="5" data-date="2024-03-08">
+      <div class="row g-0">
+        <div class="col-12 col-sm-3 col-md-2 mb-3 mb-sm-0">
+          <div class="reviewer-name">Bala</div>
+          <div class="reviewer-country">India</div>
+          <div class="reviewer-meta">
+            <span>Gender: Male</span>
+            <span>Age: 25 to 39 years old</span>
+            <span>Skin Type: Oily</span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-9 col-md-10 ps-sm-3">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-title">Listen up! 🎧</div>
+          <div class="review-body">
+            ONE COMMENT: DON'T EVER STOP OR ALTER THIS SUNSCREEN FOR EVER….<br>
+            THAT'S IT!<br>
+            PHD ROCKS 🚫 NUKES 🟩
+          </div>
+          <div class="review-img">🌞</div>
+          <div class="vote-row">
+            <button class="vote-btn" onclick="likeReview(this)">
+              <i class="fa fa-thumbs-up"></i> <span class="vote-num">3</span>
+            </button>
+            <button class="vote-btn dislike-btn">
+              <i class="fa fa-thumbs-down"></i> <span class="vote-num">1</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Review 3 -->
+    <div class="review-card" data-helpful="2" data-rating="5" data-date="2024-03-05">
+      <div class="row g-0">
+        <div class="col-12 col-sm-3 col-md-2 mb-3 mb-sm-0">
+          <div class="reviewer-name">Namita</div>
+          <div class="reviewer-country">India</div>
+          <div class="reviewer-meta">
+            <span>Gender: Female</span>
+            <span>Age: 18 to 24 years old</span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-9 col-md-10 ps-sm-3">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-title">Love the texture</div>
+          <div class="review-body">
+            This one is so so thin in texture, it literally glides on the skin!… I hated sunscreens because of texture
+            but this is good for everyday for me… all new ingredients and panthenol is commendable…
+          </div>
+          <div class="vote-row">
+            <button class="vote-btn" onclick="likeReview(this)">
+              <i class="fa fa-thumbs-up"></i> <span class="vote-num">2</span>
+            </button>
+            <button class="vote-btn dislike-btn">
+              <i class="fa fa-thumbs-down"></i> <span class="vote-num">0</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Review 4 -->
+    <div class="review-card" data-helpful="1" data-rating="5" data-date="2024-02-28">
+      <div class="row g-0">
+        <div class="col-12 col-sm-3 col-md-2 mb-3 mb-sm-0">
+          <div class="reviewer-name">Anubhab Nayak</div>
+          <div class="reviewer-country">India</div>
+        </div>
+        <div class="col-12 col-sm-9 col-md-10 ps-sm-3">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-title">Good sunscreen</div>
+          <div class="review-body">
+            The sunscreen texture is very light and doesn't put whitecast on the face considering its SPF60. It also
+            works for longer than regular sunscreens at this price range. The gel base keeps the skin hydra…
+          </div>
+          <div class="vote-row">
+            <button class="vote-btn" onclick="likeReview(this)">
+              <i class="fa fa-thumbs-up"></i> <span class="vote-num">1</span>
+            </button>
+            <button class="vote-btn dislike-btn">
+              <i class="fa fa-thumbs-down"></i> <span class="vote-num">0</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Review 5 -->
+    <div class="review-card" data-helpful="1" data-rating="4" data-date="2024-02-20">
+      <div class="row g-0">
+        <div class="col-12 col-sm-3 col-md-2 mb-3 mb-sm-0">
+          <div class="reviewer-name">Shruti rai</div>
+          <div class="reviewer-country">India</div>
+          <div class="reviewer-meta">
+            <span>Age: 18 to 24 years old</span>
+            <span>Skin Type: Normal</span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-9 col-md-10 ps-sm-3">
+          <div class="review-stars">★★★★<span style="color:#ddd">★</span></div>
+          <div class="review-title">Finally after trying 20+ Sunscreen found one 😊😊</div>
+          <div class="review-body">
+            This one feels like I have not even applied a Sunscreen… no heaviness, no white or greyish cast… it's like
+            after applying all the serums you are applying a moisturizer… and the most important part… IT DOESN'T PILL.
+            Thank youuuu for bringing a formula even better than the most viral Korean and European Sunscreen at such an affordable price.
+          </div>
+          <div class="vote-row">
+            <button class="vote-btn" onclick="likeReview(this)">
+              <i class="fa fa-thumbs-up"></i> <span class="vote-num">1</span>
+            </button>
+            <button class="vote-btn dislike-btn">
+              <i class="fa fa-thumbs-down"></i> <span class="vote-num">0</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Review 6 -->
+    <div class="review-card" data-helpful="0" data-rating="5" data-date="2024-02-15">
+      <div class="row g-0">
+        <div class="col-12 col-sm-3 col-md-2 mb-3 mb-sm-0">
+          <div class="reviewer-name">Ekamm Dhilon</div>
+          <div class="reviewer-country">India</div>
+        </div>
+        <div class="col-12 col-sm-9 col-md-10 ps-sm-3">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-title">Terrific purchase</div>
+          <div class="review-body">
+            This is such a nice sunscreen. It is lightweight and has a matte finish, it does not leave any white cast. Love it.
+          </div>
+          <div class="review-img">✋</div>
+          <div class="vote-row">
+            <button class="vote-btn" onclick="likeReview(this)">
+              <i class="fa fa-thumbs-up"></i> <span class="vote-num">0</span>
+            </button>
+            <button class="vote-btn dislike-btn">
+              <i class="fa fa-thumbs-down"></i> <span class="vote-num">0</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /#reviewList -->
+
+  <hr class="hr-soft"/>
+
+  <!-- ════════════════════════════════
+       Q & A SECTION
+  ════════════════════════════════ -->
+  <div class="qa-section">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+      <div class="qa-title mb-0">Questions &amp; Answers</div>
+      <button class="btn-ask" id="openAskForm2" style="width:auto;padding:9px 20px">
+        <i class="fa fa-circle-question me-1" style="font-size:12px"></i> Ask a question
+      </button>
+    </div>
+
+    <!-- Ask question form (hidden by default) -->
+    <div class="ask-form mb-4" id="askFormWrap" style="display:none">
+      <label for="qName">Your Name</label>
+      <input type="text" id="qName" placeholder="Enter your name" class="mb-3"/>
+
+      <label for="qText">Your Question</label>
+      <textarea id="qText" rows="3" placeholder="What would you like to know about this product?"></textarea>
+
+      <div class="d-flex align-items-center gap-2 mt-3">
+        <button class="btn-submit-q" onclick="submitQuestion()">Submit Question</button>
+        <button class="btn-cancel-q" onclick="closeAskForm()">Cancel</button>
+      </div>
+      <div id="qError" style="color:var(--red);font-size:12px;margin-top:8px;display:none">
+        Please fill in both your name and question.
+      </div>
+    </div>
+
+    <!-- Q&A list -->
+    <div id="qaList">
+      <!-- Prepopulated question 1 -->
+      <div class="question-card">
+        <div class="question-header">
+          <div class="q-avatar">P</div>
+          <div>
+            <div class="q-patient-label"><span class="q-badge"><i class="fa fa-user-injured" style="font-size:9px"></i> Patient asking question</span></div>
+            <div class="q-name">Priya M.</div>
+          </div>
+          <div class="q-time">2 days ago</div>
+        </div>
+        <div class="q-text">
+          Does this sunscreen work well under makeup? I use a liquid foundation and I'm worried about pilling.
+        </div>
+      </div>
+
+      <!-- Prepopulated question 2 -->
+      <div class="question-card">
+        <div class="question-header">
+          <div class="q-avatar">R</div>
+          <div>
+            <div class="q-patient-label"><span class="q-badge"><i class="fa fa-user-injured" style="font-size:9px"></i> Patient asking question</span></div>
+            <div class="q-name">Rahul S.</div>
+          </div>
+          <div class="q-time">5 days ago</div>
+        </div>
+        <div class="q-text">
+          Is this suitable for sensitive skin? I have rosacea and most sunscreens cause redness for me.
+        </div>
+      </div>
+
+    </div><!-- /#qaList -->
+
+    <div class="empty-qa" id="qaEmpty" style="display:none">
+      <i class="fa fa-comments"></i>
+      No questions yet. Be the first to ask!
+    </div>
+
+  </div><!-- /.qa-section -->
+
+</div><!-- /.container -->
+
+
+<!-- ════════════════════════════════
+     RATE US MODAL
+════════════════════════════════ -->
+<div class="modal fade" id="rateModal" tabindex="-1" aria-labelledby="rateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title" id="rateModalLabel" style="font-family:'DM Serif Display',serif;font-size:20px">
+          Write a Review
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body pt-2">
+
+        <!-- Star picker -->
+        <label style="font-size:13px;font-weight:600;margin-bottom:8px;display:block">Your Rating</label>
+        <div class="star-picker mb-3" id="starPicker">
+          <span data-v="1" onclick="pickStar(1)">★</span>
+          <span data-v="2" onclick="pickStar(2)">★</span>
+          <span data-v="3" onclick="pickStar(3)">★</span>
+          <span data-v="4" onclick="pickStar(4)">★</span>
+          <span data-v="5" onclick="pickStar(5)">★</span>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" style="font-size:13px;font-weight:600">Name</label>
+          <input type="text" class="form-control" id="rName" placeholder="Your name"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" style="font-size:13px;font-weight:600">Skin Type</label>
+          <select class="form-select" id="rSkin" style="font-family:'DM Sans',sans-serif;font-size:13px">
+            <option value="">Select skin type</option>
+            <option>Normal</option><option>Oily</option><option>Dry</option>
+            <option>Combination</option><option>Sensitive</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" style="font-size:13px;font-weight:600">Review Title</label>
+          <input type="text" class="form-control" id="rTitle" placeholder="Sum up your experience"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" style="font-size:13px;font-weight:600">Your Review</label>
+          <textarea class="form-control" id="rBody" rows="4" placeholder="Tell others what you think…" style="font-family:'DM Sans',sans-serif;font-size:13px;resize:none"></textarea>
+        </div>
+        <div id="rError" style="color:var(--red);font-size:12px;margin-bottom:10px;display:none">
+          Please fill in all fields and select a star rating.
+        </div>
+      </div>
+      <div class="modal-footer border-0 pt-0">
+        <button type="button" class="btn-cancel-q" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn-submit-rate" onclick="submitReview()">Post Review</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // ── Star picker ──
+  let pickedStars = 0;
+  function pickStar(n) {
+    pickedStars = n;
+    document.querySelectorAll('#starPicker span').forEach((s, i) => {
+      s.classList.toggle('lit', i < n);
+    });
+  }
+
+  // ── Submit Review ──
+  function submitReview() {
+    const name  = document.getElementById('rName').value.trim();
+    const skin  = document.getElementById('rSkin').value;
+    const title = document.getElementById('rTitle').value.trim();
+    const body  = document.getElementById('rBody').value.trim();
+    const err   = document.getElementById('rError');
+
+    if (!name || !title || !body || pickedStars === 0) {
+      err.style.display = 'block'; return;
+    }
+    err.style.display = 'none';
+
+    const starStr = '★'.repeat(pickedStars) + (pickedStars < 5 ? '<span style="color:#ddd">' + '★'.repeat(5 - pickedStars) + '</span>' : '');
+    const skinLine = skin ? `<span>Skin Type: ${skin}</span>` : '';
+
+    const card = document.createElement('div');
+    card.className = 'review-card';
+    card.dataset.helpful = '0';
+    card.dataset.rating  = pickedStars;
+    card.dataset.date    = new Date().toISOString().slice(0,10);
+    card.innerHTML = `
+      <div class="row g-0">
+        <div class="col-12 col-sm-3 col-md-2 mb-3 mb-sm-0">
+          <div class="reviewer-name">${escHtml(name)}</div>
+          <div class="reviewer-meta">${skinLine}</div>
+        </div>
+        <div class="col-12 col-sm-9 col-md-10 ps-sm-3">
+          <div class="review-stars">${starStr}</div>
+          <div class="review-title">${escHtml(title)}</div>
+          <div class="review-body">${escHtml(body)}</div>
+          <div class="vote-row">
+            <button class="vote-btn" onclick="likeReview(this)">
+              <i class="fa fa-thumbs-up"></i> <span class="vote-num">0</span>
+            </button>
+            <button class="vote-btn dislike-btn">
+              <i class="fa fa-thumbs-down"></i> <span class="vote-num">0</span>
+            </button>
+          </div>
+        </div>
+      </div>`;
+
+    document.getElementById('reviewList').prepend(card);
+
+    // reset
+    ['rName','rTitle','rBody'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('rSkin').value = '';
+    pickStar(0);
+    bootstrap.Modal.getInstance(document.getElementById('rateModal')).hide();
+  }
+
+  // ── Like/Dislike ──
+  function likeReview(btn) {
+    if (btn.classList.contains('liked')) {
+      btn.classList.remove('liked');
+      const n = btn.querySelector('.vote-num');
+      n.textContent = Math.max(0, parseInt(n.textContent) - 1);
+    } else {
+      btn.classList.add('liked');
+      const n = btn.querySelector('.vote-num');
+      n.textContent = parseInt(n.textContent) + 1;
+    }
+  }
+
+  // ── Sort reviews ──
+  function sortReviews() {
+    const val = document.getElementById('sortSelect').value;
+    const list = document.getElementById('reviewList');
+    const cards = Array.from(list.querySelectorAll('.review-card'));
+
+    cards.sort((a, b) => {
+      if (val === 'helpful') return parseInt(b.dataset.helpful) - parseInt(a.dataset.helpful);
+      if (val === 'recent')  return b.dataset.date.localeCompare(a.dataset.date);
+      if (val === 'high')    return parseInt(b.dataset.rating) - parseInt(a.dataset.rating);
+      if (val === 'low')     return parseInt(a.dataset.rating) - parseInt(b.dataset.rating);
+    });
+
+    cards.forEach(c => { c.style.animation = 'none'; list.appendChild(c); });
+    requestAnimationFrame(() => {
+      cards.forEach(c => { c.style.animation = ''; c.style.animationName = 'fadeSlideIn'; });
+    });
+  }
+
+  // ── Ask Question ──
+  function openAskForm() {
+    const f = document.getElementById('askFormWrap');
+    f.style.display = 'block';
+    f.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  function closeAskForm() {
+    document.getElementById('askFormWrap').style.display = 'none';
+    document.getElementById('qError').style.display = 'none';
+    document.getElementById('qName').value = '';
+    document.getElementById('qText').value = '';
+  }
+  document.getElementById('openAskForm').addEventListener('click', openAskForm);
+  document.getElementById('openAskForm2').addEventListener('click', openAskForm);
+
+  function submitQuestion() {
+    const name = document.getElementById('qName').value.trim();
+    const text = document.getElementById('qText').value.trim();
+    const err  = document.getElementById('qError');
+
+    if (!name || !text) { err.style.display = 'block'; return; }
+    err.style.display = 'none';
+
+    const initials = name.split(' ').map(w => w[0].toUpperCase()).join('').slice(0,2);
+
+    const now = new Date();
+    const timeLabel = 'Just now';
+
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.innerHTML = `
+      <div class="question-header">
+        <div class="q-avatar">${initials}</div>
+        <div>
+          <div class="q-patient-label">
+            <span class="q-badge"><i class="fa fa-user-injured" style="font-size:9px"></i> Patient asking question</span>
+          </div>
+          <div class="q-name">${escHtml(name)}</div>
+        </div>
+        <div class="q-time">${timeLabel}</div>
+      </div>
+      <div class="q-text">${escHtml(text)}</div>`;
+
+    const qaList = document.getElementById('qaList');
+    qaList.prepend(card);
+
+    closeAskForm();
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // ── Escape HTML ──
+  function escHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+              .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+</script>
+</body>
+</html>

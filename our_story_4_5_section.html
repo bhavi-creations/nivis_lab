@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The /PHD/ Promise</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #f0ece6;
+      color: #1a1a1a;
+    }
+
+    /* ═══════════════════════════════════════
+       SECTION 4 — Hero / Promise banner
+    ═══════════════════════════════════════ */
+    .our_section_4 {
+      position: relative;
+      width: 100%;
+      min-height: 380px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Full-bleed background image layer */
+    .our_section_4__bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          105deg,
+          rgba(180,155,125,0.72) 0%,
+          rgba(200,175,148,0.55) 30%,
+          rgba(220,200,175,0.35) 60%,
+          rgba(235,218,198,0.20) 100%
+        ),
+        radial-gradient(ellipse 80% 100% at 75% 40%, #d4b896 0%, #c9a87a 40%, #b8956a 70%, #a07850 100%);
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Decorative skin-tone shapes (right side) */
+    .our_section_4__bg::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 55%;
+      background:
+        radial-gradient(ellipse 60% 80% at 80% 30%, rgba(210,180,150,0.6) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 65% 70%, rgba(190,155,120,0.4) 0%, transparent 65%);
+    }
+
+    /* Page label top-left */
+    .our_section_4__label {
+      position: relative;
+      z-index: 2;
+      padding: 28px 40px 0;
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(18px, 2.5vw, 26px);
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: -0.3px;
+    }
+
+    /* Centred content card */
+    .our_section_4__card-wrap {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px 60px;
+    }
+
+    .our_section_4__card {
+      background: rgba(240, 236, 228, 0.88);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: 4px;
+      padding: clamp(28px, 4vw, 48px) clamp(24px, 5vw, 72px);
+      max-width: 660px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .our_section_4__card-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(18px, 2.8vw, 26px);
+      font-weight: 400;
+      color: #1a1a1a;
+      margin-bottom: 18px;
+      line-height: 1.3;
+    }
+
+    .our_section_4__card-body {
+      font-size: clamp(13px, 1.5vw, 15px);
+      color: #3a3530;
+      line-height: 1.85;
+      font-weight: 400;
+    }
+
+    /* Scroll-up button (right edge, middle) */
+    .our_section_4__scroll-btn {
+      position: absolute;
+      right: 22px;
+      bottom: 22px;
+      z-index: 10;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(0,0,0,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      color: #333;
+      transition: background 0.2s, transform 0.2s;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+    .our_section_4__scroll-btn:hover {
+      background: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* ═══════════════════════════════════════
+       SECTION 5 — Experts grid + copy
+    ═══════════════════════════════════════ */
+    .our_section_5 {
+      background: #f0ece6;
+      padding: clamp(52px, 7vw, 100px) clamp(20px, 5vw, 80px);
+    }
+
+    .our_section_5__inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-start;
+      gap: clamp(32px, 5vw, 72px);
+    }
+
+    /* ── Left: doctor photos ── */
+    .our_section_5__photos {
+      display: flex;
+      align-items: flex-end;
+      gap: 0;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .our_section_5__doc {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Each photo card */
+    .our_section_5__photo-wrap {
+      width: clamp(88px, 11vw, 148px);
+      aspect-ratio: 3 / 4;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #c8b8a4;
+      position: relative;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.10);
+    }
+
+    /* Staggered heights */
+    .our_section_5__doc:nth-child(1) .our_section_5__photo-wrap { margin-top: 28px; }
+    .our_section_5__doc:nth-child(2) .our_section_5__photo-wrap { margin-top: 0; }
+    .our_section_5__doc:nth-child(3) .our_section_5__photo-wrap { margin-top: 48px; }
+    .our_section_5__doc:nth-child(4) .our_section_5__photo-wrap { margin-top: 16px; }
+
+    /* Placeholder avatar inside each photo */
+    .our_section_5__avatar {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(32px, 5vw, 52px);
+      user-select: none;
+    }
+
+    /* Colour per doctor */
+    .our_section_5__doc:nth-child(1) .our_section_5__photo-wrap { background: linear-gradient(170deg, #d4c4b0 0%, #b8a086 100%); }
+    .our_section_5__doc:nth-child(2) .our_section_5__photo-wrap { background: linear-gradient(170deg, #c8b8a0 0%, #a89070 100%); }
+    .our_section_5__doc:nth-child(3) .our_section_5__photo-wrap { background: linear-gradient(170deg, #d8caba 0%, #bca892 100%); }
+    .our_section_5__doc:nth-child(4) .our_section_5__photo-wrap { background: linear-gradient(170deg, #cfc0ae 0%, #b09880 100%); }
+
+    /* White coat silhouette overlay */
+    .our_section_5__coat {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 45%;
+      background: rgba(255,255,255,0.55);
+      border-radius: 0 0 6px 6px;
+      clip-path: polygon(10% 100%, 0% 30%, 30% 0%, 70% 0%, 100% 30%, 90% 100%);
+    }
+
+    /* Doctor name + credentials */
+    .our_section_5__doc-info {
+      text-align: center;
+      padding: 0 4px;
+      max-width: clamp(88px, 11vw, 148px);
+    }
+    .our_section_5__doc-name {
+      font-size: clamp(10px, 1.1vw, 13px);
+      font-weight: 600;
+      color: #1a1a1a;
+      line-height: 1.3;
+      margin-bottom: 2px;
+    }
+    .our_section_5__doc-role {
+      font-size: clamp(9px, 0.95vw, 11px);
+      color: #6a6560;
+      line-height: 1.45;
+    }
+    .our_section_5__doc-cred {
+      font-size: clamp(8px, 0.85vw, 10px);
+      color: #999;
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+
+    /* ── Right: copy ── */
+    .our_section_5__copy {
+      flex: 1;
+      padding-top: clamp(8px, 2vw, 28px);
+    }
+
+    .our_section_5__title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(22px, 3.5vw, 40px);
+      font-weight: 400;
+      color: #1a1a1a;
+      line-height: 1.2;
+      margin-bottom: 22px;
+      letter-spacing: -0.5px;
+    }
+
+    .our_section_5__para {
+      font-size: clamp(13px, 1.4vw, 15px);
+      color: #4a4540;
+      line-height: 1.85;
+      margin-bottom: 18px;
+      font-weight: 400;
+      max-width: 520px;
+    }
+
+    .our_section_5__cta {
+      display: inline-block;
+      margin-top: 8px;
+      background: #1a1a1a;
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      padding: 14px 36px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .our_section_5__cta:hover {
+      background: #333;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* ── Rewards pill (bottom-left) ── */
+    .our_section_5__rewards {
+      position: fixed;
+      bottom: 22px;
+      left: 22px;
+      z-index: 100;
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.22);
+      transition: transform 0.2s, background 0.2s;
+      text-decoration: none;
+    }
+    .our_section_5__rewards:hover { transform: translateY(-2px); background: #333; color: #fff; }
+    .our_section_5__rewards-icon { font-size: 16px; }
+
+    /* ── Responsive stacking ── */
+    @media (max-width: 768px) {
+      .our_section_5__inner {
+        flex-direction: column;
+        align-items: center;
+      }
+      .our_section_5__photos {
+        justify-content: center;
+        width: 100%;
+      }
+      .our_section_5__copy {
+        text-align: center;
+        padding-top: 0;
+      }
+      .our_section_5__para { max-width: 100%; }
+      .our_section_5__doc:nth-child(1) .our_section_5__photo-wrap,
+      .our_section_5__doc:nth-child(2) .our_section_5__photo-wrap,
+      .our_section_5__doc:nth-child(3) .our_section_5__photo-wrap,
+      .our_section_5__doc:nth-child(4) .our_section_5__photo-wrap { margin-top: 0; }
+    }
+
+    @media (max-width: 480px) {
+      .our_section_4__label { padding: 20px 20px 0; }
+      .our_section_5 { padding: 48px 16px; }
+    }
+    
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     SECTION 4 — The /PHD/ Promise
+═══════════════════════════════════════ -->
+<section class="our_section_4">
+
+  <!-- Background -->
+  <div class="our_section_4__bg"></div>
+
+  <!-- Top-left label -->
+  <div class="our_section_4__label">The /PHD/ Promise</div>
+
+  <!-- Centred card -->
+  <div class="our_section_4__card-wrap">
+    <div class="our_section_4__card">
+      <h2 class="our_section_4__card-title">
+        Skincare You Can Trust, Backed by Global Dermats
+      </h2>
+      <p class="our_section_4__card-body">
+        Ever looked at a skincare product and thought, "Will this actually work?" You're not alone. At /PHD/, you'll never have to second-guess. Every formula is developed alongside global dermatologists.
+      </p>
+    </div>
+  </div>
+
+  <!-- Scroll-up button -->
+  <!-- <a href="#" class="our_section_4__scroll-btn" aria-label="Scroll to top">
+    ↑
+  </a> -->
+
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     SECTION 5 — The experts behind every formula
+═══════════════════════════════════════ -->
+<section class="our_section_5">
+  <div class="our_section_5__inner">
+
+    <!-- Left: doctor photos -->
+    <div class="our_section_5__photos">
+
+      <!-- Dr. Rachel Westbay -->
+      <div class="our_section_5__doc">
+        <div class="our_section_5__photo-wrap">
+          <div class="our_section_5__avatar">👩‍⚕️</div>
+          <div class="our_section_5__coat"></div>
+        </div>
+        <div class="our_section_5__doc-info">
+          <div class="our_section_5__doc-name">Dr. Rachel Westbay</div>
+          <div class="our_section_5__doc-role">Board-Certified Dermatologist<br>USA</div>
+          <div class="our_section_5__doc-cred">MD FAAD</div>
+        </div>
+      </div>
+
+      <!-- Dr. Anupriya Goel -->
+      <div class="our_section_5__doc">
+        <div class="our_section_5__photo-wrap">
+          <div class="our_section_5__avatar">👩‍⚕️</div>
+          <div class="our_section_5__coat"></div>
+        </div>
+        <div class="our_section_5__doc-info">
+          <div class="our_section_5__doc-name">Dr. Anupriya Goel</div>
+          <div class="our_section_5__doc-role">Aesthetic Dermatologist<br>India</div>
+          <div class="our_section_5__doc-cred">MBBS, MD, DPD (UK)<br>Diploma in Cosmetology (UK)</div>
+        </div>
+      </div>
+
+      <!-- Dr. Max Emmerich -->
+      <div class="our_section_5__doc">
+        <div class="our_section_5__photo-wrap">
+          <div class="our_section_5__avatar">👨‍⚕️</div>
+          <div class="our_section_5__coat"></div>
+        </div>
+        <div class="our_section_5__doc-info">
+          <div class="our_section_5__doc-name">Dr. Max Emmerich</div>
+          <div class="our_section_5__doc-role">Dermatologist<br>UK</div>
+          <div class="our_section_5__doc-cred">MA (Cantab.) BM BCh MRCP (UK)</div>
+        </div>
+      </div>
+
+      <!-- Dr. Trisha Khanna -->
+      <div class="our_section_5__doc">
+        <div class="our_section_5__photo-wrap">
+          <div class="our_section_5__avatar">👩‍⚕️</div>
+          <div class="our_section_5__coat"></div>
+        </div>
+        <div class="our_section_5__doc-info">
+          <div class="our_section_5__doc-name">Dr. Trisha Khanna</div>
+          <div class="our_section_5__doc-role">Board-Certified Dermatologist<br>USA</div>
+          <div class="our_section_5__doc-cred">MD FAAD</div>
+        </div>
+      </div>
+
+    </div><!-- /.our_section_5__photos -->
+
+    <!-- Right: copy -->
+    <div class="our_section_5__copy">
+      <h2 class="our_section_5__title">The experts behind every formula</h2>
+      <p class="our_section_5__para">
+        At /PHD/, every product is developed in collaboration with The /PHD/ Council
+        —a team of global dermatologists who ensure our formulations are research-backed, safe, and truly effective.
+      </p>
+      <p class="our_section_5__para">
+        From selecting clinically studied ingredients to perfecting skin-first formulations, their dermatological expertise helps us create skincare that's rooted in science, not trends.
+      </p>
+      <a href="#" class="our_section_5__cta">Know more</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- Fixed Rewards pill -->
+<a href="#" class="our_section_5__rewards">
+  <span class="our_section_5__rewards-icon">🎁</span>
+  Rewards
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<?php include 'navbar.php'; ?>
+<div class="container mt-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb small">
+            <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted">Home</a></li>
+            <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted">Terms & Conditions</a></li>
+            <!-- <li class="breadcrumb-item active">Squalane</li> -->
+        </ol>
+    </nav>
+
+</div>
+<section>
+    <h1 class="text-center">Terms & Conditions</h1>
+    <div class="container">
+        <p>Thank you for visiting our site. /PHD/ provides the information, content and services ("Services") available via our website www.phdbeauty.com (the "Site") to you ("you") pursuant to the following Terms & Conditions of Use ("Terms").</p>
+        <p>Please read these Terms carefully before using our Site, as they set forth the legally binding terms and conditions for your use of the Site and all related Content (defined below), Services, apps and purchases that you make from the Site, regardless of the means, manner or place from which you access our Site. By accessing and using /PHD/'s Site and Content, you acknowledge and agree to abide by the following terms. If you do not agree to these Terms, do not use /PHD/'s Site or Content.</p>
+        <p>/PHD/ reserves the right to change these Terms at any time without notice. Such changed Terms will take effect once We post them on the Site, and Your continued use of the Site following any such changes will mean that You accept and agree to them.</p>
+
+        <h4>Privacy </h4>
+        <p>Please also review /PHD/'s Privacy Policy, which also governs your use of our Site and Services.</p>
+
+        <h4>Your Use of /PHD/'s Site & Services</h4>
+        <p>/PHD/ grants you a limited license to access and use the Site for your own personal and non-commercial use. Unless otherwise permitted by these Terms, you may not copy, distribute, display, transmit, perform, modify, publish or create derivative works from the Site or its Content.</p>
+        <p>You may not download (other than page caching) or modify any portion of the Site without /PHD/'s express written consent. You may not resell or make any other commercial use of the Site or its contents, collect and use product listings, descriptions, or prices, creative derivative works from /PHD/'s Site or its contents, download or copy account information for another person's or entity's benefit, or use data mining, robots, or similar data gathering and extraction tools on, in or in connection with the Site. You may not reproduce, duplicate, copy, sell, mirror or otherwise exploit any portion of the Site for any commercial purpose without /PHD/'s prior express written consent.</p>
+        <p>You may not frame or use framing techniques to enclose any /PHD/ trademark, logo, or other proprietary information (including images, text, page layout, or form) without /PHD/'s express written consent. You may not use any meta tags or any other "hidden text" utilizing /PHD/'s name or trademarks without /PHD/'s express written consent. You may not probe, scan or test the vulnerability of the Site or any network connected to the Site, nor breach the Site's security or authentication measures.</p>
+        <p>You agree that you will not take any action that imposes an unreasonable or disproportionately large load on the Site's infrastructure or supporting networks, or any systems or networks connected thereto. You agree not to use any device, software or routine to interfere or attempt to interfere with the proper working of the Site or any transaction being conducted on the Site, or with any other person's use of the Site, or use the Site or Content in any manner that could damage, impair, overburden or disable the Site or any component that enables the Site's proper operation.</p>
+        <p>You agree not to impersonate any person or entity, or misrepresent your affiliation with any person or entity. You agree not to use the Site to harass or stalk any individual, nor entrap nor harm any other person, including harming minors in any way. You may create a hyperlink to the Site so long as You do not portray /PHD/, its products or services in a false, misleading, derogatory, or otherwise offensive matter. You may not use any /PHD/ logo or other proprietary graphic or image as part of the link without /PHD/'s express prior written permission.</p>
+        <p>You agree that when accessing or using the Site and/or Services, you will act in accordance with the law, custom and in good faith. You may not make any change to the Site and may not impair in any way the Site's integrity or operation. Without limiting the generality of any other provision of these Terms, if you default negligently or willfully in any of the obligations set forth in these Terms, you shall be liable for all of the resulting losses and damages.</p>
+        <p>By communicating with /PHD/ electronically (such as by visiting our Site or sending us e-mails), You consent to receive communications from us electronically through SMS, WhatsApp, Emails, etc. /PHD/ will communicate with you by e-mail or by posting notices on this site. You agree that all agreements, notices, disclosures and other communications that we provide to you electronically satisfy any legal requirement that such communications be in writing.</p>
+
+
+    </div>
+</section>
+
+
+<section>
+    <div class="container">
+        <h4>Your Account</h4>
+        <p>We may require you to register with /PHD/ in order to use certain Site features or Services, such as to purchase products. When you register, we may decline to grant you, and you may not use, a user name or email address that another person or entity already owns or uses, that might be construed as impersonating another person, that might violate another's intellectual property or other rights, that we may deem offensive or objectionable, or that we reject for any other reason in our sole discretion.By creating an account or trying to log in to the website you are allowing us to send you a one-time password to verify your mobile number</p>
+        <p>You are responsible for maintaining the confidentiality of your account details (including Your password and account data that you may use to access the Site) and restricting access to your computer, and you agree not to transfer your password or user name, or lend or otherwise transfer your use of or access to the Site, to any third party. You agree to accept full responsibility for all activities that occur under and/or within your account or password. You agree to immediately notify /PHD/ of any unauthorized use of your password or user name or any other breach of your account's security, and to ensure that you "log off" and exit from your account at the end of each Site visit. /PHD/ will not be liable for any loss or damage that you or anyone else may incur from another's use of your account or arising from your failure to comply with any of the foregoing obligations. We reserve the right to refuse service and/or terminate accounts without prior notice if these Terms are violated or if we decide, in our sole discretion, that it would be in the best interest of /PHD/ or its community to do so.</p>
+
+        <h4>Product Information</h4>
+        <p>All of the Site's material and information is offered solely for personal educational or informational purposes. The information, materials, statements and Services are not intended to diagnose, treat or prevent any condition or illness. Please use all products strictly in accordance with their instructions, precautions, warnings and guidelines. Please always check each product's ingredients to avoid potential allergic reactions. Minors may use goods or product obtained from the Site only after the minor's parent(s) or guardian has discussed the product's use with the minor's physician or medical professional. Any statements offered about products have not been evaluated by the Indian Food & Drug Administration (unless otherwise specified), and any results reported may not necessarily occur in all individuals. /PHD/ products are not intended for use in medical, life-saving or life-sustaining applications, nor for any application in which the product's failure could create a situation where personal injury or death may occur.</p>
+        <p>/PHD/ has endeavoured to provide accurate information on the Site but assumes no responsibility for the information's accuracy. We do not warrant that the product descriptions, details, colours or other content on the Site are accurate, complete, reliable, current, or error-free. The Site's reference to any goods, services, processes, activities or other information offered by other parties does not imply any endorsement or recommendation by /PHD/ itself unless specifically stated otherwise. Our Site may contain inaccuracies or typographical errors, and may not be complete or current. /PHD/ reserves the right to correct any errors, inaccuracies or omissions (including after you have submitted an order) and to change or update information at any time without prior notice. We reserve the right to cancel or to decline to accept any order placed based on incorrect pricing or availability information, and we apologize for any inconvenience this may cause.</p>
+        <p>Please note that while /PHD/ has endeavoured accurately to depict, describe and display the particular product colour (s), the actual colours that you see may depend upon your viewing device, and may not be accurate.</p>
+
+
+        <h4>Site Content</h4>
+        <p>/PHD/ owns and/or controls the rights to all of the Site's images, text, graphics, user interfaces, designs, photographs, trademarks, logos, sounds, music, artwork and computer code ("Content"), including the design, "look and feel," trade dress, structure, selection, coordination, and arrangement thereof, all of which is protected by trademark, copyright and related laws (see "Intellectual Property" below).</p>
+        <p>You may access, view, download, and print Content for your personal, non-commercial use only, provided that you do not modify or make commercial use of Content, and retain all copyright, trademark, or other proprietary designations contained in Content. Except as these Terms expressly provide, you may not copy, reproduce, upload, republish, encode, transmit or distribute any part of the Site or Content in any way or form to any other computer, server, web site or other media for publication or distribution or for any commercial purpose without /PHD/'s express prior written consent.</p>
+
+        <h4>Your User Content</h4>
+        <p>/PHD/'s Site may provide functionality enabling you to make available your own comments and content. When you transmit, upload, post, e-mail, share, distribute, reproduce or otherwise make available any comments, suggestions, ideas, inquiries, data, text, software, music, audio files, photographs, graphics, images, videos, messages, ideas, suggestions or other materials ("User Content") on or to /PHD/'s Site, you are entirely responsible for such User Content. You understand you are participating in a public forum and that any User Content that you submit to /PHD/ and/or the Site may be available to all other Site users. /PHD/ does not endorse any User Content, nor any opinion, representation, recommendation or advice contained therein, and /PHD/ expressly disclaims any and all liability in connection with User Content submissions.</p>
+
+    </div>
+</section>
+
+<?php include 'footer.php'; ?>

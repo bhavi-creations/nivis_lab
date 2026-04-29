@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aurum Dental — New Opening</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Dancing+Script:wght@500;600;700&family=Raleway:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ═══════════════════════════════
+       RESET & BASE
+    ═══════════════════════════════ */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --gold:        #C9A84C;
+      --gold-light:  #E2C97E;
+      --gold-dark:   #9A7A30;
+      --black:       #111111;
+      --charcoal:    #1a1a18;
+      --charcoal2:   #212120;
+      --white:       #F0EAD6;
+      --white60:     rgba(240,234,214,0.60);
+      --white30:     rgba(240,234,214,0.30);
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--charcoal);
+      color: var(--white);
+      font-family: 'Raleway', sans-serif;
+      overflow: hidden;           /* full-screen single view on desktop */
+    }
+
+    /* ═══════════════════════════════
+       OUTER WRAPPER — full viewport
+    ═══════════════════════════════ */
+    .hero-wrapper {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* ═══════════════════════════════
+       LEFT PANEL — full-bleed image
+    ═══════════════════════════════ */
+    .left-panel {
+      position: relative;
+      width: 52%;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .left-panel img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      will-change: transform;
+
+      /* entrance animation */
+      animation: imgReveal 1.4s cubic-bezier(0.22,1,0.36,1) both,
+                 imgFloat  8s    3s ease-in-out infinite;
+    }
+
+    /* right-edge fade into dark bg — exact match to reference */
+    .left-panel::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(26,26,24,0)   0%,
+        rgba(26,26,24,0)   52%,
+        rgba(26,26,24,0.6) 72%,
+        rgba(26,26,24,1)   100%
+      );
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* top + bottom vignette */
+    .left-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(17,17,17,0.55)  0%,
+          transparent          15%,
+          transparent          85%,
+          rgba(17,17,17,0.55) 100%
+        );
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    /* gold shimmer sweep on image — dental animation */
+    .img-shimmer {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        transparent 30%,
+        rgba(201,168,76,0.12) 50%,
+        transparent 70%
+      );
+      background-size: 200% 100%;
+      z-index: 4;
+      animation: shimmerSweep 4s 2s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    /* ═══════════════════════════════
+       RIGHT PANEL — dark content
+    ═══════════════════════════════ */
+    .right-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      /* subtle dark texture overlay */
+      background:
+        radial-gradient(ellipse 80% 60% at 60% 40%, rgba(201,168,76,0.04) 0%, transparent 70%),
+        var(--charcoal);
+      z-index: 5;
+    }
+
+    /* ── NAV ── */
+    .top-nav {
+      display: flex;
+      justify-content: flex-center;
+      align-items: center;
+      gap: 2.6rem;
+      padding: 2rem 3.2rem 0 1rem;
+    }
+
+    .top-nav a {
+      font-size: 0.63rem;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--white60);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s;
+      white-space: nowrap;
+    }
+
+    .top-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 100%;
+      height: 1px;
+      background: var(--gold);
+      transition: right 0.35s ease;
+    }
+
+    .top-nav a:hover         { color: var(--gold); }
+    .top-nav a:hover::after  { right: 0; }
+
+    /* nav entrance */
+    .top-nav a {
+      animation: fadeDown 0.7s ease both;
+    }
+    .top-nav a:nth-child(1) { animation-delay: 0.05s; }
+    .top-nav a:nth-child(2) { animation-delay: 0.12s; }
+    .top-nav a:nth-child(3) { animation-delay: 0.19s; }
+    .top-nav a:nth-child(4) { animation-delay: 0.26s; }
+
+    /* ── CENTRE CONTENT ── */
+    .center-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 3.5rem 3rem 0.5rem;
+    }
+
+    /* ── LOGO ── */
+    .logo-wrap {
+      margin-bottom: 2.6rem;
+      animation: fadeDown 0.9s 0.3s ease both;
+      opacity: 0;
+    }
+
+    .logo-icon {
+      display: block;
+      margin: 0 auto 0.55rem;
+    }
+
+    .logo-icon svg {
+      width: 38px;
+      height: 38px;
+      fill: var(--gold);
+      filter: drop-shadow(0 0 8px rgba(201,168,76,0.5));
+      animation: iconPulse 3s 2s ease-in-out infinite;
+    }
+
+    .logo-name {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1.1;
+      letter-spacing: 0.03em;
+      text-shadow: 0 0 20px rgba(201,168,76,0.3);
+    }
+
+    /* ── HEADLINE ── */
+    .headline-wrap {
+      margin-bottom: 2.2rem;
+      animation: fadeUp 0.9s 0.5s ease both;
+      opacity: 0;
+    }
+
+    .hl-small {
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--white60);
+      margin-bottom: 0.4rem;
+    }
+
+    .hl-big {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(3rem, 4.8vw, 5.2rem);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--gold-light);
+      line-height: 1.0;
+      text-transform: uppercase;
+      text-shadow:
+        0 0 40px rgba(201,168,76,0.25),
+        0 2px 4px rgba(0,0,0,0.6);
+      animation: textGlow 3s 2.5s ease-in-out infinite alternate;
+    }
+
+    /* ── LEARN MORE BUTTON ── */
+    .btn-learn {
+      display: inline-block;
+      padding: 0.9rem 3.2rem;
+      border: 1.5px solid var(--gold);
+      background: transparent;
+      color: var(--gold);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: color 0.4s;
+      animation: fadeUp 0.9s 0.7s ease both;
+      opacity: 0;
+    }
+
+    .btn-learn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
+      z-index: -1;
+    }
+
+    .btn-learn:hover              { color: var(--black); }
+    .btn-learn:hover::before      { transform: scaleX(1); }
+
+    /* ═══════════════════════════════
+       GOLD CORNER ACCENTS
+    ═══════════════════════════════ */
+    .corner {
+      position: absolute;
+      width: 28px; height: 28px;
+      pointer-events: none;
+      z-index: 10;
+    }
+    .corner-tl { top: 14px;    left: 14px;    border-top: 1.5px solid var(--gold); border-left: 1.5px solid var(--gold); }
+    .corner-tr { top: 14px;    right: 14px;   border-top: 1.5px solid var(--gold); border-right: 1.5px solid var(--gold); }
+    .corner-bl { bottom: 14px; left: 14px;    border-bottom: 1.5px solid var(--gold); border-left: 1.5px solid var(--gold); }
+    .corner-br { bottom: 14px; right: 14px;   border-bottom: 1.5px solid var(--gold); border-right: 1.5px solid var(--gold); }
+
+    /* ═══════════════════════════════
+       KEYFRAME ANIMATIONS
+    ═══════════════════════════════ */
+    @keyframes imgReveal {
+      from { transform: scale(1.12); opacity: 0; }
+      to   { transform: scale(1);    opacity: 1; }
+    }
+
+    @keyframes imgFloat {
+      0%,100% { transform: scale(1.02) translateY(0px); }
+      50%     { transform: scale(1.02) translateY(-8px); }
+    }
+
+    @keyframes shimmerSweep {
+      0%   { background-position: 200% 0; opacity: 0; }
+      20%  { opacity: 1; }
+      80%  { opacity: 1; }
+      100% { background-position: -200% 0; opacity: 0; }
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes iconPulse {
+      0%,100% { filter: drop-shadow(0 0 6px rgba(201,168,76,0.4));  transform: scale(1); }
+      50%     { filter: drop-shadow(0 0 16px rgba(201,168,76,0.9)); transform: scale(1.08); }
+    }
+
+    @keyframes textGlow {
+      from { text-shadow: 0 0 20px rgba(201,168,76,0.15), 0 2px 4px rgba(0,0,0,0.6); }
+      to   { text-shadow: 0 0 50px rgba(201,168,76,0.45), 0 2px 4px rgba(0,0,0,0.6); }
+    }
+
+    /* ═══════════════════════════════
+       RESPONSIVE — TABLET & MOBILE
+    ═══════════════════════════════ */
+    @media (max-width: 991px) {
+      html, body { overflow: auto; }
+
+      .hero-wrapper {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+      }
+
+      .left-panel {
+        width: 100%;
+        height: 55vw;
+        min-height: 260px;
+        max-height: 440px;
+        flex-shrink: 0;
+      }
+
+      /* on mobile the image fades DOWN into the dark bg */
+      .left-panel::after {
+        background: linear-gradient(
+          to bottom,
+          rgba(26,26,24,0)   0%,
+          rgba(26,26,24,0)   55%,
+          rgba(26,26,24,0.7) 80%,
+          rgba(26,26,24,1)   100%
+        );
+      }
+
+      .right-panel { flex: 1; }
+
+      .top-nav {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.8rem 1.8rem;
+        padding: 1.6rem 1.5rem 0;
+      }
+
+      .center-content {
+        padding: 2rem 1.5rem 3.5rem;
+      }
+
+      .hl-big { font-size: clamp(2.6rem, 8vw, 4rem); }
+    }
+
+    @media (max-width: 576px) {
+      .top-nav a      { font-size: 0.58rem; letter-spacing: 0.18em; }
+      .logo-name      { font-size: 1.6rem; }
+      .hl-big         { font-size: 2.4rem; }
+      .btn-learn      { padding: 0.8rem 2rem; font-size: 0.63rem; }
+      .corner         { width: 18px; height: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════
+     FULL-VIEWPORT HERO
+════════════════════════════════ -->
+<div class="hero-wrapper">
+
+  <!-- CORNER ACCENTS -->
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+
+  <!-- ══ LEFT: FULL-BLEED DENTAL IMAGE ══ -->
+  <div class="left-panel">
+    <img
+      src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1000&q=90&fit=crop&crop=center"
+      alt="Premium dental care"
+    />
+    <div class="img-shimmer"></div>
+  </div>
+
+  <!-- ══ RIGHT: NAV + LOGO + TEXT + BUTTON ══ -->
+  <div class="right-panel">
+
+    <!-- NAV TOP-RIGHT -->
+    <nav class="top-nav">
+      <a href="#">Welcome</a>
+      <a href="#">Menu</a>
+      <a href="#">Events</a>
+      <a href="#">Contact</a>
+    </nav>
+
+    <!-- CENTERED CONTENT -->
+    <div class="center-content">
+
+      <!-- LOGO -->
+      <div class="logo-wrap">
+        <span class="logo-icon">
+          <!-- Tooth SVG with two leaf/sprout tips — mirrors the plant icon style exactly -->
+          <svg viewBox="0 0 48 56" xmlns="http://www.w3.org/2000/svg">
+            <!-- left sprout -->
+            <ellipse cx="16" cy="5"  rx="4"  ry="6.5" transform="rotate(-22 16 5)"/>
+            <!-- right sprout -->
+            <ellipse cx="32" cy="5"  rx="4"  ry="6.5" transform="rotate(22 32 5)"/>
+            <!-- tooth body -->
+            <path d="
+              M24 8
+              C15.5 8 8 13.5 8 21
+              c0 5 2 9.5 3.5 13.5
+              C13.5 40 13 52 18 54
+              c2.2 0.8 3.5-1.5 4.2-5.5
+              C22.8 45 23.4 42 24 42
+              c0.6 0 1.2 3 1.8 6.5
+              C26.5 52.5 27.8 54.8 30 54
+              C35 52 34.5 40 36.5 34.5
+              C38 30.5 40 26 40 21
+              C40 13.5 32.5 8 24 8Z
+            "/>
+          </svg>
+        </span>
+        <div class="logo-name">aurum<br>dental</div>
+      </div>
+
+      <!-- HEADLINE -->
+      <div class="headline-wrap">
+        <p class="hl-small">New Opening</p>
+        <p class="hl-big">23RD SEPT</p>
+      </div>
+
+      <!-- CTA -->
+      <a href="#" class="btn-learn">Learn More</a>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Parallax — image moves slightly with mouse (desktop only)
+  const img = document.querySelector('.left-panel img');
+  if (window.innerWidth > 991) {
+    document.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth  - 0.5) * 14;
+      const y = (e.clientY / window.innerHeight - 0.5) * 10;
+      img.style.transform = `scale(1.06) translate(${x}px, ${y}px)`;
+    });
+  }
+</script>
+
+</body>
+</html>

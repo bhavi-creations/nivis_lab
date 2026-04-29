@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHD - Proven Honest Derma</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+    </style>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+
+    <style>
+    
+
+        /* Count Section */
+        .count_section .sale-badge {
+            background-color: #a31d2f; color: white; display: inline-block;
+            padding: 5px 15px; font-weight: bold; font-size: 14px; border-radius: 4px;
+        }
+        .timer-box { border: 1px solid #ddd; border-radius: 8px; padding: 5px 10px; min-width: 70px; background: white; }
+        .time-num { font-size: 28px; font-weight: bold; color: #333; }
+        .red-text { color: #a31d2f !important; }
+        .time-label { font-size: 10px; color: #888; text-transform: uppercase; }
+        .dot { height: 8px; width: 8px; background-color: #28a745; border-radius: 50%; display: inline-block; margin-right: 5px; }
+        .progress-container { width: 150px; height: 3px; background-color: #eee; margin-top: 10px; }
+        .progress-bar-custom { width: 60%; height: 100%; background-color: #a31d2f; }
+
+        /* Shop by Concern */
+        .col-lg-2-custom { flex: 0 0 auto; width: 20%; }
+        @media (max-width: 991px) { .col-lg-2-custom { width: 33.33%; } }
+        @media (max-width: 576px) { .col-lg-2-custom { width: 50%; } }
+
+        .concern-card { position: relative; overflow: hidden; cursor: pointer; }
+        .concern-card img { width: 100%; filter: brightness(0.7); transition: 0.3s; }
+        .concern-card:hover img { transform: scale(1.1); }
+        .concern-overlay { position: absolute; bottom: 15px; width: 100%; color: white; font-weight: bold; text-align: center; }
+
+        /* Slider */
+        .product-card { background: #fff; padding: 15px; }
+        .img-wrapper img { width: 100%; background: #f4f4f4; border-radius: 4px; }
+        .badge-b1g1 { background: #a31d2f; color: white; padding: 2px 6px; font-size: 12px; font-weight: bold; }
+        .free-text { color: #28a745; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+
+
+
+
+    <div class="container">
+        <div class="col-3">
+            <div class="card">
+                
+            </div>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-3"></div>
+        <div class="col-3"></div>
+    </div>
+
+    <div class="container my-5">
+        <div class="count_section text-center">
+            <div class="sale-badge mb-3">SALE ENDS IN</div>
+            <div class="d-flex justify-content-center align-items-center gap-2">
+                <div class="timer-box"><div class="time-num" id="hrs">09</div><div class="time-label">HRS</div></div>
+                <span class="fs-3 fw-bold">:</span>
+                <div class="timer-box"><div class="time-num" id="min">19</div><div class="time-label">MIN</div></div>
+                <span class="fs-3 fw-bold">:</span>
+                <div class="timer-box border-danger"><div class="time-num red-text" id="sec">53</div><div class="time-label">SEC</div></div>
+            </div>
+            <div class="mt-3 small"><span class="dot"></span> <strong>2743</strong> people viewing right now</div>
+            <div class="progress-container mx-auto"><div class="progress-bar-custom"></div></div>
+        </div>
+    </div>
+
+    <div class="container mb-5">
+        <div class="img_section text-center">
+            <h2 class="fw-bold mb-4">SHOP BY CONCERN</h2>
+            <div class="row g-2 justify-content-center">
+                <div class="col-lg-2-custom"><div class="concern-card"><img src="./assets/img/logo.jpeg" alt="1"><div class="concern-overlay">Pigmentation ></div></div></div>
+                <div class="col-lg-2-custom"><div class="concern-card"><img src="./assets/img/logo.jpeg" alt="2"><div class="concern-overlay">Acne ></div></div></div>
+                <div class="col-lg-2-custom"><div class="concern-card"><img src="./assets/img/logo.jpeg" alt="3"><div class="concern-overlay">Acne Marks ></div></div></div>
+                <div class="col-lg-2-custom"><div class="concern-card"><img src="./assets/img/logo.jpeg" alt="4"><div class="concern-overlay">Dehydration ></div></div></div>
+                <div class="col-lg-2-custom"><div class="concern-card"><img src="./assets/img/logo.jpeg" alt="5"><div class="concern-overlay">Eczema ></div></div></div>
+            </div>
+        </div>
+    </div>
+
+    <section class="py-5 bg-light">
+        <div class="container px-lg-5">
+            <h2 class="fw-bold mb-4 px-3">SHOP OUR SPOTLIGHTS</h2>
+            <div class="product-carousel">
+                <div class="px-2">
+                    <div class="product-card">
+                        <img src="./assets/img/logo.jpeg" class="w-100 mb-3" alt="p1">
+                        <h6 class="fw-bold">2% Alpha Arbutin Serum</h6>
+                        <p class="small text-muted mb-2">/Solution for Pigmentation/</p>
+                        <div class="small mb-2">★★★★★ (193 reviews)</div>
+                        <div class="mb-3"><span class="badge-b1g1">B1G1</span> <del class="text-muted ms-1">₹699</del> <span class="free-text ms-1">FREE</span></div>
+                        <button class="btn btn-dark w-100 rounded-0">ADD TO CART</button>
+                    </div>
+                </div>
+                <div class="px-2"><div class="product-card"><img src="./assets/img/logo.jpeg" class="w-100 mb-3" alt="p2"><h6 class="fw-bold">10% Vitamin C Serum</h6><p class="small text-muted mb-2">/Brightening Solution/</p><div class="small mb-2">★★★★★ (152 reviews)</div><div class="mb-3"><span class="badge-b1g1">B1G1</span> <del class="text-muted ms-1">₹699</del> <span class="free-text ms-1">FREE</span></div><button class="btn btn-dark w-100 rounded-0">ADD TO CART</button></div></div>
+                <div class="px-2"><div class="product-card"><img src="./assets/img/logo.jpeg" class="w-100 mb-3" alt="p3"><h6 class="fw-bold">Niacinamide Serum</h6><p class="small text-muted mb-2">/Spot Correcting/</p><div class="small mb-2">★★★★★ (168 reviews)</div><div class="mb-3"><span class="badge-b1g1">B1G1</span> <del class="text-muted ms-1">₹649</del> <span class="free-text ms-1">FREE</span></div><button class="btn btn-dark w-100 rounded-0">ADD TO CART</button></div></div>
+                <div class="px-2"><div class="product-card"><img src="./assets/img/logo.jpeg" class="w-100 mb-3" alt="p4"><h6 class="fw-bold">Ceramide Cleanser</h6><p class="small text-muted mb-2">/Hydrating Solution/</p><div class="small mb-2">★★★★★ (120 reviews)</div><div class="mb-3"><span class="badge-b1g1">B1G1</span> <del class="text-muted ms-1">₹315</del> <span class="free-text ms-1">FREE</span></div><button class="btn btn-dark w-100 rounded-0">ADD TO CART</button></div></div>
+                <div class="px-2"><div class="product-card"><img src="./assets/img/logo.jpeg" class="w-100 mb-3" alt="p5"><h6 class="fw-bold">Sunscreen SPF 50</h6><p class="small text-muted mb-2">/UV Protection/</p><div class="small mb-2">★★★★★ (200 reviews)</div><div class="mb-3"><span class="badge-b1g1">B1G1</span> <del class="text-muted ms-1">₹499</del> <span class="free-text ms-1">FREE</span></div><button class="btn btn-dark w-100 rounded-0">ADD TO CART</button></div></div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- formulated sesction   -->
+     
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            // 1. Slider Init
+            $('.product-carousel').slick({
+                slidesToShow: 4, slidesToScroll: 1, autoplay: true, autoplaySpeed: 2500,
+                responsive: [
+                    { breakpoint: 1024, settings: { slidesToShow: 3 } },
+                    { breakpoint: 768, settings: { slidesToShow: 2 } },
+                    { breakpoint: 480, settings: { slidesToShow: 1 } }
+                ]
+            });
+
+            // 2. Countdown Timer Logic
+            function startTimer(duration) {
+                var timer = duration, hours, minutes, seconds;
+                setInterval(function () {
+                    hours = parseInt(timer / 3600, 10);
+                    minutes = parseInt((timer % 3600) / 60, 10);
+                    seconds = parseInt(timer % 60, 10);
+
+                    $('#hrs').text(hours < 10 ? "0" + hours : hours);
+                    $('#min').text(minutes < 10 ? "0" + minutes : minutes);
+                    $('#sec').text(seconds < 10 ? "0" + seconds : seconds);
+
+                    if (--timer < 0) { timer = duration; }
+                }, 1000);
+            }
+            startTimer(33593); // 09:19:53 in seconds
+        });
+    </script>
+</body>
+</html>

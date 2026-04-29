@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>/PHD/ Proven Honest Derma</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ══════════════════════════════════════════
+       GLOBAL
+    ══════════════════════════════════════════ */
+    :root {
+      --phd-red:    #c0001a;
+      --phd-dark:   #6b0000;
+      --phd-white:  #ffffff;
+      --phd-light:  #f5f5f5;
+      --phd-gray:   #888;
+      --nav-h:      64px;
+      --marquee-h:  38px;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: #fff;
+      color: #111;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ══════════════════════════════════════════
+       1. MARQUEE SECTION
+    ══════════════════════════════════════════ */
+    .index_marquee_section {
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      height: var(--marquee-h);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      position: relative;
+      z-index: 200;
+    }
+
+    .index_marquee_section__track {
+      display: flex;
+      align-items: center;
+      animation: marqueeScroll 28s linear infinite;
+      white-space: nowrap;
+      will-change: transform;
+    }
+    .index_marquee_section__track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes marqueeScroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .index_marquee_section__item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0 3.5rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #333;
+    }
+    .index_marquee_section__item .index_marquee_section__num {
+      color: var(--phd-red);
+      font-weight: 700;
+    }
+    .index_marquee_section__sep {
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #ccc;
+      flex-shrink: 0;
+      margin: 0 1rem;
+    }
+
+    /* ══════════════════════════════════════════
+       2. NAVBAR SECTION
+    ══════════════════════════════════════════ */
+    .index_navbar_section {
+      position: absolute;
+      top: var(--marquee-h);
+      left: 0;
+      width: 100%;
+      z-index: 150;
+      background: transparent;
+      transition: background 0.3s ease;
+    }
+    .index_navbar_section.index_navbar_section--scrolled {
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    }
+
+    .index_navbar_section__inner {
+      display: flex;
+      align-items: center;
+      height: var(--nav-h);
+      padding: 0 2.5rem;
+      gap: 0;
+    }
+
+    /* Logo */
+    .index_navbar_section__logo {
+      flex-shrink: 0;
+      margin-right: 2rem;
+    }
+    .index_navbar_section__logo-mark {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      line-height: 1;
+      transition: color 0.3s;
+    }
+    .index_navbar_section__logo-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.52rem;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      display: block;
+      margin-top: -1px;
+      transition: color 0.3s;
+    }
+    /* logo changes on scroll */
+    .index_navbar_section--scrolled .index_navbar_section__logo-mark { color: #111; }
+    .index_navbar_section--scrolled .index_navbar_section__logo-sub  { color: #888; }
+
+    /* Nav links */
+    .index_navbar_section__links {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      gap: 0;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .index_navbar_section__item {
+      position: relative;
+    }
+
+    .index_navbar_section__link {
+      display: block;
+      padding: 0 1.1rem;
+      height: var(--nav-h);
+      line-height: var(--nav-h);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      transition: color 0.2s, background 0.2s;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .index_navbar_section__link:hover {
+      color: #fff;
+      background: rgba(255,255,255,0.12);
+    }
+    /* on scrolled nav */
+    .index_navbar_section--scrolled .index_navbar_section__link {
+      color: #222;
+    }
+    .index_navbar_section--scrolled .index_navbar_section__link:hover {
+      color: #000;
+      background: rgba(0,0,0,0.05);
+    }
+
+    /* Icons right */
+    .index_navbar_section__icons {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-left: 1rem;
+      flex-shrink: 0;
+    }
+    .index_navbar_section__icon-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      /* color: rgba(255,255,255,0.9); */
+      font-size: 1.1rem;
+      transition: background 0.2s, color 0.2s;
+      position: relative;
+      cursor: pointer;
+    }
+    /* .index_navbar_section__icon-btn:hover { background: rgba(255,255,255,0.15); color:#fff; } */
+    .index_navbar_section--scrolled .index_navbar_section__icon-btn { color: #333; }
+    .index_navbar_section--scrolled .index_navbar_section__icon-btn:hover { background: rgba(0,0,0,0.07); color:#000; }
+
+    .index_navbar_section__cart-badge {
+      position: absolute;
+      top: 2px; right: 2px;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--phd-red);
+      color: #fff;
+      font-size: 0.55rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── DROPDOWN ── */
+    .index_navbar_section__dropdown {
+      position: absolute;
+      top: calc(var(--nav-h) - 2px);
+      left: 0;
+      min-width: 220px;
+      background: #fff;
+      border-top: 2px solid var(--phd-red);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.13);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(8px);
+      transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+      z-index: 999;
+      list-style: none;
+      padding: 0.5rem 0;
+    }
+    .index_navbar_section__item:hover .index_navbar_section__dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .index_navbar_section__dropdown li a {
+      display: block;
+      padding: 0.6rem 1.4rem;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 400;
+      color: #333;
+      letter-spacing: 0.03em;
+      transition: background 0.18s, color 0.18s, padding-left 0.18s;
+    }
+    .index_navbar_section__dropdown li a:hover {
+      background: #fef2f2;
+      color: var(--phd-red);
+      padding-left: 1.8rem;
+    }
+    .index_navbar_section__dropdown li a::before {
+      content: '—';
+      margin-right: 0.5rem;
+      font-size: 0.65rem;
+      color: var(--phd-red);
+      opacity: 0.6;
+    }
+
+    /* mobile burger */
+    .index_navbar_section__burger {
+      display: none;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.9);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.2rem;
+      transition: color 0.2s;
+      margin-left: auto;
+    }
+    .index_navbar_section--scrolled .index_navbar_section__burger { color: #222; }
+
+    /* ══════════════════════════════════════════
+       MOBILE OFFCANVAS MENU
+    ══════════════════════════════════════════ */
+    .index_navbar_section__offcanvas {
+      position: fixed;
+      top: 0; right: -100%;
+      width: min(340px, 90vw);
+      height: 100vh;
+      background: #fff;
+      z-index: 2000;
+      box-shadow: -8px 0 40px rgba(0,0,0,0.18);
+      transition: right 0.35s cubic-bezier(0.22,1,0.36,1);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .index_navbar_section__offcanvas.open { right: 0; }
+
+    .index_navbar_section__offcanvas-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 1.4rem;
+      border-bottom: 1px solid #eee;
+    }
+    .index_navbar_section__offcanvas-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #111;
+    }
+    .index_navbar_section__offcanvas-close {
+      background: none; border: none;
+      font-size: 1.3rem; cursor: pointer; color: #555;
+      display: flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: 50%;
+      transition: background 0.2s;
+    }
+    .index_navbar_section__offcanvas-close:hover { background: #f5f5f5; }
+
+    .index_navbar_section__mob-list { list-style: none; padding: 0.5rem 0; flex: 1; }
+
+    .index_navbar_section__mob-item {}
+
+    .index_navbar_section__mob-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.82rem 1.4rem;
+      border-bottom: 1px solid #f2f2f2;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .index_navbar_section__mob-row:hover { background: #fef9f9; }
+
+    .index_navbar_section__mob-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #111;
+    }
+
+    .index_navbar_section__mob-plus {
+      width: 28px; height: 28px;
+      border: 1px solid #ddd;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; color: var(--phd-red);
+      flex-shrink: 0;
+      transition: background 0.2s, transform 0.25s;
+    }
+    .index_navbar_section__mob-item.open .index_navbar_section__mob-plus {
+      background: var(--phd-red);
+      color: #fff;
+      transform: rotate(45deg);
+    }
+
+    .index_navbar_section__mob-sub {
+      list-style: none;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+      background: #fafafa;
+    }
+    .index_navbar_section__mob-item.open .index_navbar_section__mob-sub {
+      max-height: 400px;
+    }
+    .index_navbar_section__mob-sub li a {
+      display: block;
+      padding: 0.62rem 2rem;
+      font-size: 0.82rem;
+      color: #555;
+      border-bottom: 1px solid #efefef;
+      transition: color 0.2s, padding-left 0.2s;
+    }
+    .index_navbar_section__mob-sub li a:hover { color: var(--phd-red); padding-left: 2.4rem; }
+
+    /* plain link items (no sub) */
+    .index_navbar_section__mob-plain {
+      display: block;
+      padding: 0.82rem 1.4rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #111;
+      border-bottom: 1px solid #f2f2f2;
+      transition: color 0.2s, background 0.15s;
+    }
+    .index_navbar_section__mob-plain:hover { color: var(--phd-red); background: #fef9f9; }
+
+    /* overlay backdrop */
+    .index_navbar_section__backdrop {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 1999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .index_navbar_section__backdrop.open { opacity: 1; pointer-events: auto; }
+
+   
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     1. MARQUEE SECTION
+════════════════════════════════════════════ -->
+<div class="index_marquee_section">
+  <div class="index_marquee_section__track" id="marqueeTrack">
+
+    <!-- Repeated twice for seamless loop -->
+    <!-- Set A -->
+    <span class="index_marquee_section__item">
+      <span class="index_marquee_section__num">10%</span> Off on 1 item
+    </span>
+    <span class="index_marquee_section__sep"></span>
+    <span class="index_marquee_section__item">
+      <span class="index_marquee_section__num">20%</span> Off on 2 items
+    </span>
+    <span class="index_marquee_section__sep"></span>
+    <span class="index_marquee_section__item">
+      <span class="index_marquee_section__num">32%</span> Off on 3+ items
+    </span>
+    <span class="index_marquee_section__sep"></span>
+    <span class="index_marquee_section__item">
+      Free Shipping on orders above ₹499
+    </span>
+    <span class="index_marquee_section__sep"></span>
+    <span class="index_marquee_section__item">
+      <span class="index_marquee_section__num">10%</span> Off on 1 item
+    </span>
+    <span class="index_marquee_section__sep"></span>
+    <span class="index_marquee_section__item">
+      <span class="index_marquee_section__num">20%</span> Off on 2 items
+    </span>
+    <span class="index_marquee_section__sep"></span>
+    <span class="index_marquee_section__item">
+      <span class="index_marquee_section__num">32%</span> Off on 3+ items
+    </span>
+    <span class="index_marquee_section__sep"></span>
+    <span class="index_marquee_section__item">
+      Dermatologist Tested &amp; Approved
+    </span>
+    <span class="index_marquee_section__sep"></span>
+
+    <!-- Set B (duplicate for infinite scroll) -->
+    <span class="index_marquee_section__item">
+      <span class="index_marquee_section__num">10%</span> Off on 1 item
+    </span>
+    <span class="index_marquee_section__sep"></span>
+    <span class="index_marquee_section__item">
+      <span class="index_marquee_section__num">20%</span> Off on 2 items
+    </span>
+    <span class="index_marquee_section__sep"></span>
+    <span class="index_marquee_section__item">
+      <span class="index_marquee_section__num">32%</span> Off on 3+ items
+    </span>
+    <span class="index_marquee_section__sep"></span>
+    <span class="index_marquee_section__item">
+      Free Shipping on orders above ₹499
+    </span>
+    <span class="index_marquee_section__sep"></span>
+    <span class="index_marquee_section__item">
+      <span class="index_marquee_section__num">10%</span> Off on 1 item
+    </span>
+    <span class="index_marquee_section__sep"></span>
+    <span class="index_marquee_section__item">
+      <span class="index_marquee_section__num">20%</span> Off on 2 items
+    </span>
+    <span class="index_marquee_section__sep"></span>
+    <span class="index_marquee_section__item">
+      <span class="index_marquee_section__num">32%</span> Off on 3+ items
+    </span>
+    <span class="index_marquee_section__sep"></span>
+    <span class="index_marquee_section__item">
+      Dermatologist Tested &amp; Approved
+    </span>
+    <span class="index_marquee_section__sep"></span>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     2. NAVBAR SECTION
+════════════════════════════════════════════ -->
+<header class="index_navbar_section" id="indexNavbar">
+  <div class="index_navbar_section__inner">
+
+    <!-- Logo -->
+    <a href="/" class="index_navbar_section__logo">
+      <span class="index_navbar_section__logo-mark">/PHD/</span>
+      <span class="index_navbar_section__logo-sub">Proven Honest Derma</span>
+    </a>
+
+    <!-- Desktop Links -->
+    <ul class="index_navbar_section__links">
+
+      <!-- CATEGORY — 6 sub-services -->
+      <li class="index_navbar_section__item">
+        <a class="index_navbar_section__link" href="#">Category</a>
+        <ul class="index_navbar_section__dropdown">
+          <li><a href="#">Sunscreens</a></li>
+          <li><a href="#">Moisturisers</a></li>
+          <li><a href="#">Serums</a></li>
+          <li><a href="#">Cleansers &amp; Toners</a></li>
+          <li><a href="#">Eye &amp; Lip Care</a></li>
+          <li><a href="#">Travel Kits</a></li>
+        </ul>
+      </li>
+
+      <!-- INGREDIENTS — 8 sub-services -->
+      <li class="index_navbar_section__item">
+        <a class="index_navbar_section__link" href="#">Ingredients</a>
+        <ul class="index_navbar_section__dropdown">
+          <li><a href="#">Panthenol (Vit B5)</a></li>
+          <li><a href="#">Niacinamide</a></li>
+          <li><a href="#">Hyaluronic Acid</a></li>
+          <li><a href="#">Retinol</a></li>
+          <li><a href="#">Salicylic Acid</a></li>
+          <li><a href="#">Centella Asiatica</a></li>
+          <li><a href="#">Vitamin C</a></li>
+          <li><a href="#">Ceramides</a></li>
+        </ul>
+      </li>
+
+      <!-- CONCERN — 8 sub-services -->
+      <li class="index_navbar_section__item">
+        <a class="index_navbar_section__link" href="#">Concern</a>
+        <ul class="index_navbar_section__dropdown">
+          <li><a href="#">Acne &amp; Breakouts</a></li>
+          <li><a href="#">Dullness &amp; Uneven Tone</a></li>
+          <li><a href="#">Dark Spots &amp; Pigmentation</a></li>
+          <li><a href="#">Dryness &amp; Dehydration</a></li>
+          <li><a href="#">Oily &amp; Combination Skin</a></li>
+          <li><a href="#">Sensitive Skin</a></li>
+          <li><a href="#">Anti-Ageing</a></li>
+          <li><a href="#">Sun Protection</a></li>
+        </ul>
+      </li>
+
+      <!-- THE /PHD/ STORY — plain link -->
+      <li class="index_navbar_section__item">
+        <a class="index_navbar_section__link" href="#">The /PHD/ Story</a>
+      </li>
+
+      <!-- SKINTHESIS — plain link -->
+      <li class="index_navbar_section__item">
+        <a class="index_navbar_section__link" href="#">Skinthesis</a>
+      </li>
+
+      <!-- REWARDS — 2 sub-services -->
+      <li class="index_navbar_section__item">
+        <a class="index_navbar_section__link" href="#">Rewards</a>
+        <ul class="index_navbar_section__dropdown">
+          <li><a href="#">PHD Loyalty Points</a></li>
+          <li><a href="#">Refer &amp; Earn</a></li>
+        </ul>
+      </li>
+
+      <!-- CONTACT US — plain link -->
+      <li class="index_navbar_section__item">
+        <a class="index_navbar_section__link" href="#">Contact Us</a>
+      </li>
+
+    </ul>
+
+    <!-- Right Icons -->
+    <div class="index_navbar_section__icons">
+      <button class="index_navbar_section__icon-btn" title="Search">
+        <i class="bi bi-search"></i>
+      </button>
+      <button class="index_navbar_section__icon-btn" title="Account">
+        <i class="bi bi-person"></i>
+      </button>
+      <button class="index_navbar_section__icon-btn" title="Cart" style="position:relative">
+        <i class="bi bi-bag"></i>
+        <span class="index_navbar_section__cart-badge">0</span>
+      </button>
+    </div>
+
+    <!-- Mobile Burger -->
+    <button class="index_navbar_section__burger" id="navBurger" aria-label="Open menu">
+      <i class="bi bi-list"></i>
+    </button>
+
+  </div>
+</header>
+
+
+<!-- ── BACKDROP ── -->
+<div class="index_navbar_section__backdrop" id="navBackdrop"></div>
+
+<!-- ── MOBILE OFFCANVAS ── -->
+<div class="index_navbar_section__offcanvas" id="navOffcanvas">
+
+  <div class="index_navbar_section__offcanvas-head">
+    <span class="index_navbar_section__offcanvas-logo">/PHD/</span>
+    <button class="index_navbar_section__offcanvas-close" id="navClose">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  <ul class="index_navbar_section__mob-list">
+
+    <!-- CATEGORY -->
+    <li class="index_navbar_section__mob-item" data-has-sub="true">
+      <div class="index_navbar_section__mob-row">
+        <span class="index_navbar_section__mob-label">Category</span>
+        <span class="index_navbar_section__mob-plus"><i class="bi bi-plus"></i></span>
+      </div>
+      <ul class="index_navbar_section__mob-sub">
+        <li><a href="#">Sunscreens</a></li>
+        <li><a href="#">Moisturisers</a></li>
+        <li><a href="#">Serums</a></li>
+        <li><a href="#">Cleansers &amp; Toners</a></li>
+        <li><a href="#">Eye &amp; Lip Care</a></li>
+        <li><a href="#">Travel Kits</a></li>
+      </ul>
+    </li>
+
+    <!-- INGREDIENTS -->
+    <li class="index_navbar_section__mob-item" data-has-sub="true">
+      <div class="index_navbar_section__mob-row">
+        <span class="index_navbar_section__mob-label">Ingredients</span>
+        <span class="index_navbar_section__mob-plus"><i class="bi bi-plus"></i></span>
+      </div>
+      <ul class="index_navbar_section__mob-sub">
+        <li><a href="#">Panthenol (Vit B5)</a></li>
+        <li><a href="#">Niacinamide</a></li>
+        <li><a href="#">Hyaluronic Acid</a></li>
+        <li><a href="#">Retinol</a></li>
+        <li><a href="#">Salicylic Acid</a></li>
+        <li><a href="#">Centella Asiatica</a></li>
+        <li><a href="#">Vitamin C</a></li>
+        <li><a href="#">Ceramides</a></li>
+      </ul>
+    </li>
+
+    <!-- CONCERN -->
+    <li class="index_navbar_section__mob-item" data-has-sub="true">
+      <div class="index_navbar_section__mob-row">
+        <span class="index_navbar_section__mob-label">Concern</span>
+        <span class="index_navbar_section__mob-plus"><i class="bi bi-plus"></i></span>
+      </div>
+      <ul class="index_navbar_section__mob-sub">
+        <li><a href="#">Acne &amp; Breakouts</a></li>
+        <li><a href="#">Dullness &amp; Uneven Tone</a></li>
+        <li><a href="#">Dark Spots &amp; Pigmentation</a></li>
+        <li><a href="#">Dryness &amp; Dehydration</a></li>
+        <li><a href="#">Oily &amp; Combination Skin</a></li>
+        <li><a href="#">Sensitive Skin</a></li>
+        <li><a href="#">Anti-Ageing</a></li>
+        <li><a href="#">Sun Protection</a></li>
+      </ul>
+    </li>
+
+    <!-- THE /PHD/ STORY -->
+    <li class="index_navbar_section__mob-item">
+      <a href="#" class="index_navbar_section__mob-plain">The /PHD/ Story</a>
+    </li>
+
+    <!-- SKINTHESIS -->
+    <li class="index_navbar_section__mob-item">
+      <a href="#" class="index_navbar_section__mob-plain">Skinthesis</a>
+    </li>
+
+    <!-- REWARDS -->
+    <li class="index_navbar_section__mob-item" data-has-sub="true">
+      <div class="index_navbar_section__mob-row">
+        <span class="index_navbar_section__mob-label">Rewards</span>
+        <span class="index_navbar_section__mob-plus"><i class="bi bi-plus"></i></span>
+      </div>
+      <ul class="index_navbar_section__mob-sub">
+        <li><a href="#">PHD Loyalty Points</a></li>
+        <li><a href="#">Refer &amp; Earn</a></li>
+      </ul>
+    </li>
+
+    <!-- CONTACT US -->
+    <li class="index_navbar_section__mob-item">
+      <a href="#" class="index_navbar_section__mob-plain">Contact Us</a>
+    </li>
+
+  </ul>
+</div>
+
+
+
+</section>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  /* ─── Navbar scroll behaviour ─── */
+  const navbar = document.getElementById('indexNavbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 10) {
+      navbar.classList.add('index_navbar_section--scrolled');
+    } else {
+      navbar.classList.remove('index_navbar_section--scrolled');
+    }
+  }, { passive: true });
+
+  /* ─── Mobile menu open/close ─── */
+  const burger    = document.getElementById('navBurger');
+  const offcanvas = document.getElementById('navOffcanvas');
+  const backdrop  = document.getElementById('navBackdrop');
+  const closeBtn  = document.getElementById('navClose');
+
+  function openMenu() {
+    offcanvas.classList.add('open');
+    backdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    offcanvas.classList.remove('open');
+    backdrop.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  burger.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  backdrop.addEventListener('click', closeMenu);
+
+  /* ─── Mobile accordion (+ toggle for sub-services) ─── */
+  document.querySelectorAll('.index_navbar_section__mob-item[data-has-sub]').forEach(item => {
+    const row = item.querySelector('.index_navbar_section__mob-row');
+    if (!row) return;
+    row.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      // Close all others
+      document.querySelectorAll('.index_navbar_section__mob-item.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  /* ─── Hero keyboard accessibility ─── */
+  document.getElementById('indexHero').addEventListener('keydown', e => {
+    if (e.key === 'Enter') window.location.href = 'product-detail.html';
+  });
+</script>
+
+</body>
+</html>
