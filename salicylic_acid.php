@@ -102,11 +102,11 @@
                 <div class="filter-body" id="filter-ingredient">
                     <label><input type="checkbox" value="" onchange="applyFilters()"> Acne Treatments & Kits <span
                             class="count">(1)</span></label>
-                     <label><input type="checkbox" value="New-gen" onchange="applyFilters()"> Face Serums <span
-                                class="count">(1)</span></label>
-                     
+                    <label><input type="checkbox" value="New-gen" onchange="applyFilters()"> Face Serums <span
+                            class="count">(1)</span></label>
 
-                    
+
+
         </aside>
 
         <!-- PRODUCT GRID -->
@@ -116,42 +116,56 @@
             <div class="products-grid" id="productsGrid">
 
                 <!-- PRODUCT 1 -->
-                <div class="product-card" data-price="649" data-concern="acne pigmentation" data-ingredient="Centella-Asiatica"
+
+                <div class="product-card" data-price="649" data-concern="acne" data-ingredient="Salicylic-Acid"
                     data-type="lotus_moisturizers">
-                    <div class="product-img-wrap">
-                        <img class="img-primary" src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&q=80"
-                            alt="Niacinamide Serum" />
-                        <img class="img-secondary" src="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=400&q=80"
-                            alt="Niacinamide Serum hover" />
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">10% Niacinamide Spot Correcting Serum</div>
-                        <div class="product-sub">/ Solution for pore, acne marks and blemishes /</div>
-                        <div><span class="stars">★★★★½</span><span class="review-count">(344 reviews)</span></div>
-                        <div class="product-price">₹649</div>
-                        <span class="bought-tag">196+ bought in past month</span>
-                        <button class="btn-cart">Add to Cart</button>
-                    </div>
+                    <a href="salicylic_acid_anti_acne_serum.php">
+                        <div class="product-img-wrap">
+                            <img class="img-primary" src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80"
+                                alt="Salicylic Acid Serum" />
+                            <img class="img-secondary" src="https://images.unsplash.com/photo-1576426863848-c21f53c60b19?w=400&q=80"
+                                alt="Salicylic Acid hover" />
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">2% Salicylic Acid Anti-Acne Serum</div>
+                            <div class="product-sub">/ Solution for acne, clogged pores and sebum regulation /</div>
+                            <div><span class="stars">★★★★</span><span class="review-count">(83 reviews)</span></div>
+                            <div class="product-price">₹649</div>
+                            <span class="bought-tag">58+ bought in past month</span>
+
+                        </div>
+                    </a>
+                    <button class="btn-cart">Add to Cart</button>
                 </div>
 
                 <!-- PRODUCT 2 -->
-                <div class="product-card" data-price="699" data-concern="pigmentation" data-ingredient="Niacinamide"
-                    data-type="lotus_moisturizers">
-                    <div class="product-img-wrap">
-                        <img class="img-primary" src="https://images.unsplash.com/photo-1599305090598-fe179d501227?w=400&q=80"
-                            alt="Alpha Centella Serum" />
-                        <img class="img-secondary" src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=400&q=80"
-                            alt="Alpha Centella hover" />
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">2% Alpha Centella Depigmentation Serum</div>
-                        <div class="product-sub">/ Solution for hyperpigmentation, acne marks and uneven skin tone /</div>
-                        <div><span class="stars">★★★★½</span><span class="review-count">(327 reviews)</span></div>
-                        <div class="product-price">₹699</div>
-                        <span class="bought-tag">129+ bought in past month</span>
-                        <button class="btn-cart">Add to Cart</button>
-                    </div>
+
+                <div class="product-card" data-price="495" data-concern="acne" data-ingredient="Zinc-Pca"
+                    data-type="Sunscreens">
+                    <a href="salicylic_acid_acne_spot_treatment_gel.php">
+                        <div class="product-img-wrap">
+                            <img class="img-primary" src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=400&q=80"
+                                alt="Acne Spot Gel" />
+                            <img class="img-secondary" src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=400&q=80"
+                                alt="Acne Spot Gel hover" />
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Salicylic Acid Acne Spot Treatment Gel</div>
+                            <div class="product-sub">/ Solution for rapid healing of acne, pimples and breakouts /</div>
+                            <div><span class="stars">★★★★★</span><span class="review-count">(47 reviews)</span></div>
+                            <div class="product-price">₹495</div>
+                            <span class="bought-tag">46+ bought in past month</span>
+
+                        </div>
+                    </a>
+                    <button class="btn-cart">Add to Cart</button>
                 </div>
+
+
+
+
+
+
 
                 <!-- PRODUCT 3 -->
                 <div class="product-card" data-price="699" data-concern="brightening" data-ingredient="Peptazin™"
@@ -192,61 +206,65 @@
                 </div>
 
                 <!-- PRODUCT 5 -->
-                   <div class="product-card" data-price="649" data-concern="acne" data-ingredient="Salicylic-Acid"
-                        data-type="lotus_moisturizers">
-                        <div class="product-img-wrap">
-                            <img class="img-primary" src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80"
-                                alt="Salicylic Acid Serum" />
-                            <img class="img-secondary" src="https://images.unsplash.com/photo-1576426863848-c21f53c60b19?w=400&q=80"
-                                alt="Salicylic Acid hover" />
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">2% Salicylic Acid Anti-Acne Serum</div>
-                            <div class="product-sub">/ Solution for acne, clogged pores and sebum regulation /</div>
-                            <div><span class="stars">★★★★</span><span class="review-count">(83 reviews)</span></div>
-                            <div class="product-price">₹649</div>
-                            <span class="bought-tag">58+ bought in past month</span>
-                            <button class="btn-cart">Add to Cart</button>
-                        </div>
-                    </div> 
+
+
+                <div class="product-card" data-price="649" data-concern="acne pigmentation" data-ingredient="Centella-Asiatica"
+                    data-type="lotus_moisturizers">
+                    <div class="product-img-wrap">
+                        <img class="img-primary" src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&q=80"
+                            alt="Niacinamide Serum" />
+                        <img class="img-secondary" src="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=400&q=80"
+                            alt="Niacinamide Serum hover" />
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">10% Niacinamide Spot Correcting Serum</div>
+                        <div class="product-sub">/ Solution for pore, acne marks and blemishes /</div>
+                        <div><span class="stars">★★★★½</span><span class="review-count">(344 reviews)</span></div>
+                        <div class="product-price">₹649</div>
+                        <span class="bought-tag">196+ bought in past month</span>
+                        <button class="btn-cart">Add to Cart</button>
+                    </div>
+                </div>
+
 
                 <!-- PRODUCT 6 -->
-                 <div class="product-card" data-price="495" data-concern="acne" data-ingredient="Zinc-Pca"
-                        data-type="Sunscreens">
-                        <div class="product-img-wrap">
-                            <img class="img-primary" src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=400&q=80"
-                                alt="Acne Spot Gel" />
-                            <img class="img-secondary" src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=400&q=80"
-                                alt="Acne Spot Gel hover" />
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Salicylic Acid Acne Spot Treatment Gel</div>
-                            <div class="product-sub">/ Solution for rapid healing of acne, pimples and breakouts /</div>
-                            <div><span class="stars">★★★★★</span><span class="review-count">(47 reviews)</span></div>
-                            <div class="product-price">₹495</div>
-                            <span class="bought-tag">46+ bought in past month</span>
-                            <button class="btn-cart">Add to Cart</button>
-                        </div>
-                    </div> 
+
+                <div class="product-card" data-price="699" data-concern="pigmentation" data-ingredient="Niacinamide"
+                    data-type="lotus_moisturizers">
+                    <div class="product-img-wrap">
+                        <img class="img-primary" src="https://images.unsplash.com/photo-1599305090598-fe179d501227?w=400&q=80"
+                            alt="Alpha Centella Serum" />
+                        <img class="img-secondary" src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=400&q=80"
+                            alt="Alpha Centella hover" />
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">2% Alpha Centella Depigmentation Serum</div>
+                        <div class="product-sub">/ Solution for hyperpigmentation, acne marks and uneven skin tone /</div>
+                        <div><span class="stars">★★★★½</span><span class="review-count">(327 reviews)</span></div>
+                        <div class="product-price">₹699</div>
+                        <span class="bought-tag">129+ bought in past month</span>
+                        <button class="btn-cart">Add to Cart</button>
+                    </div>
+                </div>
 
                 <!-- PRODUCT 7 -->
-                 <div class="product-card" data-price="649" data-concern="hydration" data-ingredient="Acne"
-                        data-type="lotus_moisturizers">
-                        <div class="product-img-wrap">
-                            <img class="img-primary" src="https://images.unsplash.com/photo-1567721913486-6585f069b3b0?w=400&q=80"
-                                alt="Niacinamide Acid Serum" />
-                            <img class="img-secondary" src="https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?w=400&q=80"
-                                alt="Niacinamide Acid hover" />
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">2% Niacinamide Acid Dewy Skin Serum</div>
-                            <div class="product-sub">/ Solution for compromised skin barrier, dull, dry and dehydrated skin /</div>
-                            <div><span class="stars">★★★★</span><span class="review-count">(9 reviews)</span></div>
-                            <div class="product-price">₹649</div>
-                            <span class="bought-tag">500+ bought in past month</span>
-                            <button class="btn-cart">Add to Cart</button>
-                        </div>
-                    </div> 
+                <div class="product-card" data-price="649" data-concern="hydration" data-ingredient="Acne"
+                    data-type="lotus_moisturizers">
+                    <div class="product-img-wrap">
+                        <img class="img-primary" src="https://images.unsplash.com/photo-1567721913486-6585f069b3b0?w=400&q=80"
+                            alt="Niacinamide Acid Serum" />
+                        <img class="img-secondary" src="https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?w=400&q=80"
+                            alt="Niacinamide Acid hover" />
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">2% Niacinamide Acid Dewy Skin Serum</div>
+                        <div class="product-sub">/ Solution for compromised skin barrier, dull, dry and dehydrated skin /</div>
+                        <div><span class="stars">★★★★</span><span class="review-count">(9 reviews)</span></div>
+                        <div class="product-price">₹649</div>
+                        <span class="bought-tag">500+ bought in past month</span>
+                        <button class="btn-cart">Add to Cart</button>
+                    </div>
+                </div>
 
             </div><!-- /products-grid -->
         </div><!-- /product-grid-wrap -->

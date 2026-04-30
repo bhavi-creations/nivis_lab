@@ -123,7 +123,7 @@
 
         <!-- PRODUCT GRID -->
         <div class="product-grid-wrap">
-             <h1 class="text-center">Eczema</h1>
+            <h1 class="text-center">Eczema</h1>
             <div class="product-count" id="productCount">7 products</div>
 
             <div class="products-grid" id="productsGrid">
@@ -131,20 +131,24 @@
                 <!-- PRODUCT 1 -->
                 <div class="product-card" data-price="649" data-concern="acne pigmentation" data-ingredient="Centella-Asiatica"
                     data-type="lotus_moisturizers">
-                    <div class="product-img-wrap">
-                        <img class="img-primary" src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&q=80"
-                            alt="Niacinamide Serum" />
-                        <img class="img-secondary" src="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=400&q=80"
-                            alt="Niacinamide Serum hover" />
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">10% Niacinamide Spot Correcting Serum</div>
-                        <div class="product-sub">/ Solution for pore, acne marks and blemishes /</div>
-                        <div><span class="stars">★★★★½</span><span class="review-count">(344 reviews)</span></div>
-                        <div class="product-price">₹649</div>
-                        <span class="bought-tag">196+ bought in past month</span>
-                        <button class="btn-cart">Add to Cart</button>
-                    </div>
+                    <a href="ceramides_intensive_repair_cream.php">
+                        <div class="product-img-wrap">
+                            <img class="img-primary" src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&q=80"
+                                alt="Niacinamide Serum" />
+                            <img class="img-secondary" src="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=400&q=80"
+                                alt="Niacinamide Serum hover" />
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">1% Ceramides Intensive Repair Cream</div>
+                            <div class="product-sub">/Helps relieve the symptoms of dry, irritated, eczema-prone skin./</div>
+                            <div><span class="stars">★★★★½</span><span class="review-count">(344 reviews)</span></div>
+                            <div class="product-price">₹649</div>
+                            <span class="bought-tag">196+ bought in past month</span>
+
+                        </div>
+                    </a>
+
+                    <button class="btn-cart">Add to Cart</button>
                 </div>
 
                 <!-- PRODUCT 2 -->

@@ -15,13 +15,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
     <link rel="stylesheet" href="./assets/css/style.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-   
-  
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+
+
+
 </head>
 
 <body>
@@ -111,16 +111,16 @@
     <header class="  index_navbar_section" id="indexNavbar">
         <div class="  container  index_navbar_section__inner">
 
-            
+
             <a href="/" class="index_navbar_section__logo">
-              
+
                 <img src="./assets/img/logo_1 (1).png" alt="" style="width: 100px;">
             </a>
 
-           
+
             <ul class="index_navbar_section__links">
 
-              
+
                 <li class="index_navbar_section__item">
                     <a class="index_navbar_section__link" href="#">Category</a>
                     <ul class="index_navbar_section__dropdown">
@@ -129,11 +129,11 @@
                         <li><a href="face-wash.php">Face Wash</a></li>
                         <li><a href="sunscreens.php">Sunscreens</a></li>
                         <li><a href="#">Explore all products</a></li>
-                        
+
                     </ul>
                 </li>
 
-               
+
                 <li class="index_navbar_section__item">
                     <a class="index_navbar_section__link" href="#">Ingredients</a>
                     <ul class="index_navbar_section__dropdown">
@@ -148,7 +148,7 @@
                     </ul>
                 </li>
 
-                
+
                 <li class="index_navbar_section__item">
                     <a class="index_navbar_section__link" href="#">Concern</a>
                     <ul class="index_navbar_section__dropdown">
@@ -163,33 +163,33 @@
                     </ul>
                 </li>
 
-              
+
                 <li class="index_navbar_section__item">
                     <a class="index_navbar_section__link" href="our-story.php">The /PHD/ Story</a>
                 </li>
 
-                
+
                 <li class="index_navbar_section__item">
                     <a class="index_navbar_section__link" href="skinthesis.php">Skinthesis</a>
                 </li>
 
-               
+
                 <li class="index_navbar_section__item">
                     <a class="index_navbar_section__link" href="#">Rewards</a>
                     <ul class="index_navbar_section__dropdown">
-                        <li><a href="#">PHD Loyalty Points</a></li>
-                        <li><a href="#">Refer &amp; Earn</a></li>
+                        <li><a href="how_to_earn.php">How to earn</a></li>
+                        <li><a href="refference.php">Refer &amp; Earn</a></li>
                     </ul>
                 </li>
 
-               
+
                 <li class="index_navbar_section__item">
                     <a class="index_navbar_section__link" href="contact.php">Contact Us</a>
                 </li>
 
             </ul>
 
-           
+
             <div class="index_navbar_section__icons">
                 <button class="index_navbar_section__icon-btn" title="Search">
                     <i class="bi bi-search"></i>
@@ -203,24 +203,26 @@
                 </button>
             </div>
 
-            
+
             <button class="index_navbar_section__burger" id="navBurger" aria-label="Open menu">
                 <i class="bi bi-list"></i>
             </button>
 
         </div>
-    </header> 
+    </header>
 
-  <!-- Fixed Rewards pill -->
-  <!-- <a href="#" class="our_section_5__rewards">
+    
+
+    <!-- Fixed Rewards pill -->
+    <!-- <a href="#" class="our_section_5__rewards">
     <span class="our_section_5__rewards-icon">🎁</span>
     Rewards
   </a> -->
-  <?php include 'reward.php'; ?>
+    <?php include 'reward.php'; ?>
 
 
 
-    
+
     <!-- ── BACKDROP ── -->
     <div class="index_navbar_section__backdrop" id="navBackdrop"></div>
 
@@ -243,12 +245,11 @@
                     <span class="index_navbar_section__mob-plus"><i class="bi bi-plus"></i></span>
                 </div>
                 <ul class="index_navbar_section__mob-sub">
-                    <li><a href="#">Sunscreens</a></li>
-                    <li><a href="#">Moisturisers</a></li>
-                    <li><a href="#">Serums</a></li>
-                    <li><a href="#">Cleansers &amp; Toners</a></li>
-                    <li><a href="#">Eye &amp; Lip Care</a></li>
-                    <li><a href="#">Travel Kits</a></li>
+                    <li><a href="face_serum.php">Face Serums & Treatments</a></li>
+                    <li><a href="moisturizers.php">Moisturisers</a></li>
+                    <li><a href="face-wash.php">Face Wash</a></li>
+                    <li><a href="sunscreens.php">Sunscreens</a></li>
+                    <li><a href="#">Explore all products</a></li>
                 </ul>
             </li>
 
@@ -259,14 +260,14 @@
                     <span class="index_navbar_section__mob-plus"><i class="bi bi-plus"></i></span>
                 </div>
                 <ul class="index_navbar_section__mob-sub">
-                    <li><a href="#">Panthenol (Vit B5)</a></li>
+                    <li><a href="salicylic_acid.php">Salicylic Acid</a></li>
                     <li><a href="niacinamide.php">Niacinamide</a></li>
-                    <li><a href="#">Hyaluronic Acid</a></li>
-                    <li><a href="#">Retinol</a></li>
-                    <li><a href="#">Salicylic Acid</a></li>
-                    <li><a href="#">Centella Asiatica</a></li>
-                    <li><a href="#">Vitamin C</a></li>
-                    <li><a href="#">Ceramides</a></li>
+                    <li><a href="alpha_arbutin.php">Alpha Arbutin</a></li>
+                    <li><a href="vitamin_c.php">Vitamin C</a></li>
+                    <li><a href="retinol.php">Retinol</a></li>
+                    <li><a href="hyaluronic_acid.php">Hyaluronic Acid</a></li>
+                    <li><a href="ceramides.php">Ceramides</a></li>
+                    <li><a href="#">Explore all products</a></li>
                 </ul>
             </li>
 
@@ -277,14 +278,13 @@
                     <span class="index_navbar_section__mob-plus"><i class="bi bi-plus"></i></span>
                 </div>
                 <ul class="index_navbar_section__mob-sub">
-                    <li><a href="#">Acne &amp; Breakouts</a></li>
-                    <li><a href="#">Dullness &amp; Uneven Tone</a></li>
-                    <li><a href="#">Dark Spots &amp; Pigmentation</a></li>
-                    <li><a href="#">Dryness &amp; Dehydration</a></li>
-                    <li><a href="#">Oily &amp; Combination Skin</a></li>
-                    <li><a href="#">Sensitive Skin</a></li>
-                    <li><a href="#">Anti-Ageing</a></li>
-                    <li><a href="#">Sun Protection</a></li>
+                    <li><a href="brigthening.php">Brightening</a></li>
+                    <li><a href="acne.php">Acne</a></li>
+                    <li><a href="acne_marks.php">Acne Marks</a></li>
+                    <li><a href="pigmentation.php">Pigmentation</a></li>
+                    <li><a href="lines_and_wrinkles.php">Lines and Wrinkles</a></li>
+                    <li><a href="dehydration.php">Dehydration</a></li>
+                    <li><a href="eczema.php">Eczema</a></li>
                 </ul>
             </li>
 
@@ -305,8 +305,8 @@
                     <span class="index_navbar_section__mob-plus"><i class="bi bi-plus"></i></span>
                 </div>
                 <ul class="index_navbar_section__mob-sub">
-                    <li><a href="#">PHD Loyalty Points</a></li>
-                    <li><a href="#">Refer &amp; Earn</a></li>
+                    <li><a href="how_to_earn.php">How to earn</a></li>
+                    <li><a href="refference.php">Refer &amp; Earn</a></li>
                 </ul>
             </li>
 

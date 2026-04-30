@@ -129,39 +129,46 @@
                 <!-- PRODUCT 1 -->
                 <div class="product-card" data-price="649" data-concern="acne pigmentation" data-ingredient="Centella-Asiatica"
                     data-type="lotus_moisturizers">
-                    <div class="product-img-wrap">
-                        <img class="img-primary" src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&q=80"
-                            alt="Niacinamide Serum" />
-                        <img class="img-secondary" src="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=400&q=80"
-                            alt="Niacinamide Serum hover" />
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">10% Niacinamide Spot Correcting Serum</div>
-                        <div class="product-sub">/ Solution for pore, acne marks and blemishes /</div>
-                        <div><span class="stars">★★★★½</span><span class="review-count">(344 reviews)</span></div>
-                        <div class="product-price">₹649</div>
-                        <span class="bought-tag">196+ bought in past month</span>
-                        <button class="btn-cart">Add to Cart</button>
-                    </div>
+                    <a href="ceramide_hydrating_cleanser.php">
+
+                        <div class="product-img-wrap">
+                            <img class="img-primary" src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&q=80"
+                                alt="Niacinamide Serum" />
+                            <img class="img-secondary" src="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=400&q=80"
+                                alt="Niacinamide Serum hover" />
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Ceramide Hydrating Cleanser</div>
+                            <div class="product-sub">/ Gently cleanses and hydrates, preserving the skin’s protective barrier with 5 essential ceramides /</div>
+                            <div><span class="stars">★★★★½</span><span class="review-count">(344 reviews)</span></div>
+                            <div class="product-price">₹649</div>
+                            <span class="bought-tag">196+ bought in past month</span>
+
+                        </div>
+                    </a>
+                    <button class="btn-cart">Add to Cart</button>
                 </div>
 
                 <!-- PRODUCT 2 -->
                 <div class="product-card" data-price="699" data-concern="pigmentation" data-ingredient="Niacinamide"
                     data-type="lotus_moisturizers">
-                    <div class="product-img-wrap">
-                        <img class="img-primary" src="https://images.unsplash.com/photo-1599305090598-fe179d501227?w=400&q=80"
-                            alt="Alpha Centella Serum" />
-                        <img class="img-secondary" src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=400&q=80"
-                            alt="Alpha Centella hover" />
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">2% Alpha Centella Depigmentation Serum</div>
-                        <div class="product-sub">/ Solution for hyperpigmentation, acne marks and uneven skin tone /</div>
-                        <div><span class="stars">★★★★½</span><span class="review-count">(327 reviews)</span></div>
-                        <div class="product-price">₹699</div>
-                        <span class="bought-tag">129+ bought in past month</span>
-                        <button class="btn-cart">Add to Cart</button>
-                    </div>
+                    <a href="ceramides_intensive_repair_cream.php">
+                        <div class="product-img-wrap">
+                            <img class="img-primary" src="https://images.unsplash.com/photo-1599305090598-fe179d501227?w=400&q=80"
+                                alt="Alpha Centella Serum" />
+                            <img class="img-secondary" src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=400&q=80"
+                                alt="Alpha Centella hover" />
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">1% Ceramides Intensive Repair Cream</div>
+                            <div class="product-sub">/ Solution for hyperpigmentation, acne marks and uneven skin tone /</div>
+                            <div><span class="stars">★★★★½</span><span class="review-count">(327 reviews)</span></div>
+                            <div class="product-price">₹699</div>
+                            <span class="bought-tag">129+ bought in past month</span>
+
+                        </div>
+                    </a>
+                    <button class="btn-cart">Add to Cart</button>
                 </div>
 
                 <!-- PRODUCT 3 -->
