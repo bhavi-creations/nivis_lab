@@ -128,7 +128,7 @@
                         <li><a href="moisturizers.php">Moisturisers</a></li>
                         <li><a href="face-wash.php">Face Wash</a></li>
                         <li><a href="sunscreens.php">Sunscreens</a></li>
-                        <li><a href="#">Explore all products</a></li>
+                        <!-- <li><a href="#">Explore all products</a></li> -->
 
                     </ul>
                 </li>
@@ -144,7 +144,7 @@
                         <li><a href="retinol.php">Retinol</a></li>
                         <li><a href="hyaluronic_acid.php">Hyaluronic Acid</a></li>
                         <li><a href="ceramides.php">Ceramides</a></li>
-                        <li><a href="#">Explore all products</a></li>
+                        <!-- <li><a href="#">Explore all products</a></li> -->
                     </ul>
                 </li>
 
@@ -249,7 +249,7 @@
                     <li><a href="moisturizers.php">Moisturisers</a></li>
                     <li><a href="face-wash.php">Face Wash</a></li>
                     <li><a href="sunscreens.php">Sunscreens</a></li>
-                    <li><a href="#">Explore all products</a></li>
+                    <!-- <li><a href="#">Explore all products</a></li> -->
                 </ul>
             </li>
 
@@ -267,7 +267,7 @@
                     <li><a href="retinol.php">Retinol</a></li>
                     <li><a href="hyaluronic_acid.php">Hyaluronic Acid</a></li>
                     <li><a href="ceramides.php">Ceramides</a></li>
-                    <li><a href="#">Explore all products</a></li>
+                    <!-- <li><a href="#">Explore all products</a></li> -->
                 </ul>
             </li>
 

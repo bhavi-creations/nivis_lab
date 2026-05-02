@@ -34,9 +34,9 @@ p {
 }
 
 
-img {
+/* img {
     border-radius: 10px;
-}
+} */
 
 body {
     /* font-family: "Bai Jamjuree", sans-serif; */
@@ -215,12 +215,22 @@ a {
     cursor: pointer;
 }
 
-/* @media (min-width:992px) and (max-width:1400px) {
-    .index_navbar_section__link{
-padding
-}
 
-} */
+
+
+
+
+
+
+
+@media (min-width:992px) and (max-width:1200px) {
+    .index_navbar_section__link {
+        padding:10px !important;
+        letter-spacing: 0px !important;
+
+    }
+
+}
 
 
 
@@ -5447,7 +5457,8 @@ button:hover {
 /* Quote Box - Exact Design from Image */
 .doctor_bio_quote_card {
     position: relative;
-    background: #fff;
+    /* background: #fff; */
+    backgrounf: #e7e7e7;
     border-left: none;
     padding: 30px 10px 10px 0;
     margin-top: 20px;
@@ -5459,7 +5470,8 @@ button:hover {
     top: -15px;
     left: -5px;
     font-size: 6rem;
-    color: #fce8e9;
+    color: #000000;
+    /* color: #fce8e9; */
     /* Light quote mark */
     font-family: Georgia, serif;
     line-height: 1;
@@ -5472,7 +5484,15 @@ button:hover {
     line-height: 1.6;
     color: #444;
     padding-left: 15px;
+    /* background-color: red; */
+
 }
+
+.our_team_product {
+    padding: 30px;
+    background-color: #e7e7e7 !important;
+}
+
 
 .doctor_bio_divider {
     border-top: 1px solid #000000;
@@ -5555,4 +5575,78 @@ button:hover {
 .active-dermat {
     border-color: #b02a37;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+/* track your order  */
+.track_your_order-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    max-width: 500px;
+    width: 100%;
+}
+
+.track_your_order-tab-item {
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #666;
+    padding-bottom: 10px;
+    text-align: center;
+    transition: color 0.3s ease;
+    font-weight: 500;
+}
+
+.track_your_order-tab-item.active {
+    color: #a51c30;
+    /* Your brand red */
+    font-weight: bold;
+}
+
+.track_your_order-tabs {
+    position: relative;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.track_your_order-underline {
+    position: absolute;
+    bottom: -1px;
+    height: 3px;
+    width: 50%;
+    background-color: #a51c30;
+    transition: all 0.3s ease;
+}
+
+.track_your_order-submit-btn {
+    background-color: #a51c30;
+    border-color: #a51c30;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+
+.track_your_order-submit-btn:hover {
+    background-color: #8a1727;
+    border-color: #8a1727;
+}
+
+/* Input field styling to match your image */
+.form-control:focus {
+    border-color: #a51c30;
+    box-shadow: 0 0 0 0.25rem rgba(165, 28, 48, 0.1);
+}
+
+.tracking {
+    font-size: 20px;
+    color: var(--muted);
+    padding: 20px 20px;
+
+
+    font-family: 'Arial', sans-serif;
+
 }

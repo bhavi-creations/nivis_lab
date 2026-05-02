@@ -7,23 +7,23 @@
                 <div class="col-md-4 mb-4 text-center">
                     <h6>Information</h6>
                     <ul>
-                        <li><a href="#">Track Your Order</a></li>
-                        <li><a href="#">The /PHD/ Story</a></li>
-                        <li><a href="#">The /PHD/ Council</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Skinthesis</a></li>
-                        <li><a href="#">Rewards</a></li>
+                        <li><a href="tracking.php">Track Your Order</a></li>
+                        <li><a href="our-story.php">The /PHD/ Story</a></li>
+                        <li><a href="our_team.php">The /PHD/ Council</a></li>
+                        <li><a href="faq.php">FAQ</a></li>
+                        <li><a href="skinthesis.php">Skinthesis</a></li>
+                        <li><a href="reward.php">Rewards</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-4 text-center">
                     <h6>Important Links</h6>
                     <ul>
-                        <li><a href="#">Shipping & Returns</a></li>
-                        <li><a href="#">Terms & Conditions</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Refund Policy</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Let's Build /PHD/</a></li>
+                        <li><a href="shipping_returns.php">Shipping & Returns</a></li>
+                        <li><a href="terms_condition.php">Terms & Conditions</a></li>
+                        <li><a href="privacy_policy.php">Privacy Policy</a></li>
+                        <li><a href="refund.php">Refund Policy</a></li>
+                        <li><a href="contact.php">Contact Us</a></li>
+                        <li><a href="build_phd.php">Let's Build /PHD/</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-4 text-center">

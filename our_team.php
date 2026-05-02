@@ -89,7 +89,7 @@
                                     <!-- Product Detail -->
                                     <div class="doctor_bio_product_box">
                                         <div class="doctor_bio_product_info">
-                                            <img src="https://via.placeholder.com/70x100" alt="Product" class="doctor_bio_prod_img">
+                                            <img src="./assets/img/product.webp" alt="Product" class="doctor_bio_prod_img">
                                             <div>
                                                 <div class="doctor_bio_prod_name">2% Alpha Arbutin<br>Depigmentation Serum</div>
                                                 <div class="doctor_bio_prod_price">₹315.0</div>
@@ -98,12 +98,14 @@
                                         </div>
                                         <hr style="width: 60px; border-top: 2px solid #000; opacity: 1; margin: 20px 0;">
                                         <!-- Quote Box -->
-                                        <div class="doctor_bio_quote_card">
-                                            <p class="doctor_bio_quote_text">
-                                                For patients struggling with uneven skin tone or stubborn marks, I often recommend alpha arbutin.
-                                                This serum combines 2% Alpha Arbutin with soothing ingredients to visibly reduce
-                                                pigmentation—without the irritation that often comes with harsh brightening agents.
-                                            </p>
+                                        <div class="our_team_product">
+                                            <div class="doctor_bio_quote_card">
+                                                <p class="doctor_bio_quote_text">
+                                                    For patients struggling with uneven skin tone or stubborn marks, I often recommend alpha arbutin.
+                                                    This serum combines 2% Alpha Arbutin with soothing ingredients to visibly reduce
+                                                    pigmentation—without the irritation that often comes with harsh brightening agents.
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -151,7 +153,7 @@
                                     <!-- Product Detail -->
                                     <div class="doctor_bio_product_box">
                                         <div class="doctor_bio_product_info">
-                                            <img src="https://via.placeholder.com/70x100" alt="Product" class="doctor_bio_prod_img">
+                                            <img src="./assets/img/product.webp" alt="Product" class="doctor_bio_prod_img">
                                             <div>
                                                 <div class="doctor_bio_prod_name">2% Alpha Arbutin<br>Depigmentation Serum</div>
                                                 <div class="doctor_bio_prod_price">₹315.0</div>
@@ -160,12 +162,14 @@
                                         </div>
                                         <hr style="width: 60px; border-top: 2px solid #000; opacity: 1; margin: 20px 0;">
                                         <!-- Quote Box -->
-                                        <div class="doctor_bio_quote_card">
-                                            <p class="doctor_bio_quote_text">
-                                                For patients struggling with uneven skin tone or stubborn marks, I often recommend alpha arbutin.
-                                                This serum combines 2% Alpha Arbutin with soothing ingredients to visibly reduce
-                                                pigmentation—without the irritation that often comes with harsh brightening agents.
-                                            </p>
+                                        <div class="our_team_product">
+                                            <div class="doctor_bio_quote_card">
+                                                <p class="doctor_bio_quote_text">
+                                                    For patients struggling with uneven skin tone or stubborn marks, I often recommend alpha arbutin.
+                                                    This serum combines 2% Alpha Arbutin with soothing ingredients to visibly reduce
+                                                    pigmentation—without the irritation that often comes with harsh brightening agents.
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -212,7 +216,7 @@
                                     <!-- Product Detail -->
                                     <div class="doctor_bio_product_box">
                                         <div class="doctor_bio_product_info">
-                                            <img src="https://via.placeholder.com/70x100" alt="Product" class="doctor_bio_prod_img">
+                                            <img src="./assets/img/product.webp" alt="Product" class="doctor_bio_prod_img">
                                             <div>
                                                 <div class="doctor_bio_prod_name">2% Alpha Arbutin<br>Depigmentation Serum</div>
                                                 <div class="doctor_bio_prod_price">₹315.0</div>
@@ -221,12 +225,14 @@
                                         </div>
                                         <hr style="width: 60px; border-top: 2px solid #000; opacity: 1; margin: 20px 0;">
                                         <!-- Quote Box -->
-                                        <div class="doctor_bio_quote_card">
-                                            <p class="doctor_bio_quote_text">
-                                                For patients struggling with uneven skin tone or stubborn marks, I often recommend alpha arbutin.
-                                                This serum combines 2% Alpha Arbutin with soothing ingredients to visibly reduce
-                                                pigmentation—without the irritation that often comes with harsh brightening agents.
-                                            </p>
+                                        <div class="our_team_product">
+                                            <div class="doctor_bio_quote_card">
+                                                <p class="doctor_bio_quote_text">
+                                                    For patients struggling with uneven skin tone or stubborn marks, I often recommend alpha arbutin.
+                                                    This serum combines 2% Alpha Arbutin with soothing ingredients to visibly reduce
+                                                    pigmentation—without the irritation that often comes with harsh brightening agents.
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -274,7 +280,7 @@
                                     <!-- Product Detail -->
                                     <div class="doctor_bio_product_box">
                                         <div class="doctor_bio_product_info">
-                                            <img src="https://via.placeholder.com/70x100" alt="Product" class="doctor_bio_prod_img">
+                                            <img src="./assets/img/product.webp" alt="Product" class="doctor_bio_prod_img">
                                             <div>
                                                 <div class="doctor_bio_prod_name">2% Alpha Arbutin<br>Depigmentation Serum</div>
                                                 <div class="doctor_bio_prod_price">₹315.0</div>
@@ -283,12 +289,14 @@
                                         </div>
                                         <hr style="width: 60px; border-top: 2px solid #000; opacity: 1; margin: 20px 0;">
                                         <!-- Quote Box -->
-                                        <div class="doctor_bio_quote_card">
-                                            <p class="doctor_bio_quote_text">
-                                                For patients struggling with uneven skin tone or stubborn marks, I often recommend alpha arbutin.
-                                                This serum combines 2% Alpha Arbutin with soothing ingredients to visibly reduce
-                                                pigmentation—without the irritation that often comes with harsh brightening agents.
-                                            </p>
+                                        <div class="our_team_product">
+                                            <div class="doctor_bio_quote_card">
+                                                <p class="doctor_bio_quote_text">
+                                                    For patients struggling with uneven skin tone or stubborn marks, I often recommend alpha arbutin.
+                                                    This serum combines 2% Alpha Arbutin with soothing ingredients to visibly reduce
+                                                    pigmentation—without the irritation that often comes with harsh brightening agents.
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -296,10 +304,11 @@
                         </div>
                     </div>
 
-                    <div class="doctor_bio_divider"></div>
+                    <!-- <div class="doctor_bio_divider"></div> -->
                     <!-- Repeat the above structure for more doctors -->
                 </div>
             </div>
         </section>
     </div>
-    <?php include 'footer.php'; ?>
+</section>
+<?php include 'footer.php'; ?>
