@@ -1,3 +1,27 @@
+<?php
+session_start();
+
+$correct_username = "mani";
+$correct_password = "12345";
+
+if(isset($_POST['login']))
+{
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    if($username == $correct_username && $password == $correct_password)
+    {
+        $_SESSION['website_login'] = true;
+    }
+    else
+    {
+        $error = "Invalid Username or Password";
+    }
+}
+
+if(!isset($_SESSION['website_login']))
+
+?>
 <?php include 'navbar.php'; ?>
 
 <!-- ════════════════════════════════════════════

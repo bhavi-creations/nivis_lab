@@ -128,8 +128,7 @@
                         <li><a href="moisturizers.php">Moisturisers</a></li>
                         <li><a href="face-wash.php">Face Wash</a></li>
                         <li><a href="sunscreens.php">Sunscreens</a></li>
-                        <!-- <li><a href="#">Explore all products</a></li> -->
-
+                        <li><a href="products.php">All Products</a></li>
                     </ul>
                 </li>
 
@@ -197,9 +196,9 @@
                 <button class="index_navbar_section__icon-btn" title="Account">
                     <i class="bi bi-person"></i>
                 </button>
-                <button class="index_navbar_section__icon-btn" title="Cart" style="position:relative">
+                <button class="index_navbar_section__icon-btn" title="Cart" style="position:relative" data-bs-toggle="modal" data-bs-target="#cartModal">
                     <i class="bi bi-bag"></i>
-                    <span class="index_navbar_section__cart-badge">0</span>
+                    <span class="index_navbar_section__cart-badge" id="cartBadge">0</span>
                 </button>
             </div>
 
@@ -324,6 +323,7 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/graphql-client.js"></script>
 
     <script>
         /* ─── Navbar scroll behaviour ─── */
@@ -376,7 +376,82 @@
         document.getElementById('indexHero').addEventListener('keydown', e => {
             if (e.key === 'Enter') window.location.href = 'product-detail.html';
         });
+
+        /* ─── Cart functionality ─── */
+        async function updateCartBadge() {
+            try {
+                const data = await getCart();
+                const totalItems = data.cart.items.reduce((sum, item) => sum + item.quantity, 0);
+                document.getElementById('cartBadge').textContent = totalItems;
+            } catch (error) {
+                console.error('Error updating cart badge:', error);
+            }
+        }
+
+        function displayCart(cart) {
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+
+            if (!cartItems || !cartTotal) return; // Modal might not be loaded on all pages
+
+            if (cart.items.length === 0) {
+                cartItems.innerHTML = '<p>Your cart is empty.</p>';
+                cartTotal.innerHTML = '';
+                return;
+            }
+
+            cartItems.innerHTML = cart.items.map(item => `
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div>
+                        <strong>${item.product.name}</strong> (x${item.quantity})
+                    </div>
+                    <div>₹${item.product.price * item.quantity}</div>
+                </div>
+            `).join('');
+
+            cartTotal.innerHTML = `<strong>Total: ₹${cart.total}</strong>`;
+        }
+
+        // Update cart badge on page load
+        updateCartBadge();
+
+        // Load cart when modal is shown
+        const cartModal = document.getElementById('cartModal');
+        if (cartModal) {
+            cartModal.addEventListener('show.bs.modal', async () => {
+                try {
+                    const data = await getCart();
+                    displayCart(data.cart);
+                } catch (error) {
+                    console.error('Error loading cart:', error);
+                }
+            });
+        }
     </script>
+
+    <!-- Cart Modal -->
+    <div class="modal fade" id="cartModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Your Cart</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="cart-items">
+                        <!-- Cart items will be loaded here -->
+                    </div>
+                    <div id="cart-total" class="mt-3">
+                        <!-- Total will be shown here -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continue Shopping</button>
+                    <button type="button" class="btn btn-primary">Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 
