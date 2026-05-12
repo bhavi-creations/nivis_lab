@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,6 +26,7 @@
 </head>
 
 <body>
+
 
     <!-- ════════════════════════════════════════════
      1. MARQUEE SECTION
@@ -210,7 +212,7 @@
         </div>
     </header>
 
-    
+
 
     <!-- Fixed Rewards pill -->
     <!-- <a href="#" class="our_section_5__rewards">

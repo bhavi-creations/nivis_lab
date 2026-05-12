@@ -297,41 +297,41 @@
                         SOLUTION FOR POST-ACNE MARKS AND BLEMISHES
                     </div>
                     <div class="routine-body">
-                        <div class="routine-step">
+                        <div class="routine-step" data-product-id="prod-ceramide-hydrating-cleanser">
                             <div class="step-check"><i class="fa fa-check" style="font-size:7px"></i></div>
                             <div style="flex:1">
                                 <div class="step-label">STEP 1 · CLEANSER</div>
                                 <div class="step-name">Ceramide Hyd…</div>
                             </div>
                             <div class="step-price">₹315</div>
-                            <button class="step-add-btn">ADD</button>
+                            <button class="step-add-btn" onclick="handleRoutineAction(this)">ADD</button>
                         </div>
-                        <div class="routine-step">
+                        <div class="routine-step" data-product-id="prod-niacinamide-dewy-skin-serum">
                             <div class="step-check"><i class="fa fa-check" style="font-size:7px"></i></div>
                             <div style="flex:1">
                                 <div class="step-label">STEP 2 · SERUM</div>
                                 <div class="step-name">10% Niacina…</div>
                             </div>
                             <div class="step-price">₹649</div>
-                            <button class="step-add-btn">ADD</button>
+                            <button class="step-add-btn" onclick="handleRoutineAction(this)">ADD</button>
                         </div>
-                        <div class="routine-step">
+                        <div class="routine-step" data-product-id="prod-niacinamide-oil-free-moisturizer-serum">
                             <div class="step-check"><i class="fa fa-check" style="font-size:7px"></i></div>
                             <div style="flex:1">
                                 <div class="step-label">STEP 3 · MOISTURIZER</div>
                                 <div class="step-name">3% Niacinam…</div>
                             </div>
                             <div class="step-price">₹549</div>
-                            <button class="step-add-btn">ADD</button>
+                            <button class="step-add-btn" onclick="handleRoutineAction(this)">ADD</button>
                         </div>
-                        <div class="routine-step">
+                        <div class="routine-step" data-product-id="prod-panthenol-hydrating-gel-sunscreen">
                             <div class="step-check"><i class="fa fa-check" style="font-size:7px"></i></div>
                             <div style="flex:1">
                                 <div class="step-label">STEP 4 · SUNSCREEN</div>
                                 <div class="step-name">Panth…</div>
                             </div>
                             <div class="step-price">₹599</div>
-                            <button class="step-this-btn">THIS PRODUCT</button>
+                            <button class="step-this-btn" onclick="handleRoutineAction(this)">THIS PRODUCT</button>
                         </div>
                     </div>
                     <div class="routine-footer">
@@ -354,41 +354,41 @@
                         SOLUTION FOR HYPERPIGMENTATION, ACNE MARKS AND AGE SPOTS
                     </div>
                     <div class="routine-body">
-                        <div class="routine-step">
+                        <div class="routine-step" data-product-id="prod-ceramide-hydrating-cleanser">
                             <div class="step-check"><i class="fa fa-check" style="font-size:7px"></i></div>
                             <div style="flex:1">
                                 <div class="step-label">STEP 1 · CLEANSER</div>
                                 <div class="step-name">Ceramide Hyd…</div>
                             </div>
                             <div class="step-price">₹315</div>
-                            <button class="step-add-btn">ADD</button>
+                            <button class="step-add-btn" onclick="handleRoutineAction(this)">ADD</button>
                         </div>
-                        <div class="routine-step">
+                        <div class="routine-step" data-product-id="prod-alpha-centella-depigmentation-serum">
                             <div class="step-check"><i class="fa fa-check" style="font-size:7px"></i></div>
                             <div style="flex:1">
                                 <div class="step-label">STEP 2 · SERUM</div>
                                 <div class="step-name">2% Alpha Arb…</div>
                             </div>
                             <div class="step-price">₹699</div>
-                            <button class="step-add-btn">ADD</button>
+                            <button class="step-add-btn" onclick="handleRoutineAction(this)">ADD</button>
                         </div>
-                        <div class="routine-step">
+                        <div class="routine-step" data-product-id="prod-niacinamide-oil-free-moisturizer-serum">
                             <div class="step-check"><i class="fa fa-check" style="font-size:7px"></i></div>
                             <div style="flex:1">
                                 <div class="step-label">STEP 3 · MOISTURIZER</div>
                                 <div class="step-name">3% Niacinam…</div>
                             </div>
                             <div class="step-price">₹549</div>
-                            <button class="step-add-btn">ADD</button>
+                            <button class="step-add-btn" onclick="handleRoutineAction(this)">ADD</button>
                         </div>
-                        <div class="routine-step">
+                        <div class="routine-step" data-product-id="prod-panthenol-hydrating-gel-sunscreen">
                             <div class="step-check"><i class="fa fa-check" style="font-size:7px"></i></div>
                             <div style="flex:1">
                                 <div class="step-label">STEP 4 · SUNSCREEN</div>
                                 <div class="step-name">Panth…</div>
                             </div>
                             <div class="step-price">₹599</div>
-                            <button class="step-this-btn">THIS PRODUCT</button>
+                            <button class="step-this-btn" onclick="handleRoutineAction(this)">THIS PRODUCT</button>
                         </div>
                     </div>
                     <div class="routine-footer">
@@ -405,6 +405,69 @@
                 </div>
 
             </div><!-- /routine-grid -->
+
+            <div id="relatedContent" class="related-content" style="padding:20px; border:1px solid #e0e0e0; margin-top:20px; background:#fafafa;">
+                <h2 style="margin-top:0;">Related recommendations</h2>
+                <p>Select a routine product to load recommendations and related content from the backend.</p>
+            </div>
+
+            <script>
+                const currentProductId = 'prod-ceramides-intensive-repair-cream';
+
+                async function handleRoutineAction(button) {
+                    const step = button.closest('.routine-step');
+                    if (!step) return;
+                    const productId = step.dataset.productId;
+                    if (!productId) return;
+
+                    try {
+                        const result = await addToCart(productId, 1);
+                        if (result.addToCart?.success) {
+                            alert('Added to cart successfully');
+                            if (typeof updateCartBadge === 'function') updateCartBadge();
+                        } else {
+                            alert(result.addToCart?.message || 'Unable to add product');
+                        }
+                    } catch (error) {
+                        console.error('Error adding routine product to cart:', error);
+                        alert('Unable to add product to cart.');
+                    }
+
+                    await loadRelatedContent(productId);
+                }
+
+                async function loadRelatedContent(productId) {
+                    try {
+                        const [productResponse, relatedResponse] = await Promise.all([
+                            getProduct(productId),
+                            getRelatedProducts(productId),
+                        ]);
+
+                        const product = productResponse.product;
+                        const related = relatedResponse.relatedProducts || [];
+                        const container = document.getElementById('relatedContent');
+                        if (!container) return;
+
+                        container.innerHTML = `
+                            <h2>Assistant recommendation for ${product.name}</h2>
+                            <p>${product.relatedContent || 'This product pairs well with the following items in your routine.'}</p>
+                            <div class="related-products" style="display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+                                ${related.map(item => `
+                                    <div style="border:1px solid #ddd;padding:12px;border-radius:10px;background:#fff;">
+                                        <div style="font-weight:700;margin-bottom:8px;">${item.name}</div>
+                                        <div style="font-size:13px;color:#555; margin-bottom:8px;">₹${item.price}</div>
+                                        <a href="${item.detailPage}" style="color:#007bff;text-decoration:none;">View product</a>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+                    } catch (error) {
+                        console.error('Error loading related content:', error);
+                    }
+                }
+
+                document.addEventListener('DOMContentLoaded', () => loadRelatedContent(currentProductId));
+            </script>
 
 
 

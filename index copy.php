@@ -1,4 +1,27 @@
+<?php
+session_start();
 
+$correct_username = "mani";
+$correct_password = "12345";
+
+if(isset($_POST['login']))
+{
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    if($username == $correct_username && $password == $correct_password)
+    {
+        $_SESSION['website_login'] = true;
+    }
+    else
+    {
+        $error = "Invalid Username or Password";
+    }
+}
+
+if(!isset($_SESSION['website_login']))
+
+?>
 <?php include 'navbar.php'; ?>
 
 <!-- ════════════════════════════════════════════
@@ -67,6 +90,82 @@
     <div class="col-3"></div>
 </div>
 
+
+<!-- <div class="container my-5 mb-5">
+
+    <div class="skin-wrapper_index">
+
+      
+        <div class="skin-label_index">SKIN ASSESSMENT</div>
+
+       
+        <div class="skin-section_index">
+
+            <div class="row align-items-center">
+
+                
+                <div class="col-md-7">
+                    <p class="text-danger fw-semibold mb-1">
+                        AI-POWERED SKIN ANALYSIS
+                    </p>
+
+                    <h2 class="skin-title_index">
+                        GET CURATED HELP FOR YOUR SKIN
+                    </h2>
+
+                    <p class="text-muted">
+                        Answer 3 quick questions — our AI dermat advisor will build a personalised routine just for
+                        you.
+                    </p>
+
+                    <button class="skin-btn_index">
+                        START MY SKIN ASSESSMENT →
+                    </button>
+                </div>
+
+               
+                <div class="col-md-5">
+
+                    <div class="feature-box_index">
+                        <div class="feature-icon_index">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div>
+                            <strong>Know your skin</strong><br>
+                            <small>Identify your skin type in seconds</small>
+                        </div>
+                    </div>
+
+                    <div class="feature-box_index">
+                        <div class="feature-icon_index">
+                            <i class="fa fa-heartbeat"></i>
+                        </div>
+                        <div>
+                            <strong>Target concerns</strong><br>
+                            <small>Acne, pigmentation, aging & more</small>
+                        </div>
+                    </div>
+
+                    <div class="feature-box_index">
+                        <div class="feature-icon_index">
+                            <i class="fa fa-image"></i>
+                        </div>
+                        <div>
+                            <strong>Photo analysis</strong><br>
+                            <small>AI analyses your skin for better results</small>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+</div> -->
 
 <div class="container my-5 ai_powered_skin_analysis">
     <div class="skin-wrapper_index border rounded-3 position-relative ">
@@ -200,6 +299,60 @@
 
 
 
+
+
+<!-- <div class="container mb-5">
+    <div class="img_section text-center">
+        <h2 class="fw-bold mb-4">SHOP BY CONCERN</h2>
+        <div class="row g-2 justify-content-center">
+
+            <div class="col-lg-2-custom">
+                <div class="concern-card"><img src="./assets/img/logo.jpeg" alt="2">
+                    <div class="concern-overlay">Acne </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2-custom">
+                <div class="concern-card"><img src="./assets/img/logo.jpeg" alt="1">
+                    <div class="concern-overlay">Pigmentation </div>
+                </div>
+            </div>
+            <div class="col-lg-2-custom">
+                <div class="concern-card"><img src="./assets/img/logo.jpeg" alt="3">
+                    <div class="concern-overlay">Acne Marks </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2-custom">
+                <div class="concern-card"><img src="./assets/img/logo.jpeg" alt="1">
+                    <div class="concern-overlay">Dark Spot </div>
+                </div>
+            </div>
+            <div class="col-lg-2-custom">
+                <div class="concern-card"><img src="./assets/img/logo.jpeg" alt="1">
+                    <div class="concern-overlay">Anti-Ageing </div>
+                </div>
+            </div>
+
+
+
+
+
+
+            <div class="col-lg-2-custom">
+                <div class="concern-card"><img src="./assets/img/logo.jpeg" alt="4">
+                    <div class="concern-overlay">Dehydration</div>
+                </div>
+            </div>
+            <div class="col-lg-2-custom">
+                <div class="concern-card"><img src="./assets/img/logo.jpeg" alt="5">
+                    <div class="concern-overlay">Eczema </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div> -->
 
 
 <div class="container my-5 img_section_container">
