@@ -400,7 +400,7 @@
 <section class="py-5 px-3 bg-light">
     <div class="container px-lg-5">
 
-        <h2 class="fw-bold mb-4 px-3">SHOP OUR SPOTLIGHTS</h2>
+        <h2 class="fw-bold mb-4 px-3"> </h2>
 
         <div class="product-carousel" id="spotlight-products">
             <div class="text-center w-100 py-4">
@@ -508,7 +508,7 @@
         <h2 class="video_section_title">FORMULATED WITH GLOBAL DERMATOLOGISTS</h2>
 
         <!-- Ikkada data dynamic ga load avthundhi -->
-        <div class="video_section_carousel" id="global-dermatology-container">
+        <div class="video_section_carousel" id="global-dermatology-products">
             <div class="text-center w-100 py-4">
                 <div class="spinner-border text-dark"></div>
                 <p>Loading Dermatology Products...</p>

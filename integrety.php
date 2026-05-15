@@ -316,19 +316,18 @@
         });
       }
 
-      document.getElementById("filterBar").addEventListener("click", e => {
-        const btn = e.target.closest(".filter-btn");
-        if (!btn) return;
-        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        activeCategory = btn.dataset.cat;
-        currentPage = 1;
+      document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById("filterBar").addEventListener("click", e => {
+          const btn = e.target.closest(".filter-btn");
+          if (!btn) return;
+          document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          activeCategory = btn.dataset.cat;
+          currentPage = 1;
         renderGrid();
         renderPagination();
       });
-
-      renderGrid();
-      renderPagination();
+      });
     </script>
   </div>
   <?php include 'footer.php' ; ?>

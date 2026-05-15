@@ -103,14 +103,16 @@
     }
 
     // Filter Logic
-    document.getElementById('filter-nav').addEventListener('click', (e) => {
-        if (e.target.tagName === 'A') {
-            document.querySelectorAll('#filter-nav a').forEach(a => a.classList.remove('active'));
-            e.target.classList.add('active');
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('filter-nav').addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                document.querySelectorAll('#filter-nav a').forEach(a => a.classList.remove('active'));
+                e.target.classList.add('active');
 
             currentCategory = e.target.getAttribute('data-filter');
             renderUI();
         }
+    });
     });
 
     // Initial Load

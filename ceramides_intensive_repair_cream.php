@@ -1126,8 +1126,10 @@
         document.getElementById('qName').value = '';
         document.getElementById('qText').value = '';
     }
-    document.getElementById('openAskForm').addEventListener('click', openAskForm);
-    document.getElementById('openAskForm2').addEventListener('click', openAskForm);
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('openAskForm').addEventListener('click', openAskForm);
+        document.getElementById('openAskForm2').addEventListener('click', openAskForm);
+    });
 
     function submitQuestion() {
         const name = document.getElementById('qName').value.trim();
@@ -1280,8 +1282,10 @@
     setImage(0);
 
     // Arrow controls
-    document.getElementById('arrowLeft').addEventListener('click', () => setImage(currentIndex - 1));
-    document.getElementById('arrowRight').addEventListener('click', () => setImage(currentIndex + 1));
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('arrowLeft').addEventListener('click', () => setImage(currentIndex - 1));
+        document.getElementById('arrowRight').addEventListener('click', () => setImage(currentIndex + 1));
+    });
 
     // Tab switching
     function switchTab(el, id) {

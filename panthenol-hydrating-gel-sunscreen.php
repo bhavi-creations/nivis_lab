@@ -584,8 +584,10 @@
     setImage(0);
 
     // Arrow controls
-    document.getElementById('arrowLeft').addEventListener('click', () => setImage(currentIndex - 1));
-    document.getElementById('arrowRight').addEventListener('click', () => setImage(currentIndex + 1));
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('arrowLeft').addEventListener('click', () => setImage(currentIndex - 1));
+        document.getElementById('arrowRight').addEventListener('click', () => setImage(currentIndex + 1));
+    });
 
     // Tab switching
     function switchTab(el, id) {
@@ -664,8 +666,10 @@
         setImage(0);
 
         // Arrow controls
-        document.getElementById('arrowLeft').addEventListener('click', () => setImage(currentIndex - 1));
-        document.getElementById('arrowRight').addEventListener('click', () => setImage(currentIndex + 1));
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('arrowLeft').addEventListener('click', () => setImage(currentIndex - 1));
+            document.getElementById('arrowRight').addEventListener('click', () => setImage(currentIndex + 1));
+        });
     </script>
     <?php include 'footer.php'; ?>
 </body>
