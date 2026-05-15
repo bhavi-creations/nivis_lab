@@ -2,7 +2,7 @@
 // Save this file as assets/js/graphql-client.js
 
 const GraphQLClient = {
-  endpoint: './graphql-api.php',
+  endpoint: './graphql-api.php', // Points to backend GraphQL API
   headers: {
     'Content-Type': 'application/json',
   },

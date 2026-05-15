@@ -1,0 +1,162 @@
+╔════════════════════════════════════════════════════════════════════╗
+║         Nivis Lab E-Commerce - Quick Reference                      ║
+║                    Local Development Setup                          ║
+╚════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📍 PROJECT LOCATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  C:\xampp\htdocs\nivis_lab
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚀 STARTUP COMMANDS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Start XAMPP:
+   cd C:\xampp
+   .\apache_start.bat
+
+2. Install Dependencies:
+   cd C:\xampp\htdocs\nivis_lab
+   composer install
+
+3. Check Status:
+   Open: http://localhost/nivis_lab/status.php
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🌐 MAIN URLs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Home:                http://localhost/nivis_lab/index.php
+Products:            http://localhost/nivis_lab/products.php
+Admin Dashboard:     http://localhost/nivis_lab/admin.php ⭐
+GraphQL API:         http://localhost/nivis_lab/graphql-api.php
+GraphQL Test:        http://localhost/nivis_lab/test-graphql.php
+System Status:       http://localhost/nivis_lab/status.php
+Setup Guide:         View SETUP_GUIDE.md in VS Code
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📁 KEY FILES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+config.php              - Configuration & Helper Functions
+graphql-api.php         - Backend GraphQL API Endpoint
+admin.php               - Admin Dashboard with GraphQL
+assets/js/              - JavaScript files
+  ├── graphql-client.js - Frontend GraphQL Client
+vendor/                 - Composer dependencies
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔌 HOW TO USE GraphQL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Include in PHP:
+  <script src="./assets/js/graphql-client.js"></script>
+
+Get Products:
+  const data = await GraphQLClient.getProducts();
+  console.log(data);
+
+Add to Cart:
+  await GraphQLClient.addToCart(productId, quantity);
+
+Check Auth:
+  const auth = await GraphQLClient.checkAuthStatus();
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🧪 TESTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Method 1 - Browser Console (F12):
+  await GraphQLClient.getProducts()
+
+Method 2 - Open URL:
+  http://localhost/nivis_lab/test-graphql.php
+
+Method 3 - Admin Dashboard:
+  http://localhost/nivis_lab/admin.php
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🐛 TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Problem: "vendor/autoload.php not found"
+  → Run: composer install
+
+Problem: "GraphQL API not responding"
+  → Check: http://localhost/nivis_lab/status.php
+  → Check Browser Console (F12) for errors
+
+Problem: "Port already in use"
+  → Change port in XAMPP: httpd.conf
+  → Set: Listen 8080
+  → Access: http://localhost:8080/nivis_lab/
+
+Problem: "Products not loading"
+  → Open Console (F12)
+  → Check Network tab for API response
+  → Verify graphql-api.php is running
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 ARCHITECTURE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Frontend (PHP/HTML)
+        ↓
+JavaScript (GraphQL Client)
+        ↓
+GraphQL API (graphql-api.php)
+        ↓
+Backend Data (Products, Cart, Auth)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✨ QUICK START (5 MINUTES)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Open PowerShell
+2. cd C:\xampp
+3. .\apache_start.bat
+4. cd htdocs\nivis_lab
+5. composer install
+6. Open: http://localhost/nivis_lab/admin.php
+
+Done! ✅ You should see products from GraphQL API
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📞 COMMAND CHEATSHEET
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Install packages
+composer install
+
+# Update packages
+composer update
+
+# Start XAMPP
+cd C:\xampp && .\apache_start.bat
+
+# Stop XAMPP
+cd C:\xampp && .\apache_stop.bat
+
+# View PHP version
+php -v
+
+# Check GraphQL
+curl -X POST http://localhost/nivis_lab/graphql-api.php \
+  -H "Content-Type: application/json" \
+  -d '{"query":"{ products { id name } }"}'
+
+
+╔════════════════════════════════════════════════════════════════════╗
+║  Last Updated: 2026-05-12                                          ║
+║  For detailed info: Read SETUP_GUIDE.md                            ║
+╚════════════════════════════════════════════════════════════════════╝

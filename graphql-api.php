@@ -10,6 +10,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 session_start();
 
+// Load Configuration
+require_once __DIR__ . '/config.php';
+
 try {
     require __DIR__ . '/vendor/autoload.php';
     

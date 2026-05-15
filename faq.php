@@ -1,4 +1,4 @@
-<?php include 'navbar.php'; ?>
+
 
 
 <!DOCTYPE html>
@@ -588,4 +588,3 @@
 </body>
 
 </html>
-<?php inlude 'footer.php' ; ?>
