@@ -331,6 +331,7 @@
         /* ─── Navbar scroll behaviour ─── */
         const navbar = document.getElementById('indexNavbar');
         window.addEventListener('scroll', () => {
+            if (!navbar) return;
             if (window.scrollY > 10) {
                 navbar.classList.add('index_navbar_section--scrolled');
             } else {
@@ -358,9 +359,11 @@
             document.body.style.overflow = '';
         }
 
-        burger.addEventListener('click', openMenu);
-        closeBtn.addEventListener('click', closeMenu);
-        backdrop.addEventListener('click', closeMenu);
+        if (burger && offcanvas && backdrop && closeBtn) {
+            burger.addEventListener('click', openMenu);
+            closeBtn.addEventListener('click', closeMenu);
+            backdrop.addEventListener('click', closeMenu);
+        }
 
         /* ─── Mobile accordion (+ toggle for sub-services) ─── */
         document.querySelectorAll('.index_navbar_section__mob-item[data-has-sub]').forEach(item => {
@@ -375,9 +378,12 @@
         });
 
         /* ─── Hero keyboard accessibility ─── */
-        document.getElementById('indexHero').addEventListener('keydown', e => {
-            if (e.key === 'Enter') window.location.href = 'product-detail.html';
-        });
+        const indexHero = document.getElementById('indexHero');
+        if (indexHero) {
+            indexHero.addEventListener('keydown', e => {
+                if (e.key === 'Enter') window.location.href = 'product-detail.html';
+            });
+        }
 
         /* ─── Cart functionality ─── */
         async function updateCartBadge() {
@@ -455,6 +461,3 @@
         </div>
     </div>
 
-</body>
-
-</html>

@@ -413,6 +413,18 @@
 </section>
 
 
+<section class="py-5 px-3">
+    <div class="container px-lg-5">
+        <div id="dynamic-category-sections">
+            <div class="text-center w-100 py-4">
+                <div class="spinner-border text-dark"></div>
+                <p class="mt-2">Loading category products...</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 
 <!-- formulated sesction   -->
 <!-- explore  section stylings  -->
@@ -1456,6 +1468,103 @@ function initSpotlightSlider() {
     }
 
      /* ================= GLOBAL DERMATOLOGY END ================= */
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', loadDynamicCategorySections);
+
+    function homeSectionEscape(value) {
+        return String(value ?? '').replace(/[&<>"']/g, function(char) {
+            return {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            }[char];
+        });
+    }
+
+    function homeSectionProductHref(product) {
+        if (product.link) return product.link;
+        if (product.urlKey) return `${product.urlKey}.php`;
+        if (product.url_key) return `${product.url_key}.php`;
+        return '#';
+    }
+
+    async function loadDynamicCategorySections() {
+        const container = document.getElementById('dynamic-category-sections');
+        if (!container) return;
+
+        try {
+            const response = await fetch('fetch_home_sections.php');
+            const result = await response.json();
+
+            if (result.error || result.errors) {
+                console.error(result.error || result.errors);
+                container.innerHTML = `
+                    <div class="alert alert-danger text-center">
+                        Category products loading failed.
+                    </div>
+                `;
+                return;
+            }
+
+            const categories = result.data?.categories?.items || [];
+            const sectionsHtml = categories.map(category => {
+                const products = category.products?.items || [];
+                const categorySlug = category.urlKey || category.url_key || '';
+
+                if (products.length === 0) return '';
+
+                return `
+                    <section class="category-section mb-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+                            <h2 class="fw-bold text-capitalize mb-0">${homeSectionEscape(category.name)}</h2>
+                            <a href="${categorySlug ? `${homeSectionEscape(categorySlug)}.php` : '#'}" class="btn btn-sm btn-outline-dark">View All</a>
+                        </div>
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+                            ${products.map(product => {
+                                const imageUrl = product.imageUrl || product.primaryImage || './assets/img/logo.jpeg';
+                                const productName = product.name || 'Product Name';
+                                const productPrice = product.price?.regular?.text || product.price || '₹0';
+                                const concern = product.concern || 'Skincare';
+                                const stars = product.stars || '★★★★★';
+                                const reviews = product.reviewsCount || 120;
+
+                                return `
+                                    <div class="col">
+                                        <div class="product-card h-100">
+                                            <a href="${homeSectionEscape(homeSectionProductHref(product))}">
+                                                <img src="${homeSectionEscape(imageUrl)}" class="w-100 mb-3" alt="${homeSectionEscape(productName)}">
+                                                <h6 class="fw-bold">${homeSectionEscape(productName)}</h6>
+                                                <p class="small text-muted mb-2">/${homeSectionEscape(concern)}/</p>
+                                                <div class="small mb-2">${homeSectionEscape(stars)} (${homeSectionEscape(reviews)} reviews)</div>
+                                                <div class="mb-3">
+                                                    <span class="badge-b1g1">B1G1</span>
+                                                    <span class="free-text ms-1">${homeSectionEscape(productPrice)}</span>
+                                                </div>
+                                            </a>
+                                            <button class="btn btn-dark w-100 rounded-0">ADD TO CART</button>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </section>
+                `;
+            }).join('');
+
+            container.innerHTML = sectionsHtml.trim() || '<p class="text-center w-100">No category products found.</p>';
+        } catch (error) {
+            console.error(error);
+            container.innerHTML = `
+                <div class="alert alert-danger text-center">
+                    ${homeSectionEscape(error.message)}
+                </div>
+            `;
+        }
+    }
 </script>
 
 <?php include 'footer.php'; ?>

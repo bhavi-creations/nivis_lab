@@ -1468,7 +1468,7 @@ input[type="range"]::-webkit-slider-thumb {
 .salicylic_acid_first_section {
     /* Background image path ikkada ivvandi */
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-        url('./assets/img/bg_img.png');
+        url('../img/bg_img.png');
     background-size: cover;
     background-position: center;
     padding: 100px 0;
