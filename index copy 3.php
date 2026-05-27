@@ -1004,158 +1004,13 @@
 </script>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    fetchSpotlightProducts();
-});
+    document.addEventListener('DOMContentLoaded', function() {
+        fetchSpotlightProducts();
 
-async function fetchSpotlightProducts() {
-    const container = document.getElementById('spotlight-products');
-
-    if (!container) {
-        console.error('spotlight-products id not found');
-        return;
-    }
-
-    try {
-        const response = await fetch('fetch_data.php?type=spotlights');
-        const rawData = await response.text();
-
-        let result;
-
-        try {
-            result = JSON.parse(rawData);
-        } catch (e) {
-            console.log(rawData);
-            container.innerHTML = `
-                <div class="alert alert-danger text-center w-100">
-                    Invalid JSON from fetch_data.php
-                </div>
-            `;
-            return;
-        }
-
-        if (result.error) {
-            container.innerHTML = `
-                <div class="alert alert-danger text-center w-100">
-                    ${result.error}
-                </div>
-            `;
-            return;
-        }
-
-        if (result.errors) {
-            console.error(result.errors);
-            container.innerHTML = `
-                <div class="alert alert-danger text-center w-100">
-                    GraphQL error. Console check cheyyi.
-                </div>
-            `;
-            return;
-        }
-
-        const products = result.data?.productsByCategory || [];
-
-        console.log('SPOTLIGHT PRODUCTS:', products);
-
-        renderSpotlightProducts(products);
-
-    } catch (error) {
-        container.innerHTML = `
-            <div class="alert alert-danger text-center w-100">
-                ${error.message}
-            </div>
-        `;
-    }
-}
-
-function renderSpotlightProducts(products) {
-    const container = document.getElementById('spotlight-products');
-
-    if (!container) return;
-
-    if (typeof $ !== 'undefined' && $('#spotlight-products').hasClass('slick-initialized')) {
-        $('#spotlight-products').slick('unslick');
-    }
-
-    container.innerHTML = '';
-
-    if (!products || products.length === 0) {
-        container.innerHTML = `
-            <p class="text-center w-100">
-                No spotlight products found.
-            </p>
-        `;
-        return;
-    }
-
-    products.forEach(product => {
-        const imageUrl = product.primaryImage
-            ? product.primaryImage
-            : './assets/img/logo.jpeg';
-
-        const productName = product.name || 'Product Name';
-        const productPrice = product.price || 'N/A';
-        const originalPrice = product.originalPrice || productPrice;
-        const concern = product.concern || 'Skin Care';
-        const productLink = product.link || '#';
-        const stars = product.stars || '★★★★★';
-        const reviews = product.reviewsCount || '200';
-        const boughtTag = product.boughtTag || '196+ bought in past month';
-
-        container.innerHTML += `
-            <div class="px-2">
-                <div class="product-card">
-                    <a href="${productLink}">
-                        <img src="${imageUrl}" class="w-100 mb-3" alt="${productName}">
-                        <h6 class="fw-bold">${productName}</h6>
-                        <p class="small text-muted mb-2">/${concern}/</p>
-                        <div class="small mb-2">${stars} (${reviews} reviews)</div>
-                        <div class="mb-3">
-                            <span class="badge-b1g1">B1G1</span>
-                            <del class="text-muted ms-1">${originalPrice}</del>
-                            <span class="free-text ms-1">${productPrice}</span>
-                        </div>
-                        <small>${boughtTag}</small>
-                    </a>
-                    <button class="btn btn-dark w-100 rounded-0 mt-2">ADD TO CART</button>
-                </div>
-            </div>
-        `;
+        /* GLOBAL DERMATOLOGY CALL */
+        fetchGlobalDermatologyProducts();
     });
 
-    initSpotlightSlider();
-}
-
-function initSpotlightSlider() {
-    if (typeof $ === 'undefined' || typeof $.fn.slick === 'undefined') {
-        console.error('Slick slider JS/CSS include cheyyaledhu');
-        return;
-    }
-
-    $('#spotlight-products').slick({
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        infinite: true,
-        arrows: true,
-        dots: false,
-        autoplay: true,
-        autoplaySpeed: 2500,
-        responsive: [
-            {
-                breakpoint: 1200,
-                settings: { slidesToShow: 3 }
-            },
-            {
-                breakpoint: 768,
-                settings: { slidesToShow: 2 }
-            },
-            {
-                breakpoint: 576,
-                settings: { slidesToShow: 1 }
-            }
-        ]
-    });
-}
     /* ================= SPOTLIGHT PRODUCTS START ================= */
 
     async function fetchSpotlightProducts() {
@@ -1455,7 +1310,7 @@ function initSpotlightSlider() {
         });
     }
 
-     /* ================= GLOBAL DERMATOLOGY END ================= */
+    /* ================= GLOBAL DERMATOLOGY END ================= */
 </script>
 
 <?php include 'footer.php'; ?>

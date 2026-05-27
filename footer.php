@@ -228,7 +228,7 @@
                     <strong>${formatPrice(totalAmount)}</strong>
                 </div>
                 <div class="d-grid gap-2">
-                    <a href="cart.php" class="btn btn-dark">Go to Checkout</a>
+                    <a href="#" class="btn btn-dark">Go to Checkout</a>
                 </div>
             </div>
         `;

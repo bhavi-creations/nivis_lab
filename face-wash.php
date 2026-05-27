@@ -1,27 +1,19 @@
 <?php include 'navbar.php'; ?>
 
-
 <img src="./assets/img/face-wash.webp" alt="" class="img-fluid">
 
-
-
-<!-- BREADCRUMB -->
 <div class="breadcrumb-row">
-  <a href="#">Home</a> /Face Wash
+  <a href="#">Home</a> / Face Wash
 </div>
 
-<!-- PAGE TITLE -->
 <h1 class="page-title">Face Wash</h1>
 
-<!-- SHOP LAYOUT -->
 <div class="container">
   <div class="shop-layout">
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
       <h5>Filters</h5>
 
-      <!-- PRICE -->
       <div class="filter-group">
         <div class="filter-group-header" onclick="toggleFilter(this)">
           Price <span class="toggle-icon">+</span>
@@ -37,299 +29,219 @@
         </div>
       </div>
 
-      <!-- SKIN CONCERN -->
-      <!-- <div class="filter-group">
-          <div class="filter-group-header" onclick="toggleFilter(this)">
-            Skin Concern <span class="toggle-icon">+</span>
-          </div>
-          <div class="filter-body" id="filter-concern">
-            <label><input type="checkbox" value="pigmentation" onchange="applyFilters()"> Pigmentation <span
-                class="count">(1)</span></label> 
-            <label><input type="checkbox" value="acne" onchange="applyFilters()"> Acne <span
-                class="count">(1)</span></label>
-            <label><input type="checkbox" value="eczema" onchange="applyFilters()"> Eczema <span
-                class="count">(1)</span></label>
-            <label><input type="checkbox" value="brightening" onchange="applyFilters()"> Brightening <span
-                class="count">(1)</span></label>
-             <label><input type="checkbox" value="hydration" onchange="applyFilters()"> Hydration <span
-                class="count">(1)</span></label> 
-          </div>
-        </div>-->
-
-      <!-- INGREDIENT -->
-      <!-- <div class="filter-group">
-          <div class="filter-group-header" onclick="toggleFilter(this)">
-            Ingredient <span class="toggle-icon">+</span>
-          </div>
-          <div class="filter-body" id="filter-ingredient">
-            <label><input type="checkbox" value="alpCeramides" onchange="applyFilters()"> Alpha ceramides <span
-                class="count">(1)</span></label>
-            <label><input type="checkbox" value="ceramides" onchange="applyFilters()"> ceramides <span
-                class="count">(1)</span></label>
-            <label><input type="checkbox" value="hyaluronic-acid " onchange="applyFilters()"> hyaluronic-acid  <span
-                class="count">(1)</span></label>
-            <label><input type="checkbox" value="Ceramides" onchange="applyFilters()"> Ceramides Asiatica (Cica) <span
-                class="count">(2)</span></label>
-            <label><input type="checkbox" value="Ceramides" onchange="applyFilters()"> Ferulic Acid <span
-                class="count">(1)</span></label>
-            <label><input type="checkbox" value="hyaluronic-acid" onchange="applyFilters()"> Hyaluronic Acid <span
-                class="count">(1)</span></label>
-          </div>
-        </div> -->
-
-
       <div class="filter-group">
         <div class="filter-group-header" onclick="toggleFilter(this)">
           Ingredient <span class="toggle-icon">+</span>
         </div>
         <div class="filter-body" id="filter-ingredient">
-          <label><input type="checkbox" value="Ceramides" onchange="applyFilters()"> Ceramides <span
-              class="count">(1)</span></label>
-          <label><input type="checkbox" value="Glycerin" onchange="applyFilters()"> Glycerin <span
-              class="count">(1)</span></label>
-          <label><input type="checkbox" value="Hyaluronic" onchange="applyFilters()"> Hyaluronic Acid <span
-              class="count">(1)</span></label>
-
-          <label><input type="checkbox" value="panthenol" onchange="applyFilters()"> Panthenol <span
-              class="count">(1)</span></label>
-
-
-          <!--   <label><input type="checkbox" value="Ceramides" onchange="applyFilters()"> Ceramides <span
-                class="count">(2)</span></label>
-             <label><input type="checkbox" value="hyaluronic-acid" onchange="applyFilters()"> Hyaluronic Acid <span
-                class="count">(1)</span></label> -->
+          <label><input type="checkbox" value="Ceramides" onchange="applyFilters()"> Ceramides <span class="count">(1)</span></label>
+          <label><input type="checkbox" value="Glycerin" onchange="applyFilters()"> Glycerin <span class="count">(1)</span></label>
+          <label><input type="checkbox" value="Hyaluronic" onchange="applyFilters()"> Hyaluronic Acid <span class="count">(1)</span></label>
+          <label><input type="checkbox" value="panthenol" onchange="applyFilters()"> Panthenol <span class="count">(1)</span></label>
         </div>
       </div>
 
-      <!-- PRODUCT TYPE -->
       <div class="filter-group">
         <div class="filter-group-header" onclick="toggleFilter(this)">
           Product Type <span class="toggle-icon">+</span>
         </div>
         <div class="filter-body" id="filter-type">
-          <label><input type="checkbox" value="facial-cleansers" onchange="applyFilters()"> Facial Cleansers <span
-              class="count">(2)</span></label>
-          <!-- <label><input type="checkbox" value="lotus_moisturizers" onchange="applyFilters()"> Lotions & Moisturizers<span
-                class="count">(6)</span></label> -->
+          <label><input type="checkbox" value="facial-cleansers" onchange="applyFilters()"> Facial Cleansers <span class="count">(2)</span></label>
         </div>
       </div>
     </aside>
 
-    <!-- PRODUCT GRID -->
     <div class="product-grid-wrap">
-      <div class="product-count" id="productCount">7 products</div>
+      <div class="product-count" id="productCount">Loading products...</div>
 
       <div class="products-grid" id="productsGrid">
-
-        <!-- PRODUCT 1 -->
-
-        <div class="product-card" data-price="649" data-concern="acne pigmentation" data-ingredient="centella"
-          data-type="face-serum">
-          <a href="ceramide_hydrating_cleanser.php">
-            <div class="product-img-wrap">
-              <img class="img-primary" src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&q=80"
-                alt="Niacinamide Serum" />
-              <img class="img-secondary" src="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=400&q=80"
-                alt="Niacinamide Serum hover" />
-            </div>
-            <div class="product-info">
-              <div class="product-name">Ceramide Hydrating Cleanser</div>
-              <div class="product-sub">/Gently cleanses and hydrates, preserving the skin’s protective barrier with 5 essential ceramides/</div>
-              <div><span class="stars">★★★★½</span><span class="review-count">( 120 reviews)</span></div>
-              <div class="product-price">₹649</div>
-              <span class="bought-tag">196+ bought in past month</span>
-
-            </div>
-          </a>
-          <button class="btn-cart">Add to Cart</button>
+        <div class="text-center w-100 py-4">
+          <div class="spinner-border text-dark"></div>
+          <p class="mt-2">Loading Face Wash products...</p>
         </div>
+      </div>
+    </div>
 
-
-        <!-- PRODUCT 2 -->
-        <div class="product-card" data-price="699" data-concern="pigmentation" data-ingredient="alpha-arbutin arbutin"
-          data-type="face-serum">
-          <a href="alpha_arbutin_depigmentation_serum.php">
-            <div class="product-img-wrap">
-              <img class="img-primary" src="https://images.unsplash.com/photo-1599305090598-fe179d501227?w=400&q=80"
-                alt="Alpha Arbutin Serum" />
-              <img class="img-secondary" src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=400&q=80"
-                alt="Alpha Arbutin hover" />
-            </div>
-            <div class="product-info">
-              <div class="product-name">2% Alpha Arbutin Depigmentation Serum</div>
-              <div class="product-sub">/ Solution for hyperpigmentation, acne marks and uneven skin tone /</div>
-              <div><span class="stars">★★★★½</span><span class="review-count">(327 reviews)</span></div>
-              <div class="product-price">₹699</div>
-              <span class="bought-tag">129+ bought in past month</span>
-
-
-            </div>
-          </a>
-          <button class="btn-cart">Add to Cart</button>
-        </div>
-
-        <!-- PRODUCT 3 -->
-        <div class="product-card" data-price="699" data-concern="brightening" data-ingredient="ferulic-acid"
-          data-type="face-serum">
-          <div class="product-img-wrap">
-            <a href="vitamin_c_brightening_serum.php">
-              <img class="img-primary" src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&q=80"
-                alt="Vitamin C Serum" />
-              <img class="img-secondary" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=400&q=80"
-                alt="Vitamin C hover" />
-          </div>
-          <div class="product-info">
-            <div class="product-name">10% Vitamin C Brightening Serum</div>
-            <div class="product-sub">/ Solution for dark spots, uneven skin tone, dullness /</div>
-            <div><span class="stars">★★★★½</span><span class="review-count">(128 reviews)</span></div>
-            <div class="product-price">₹699</div>
-            <span class="bought-tag">58+ bought in past month</span>
-            </a>
-            <button class="btn-cart">Add to Cart</button>
-          </div>
-        </div>
-
-        <!-- PRODUCT 4 -->
-        <div class="product-card" data-price="699" data-concern="lines-wrinkles" data-ingredient="bakuchiol"
-          data-type="face-serum">
-          <div class="product-img-wrap">
-            <a href="pure_retinol_face_serum.php">
-              <img class="img-primary" src="https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=400&q=80"
-                alt="Retinol Serum" />
-              <img class="img-secondary" src="https://images.unsplash.com/photo-1582095133179-bfd08e2fb6b8?w=400&q=80"
-                alt="Retinol hover" />
-          </div>
-          <div class="product-info">
-            <div class="product-name">0.3% Pure Retinol Face Serum</div>
-            <div class="product-sub">/ Solution for visible signs of ageing like fine lines, wrinkles /</div>
-            <div><span class="stars">★★★★½</span><span class="review-count">(128 reviews)</span></div>
-            <div class="product-price">₹699</div>
-            <span class="bought-tag">58+ bought in past month</span>
-            </a>
-
-          </div>
-          <button class="btn-cart">Add to Cart</button>
-        </div>
-
-        <!-- PRODUCT 5 -->
-        <div class="product-card" data-price="649" data-concern="acne" data-ingredient="centella"
-          data-type="face-serum">
-          <div class="product-img-wrap">
-            <a href="salicylic_acid_anti_acne_serum.php">
-              <img class="img-primary" src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80"
-                alt="Salicylic Acid Serum" />
-              <img class="img-secondary" src="https://images.unsplash.com/photo-1576426863848-c21f53c60b19?w=400&q=80"
-                alt="Salicylic Acid hover" />
-          </div>
-          <div class="product-info">
-            <div class="product-name">2% Salicylic Acid Anti-Acne Serum</div>
-            <div class="product-sub">/ Solution for acne, clogged pores and sebum regulation /</div>
-            <div><span class="stars">★★★★</span><span class="review-count">(83 reviews)</span></div>
-            <div class="product-price">₹649</div>
-            <span class="bought-tag">58+ bought in past month</span>
-
-          </div>
-          </a>
-          <button class="btn-cart">Add to Cart</button>
-        </div>
-
-        <!-- PRODUCT 6 -->
-        <div class="product-card" data-price="495" data-concern="acne" data-ingredient="centella"
-          data-type="acne-kit">
-          <div class="product-img-wrap">
-            <a href="salicylic_acid_acne_spot_treatment_gel.php">
-              <img class="img-primary" src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=400&q=80"
-                alt="Acne Spot Gel" />
-              <img class="img-secondary" src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=400&q=80"
-                alt="Acne Spot Gel hover" />
-          </div>
-          <div class="product-info">
-            <div class="product-name">Salicylic Acid Acne Spot Treatment Gel</div>
-            <div class="product-sub">/ Solution for rapid healing of acne, pimples and breakouts /</div>
-            <div><span class="stars">★★★★★</span><span class="review-count">(47 reviews)</span></div>
-            <div class="product-price">₹495</div>
-            <span class="bought-tag">46+ bought in past month</span>
-
-          </div>
-          </a>
-          <button class="btn-cart">Add to Cart</button>
-        </div>
-
-        <!-- PRODUCT 7 -->
-        <div class="product-card" data-price="649" data-concern="hydration" data-ingredient="hyaluronic-acid"
-          data-type="face-serum">
-          <div class="product-img-wrap">
-            <a href="hyaluronic_acid_dewy_skin_serum.php">
-              <img class="img-primary" src="https://images.unsplash.com/photo-1567721913486-6585f069b3b0?w=400&q=80"
-                alt="Hyaluronic Acid Serum" />
-              <img class="img-secondary" src="https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?w=400&q=80"
-                alt="Hyaluronic Acid hover" />
-          </div>
-          <div class="product-info">
-            <div class="product-name">2% Hyaluronic Acid Dewy Skin Serum</div>
-            <div class="product-sub">/ Solution for compromised skin barrier, dull, dry and dehydrated skin /</div>
-            <div><span class="stars">★★★★</span><span class="review-count">(9 reviews)</span></div>
-            <div class="product-price">₹649</div>
-            <span class="bought-tag">500+ bought in past month</span>
-
-            </a>
-          </div>
-          <button class="btn-cart">Add to Cart</button>
-        </div>
-
-      </div><!-- /products-grid -->
-    </div><!-- /product-grid-wrap -->
   </div>
 </div>
-<!-- /shop-layout -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
-  /* ── Toggle filter sections ── */
+  document.addEventListener('DOMContentLoaded', function() {
+    fetchFaceWashProducts();
+  });
+
+  // Backend నుండి కేవలం face-wash డేటాను తెచ్చే ఫంక్షన్
+  async function fetchFaceWashProducts() {
+    const grid = document.getElementById('productsGrid');
+    if (!grid) return;
+
+    try {
+      // ఇక్కడ type=face-wash అని పంపుతున్నాం, మన డైనమిక్ బ్యాకెండ్ దీనికి తగిన ప్రొడక్ట్స్ మాత్రమే ఇస్తుంది
+      const response = await fetch('fetch_data.php?type=face-wash');
+      const rawData = await response.text();
+
+      let result;
+      try {
+        result = JSON.parse(rawData);
+      } catch (e) {
+        console.log(rawData);
+        grid.innerHTML = `<div class="alert alert-danger">Invalid JSON response</div>`;
+        return;
+      }
+
+      if (result.errors) {
+        console.error(result.errors);
+        grid.innerHTML = `<div class="alert alert-danger">GraphQL error. Console check cheyyi.</div>`;
+        return;
+      }
+
+      const products = result.data?.products?.items || [];
+      console.log('FACE WASH PRODUCTS:', products);
+
+      renderProducts(products);
+
+    } catch (error) {
+      grid.innerHTML = `<div class="alert alert-danger">${error.message}</div>`;
+    }
+  }
+
+  function cleanText(value, defaultText = '') {
+    if (!value) return defaultText;
+    if (Array.isArray(value)) {
+      return value.map(v => cleanText(v, '')).join(' ');
+    }
+    if (typeof value === 'object') {
+      return value.name || value.value || value.label || value.url_key || defaultText;
+    }
+    return String(value);
+  }
+
+  function getNumberFromPrice(priceText) {
+    return parseInt(String(priceText || '').replace(/[^\d]/g, '')) || 0;
+  }
+
+  // కేవలం Face Wash ప్రొడక్ట్స్‌ను డైనమిక్‌గా స్క్రీన్ మీద చూపించే ఫంక్షన్
+  function renderProducts(products) {
+    const grid = document.getElementById('productsGrid');
+    const count = document.getElementById('productCount');
+
+    grid.innerHTML = '';
+
+    if (!products || products.length === 0) {
+      grid.innerHTML = `<p class="text-center w-100">No Face Wash products found.</p>`;
+      if (count) count.textContent = '0 products';
+      return;
+    }
+
+    if (count) {
+      count.textContent = products.length + ' product' + (products.length !== 1 ? 's' : '');
+    }
+
+    products.forEach(product => {
+      const imageUrl = product.image?.url ?
+        `http://localhost:3000${product.image.url}` :
+        './assets/img/logo.jpeg';
+
+      const productName = cleanText(product.name, 'Product Name');
+      const productPrice = product.price?.regular?.text || '₹0';
+      const priceNumber = getNumberFromPrice(productPrice);
+      const concern = cleanText(product.concern, 'Face-Wash');
+      const slug = product.url_key || '#';
+      
+      // EverShop నుండి వచ్చే డైనమిక్ కేటగిరీని ఫిల్టర్ కోసం వాడుతున్నాం
+      const productType = cleanText(product.category, 'facial-cleansers').toLowerCase();
+
+      grid.innerHTML += `
+        <div class="product-card"
+          data-price="${priceNumber}"
+          data-concern="${concern.toLowerCase()}"
+          data-ingredient="skincare"
+          data-type="${productType}">
+
+          <a href="${slug}.php">
+            <div class="product-img-wrap">
+              <img class="img-primary" src="${imageUrl}" alt="${productName}" />
+              <img class="img-secondary" src="${imageUrl}" alt="${productName}" />
+            </div>
+
+            <div class="product-info">
+              <div class="product-name">${productName}</div>
+              <div class="product-sub">/ ${concern} /</div>
+
+              <div>
+                <span class="stars">★★★★½</span>
+                <span class="review-count">(120 reviews)</span>
+              </div>
+
+              <div class="product-price">${productPrice}</div>
+
+              <span class="bought-tag">
+                196+ bought in past month
+              </span>
+            </div>
+          </a>
+
+          <button class="btn-cart">
+            Add to Cart
+          </button>
+        </div>
+      `;
+    });
+  }
+
   function toggleFilter(header) {
     const body = header.nextElementSibling;
     const icon = header.querySelector('.toggle-icon');
+    if (!body || !icon) return;
+
     const isOpen = body.classList.toggle('open');
     icon.textContent = isOpen ? '−' : '+';
   }
 
-  /* ── Price range ── */
   function updatePrice(val) {
-    document.getElementById('priceMax').value = val;
+    const priceMax = document.getElementById('priceMax');
+    if (priceMax) priceMax.value = val;
     applyFilters();
   }
 
-  /* ── Main filter logic ── */
-  function applyFilters() {
-    const maxPrice = parseInt(document.getElementById('priceRange').value);
+  function getCheckedValues(selector) {
+    return [...document.querySelectorAll(selector)].map(input => input.value.toLowerCase());
+  }
 
-    const checkedConcerns = [...document.querySelectorAll('#filter-concern input:checked')].map(i => i.value);
-    const checkedIngredients = [...document.querySelectorAll('#filter-ingredient input:checked')].map(i => i.value);
-    const checkedTypes = [...document.querySelectorAll('#filter-type input:checked')].map(i => i.value);
+  function applyFilters() {
+    const priceRange = document.getElementById('priceRange');
+    const productCount = document.getElementById('productCount');
+    const maxPrice = priceRange ? parseInt(priceRange.value) : 999999;
+
+    const checkedIngredients = getCheckedValues('#filter-ingredient input:checked');
+    const checkedTypes = getCheckedValues('#filter-type input:checked');
 
     const cards = document.querySelectorAll('.product-card');
     let visible = 0;
 
     cards.forEach(card => {
-      const price = parseInt(card.dataset.price);
-      const concerns = card.dataset.concern.split(' ');
-      const ingredients = card.dataset.ingredient.split(' ');
-      const type = card.dataset.type.split(' ');
+      const price = parseInt(card.dataset.price) || 0;
+      const ingredients = (card.dataset.ingredient || '').toLowerCase().split(' ');
+      const type = (card.dataset.type || '').toLowerCase().split(' ');
 
       const priceOk = price <= maxPrice;
-      const concernOk = checkedConcerns.length === 0 || checkedConcerns.some(c => concerns.includes(c));
       const ingredOk = checkedIngredients.length === 0 || checkedIngredients.some(i => ingredients.includes(i));
       const typeOk = checkedTypes.length === 0 || checkedTypes.some(t => type.includes(t));
 
-      const show = priceOk && concernOk && ingredOk && typeOk;
+      const show = priceOk && ingredOk && typeOk;
       card.classList.toggle('hidden', !show);
+
       if (show) visible++;
     });
 
-    document.getElementById('productCount').textContent = visible + ' product' + (visible !== 1 ? 's' : '');
+    if (productCount) {
+      productCount.textContent = visible + ' product' + (visible !== 1 ? 's' : '');
+    }
   }
 </script>
+
 <?php include 'footer.php'; ?>
 </body>
-
 </html>

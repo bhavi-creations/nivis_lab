@@ -54,27 +54,6 @@
         </div>
       </div>
 
-      <!-- INGREDIENT -->
-      <!-- <div class="filter-group">
-          <div class="filter-group-header" onclick="toggleFilter(this)">
-            Ingredient <span class="toggle-icon">+</span>
-          </div>
-          <div class="filter-body" id="filter-ingredient">
-            <label><input type="checkbox" value="alpglycerin" onchange="applyFilters()"> Alpha ceramides <span
-                class="count">(1)</span></label>
-            <label><input type="checkbox" value="ceramides" onchange="applyFilters()"> ceramides <span
-                class="count">(1)</span></label>
-            <label><input type="checkbox" value="coenzyme" onchange="applyFilters()"> coenzyme <span
-                class="count">(1)</span></label>
-            <label><input type="checkbox" value="glycerin" onchange="applyFilters()"> glycerin Asiatica (Cica) <span
-                class="count">(2)</span></label>
-            <label><input type="checkbox" value="glycerin" onchange="applyFilters()"> Ferulic Acid <span
-                class="count">(1)</span></label>
-            <label><input type="checkbox" value="hyaluronic-acid" onchange="applyFilters()"> Hyaluronic Acid <span
-                class="count">(1)</span></label>
-          </div>
-        </div> -->
-
 
       <div class="filter-group">
         <div class="filter-group-header" onclick="toggleFilter(this)">
@@ -187,93 +166,7 @@
           <button class="btn-cart">Add to Cart</button>
         </div>
 
-        <!-- PRODUCT 4 -->
-        <!-- <div class="product-card" data-price="699" data-concern="lines-wrinkles" data-ingredient="bakuchiol"
-          data-type="face-serum">
-          <div class="product-img-wrap">
-            <a href="pure_retinol_face_serum.php">
-              <img class="img-primary" src="https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=400&q=80"
-                alt="Retinol Serum" />
-              <img class="img-secondary" src="https://images.unsplash.com/photo-1582095133179-bfd08e2fb6b8?w=400&q=80"
-                alt="Retinol hover" />
-          </div>
-          <div class="product-info">
-            <div class="product-name">0.3% Pure Retinol Face Serum</div>
-            <div class="product-sub">/ Solution for visible signs of ageing like fine lines, wrinkles /</div>
-            <div><span class="stars">★★★★½</span><span class="review-count">(128 reviews)</span></div>
-            <div class="product-price">₹699</div>
-            <span class="bought-tag">58+ bought in past month</span>
-            </a>
-
-          </div>
-          <button class="btn-cart">Add to Cart</button>
-        </div> -->
-
-        <!-- PRODUCT 5 -->
-        <!-- <div class="product-card" data-price="649" data-concern="acne" data-ingredient="centella"
-          data-type="face-serum">
-          <div class="product-img-wrap">
-            <a href="salicylic_acid_anti_acne_serum.php">
-              <img class="img-primary" src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80"
-                alt="Salicylic Acid Serum" />
-              <img class="img-secondary" src="https://images.unsplash.com/photo-1576426863848-c21f53c60b19?w=400&q=80"
-                alt="Salicylic Acid hover" />
-          </div>
-          <div class="product-info">
-            <div class="product-name">2% Salicylic Acid Anti-Acne Serum</div>
-            <div class="product-sub">/ Solution for acne, clogged pores and sebum regulation /</div>
-            <div><span class="stars">★★★★</span><span class="review-count">(83 reviews)</span></div>
-            <div class="product-price">₹649</div>
-            <span class="bought-tag">58+ bought in past month</span>
-
-          </div>
-          </a>
-          <button class="btn-cart">Add to Cart</button>
-        </div> -->
-
-        <!-- PRODUCT 6 -->
-        <!-- <div class="product-card" data-price="495" data-concern="acne" data-ingredient="centella"
-          data-type="acne-kit">
-          <div class="product-img-wrap">
-            <a href="salicylic_acid_acne_spot_treatment_gel.php">
-              <img class="img-primary" src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=400&q=80"
-                alt="Acne Spot Gel" />
-              <img class="img-secondary" src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=400&q=80"
-                alt="Acne Spot Gel hover" />
-          </div>
-          <div class="product-info">
-            <div class="product-name">Salicylic Acid Acne Spot Treatment Gel</div>
-            <div class="product-sub">/ Solution for rapid healing of acne, pimples and breakouts /</div>
-            <div><span class="stars">★★★★★</span><span class="review-count">(47 reviews)</span></div>
-            <div class="product-price">₹495</div>
-            <span class="bought-tag">46+ bought in past month</span>
-
-          </div>
-          </a>
-          <button class="btn-cart">Add to Cart</button>
-        </div> -->
-
-        <!-- PRODUCT 7 -->
-        <!-- <div class="product-card" data-price="649" data-concern="hydration" data-ingredient="hyaluronic-acid" 
-        data-type="face-serum">
-        <div class="product-img-wrap">
-          <a href="hyaluronic_acid_dewy_skin_serum.php">
-            <img class="img-primary" src="https://images.unsplash.com/photo-1567721913486-6585f069b3b0?w=400&q=80"
-              alt="Hyaluronic Acid Serum" />
-            <img class="img-secondary" src="https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?w=400&q=80"
-              alt="Hyaluronic Acid hover" />
-        </div>
-        <div class="product-info">
-          <div class="product-name">2% Hyaluronic Acid Dewy Skin Serum</div>
-          <div class="product-sub">/ Solution for compromised skin barrier, dull, dry and dehydrated skin /</div>
-          <div><span class="stars">★★★★</span><span class="review-count">(9 reviews)</span></div>
-          <div class="product-price">₹649</div>
-          <span class="bought-tag">500+ bought in past month</span>
-
-          </a>
-        </div>
-        <button class="btn-cart">Add to Cart</button>
-      </div>-->
+     
 
     </div><!-- /products-grid -->
   </div><!-- /product-grid-wrap -->
@@ -326,6 +219,84 @@
 
     document.getElementById('productCount').textContent = visible + ' product' + (visible !== 1 ? 's' : '');
   }
+</script>
+
+<script>
+const API_URL = "fetch_moisturizers.php";
+
+async function loadMoisturizerProducts() {
+  const grid = document.getElementById("productsGrid");
+
+  try {
+    const response = await fetch(API_URL);
+    const result = await response.json();
+
+    console.log("Moisturizers Result:", result);
+
+    const products = result.data.productsByCategory;
+
+    grid.innerHTML = "";
+
+    if (!products || products.length === 0) {
+      grid.innerHTML = "<p>No moisturizers found.</p>";
+      document.getElementById("productCount").textContent = "0 products";
+      return;
+    }
+
+    products.forEach(product => {
+      grid.innerHTML += `
+        <div class="product-card"
+          data-price="${product.price || 0}"
+          data-concern="${product.concern || ''}"
+          data-ingredient="${product.ingredient || ''}"
+          data-type="${product.type || ''}">
+
+          <a href="${product.link || '#'}">
+            <div class="product-img-wrap">
+              <img class="img-primary"
+                src="${product.primaryImage || './assets/img/logo.jpeg'}"
+                alt="${product.name}">
+
+              <img class="img-secondary"
+                src="${product.secondaryImage || product.primaryImage || './assets/img/logo.jpeg'}"
+                alt="${product.name}">
+            </div>
+
+            <div class="product-info">
+              <div class="product-name">${product.name}</div>
+
+              <div class="product-sub">
+                / ${product.subtitle || ''} /
+              </div>
+
+              <div>
+                <span class="stars">${product.stars || '★★★★½'}</span>
+                <span class="review-count">( ${product.reviewsCount || 0} reviews)</span>
+              </div>
+
+              <div class="product-price">₹${product.price}</div>
+
+              <span class="bought-tag">
+                ${product.boughtTag || ''}
+              </span>
+            </div>
+          </a>
+
+          <button class="btn-cart">Add to Cart</button>
+        </div>
+      `;
+    });
+
+    document.getElementById("productCount").textContent =
+      products.length + " products";
+
+  } catch (error) {
+    console.error(error);
+    grid.innerHTML = "<p>Products loading failed.</p>";
+  }
+}
+
+window.addEventListener("DOMContentLoaded", loadMoisturizerProducts);
 </script>
 <?php include 'footer.php'; ?>
 </body>
