@@ -77,7 +77,7 @@
                 <div class="filter-group-header" onclick="toggleFilter(this)">
                     Ingredient <span class="toggle-icon">+</span>
                 </div>
-                <div class="filter-body" id="filter-ingredient">
+                <div class="filter-body" id="filter-type">
                     <label><input type="checkbox" value="Centella-Asiatica" onchange="applyFilters()"> Centella Asiatica (Cica) <span
                             class="count">(1)</span></label>
                     <label><input type="checkbox" value="Niacinamide" onchange="applyFilters()"> Niacinamide <span

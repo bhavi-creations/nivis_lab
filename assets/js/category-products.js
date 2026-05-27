@@ -1,9 +1,5 @@
 (function() {
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', start);
-    } else {
-        start();
-    }
+    start();
 
     function start() {
         const grid = document.getElementById('productsGrid');
@@ -14,7 +10,14 @@
         if (!pageSlug) return;
 
         if (grid) {
+            showLoadingState(grid, count);
+            document.body.classList.add('dynamic-products-loading');
             loadProductsForExistingGrid(pageSlug, grid, count);
+            return;
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', start, { once: true });
             return;
         }
 
@@ -39,6 +42,25 @@
     }
 
     async function fetchCategoryProducts(category) {
+        const cacheKey = `category-products:${category}`;
+        const cacheTtl = 10000;
+        const cached = sessionStorage.getItem(cacheKey);
+
+        if (cached) {
+            try {
+                const cachedPayload = JSON.parse(cached);
+                const isFresh = Date.now() - cachedPayload.savedAt < cacheTtl;
+
+                if (isFresh && cachedPayload.result?.products?.length > 0) {
+                    return cachedPayload.result;
+                }
+
+                sessionStorage.removeItem(cacheKey);
+            } catch (error) {
+                sessionStorage.removeItem(cacheKey);
+            }
+        }
+
         const response = await fetch(`fetch_category_products.php?category=${encodeURIComponent(category)}`);
         const result = await response.json();
 
@@ -46,23 +68,38 @@
             throw new Error(result.error);
         }
 
+        if (result.products?.length > 0) {
+            sessionStorage.setItem(cacheKey, JSON.stringify({
+                savedAt: Date.now(),
+                result
+            }));
+        }
+
         return result;
     }
 
     async function loadProductsForExistingGrid(category, targetGrid, targetCount) {
         try {
-            targetGrid.innerHTML = `
-                <div class="text-center w-100 py-4">
-                    <div class="spinner-border text-dark"></div>
-                    <p class="mt-2">Loading products...</p>
-                </div>
-            `;
-
             const result = await fetchCategoryProducts(category);
             renderIntoGrid(result.products || [], targetGrid, targetCount, result.category?.name || category);
         } catch (error) {
+            document.body.classList.remove('dynamic-products-loading');
+            document.body.classList.add('dynamic-products-ready');
             targetGrid.innerHTML = `<div class="alert alert-danger w-100">${escapeHtml(error.message)}</div>`;
             if (targetCount) targetCount.textContent = '0 products';
+        }
+    }
+
+    function showLoadingState(targetGrid, targetCount) {
+        targetGrid.innerHTML = `
+            <div class="text-center w-100 py-5">
+                <div class="spinner-border text-dark" role="status"></div>
+                <p class="mt-2 mb-0">Loading products...</p>
+            </div>
+        `;
+
+        if (targetCount) {
+            targetCount.textContent = 'Loading products...';
         }
     }
 
@@ -95,6 +132,9 @@
     }
 
     function renderIntoGrid(products, targetGrid, targetCount, categoryName) {
+        document.body.classList.remove('dynamic-products-loading');
+        document.body.classList.add('dynamic-products-ready');
+
         if (!products.length) {
             targetGrid.innerHTML = `<p class="text-center w-100">No ${escapeHtml(categoryName)} products found.</p>`;
             if (targetCount) targetCount.textContent = '0 products';
@@ -130,6 +170,7 @@
                     </div>
 
                     <div class="product-info">
+                        <div class="product-type-badge">${escapeHtml(product.type || 'Product')}</div>
                         <div class="product-name">${escapeHtml(product.name)}</div>
                         <div class="product-sub">/ ${escapeHtml(product.subtitle || product.concern || 'Skincare')} /</div>
                         <div>

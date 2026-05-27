@@ -291,7 +291,7 @@
 
 
 
-<!-- <section class="py-5 px-3 bg-light">
+ <section class="py-5 px-3 bg-light">
     <div class="container px-lg-5">
         <h2 class="fw-bold mb-4 px-3">SHOP OUR SPOTLIGHTS</h2>
         <div class="product-carousel">
@@ -393,12 +393,12 @@
 
         </div>
     </div>
-</section> -->
+</section> 
 
 
 
 <section class="py-5 px-3 bg-light">
-    <div class="container px-lg-5">
+    <!-- <div class="container px-lg-5">
 
         <h2 class="fw-bold mb-4 px-3"> </h2>
 
@@ -410,25 +410,27 @@
         </div>
 
     </div>
-</section>
+</section> -->
 
 
-<section class="py-5 px-3">
+<!-- <section class="py-5 px-3">
     <div class="container px-lg-5">
         <div id="dynamic-category-sections">
             <div class="text-center w-100 py-4">
                 <div class="spinner-border text-dark"></div>
                 <p class="mt-2">Loading category products...</p>
+                
+                
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 
 
 <!-- formulated sesction   -->
 <!-- explore  section stylings  -->
-<!-- <section class="video_section_wrapper">
+<section class="video_section_wrapper">
     <div class="container">
         <h2 class="video_section_title">FORMULATED WITH GLOBAL DERMATOLOGISTS</h2>
         <div class="video_section_carousel">
@@ -514,12 +516,12 @@
 
         </div>
     </div>
-</section>  -->
-<section class="video_section_wrapper">
+</section> 
+<!-- <section class="video_section_wrapper">
     <div class="container">
         <h2 class="video_section_title">FORMULATED WITH GLOBAL DERMATOLOGISTS</h2>
 
-        <!-- Ikkada data dynamic ga load avthundhi -->
+       
         <div class="video_section_carousel" id="global-dermatology-products">
             <div class="text-center w-100 py-4">
                 <div class="spinner-border text-dark"></div>
@@ -527,7 +529,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 
 

@@ -5650,3 +5650,24 @@ button:hover {
     font-family: 'Arial', sans-serif;
 
 }
+body:not(.dynamic-products-ready) #productsGrid {
+    visibility: hidden;
+}
+
+body.dynamic-products-loading #productsGrid,
+body.dynamic-products-ready #productsGrid {
+    visibility: visible;
+}
+
+.product-type-badge {
+    display: inline-block;
+    margin-bottom: 8px;
+    padding: 3px 8px;
+    border: 1px solid #222;
+    border-radius: 999px;
+    color: #222;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
