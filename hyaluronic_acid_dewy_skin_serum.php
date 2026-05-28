@@ -59,6 +59,11 @@
                 UVB &amp; blue-light protection.
             </div>
 
+            <div class="sec-title mt-3">WHAT IS THIS PRODUCT?</div>
+            <div class="product-desc product-what-is">
+                A targeted skincare product selected from your product catalogue.
+            </div>
+
             <div class="size-tag">50 ml / 1.69 fl. oz.</div>
 
             <div class="price-row">
@@ -936,6 +941,10 @@
                     <label class="form-label" style="font-size:13px;font-weight:600">Your Review</label>
                     <textarea class="form-control" id="rBody" rows="4" placeholder="Tell others what you think…" style="font-family:'DM Sans',sans-serif;font-size:13px;resize:none"></textarea>
                 </div>
+                <div class="mb-3">
+                    <label class="form-label" style="font-size:13px;font-weight:600">Customer Image</label>
+                    <input type="file" class="form-control" id="rImage" accept="image/*" />
+                </div>
                 <div id="rError" style="color:var(--red);font-size:12px;margin-bottom:10px;display:none">
                     Please fill in all fields and select a star rating.
                 </div>
@@ -962,11 +971,24 @@
     }
 
     // ── Submit Review ──
+    function addReviewImageToStrip(imageUrl) {
+        if (!imageUrl) return;
+
+        const strip = document.getElementById('photoStrip');
+        if (!strip) return;
+
+        const thumb = document.createElement('div');
+        thumb.className = 'photo-thumb';
+        thumb.innerHTML = `<img src="${imageUrl}" alt="Customer review image" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">`;
+        strip.prepend(thumb);
+    }
+
     function submitReview() {
         const name = document.getElementById('rName').value.trim();
         const skin = document.getElementById('rSkin').value;
         const title = document.getElementById('rTitle').value.trim();
         const body = document.getElementById('rBody').value.trim();
+        const imageInput = document.getElementById('rImage');
         const err = document.getElementById('rError');
 
         if (!name || !title || !body || pickedStars === 0) {
@@ -976,7 +998,10 @@
         err.style.display = 'none';
 
         const starStr = '★'.repeat(pickedStars) + (pickedStars < 5 ? '<span style="color:#ddd">' + '★'.repeat(5 - pickedStars) + '</span>' : '');
-        const skinLine = skin ? `<span>Skin Type: ${skin}</span>` : '';
+        const file = imageInput?.files?.[0];
+        const imageUrl = file ? URL.createObjectURL(file) : '';
+        const skinLine = skin ? `<span>Skin Type: ${escHtml(skin)}</span>` : '';
+        const imageHtml = imageUrl ? `<div class="review-img"><img src="${imageUrl}" alt="Customer review image" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>` : '';
 
         const card = document.createElement('div');
         card.className = 'review-card';
@@ -993,6 +1018,7 @@
           <div class="review-stars">${starStr}</div>
           <div class="review-title">${escHtml(title)}</div>
           <div class="review-body">${escHtml(body)}</div>
+          ${imageHtml}
           <div class="vote-row">
             <button class="vote-btn" onclick="likeReview(this)">
               <i class="fa fa-thumbs-up"></i> <span class="vote-num">0</span>
@@ -1005,10 +1031,12 @@
       </div>`;
 
         document.getElementById('reviewList').prepend(card);
+        addReviewImageToStrip(imageUrl);
 
         // reset
         ['rName', 'rTitle', 'rBody'].forEach(id => document.getElementById(id).value = '');
         document.getElementById('rSkin').value = '';
+        if (imageInput) imageInput.value = '';
         pickStar(0);
         bootstrap.Modal.getInstance(document.getElementById('rateModal')).hide();
     }
@@ -1122,7 +1150,7 @@
 
 <script>
     // ─── Image data (using placeholder SVGs that mimic each section) ───
-    const images = [{
+    let images = [{
             label: "Main",
             svg: `<svg xmlns="./assets/img/sample1.png" viewBox="0 0 220 320">
         <rect width="220" height="320" fill="#f8f4f0"/>
@@ -1193,24 +1221,34 @@
         return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgStr);
     }
 
-    // Build thumbnails
     const thumbCol = document.getElementById('thumbCol');
-    images.forEach((img, i) => {
-        const div = document.createElement('div');
-        div.className = 'thumb-item' + (i === 0 ? ' active' : '');
-        div.innerHTML = `<img src="${svgToDataUrl(img.svg)}" alt="${img.label}"/>`;
-        div.addEventListener('click', () => setImage(i));
-        thumbCol.appendChild(div);
-    });
-
     const mainImg = document.getElementById('mainImg');
+
+    function imageSrc(img) {
+        return img.svg ? svgToDataUrl(img.svg) : img.url;
+    }
+
+    function buildThumbnails() {
+        thumbCol.innerHTML = '';
+        images.forEach((img, i) => {
+            const div = document.createElement('div');
+            div.className = 'thumb-item' + (i === 0 ? ' active' : '');
+            div.innerHTML = `<img src="${imageSrc(img)}" alt="${img.label}" onerror="this.onerror=null;this.src='./assets/img/product.webp';"/>`;
+            div.addEventListener('click', () => setImage(i));
+            thumbCol.appendChild(div);
+        });
+    }
 
     function setImage(index) {
         currentIndex = (index + images.length) % images.length;
         mainImg.style.opacity = '0';
         setTimeout(() => {
-            mainImg.src = svgToDataUrl(images[currentIndex].svg);
+            mainImg.src = imageSrc(images[currentIndex]);
             mainImg.alt = images[currentIndex].label;
+            mainImg.onerror = function() {
+                this.onerror = null;
+                this.src = './assets/img/product.webp';
+            };
             mainImg.style.opacity = '1';
         }, 150);
         // Update thumb highlights
@@ -1220,7 +1258,24 @@
     }
 
     // Init first image
+    buildThumbnails();
     setImage(0);
+
+    window.setProductImages = function(productImages) {
+        const nextImages = (productImages || [])
+            .filter(Boolean)
+            .map((url, index) => ({
+                label: index === 0 ? 'Main' : `Image ${index + 1}`,
+                url
+            }));
+
+        if (nextImages.length === 0) return;
+
+        images = nextImages;
+        currentIndex = 0;
+        buildThumbnails();
+        setImage(0);
+    };
 
     // Arrow controls
     document.addEventListener('DOMContentLoaded', function() {
@@ -1236,6 +1291,201 @@
             document.getElementById('tab-' + tid).style.display = tid === id ? '' : 'none';
         });
     }
+</script>
+
+<script>
+    (function() {
+        const params = new URLSearchParams(window.location.search);
+        const productKey = params.get('product');
+
+        if (!productKey) return;
+
+        const fallbackImage = './assets/img/product.webp';
+
+        function escapeHtml(value) {
+            return String(value ?? '').replace(/[&<>"']/g, function(char) {
+                return {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#039;'
+                }[char];
+            });
+        }
+
+        function text(selector, value) {
+            const el = document.querySelector(selector);
+            if (el && value !== undefined && value !== null && value !== '') {
+                el.textContent = value;
+            }
+        }
+
+        function normalizePrice(price) {
+            const value = String(price || '').trim();
+            if (!value) return '₹0';
+            if (/^[₹$]/.test(value)) return value;
+            return `₹${value}`;
+        }
+
+        function productImages(product) {
+            const images = Array.isArray(product.images) ? product.images : [];
+            return Array.from(new Set([
+                ...images,
+                product.imageUrl,
+                product.secondaryImageUrl,
+                fallbackImage
+            ].filter(Boolean)));
+        }
+
+        function renderBenefits(product) {
+            const productBenefits = Array.isArray(product.benefits) ? product.benefits : [];
+            const benefits = productBenefits.length ? productBenefits : [
+                product.concern ? `Targets ${product.concern}` : '',
+                product.ingredient ? `Powered by ${product.ingredient}` : '',
+                product.type ? `${product.type} texture and routine fit` : ''
+            ].filter(Boolean);
+
+            const nodes = document.querySelectorAll('.benefit-item .benefit-text');
+            nodes.forEach((node, index) => {
+                if (benefits[index]) node.textContent = benefits[index];
+            });
+        }
+
+        function renderFaqs(product) {
+            const accordion = document.getElementById('faqAccordion');
+            if (!accordion) return;
+
+            const faqs = Array.isArray(product.faqs) && product.faqs.length ? product.faqs : [
+                {
+                    question: 'What is this product?',
+                    answer: product.whatIs || product.description || `${product.name} is a skincare product.`
+                },
+                {
+                    question: 'What is the product code?',
+                    answer: product.productCode ? `Product code: ${product.productCode}` : 'Product code is not available for this item.'
+                },
+                {
+                    question: 'What are the benefits?',
+                    answer: (Array.isArray(product.benefits) ? product.benefits.join(' ') : '') || product.description || 'This product supports your skincare routine.'
+                }
+            ];
+
+            accordion.innerHTML = faqs.map((item, index) => `
+                <div class="accordion-item border-bottom">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed px-0 bg-transparent shadow-none" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#productFaq${index}">
+                            ${escapeHtml(item.question)}
+                        </button>
+                    </h2>
+                    <div id="productFaq${index}" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body px-0 text-muted small">
+                            ${escapeHtml(item.answer)}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderIngredients(product) {
+            const grid = document.querySelector('.ingredients-grid');
+            if (!grid) return;
+
+            const attributes = Array.isArray(product.attributes) ? product.attributes : [];
+            const ingredients = attributes.length > 0 ? attributes.slice(0, 4) : [
+                { name: 'Key Ingredient', value: product.ingredient || 'Skincare actives' },
+                { name: 'Skin Concern', value: product.concern || 'Healthy-looking skin' },
+                { name: 'Product Type', value: product.type || 'Product' }
+            ];
+
+            grid.innerHTML = ingredients.map((item, index) => `
+                <div class="ing-card">
+                    <div class="ing-bg ing-bg-${(index % 4) + 1}"></div>
+                    <div class="ing-content">
+                        <div>
+                            <div class="ing-name">${escapeHtml(item.value || item.name)}</div>
+                            <div class="ing-desc">${escapeHtml(item.name || 'Product detail')}</div>
+                        </div>
+                        <div class="ing-arrow"><i class="fa fa-chevron-right"></i></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderOtherDetails(product) {
+            const other = document.querySelector('#tab-other .product-desc-text');
+            if (!other) return;
+
+            const details = Array.isArray(product.details) ? product.details : [];
+            const html = details
+                .filter(item => item.value)
+                .map(item => `<strong>${escapeHtml(item.label)}:</strong> ${escapeHtml(item.value)}<br>`)
+                .join('');
+
+            other.innerHTML = html || `
+                <strong>Category:</strong> ${escapeHtml(product.category || 'Skincare')}<br>
+                <strong>Product Type:</strong> ${escapeHtml(product.type || 'Product')}<br>
+                <strong>Price:</strong> ${escapeHtml(product.price || '₹0')}
+            `;
+        }
+
+        function applyProduct(product) {
+            const name = product.name || 'Product';
+            const subtitle = product.subtitle || product.description || product.concern || 'Skincare';
+            const price = normalizePrice(product.price);
+
+            document.title = `${name} | /PHD/ Proven Honest Derma`;
+            text('.breadcrumb-bar a:last-child', name);
+            text('.product-title', name);
+            text('.product-subtitle', `/ ${subtitle} /`);
+            text('.product-desc', product.description || subtitle);
+            text('.product-what-is', product.whatIs || `${name} is a ${product.type || 'skincare product'} for ${product.concern || 'your skincare routine'}.`);
+            text('.price-main', price);
+            text('.size-tag', product.type || product.category || 'Product');
+            text('.review-count', `${product.stars || '★★★★½'} | ${product.reviewsCount || 120} reviews`);
+            text('.bought-note', product.boughtTag || '#1 Bought in past month');
+            text('.spf-badge', product.category || product.type || 'Skincare');
+            text('.big-score', '4.8');
+            text('.review-count-label', `Based on ${product.reviewsCount || 120} reviews`);
+
+            const desc = document.querySelector('#tab-desc .product-desc-text');
+            if (desc) desc.textContent = product.description || subtitle;
+
+            const how = document.querySelector('#tab-how .product-desc-text');
+            if (how) {
+                how.textContent = product.howToUse || `Use ${name} as directed on the label. Add it into your routine as a ${product.type || 'skincare product'} and patch test before first use.`;
+            }
+
+            renderOtherDetails(product);
+            renderBenefits(product);
+            renderIngredients(product);
+            renderFaqs(product);
+
+            if (typeof window.setProductImages === 'function') {
+                window.setProductImages(productImages(product));
+            }
+        }
+
+        async function loadProduct() {
+            try {
+                const response = await fetch(`fetch_product_detail.php?product=${encodeURIComponent(productKey)}`);
+                const result = await response.json();
+
+                if (result.product) {
+                    applyProduct(result.product);
+                }
+            } catch (error) {
+                console.error('Product detail loading failed:', error);
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadProduct, { once: true });
+        } else {
+            loadProduct();
+        }
+    })();
 </script>
 
 

@@ -296,7 +296,7 @@ async function loadMoisturizerProducts() {
   }
 }
 
-window.addEventListener("DOMContentLoaded", loadMoisturizerProducts);
+// Common assets/js/category-products.js handles this page.
 </script>
 <?php include 'footer.php'; ?>
 </body>

@@ -1,4 +1,5 @@
 (function() {
+    injectDynamicProductStyles();
     start();
 
     function start() {
@@ -10,6 +11,7 @@
         if (!pageSlug) return;
 
         if (grid) {
+            patchCaseInsensitiveFilters();
             showLoadingState(grid, count);
             document.body.classList.add('dynamic-products-loading');
             loadProductsForExistingGrid(pageSlug, grid, count);
@@ -42,7 +44,7 @@
     }
 
     async function fetchCategoryProducts(category) {
-        const cacheKey = `category-products:${category}`;
+        const cacheKey = `category-products:v4:${category}`;
         const cacheTtl = 10000;
         const cached = sessionStorage.getItem(cacheKey);
 
@@ -85,7 +87,7 @@
         } catch (error) {
             document.body.classList.remove('dynamic-products-loading');
             document.body.classList.add('dynamic-products-ready');
-            targetGrid.innerHTML = `<div class="alert alert-danger w-100">${escapeHtml(error.message)}</div>`;
+            targetGrid.innerHTML = `<div class="alert alert-danger w-100">${escapeHtml(error.message || 'Products loading failed.')}</div>`;
             if (targetCount) targetCount.textContent = '0 products';
         }
     }
@@ -101,6 +103,141 @@
         if (targetCount) {
             targetCount.textContent = 'Loading products...';
         }
+    }
+
+    function slugify(value) {
+        return String(value ?? '')
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+    }
+
+    function productTokens(value) {
+        const text = String(value ?? '').toLowerCase();
+        const slug = slugify(text);
+        const words = text
+            .replace(/[^a-z0-9]+/g, ' ')
+            .trim()
+            .split(/\s+/)
+            .filter(Boolean);
+
+        return Array.from(new Set([slug, ...words])).join(' ');
+    }
+
+    function checkedFilterValues(selector) {
+        return [...document.querySelectorAll(`${selector} input:checked`)]
+            .map(input => String(input.value || '').toLowerCase())
+            .filter(Boolean);
+    }
+
+    function datasetTokens(card, key) {
+        return String(card.dataset[key] || '')
+            .toLowerCase()
+            .split(/\s+/)
+            .filter(Boolean);
+    }
+
+    function patchCaseInsensitiveFilters() {
+        if (!document.getElementById('priceRange') || window.__dynamicProductFiltersPatched) return;
+
+        window.__dynamicProductFiltersPatched = true;
+        window.applyFilters = function() {
+            const priceRange = document.getElementById('priceRange');
+            const productCount = document.getElementById('productCount');
+            const maxPrice = parseInt(priceRange?.value || '999999', 10);
+            const checkedConcerns = checkedFilterValues('#filter-concern');
+            const checkedIngredients = checkedFilterValues('#filter-ingredient');
+            const checkedTypes = checkedFilterValues('#filter-type');
+            const cards = document.querySelectorAll('.product-card');
+            let visible = 0;
+
+            cards.forEach(card => {
+                const price = parseInt(card.dataset.price || '0', 10);
+                const concerns = datasetTokens(card, 'concern');
+                const ingredients = datasetTokens(card, 'ingredient');
+                const type = datasetTokens(card, 'type');
+                const priceOk = price <= maxPrice;
+                const concernOk = checkedConcerns.length === 0 || checkedConcerns.some(value => concerns.includes(value));
+                const ingredientOk = checkedIngredients.length === 0 || checkedIngredients.some(value => ingredients.includes(value));
+                const typeOk = checkedTypes.length === 0 || checkedTypes.some(value => type.includes(value));
+                const show = priceOk && concernOk && ingredientOk && typeOk;
+
+                card.classList.toggle('hidden', !show);
+                if (show) visible++;
+            });
+
+            if (productCount) {
+                productCount.textContent = `${visible} product${visible !== 1 ? 's' : ''}`;
+            }
+        };
+    }
+
+    function injectDynamicProductStyles() {
+        if (document.getElementById('dynamicProductCardStyles')) return;
+
+        const style = document.createElement('style');
+        style.id = 'dynamicProductCardStyles';
+        style.textContent = `
+            .product-card { isolation: isolate; }
+            .product-card a { color: inherit; text-decoration: none; }
+            .product-card .product-info { min-height: 145px; }
+            .product-img-wrap img {
+                background: #f6f6f6;
+            }
+            .product-hover-popover {
+                position: absolute;
+                left: 10px;
+                right: 10px;
+                bottom: 54px;
+                z-index: 4;
+                padding: 12px;
+                border: 1px solid rgba(10, 43, 74, .12);
+                border-radius: 6px;
+                background: rgba(255, 255, 255, .98);
+                box-shadow: 0 14px 35px rgba(10, 43, 74, .16);
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(12px) scale(.98);
+                transition: opacity .22s ease, transform .22s ease;
+            }
+            .product-card:hover { z-index: 5; }
+            .product-card:hover .product-hover-popover,
+            .product-card:focus-within .product-hover-popover {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            .product-hover-popover__title {
+                margin-bottom: 4px;
+                color: #0a2b4a;
+                font-size: 12px;
+                font-weight: 700;
+                line-height: 1.25;
+            }
+            .product-hover-popover__text {
+                margin: 0 0 8px;
+                color: #555;
+                font-size: 11px;
+                line-height: 1.35;
+            }
+            .product-hover-popover__meta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            .product-hover-popover__meta span {
+                padding: 3px 7px;
+                border-radius: 999px;
+                background: #f2f5f7;
+                color: #0a2b4a;
+                font-size: 10px;
+                font-weight: 600;
+            }
+            @media (hover: none) {
+                .product-hover-popover { display: none; }
+                .product-card .product-info { min-height: 0; }
+            }
+        `;
+        document.head.appendChild(style);
     }
 
     async function loadProductsForContentPage(category, targetFooter) {
@@ -156,17 +293,27 @@
     }
 
     function productCard(product) {
+        const concernTokens = productTokens(product.concern);
+        const ingredientTokens = productTokens(product.ingredient);
+        const typeTokens = productTokens(product.type);
+        const popupText = product.subtitle || product.concern || product.category || 'Skincare';
+        const fallbackImage = './assets/img/product.webp';
+        const primaryImage = product.imageUrl || fallbackImage;
+        const secondaryImage = product.secondaryImageUrl || primaryImage;
+        const productKey = product.id || product.sku || product.urlKey || product.name || '';
+        const detailHref = `hyaluronic_acid_dewy_skin_serum.php?product=${encodeURIComponent(productKey)}&category=${encodeURIComponent(product.category || '')}`;
+
         return `
             <div class="product-card"
                 data-price="${escapeHtml(product.priceNumber || 0)}"
-                data-concern="${escapeHtml((product.concern || '').toLowerCase())}"
-                data-ingredient="${escapeHtml((product.ingredient || '').toLowerCase())}"
-                data-type="${escapeHtml((product.type || '').toLowerCase())}">
+                data-concern="${escapeHtml(concernTokens)}"
+                data-ingredient="${escapeHtml(ingredientTokens)}"
+                data-type="${escapeHtml(typeTokens)}">
 
-                <a href="${escapeHtml(product.link || '#')}">
+                <a href="${escapeHtml(detailHref)}">
                     <div class="product-img-wrap">
-                        <img class="img-primary" src="${escapeHtml(product.imageUrl)}" alt="${escapeHtml(product.name)}" />
-                        <img class="img-secondary" src="${escapeHtml(product.secondaryImageUrl || product.imageUrl)}" alt="${escapeHtml(product.name)}" />
+                        <img class="img-primary" src="${escapeHtml(primaryImage)}" alt="${escapeHtml(product.name)}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImage}';" />
+                        <img class="img-secondary" src="${escapeHtml(secondaryImage)}" alt="${escapeHtml(product.name)}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImage}';" />
                     </div>
 
                     <div class="product-info">
@@ -179,6 +326,15 @@
                         </div>
                         <div class="product-price">${escapeHtml(product.price || '₹0')}</div>
                         <span class="bought-tag">${escapeHtml(product.boughtTag || '')}</span>
+                    </div>
+
+                    <div class="product-hover-popover">
+                        <div class="product-hover-popover__title">${escapeHtml(product.name)}</div>
+                        <p class="product-hover-popover__text">${escapeHtml(popupText)}</p>
+                        <div class="product-hover-popover__meta">
+                            <span>${escapeHtml(product.type || 'Product')}</span>
+                            <span>${escapeHtml(product.price || '')}</span>
+                        </div>
                     </div>
                 </a>
 

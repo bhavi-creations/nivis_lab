@@ -1,4 +1,8 @@
 <?php
+ini_set("display_errors", "0");
+error_reporting(E_ALL);
+ob_start();
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
@@ -8,14 +12,58 @@ $cacheTtl = 60;
 
 function slugifyValue($value)
 {
+    if (is_object($value)) {
+        $value = (array) $value;
+    }
+
+    if (is_array($value)) {
+        $value = implode(" ", array_map(function ($item) {
+            return is_scalar($item) || $item === null ? (string) $item : json_encode($item);
+        }, $value));
+    }
+
     $value = strtolower(trim($value ?? ""));
     $value = preg_replace('/[^a-z0-9]+/', '-', $value);
     return trim($value, '-');
 }
 
+function containsText($haystack, $needle)
+{
+    return $needle !== "" && strpos($haystack, $needle) !== false;
+}
+
+function jsonExit($payload)
+{
+    if (ob_get_length()) {
+        ob_clean();
+    }
+
+    echo is_string($payload) ? $payload : json_encode($payload);
+    exit;
+}
+
+function nestedValue($array, $path, $fallback = null)
+{
+    $value = $array;
+
+    foreach ($path as $key) {
+        if (!is_array($value) || !array_key_exists($key, $value)) {
+            return $fallback;
+        }
+
+        $value = $value[$key];
+    }
+
+    return $value;
+}
+
 function graphqlRequest($query)
 {
     global $graphqlUrl;
+
+    if (!function_exists("curl_init")) {
+        return ["error" => "PHP cURL extension is not enabled"];
+    }
 
     $ch = curl_init($graphqlUrl);
     curl_setopt_array($ch, [
@@ -23,8 +71,8 @@ function graphqlRequest($query)
         CURLOPT_POST => true,
         CURLOPT_POSTFIELDS => json_encode(["query" => $query]),
         CURLOPT_HTTPHEADER => ["Content-Type: application/json"],
-        CURLOPT_CONNECTTIMEOUT_MS => 2000,
-        CURLOPT_TIMEOUT_MS => 10000
+        CURLOPT_CONNECTTIMEOUT_MS => 1000,
+        CURLOPT_TIMEOUT_MS => 3000
     ]);
 
     $response = curl_exec($ch);
@@ -48,7 +96,7 @@ function graphqlRequest($query)
 function normalizeImageUrl($url)
 {
     if (!$url) {
-        return "./assets/img/logo.jpeg";
+        return "./assets/img/product.webp";
     }
 
     if (preg_match('/^https?:\/\//', $url)) {
@@ -71,6 +119,28 @@ function normalizeText($value)
     return trim((string) $value);
 }
 
+function cleanDescriptionText($value, $fallback = "")
+{
+    $text = html_entity_decode(strip_tags(normalizeText($value)), ENT_QUOTES | ENT_HTML5, "UTF-8");
+    $text = preg_replace('/\b[rc]__[a-f0-9-]{36}\b/i', ' ', $text);
+    $text = preg_replace('/\b[a-z]+:[a-z0-9-]+\b/i', ' ', $text);
+    $text = preg_replace('/\b[a-z]-[a-z0-9_-]{8,}\b/i', ' ', $text);
+    $text = preg_replace('/\b\d+\.\d+\.\d+\b.*$/', ' ', $text);
+    $text = preg_replace('/\b(md|sm|lg|xl):[a-z0-9-]+\b/i', ' ', $text);
+    $text = preg_replace('/\b(col-span|grid-cols)-\d+\b/i', ' ', $text);
+    $text = str_replace("\xc2\xa0", " ", $text);
+
+    if (stripos($text, "paragraph") !== false) {
+        $parts = preg_split('/\bparagraph\b/i', $text);
+        $text = trim(end($parts));
+    }
+
+    $text = preg_replace('/\s+/', ' ', $text);
+    $text = trim($text, " \t\n\r\0\x0B/|");
+
+    return $text !== "" ? $text : $fallback;
+}
+
 function attributeValue($attributes, $keywords, $fallback)
 {
     foreach (($attributes ?? []) as $attribute) {
@@ -83,7 +153,7 @@ function attributeValue($attributes, $keywords, $fallback)
         }
 
         foreach ($keywords as $keyword) {
-            if (str_contains($code, $keyword) || str_contains($name, $keyword)) {
+            if (containsText($code, $keyword) || containsText($name, $keyword)) {
                 return $value;
             }
         }
@@ -113,17 +183,31 @@ function normalizeAttributes($attributes)
 
 function normalizeProduct($product)
 {
-    $price = $product["price"]["regular"]["text"] ?? "₹0";
+    $price = nestedValue($product, ["price", "regular", "text"], "₹0");
+    if (isset($product["price"]) && !is_array($product["price"])) {
+        $price = $product["price"];
+    }
+
     $numericPrice = (float) preg_replace('/[^0-9.]/', '', (string) $price);
     $productSlug = $product["urlKey"] ?? $product["url_key"] ?? "";
     $categoryName = normalizeText($product["category"] ?? "");
     $attributes = $product["attributeIndex"] ?? [];
-    $primaryImage = $product["image"]["url"] ?? null;
+    $primaryImage = nestedValue($product, ["image", "url"]);
+    if (!$primaryImage && !empty($product["primaryImage"])) {
+        $primaryImage = $product["primaryImage"];
+    }
+    if (!$primaryImage && !empty($product["imageUrl"])) {
+        $primaryImage = $product["imageUrl"];
+    }
+    if (!$primaryImage && is_array($product["image"] ?? null)) {
+        $primaryImage = $product["image"]["path"] ?? $product["image"]["src"] ?? $product["image"]["source"] ?? null;
+    }
+
     $gallery = is_array($product["gallery"] ?? null) ? $product["gallery"] : [];
-    $secondaryImage = $primaryImage;
+    $secondaryImage = $product["secondaryImage"] ?? $primaryImage;
 
     foreach ($gallery as $image) {
-        $galleryUrl = $image["url"] ?? null;
+        $galleryUrl = is_array($image) ? ($image["url"] ?? $image["path"] ?? $image["src"] ?? null) : $image;
         if ($galleryUrl && $galleryUrl !== $primaryImage) {
             $secondaryImage = $galleryUrl;
             break;
@@ -133,24 +217,29 @@ function normalizeProduct($product)
     $concern = attributeValue($attributes, ["concern", "skin_concern", "skin concern"], $categoryName ?: "Skincare");
     $ingredient = attributeValue($attributes, ["ingredient", "ingredients", "key_ingredient", "key ingredient"], $categoryName ?: "skincare");
     $productType = attributeValue($attributes, ["product_type", "product type", "type"], $categoryName ?: "Product");
+    $requestedCategory = normalizeText($product["_requestedCategory"] ?? "");
+    $displayDescription = cleanDescriptionText($product["subtitle"] ?? $product["description"] ?? "", $concern ?: $categoryName ?: "Skincare");
+    $filterConcern = trim($concern . " " . $requestedCategory);
 
     return [
         "id" => $product["id"] ?? $product["sku"] ?? $product["name"] ?? null,
         "sku" => normalizeText($product["sku"] ?? ""),
         "urlKey" => normalizeText($productSlug),
         "name" => normalizeText($product["name"] ?? "Product Name"),
-        "subtitle" => normalizeText($product["description"] ?? $categoryName),
+        "subtitle" => $displayDescription,
+        "description" => $displayDescription,
         "price" => $price,
         "priceNumber" => (int) round($numericPrice),
         "imageUrl" => normalizeImageUrl($primaryImage),
         "secondaryImageUrl" => normalizeImageUrl($secondaryImage),
-        "concern" => $concern,
+        "concern" => $filterConcern ?: $concern,
+        "displayConcern" => $concern,
         "ingredient" => $ingredient,
         "type" => $productType,
         "stars" => "★★★★½",
         "reviewsCount" => "120",
         "boughtTag" => "196+ bought in past month",
-        "link" => $productSlug ? $productSlug . ".php" : "#",
+        "link" => normalizeText($product["link"] ?? "") ?: ($productSlug ? $productSlug . ".php" : "#"),
         "category" => $categoryName,
         "attributes" => normalizeAttributes($attributes),
         "details" => [
@@ -165,18 +254,227 @@ function normalizeProduct($product)
     ];
 }
 
+function normalizeCategory($category)
+{
+    $parent = is_array($category["parent"] ?? null) ? $category["parent"] : [];
+
+    return [
+        "id" => normalizeText($category["id"] ?? $category["categoryId"] ?? ""),
+        "name" => normalizeText($category["name"] ?? ""),
+        "slug" => slugifyValue($category["url_key"] ?? $category["urlKey"] ?? $category["name"] ?? ""),
+        "parentId" => normalizeText($category["parent_id"] ?? $category["parentId"] ?? $parent["id"] ?? $parent["categoryId"] ?? ""),
+        "parentSlug" => slugifyValue($parent["url_key"] ?? $parent["urlKey"] ?? $parent["name"] ?? ""),
+        "parentName" => normalizeText($parent["name"] ?? "")
+    ];
+}
+
+function categoryAliases($slug)
+{
+    $map = [
+        "moisturizers" => ["moisturizer", "moisturisers", "moisturiser", "moisture"],
+        "moisturizer" => ["moisturizers", "moisturisers", "moisturiser", "moisture"],
+        "moisturisers" => ["moisturizers", "moisturizer", "moisturiser", "moisture"],
+        "moisturiser" => ["moisturizers", "moisturizer", "moisturisers", "moisture"],
+        "face-serum" => ["face-serums", "face-serums-treatments", "face-serums-and-treatments", "serum", "serums"],
+        "face-serums" => ["face-serum", "face-serums-treatments", "face-serums-and-treatments", "serum", "serums"],
+        "face-serums-treatments" => ["face-serum", "face-serums", "face-serums-and-treatments", "serum", "serums"],
+        "face-wash" => ["face-washes", "cleanser", "cleansers"],
+        "sunscreens" => ["sunscreen", "sun-protection"],
+        "sunscreen" => ["sunscreens", "sun-protection"],
+        "acne" => ["anti-acne", "acne-breakouts", "acne-and-breakouts", "pimples", "breakouts"],
+        "acne-marks" => ["acne-marks", "post-acne-marks", "acne-marks-and-blemishes"],
+        "dark-spots" => ["dark-spots", "dark-spot", "spots"],
+        "anti-ageing" => ["anti-ageing", "anti-aging", "ageing", "aging", "wrinkles", "fine-lines"],
+        "anti-aging" => ["anti-ageing", "anti-aging", "ageing", "aging", "wrinkles", "fine-lines"],
+        "lines-and-wrinkles" => ["anti-ageing", "anti-aging", "wrinkles", "fine-lines"],
+        "brigthening" => ["brightening"]
+    ];
+
+    return array_values(array_unique(array_merge([$slug], $map[$slug] ?? [])));
+}
+
+function fetchCategories()
+{
+    $queries = [
+        '{ categories { items { id name url_key parent_id } } }',
+        '{ categories { items { categoryId name urlKey parentId } } }',
+        '{ categories { items { id name url_key parent { id name url_key } } } }',
+        '{ categories { items { categoryId name urlKey parent { categoryId name urlKey } } } }',
+        '{ categories { items { id name url_key } } }',
+        '{ categories { items { categoryId name urlKey } } }'
+    ];
+
+    foreach ($queries as $query) {
+        $result = graphqlRequest($query);
+        $items = $result["data"]["categories"]["items"] ?? null;
+
+        if (is_array($items)) {
+            return array_map("normalizeCategory", $items);
+        }
+    }
+
+    return [];
+}
+
+function categoryMatches($category, $keys)
+{
+    $categoryKeys = array_filter([
+        $category["id"] ?? "",
+        $category["slug"] ?? "",
+        slugifyValue($category["name"] ?? "")
+    ]);
+
+    return count(array_intersect($categoryKeys, $keys)) > 0;
+}
+
+function categoryParentMatches($category, $keys)
+{
+    $parentKeys = array_filter([
+        $category["parentId"] ?? "",
+        $category["parentSlug"] ?? "",
+        slugifyValue($category["parentName"] ?? "")
+    ]);
+
+    return count(array_intersect($parentKeys, $keys)) > 0;
+}
+
+function resolveCategoryKeys($categorySlug)
+{
+    $keys = categoryAliases($categorySlug);
+    $categories = fetchCategories();
+
+    foreach ($categories as $category) {
+        if (categoryMatches($category, $keys)) {
+            $keys[] = $category["id"];
+            $keys[] = $category["slug"];
+            $keys[] = slugifyValue($category["name"]);
+        }
+    }
+
+    $keys = array_values(array_unique(array_filter($keys)));
+    $changed = true;
+
+    while ($changed) {
+        $changed = false;
+
+        foreach ($categories as $category) {
+            if (!categoryParentMatches($category, $keys)) {
+                continue;
+            }
+
+            $before = count($keys);
+            $keys[] = $category["id"];
+            $keys[] = $category["slug"];
+            $keys[] = slugifyValue($category["name"]);
+            $keys = array_values(array_unique(array_filter($keys)));
+            $changed = count($keys) > $before;
+        }
+    }
+
+    return $keys;
+}
+
+function productCategorySlug($product)
+{
+    $category = $product["category"] ?? "";
+
+    if (is_array($category)) {
+        return slugifyValue($category["url_key"] ?? $category["urlKey"] ?? $category["name"] ?? normalizeText($category));
+    }
+
+    return slugifyValue(normalizeText($category));
+}
+
+function productMatchValues($product)
+{
+    $values = [
+        productCategorySlug($product),
+        slugifyValue($product["name"] ?? ""),
+        slugifyValue($product["description"] ?? ""),
+        slugifyValue($product["subtitle"] ?? ""),
+        slugifyValue($product["sku"] ?? ""),
+        slugifyValue($product["urlKey"] ?? $product["url_key"] ?? ""),
+        slugifyValue($product["concern"] ?? ""),
+        slugifyValue($product["ingredient"] ?? ""),
+        slugifyValue($product["type"] ?? "")
+    ];
+
+    foreach (($product["attributeIndex"] ?? []) as $attribute) {
+        $values[] = slugifyValue($attribute["attributeCode"] ?? "");
+        $values[] = slugifyValue($attribute["attributeName"] ?? "");
+        $values[] = slugifyValue(normalizeText($attribute["optionText"] ?? ""));
+    }
+
+    return array_values(array_unique(array_filter($values)));
+}
+
+function productMatchesCategory($product, $categoryKeys)
+{
+    $values = productMatchValues($product);
+
+    foreach ($categoryKeys as $key) {
+        if (!$key) {
+            continue;
+        }
+
+        if (in_array($key, $values, true)) {
+            return true;
+        }
+
+        foreach ($values as $value) {
+            if (strlen($key) >= 4 && containsText($value, $key)) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+function fetchProductsByCategorySlug($slug)
+{
+    if (!$slug) {
+        return [];
+    }
+
+    $safeSlug = addslashes($slug);
+    $query = '
+        query {
+            productsByCategory(categorySlug: "' . $safeSlug . '") {
+                id
+                name
+                subtitle
+                price
+                originalPrice
+                reviewsCount
+                stars
+                boughtTag
+                primaryImage
+                secondaryImage
+                concern
+                ingredient
+                type
+                link
+            }
+        }
+    ';
+
+    $result = graphqlRequest($query);
+    $items = $result["data"]["productsByCategory"] ?? [];
+
+    return is_array($items) ? $items : [];
+}
+
 if ($category === "") {
-    echo json_encode(["error" => "Missing category"]);
-    exit;
+    jsonExit(["error" => "Missing category"]);
 }
 
 $categorySlug = slugifyValue($category);
 $cacheDir = __DIR__ . "/cache";
-$cacheFile = $cacheDir . "/category-products-v3-" . $categorySlug . ".json";
+$cacheFile = $cacheDir . "/category-products-v8-" . $categorySlug . ".json";
 
 if (is_file($cacheFile) && time() - filemtime($cacheFile) < $cacheTtl) {
-    readfile($cacheFile);
-    exit;
+    jsonExit(file_get_contents($cacheFile));
 }
 
 $query = '{
@@ -204,38 +502,57 @@ $result = graphqlRequest($query);
 
 if (!empty($result["error"]) || !empty($result["errors"])) {
     if (is_file($cacheFile)) {
-        readfile($cacheFile);
-        exit;
+        jsonExit(file_get_contents($cacheFile));
     }
-
-    echo json_encode($result);
-    exit;
 }
 
+$backendConnectionError = !empty($result["error"]);
 $allProducts = $result["data"]["products"]["items"] ?? [];
-$products = array_values(array_filter($allProducts, function ($product) use ($categorySlug) {
-    $productCategory = normalizeText($product["category"] ?? "");
-    return slugifyValue($productCategory) === $categorySlug;
+$categoryKeys = $backendConnectionError ? categoryAliases($categorySlug) : resolveCategoryKeys($categorySlug);
+$products = array_values(array_filter($allProducts, function ($product) use ($categoryKeys) {
+    return productMatchesCategory($product, $categoryKeys);
 }));
+
+if (count($products) === 0 && !$backendConnectionError) {
+    $productsById = [];
+
+    foreach ($categoryKeys as $key) {
+        foreach (fetchProductsByCategorySlug($key) as $product) {
+            $id = normalizeText($product["id"] ?? $product["sku"] ?? $product["name"] ?? "");
+            $productsById[$id ?: md5(json_encode($product))] = $product;
+        }
+    }
+
+    $products = array_values($productsById);
+}
 
 $categoryName = $category;
 
 if (count($products) > 0) {
-    $categoryName = normalizeText($products[0]["category"] ?? $category);
+    $categoryName = normalizeText($products[0]["category"] ?? "") ?: $category;
 }
+
+foreach ($products as &$product) {
+    $product["_requestedCategory"] = $categorySlug;
+}
+unset($product);
 
 $payload = json_encode([
     "category" => [
         "id" => null,
         "name" => $categoryName,
-        "slug" => $categorySlug
+        "slug" => $categorySlug,
+        "matchedCategories" => $categoryKeys
     ],
     "products" => array_map("normalizeProduct", $products)
 ]);
 
-if (!is_dir($cacheDir)) {
-    mkdir($cacheDir, 0755, true);
+if (!$backendConnectionError && count($products) > 0) {
+    if (!is_dir($cacheDir)) {
+        mkdir($cacheDir, 0755, true);
+    }
+
+    file_put_contents($cacheFile, $payload);
 }
 
-file_put_contents($cacheFile, $payload);
-echo $payload;
+jsonExit($payload);

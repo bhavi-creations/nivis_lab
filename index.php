@@ -67,6 +67,82 @@
 </div>
 
 
+<!-- <div class="container my-5 mb-5">
+
+    <div class="skin-wrapper_index">
+
+      
+        <div class="skin-label_index">SKIN ASSESSMENT</div>
+
+       
+        <div class="skin-section_index">
+
+            <div class="row align-items-center">
+
+                
+                <div class="col-md-7">
+                    <p class="text-danger fw-semibold mb-1">
+                        AI-POWERED SKIN ANALYSIS
+                    </p>
+
+                    <h2 class="skin-title_index">
+                        GET CURATED HELP FOR YOUR SKIN
+                    </h2>
+
+                    <p class="text-muted">
+                        Answer 3 quick questions — our AI dermat advisor will build a personalised routine just for
+                        you.
+                    </p>
+
+                    <button class="skin-btn_index">
+                        START MY SKIN ASSESSMENT →
+                    </button>
+                </div>
+
+               
+                <div class="col-md-5">
+
+                    <div class="feature-box_index">
+                        <div class="feature-icon_index">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div>
+                            <strong>Know your skin</strong><br>
+                            <small>Identify your skin type in seconds</small>
+                        </div>
+                    </div>
+
+                    <div class="feature-box_index">
+                        <div class="feature-icon_index">
+                            <i class="fa fa-heartbeat"></i>
+                        </div>
+                        <div>
+                            <strong>Target concerns</strong><br>
+                            <small>Acne, pigmentation, aging & more</small>
+                        </div>
+                    </div>
+
+                    <div class="feature-box_index">
+                        <div class="feature-icon_index">
+                            <i class="fa fa-image"></i>
+                        </div>
+                        <div>
+                            <strong>Photo analysis</strong><br>
+                            <small>AI analyses your skin for better results</small>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+</div> -->
+
 <div class="container my-5 ai_powered_skin_analysis">
     <div class="skin-wrapper_index border rounded-3 position-relative ">
 
@@ -201,11 +277,65 @@
 
 
 
-<div class="container my-5 img_section_container">
+<!-- <div class="container mb-5">
+    <div class="img_section text-center">
+        <h2 class="fw-bold mb-4">SHOP BY CONCERN</h2>
+        <div class="row g-2 justify-content-center">
+
+            <div class="col-lg-2-custom">
+                <div class="concern-card"><img src="./assets/img/logo.jpeg" alt="2">
+                    <div class="concern-overlay">Acne </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2-custom">
+                <div class="concern-card"><img src="./assets/img/logo.jpeg" alt="1">
+                    <div class="concern-overlay">Pigmentation </div>
+                </div>
+            </div>
+            <div class="col-lg-2-custom">
+                <div class="concern-card"><img src="./assets/img/logo.jpeg" alt="3">
+                    <div class="concern-overlay">Acne Marks </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2-custom">
+                <div class="concern-card"><img src="./assets/img/logo.jpeg" alt="1">
+                    <div class="concern-overlay">Dark Spot </div>
+                </div>
+            </div>
+            <div class="col-lg-2-custom">
+                <div class="concern-card"><img src="./assets/img/logo.jpeg" alt="1">
+                    <div class="concern-overlay">Anti-Ageing </div>
+                </div>
+            </div>
+
+
+
+
+
+
+            <div class="col-lg-2-custom">
+                <div class="concern-card"><img src="./assets/img/logo.jpeg" alt="4">
+                    <div class="concern-overlay">Dehydration</div>
+                </div>
+            </div>
+            <div class="col-lg-2-custom">
+                <div class="concern-card"><img src="./assets/img/logo.jpeg" alt="5">
+                    <div class="concern-overlay">Eczema </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div> -->
+
+
+<!-- <div class="container my-5 img_section_container">
     <div class="img_section text-center">
         <h2 class="fw-bold mb-4" style="letter-spacing: 1px;">FIND YOUR DERMAT ROUTINE</h2>
 
-        <!-- TOP NAVIGATION: ALL 7 IMAGES IN ONE LINE -->
+       
         <div class="d-flex flex-nowrap justify-content-start justify-content-md-center overflow-auto pb-3 gap-2 no-scrollbar">
 
             <div class="concern-item" onclick="showDermatRoutine('acne', this)">
@@ -259,17 +389,209 @@
 
         </div>
 
-        <!-- DYNAMIC PRODUCT AREA (Content injects here) -->
+       
         <div id="dermat-results" class="mt-4">
             <p class="text-muted small mb-3">Choose your serum / treatment:</p>
 
-            <!-- Result Container (Initial: Acne with 4 bottles matches first image) -->
-            <!-- <div id="routine-content" class="mx-auto" style="max-width: 900px;">
-                <img src="./assets/img/logo.jpeg " class="img-fluid rounded" alt="Acne Routine">
-            </div> -->
+            
+            <div id="routine-content" class="mx-auto" style="max-width: 1100px;"></div>
         </div>
     </div>
-</div>
+</div> -->
+
+
+
+
+
+
+
+
+<script>
+    const dermatFallbackProducts = {
+        acne: [{
+                name: '2% Salicylic Acid Anti-Acne Serum',
+                subtitle: 'Solution for acne, clogged pores and sebum regulation',
+                price: '₹699',
+                imageUrl: './assets/img/logo.jpeg',
+                secondaryImageUrl: './assets/img/logo.jpeg',
+                link: 'salicylic_acid_anti_acne_serum.php',
+                type: 'Serum'
+            },
+            {
+                name: 'Salicylic Acid Acne Spot Treatment Gel',
+                subtitle: 'Solution for rapid healing of acne, pimples and breakouts',
+                price: '₹649',
+                imageUrl: './assets/img/logo.jpeg',
+                secondaryImageUrl: './assets/img/logo.jpeg',
+                link: 'salicylic_acid_acne_spot_treatment_gel.php',
+                type: 'Treatment'
+            },
+            {
+                name: '10% Niacinamide Spot Correcting Serum',
+                subtitle: 'Solution for acne marks, spots and uneven skin tone',
+                price: '₹699',
+                imageUrl: './assets/img/logo.jpeg',
+                secondaryImageUrl: './assets/img/logo.jpeg',
+                link: 'niacinamide_spot_correcting_serum.php',
+                type: 'Serum'
+            }
+        ],
+        pigmentation: [{
+            name: '2% Alpha Arbutin Depigmentation Serum',
+            subtitle: 'Brightening solution for pigmentation',
+            price: '₹699',
+            imageUrl: './assets/img/logo.jpeg',
+            secondaryImageUrl: './assets/img/logo.jpeg',
+            link: 'alpha_arbutin_depigmentation_serum.php',
+            type: 'Serum'
+        }],
+        'acne-marks': [{
+            name: '10% Niacinamide Spot Correcting Serum',
+            subtitle: 'Solution for post-acne marks and blemishes',
+            price: '₹699',
+            imageUrl: './assets/img/logo.jpeg',
+            secondaryImageUrl: './assets/img/logo.jpeg',
+            link: 'niacinamide_spot_correcting_serum.php',
+            type: 'Serum'
+        }],
+        'dark-spots': [{
+            name: '10% Vitamin C Brightening Serum',
+            subtitle: 'Solution for dark spots and dullness',
+            price: '₹699',
+            imageUrl: './assets/img/logo.jpeg',
+            secondaryImageUrl: './assets/img/logo.jpeg',
+            link: 'vitamin_c_brightening_serum.php',
+            type: 'Serum'
+        }],
+        'anti-ageing': [{
+            name: '0.3% Pure Retinol Face Serum',
+            subtitle: 'Solution for fine lines and ageing',
+            price: '₹699',
+            imageUrl: './assets/img/logo.jpeg',
+            secondaryImageUrl: './assets/img/logo.jpeg',
+            link: 'pure_retinol_face_serum.php',
+            type: 'Serum'
+        }],
+        dehydration: [{
+            name: '2% Hyaluronic Acid Dewy Skin Serum',
+            subtitle: 'Solution for hydration and plump skin',
+            price: '₹699',
+            imageUrl: './assets/img/logo.jpeg',
+            secondaryImageUrl: './assets/img/logo.jpeg',
+            link: 'hyaluronic_acid_dewy_skin_serum.php',
+            type: 'Serum'
+        }],
+        eczema: [{
+            name: 'Ceramides Intensive Repair Cream',
+            subtitle: 'Barrier support for dry, sensitive skin',
+            price: '₹699',
+            imageUrl: './assets/img/logo.jpeg',
+            secondaryImageUrl: './assets/img/logo.jpeg',
+            link: 'ceramides_intensive_repair_cream.php',
+            type: 'Cream'
+        }]
+    };
+
+    function escapeDermatHtml(value) {
+        return String(value ?? '').replace(/[&<>"']/g, function(char) {
+            return {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            }[char];
+        });
+    }
+
+    function dermatProductCard(product) {
+        const fallbackImage = './assets/img/logo.jpeg';
+        const imageUrl = product.imageUrl || product.primaryImage || fallbackImage;
+        const hoverImageUrl = product.secondaryImageUrl || product.secondaryImage || imageUrl;
+        const productKey = product.id || product.sku || product.urlKey || product.url_key || product.name || '';
+        const link = product.urlKey || product.sku || product.id ?
+            `hyaluronic_acid_dewy_skin_serum.php?product=${encodeURIComponent(productKey)}&category=${encodeURIComponent(product.category || '')}` :
+            (product.link && product.link !== '#' ? product.link : '#');
+
+        return `
+            <div class="product-card">
+                <a href="${escapeDermatHtml(link)}">
+                    <div class="product-img-wrap">
+                        <img class="img-primary" src="${escapeDermatHtml(imageUrl)}" alt="${escapeDermatHtml(product.name)}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImage}';">
+                        <img class="img-secondary" src="${escapeDermatHtml(hoverImageUrl)}" alt="${escapeDermatHtml(product.name)}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImage}';">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-type-badge">${escapeDermatHtml(product.type || 'Product')}</div>
+                        <div class="product-name">${escapeDermatHtml(product.name || 'Product')}</div>
+                        <div class="product-sub">/ ${escapeDermatHtml(product.subtitle || product.concern || 'Skincare')} /</div>
+                        <div>
+                            <span class="stars">${escapeDermatHtml(product.stars || '★★★★½')}</span>
+                            <span class="review-count">(${escapeDermatHtml(product.reviewsCount || 120)} reviews)</span>
+                        </div>
+                        <div class="product-price">${escapeDermatHtml(product.price || '₹0')}</div>
+                    </div>
+                </a>
+                <button class="btn-cart">Add to Cart</button>
+            </div>
+        `;
+    }
+
+    function renderDermatProducts(type, products) {
+        const contentArea = document.getElementById('routine-content');
+        if (!contentArea) return;
+
+        const visibleProducts = products.length ? products : (dermatFallbackProducts[type] || []);
+
+        if (!visibleProducts.length) {
+            contentArea.innerHTML = '<p class="text-muted mb-0">No products found for this concern.</p>';
+            return;
+        }
+
+        contentArea.innerHTML = `<div class="products-grid text-start">${visibleProducts.map(dermatProductCard).join('')}</div>`;
+    }
+
+    async function loadDermatProducts(type) {
+        const contentArea = document.getElementById('routine-content');
+        if (!contentArea) return;
+
+        contentArea.innerHTML = `
+            <div class="text-center py-4">
+                <div class="spinner-border text-dark" role="status"></div>
+                <p class="mt-2 mb-0">Loading products...</p>
+            </div>
+        `;
+
+        try {
+            const response = await fetch(`fetch_category_products.php?category=${encodeURIComponent(type)}`);
+            const result = await response.json();
+            renderDermatProducts(type, result.products || []);
+        } catch (error) {
+            renderDermatProducts(type, []);
+        }
+    }
+
+    function showDermatRoutine(type, element) {
+        // 1. Remove active border from all navigation cards
+        document.querySelectorAll('.concern-card').forEach(card => {
+            card.classList.remove('active-dermat');
+        });
+
+        // 2. Add active border to clicked navigation card
+        if (element) {
+            element.querySelector('.concern-card').classList.add('active-dermat');
+        }
+
+        loadDermatProducts(type);
+        document.getElementById('routine-content')?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest'
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        loadDermatProducts('acne');
+    });
+</script>
 
 
 
@@ -285,13 +607,7 @@
 
 
 
-
-
-
-
-
-
- <section class="py-5 px-3 bg-light">
+<section class="py-5 px-3 bg-light">
     <div class="container px-lg-5">
         <h2 class="fw-bold mb-4 px-3">SHOP OUR SPOTLIGHTS</h2>
         <div class="product-carousel">
@@ -393,38 +709,8 @@
 
         </div>
     </div>
-</section> 
+</section>
 
-
-
-<section class="py-5 px-3 bg-light">
-    <!-- <div class="container px-lg-5">
-
-        <h2 class="fw-bold mb-4 px-3"> </h2>
-
-        <div class="product-carousel" id="spotlight-products">
-            <div class="text-center w-100 py-4">
-                <div class="spinner-border text-dark"></div>
-                <p class="mt-2">Loading spotlight products...</p>
-            </div>
-        </div>
-
-    </div>
-</section> -->
-
-
-<!-- <section class="py-5 px-3">
-    <div class="container px-lg-5">
-        <div id="dynamic-category-sections">
-            <div class="text-center w-100 py-4">
-                <div class="spinner-border text-dark"></div>
-                <p class="mt-2">Loading category products...</p>
-                
-                
-            </div>
-        </div>
-    </div>
-</section> -->
 
 
 
@@ -516,41 +802,7 @@
 
         </div>
     </div>
-</section> 
-<!-- <section class="video_section_wrapper">
-    <div class="container">
-        <h2 class="video_section_title">FORMULATED WITH GLOBAL DERMATOLOGISTS</h2>
-
-       
-        <div class="video_section_carousel" id="global-dermatology-products">
-            <div class="text-center w-100 py-4">
-                <div class="spinner-border text-dark"></div>
-                <p>Loading Dermatology Products...</p>
-            </div>
-        </div>
-    </div>
-</section> -->
-
-
-
-<!-- <section class="video_section_wrapper">
-    <div class="container">
-        <h2 class="video_section_title">FORMULATED WITH GLOBAL DERMATOLOGISTS</h2>
-        <div class="video_section_carousel" id="global-dermatology-products"></div>
-        <div class="video_section_carousel" id="global-dermatology">
-            <div class="text-center w-100 py-4">
-                <div class="spinner-border text-dark"></div>
-                <p class="mt-2">Loading dermatologist products...</p>
-            </div>
-        </div>
-    </div>
-</section> -->
-
-
-
-
-
-
+</section>
 
 <hr>
 
@@ -987,6 +1239,10 @@
 </script>
 
 
+
+
+
+
 <script>
     function showStep(step) {
         // Hide all steps
@@ -1013,558 +1269,6 @@
         } else {
             nextBtn.classList.add('disabled', 'btn-secondary');
             nextBtn.classList.remove('enabled-next');
-        }
-    }
-</script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    fetchSpotlightProducts();
-});
-
-async function fetchSpotlightProducts() {
-    const container = document.getElementById('spotlight-products');
-
-    if (!container) {
-        console.error('spotlight-products id not found');
-        return;
-    }
-
-    try {
-        const response = await fetch('fetch_data.php?type=spotlights');
-        const rawData = await response.text();
-
-        let result;
-
-        try {
-            result = JSON.parse(rawData);
-        } catch (e) {
-            console.log(rawData);
-            container.innerHTML = `
-                <div class="alert alert-danger text-center w-100">
-                    Invalid JSON from fetch_data.php
-                </div>
-            `;
-            return;
-        }
-
-        if (result.error) {
-            container.innerHTML = `
-                <div class="alert alert-danger text-center w-100">
-                    ${result.error}
-                </div>
-            `;
-            return;
-        }
-
-        if (result.errors) {
-            console.error(result.errors);
-            container.innerHTML = `
-                <div class="alert alert-danger text-center w-100">
-                    GraphQL error. Console check cheyyi.
-                </div>
-            `;
-            return;
-        }
-
-        const products = result.data?.productsByCategory || [];
-
-        console.log('SPOTLIGHT PRODUCTS:', products);
-
-        renderSpotlightProducts(products);
-
-    } catch (error) {
-        container.innerHTML = `
-            <div class="alert alert-danger text-center w-100">
-                ${error.message}
-            </div>
-        `;
-    }
-}
-
-function renderSpotlightProducts(products) {
-    const container = document.getElementById('spotlight-products');
-
-    if (!container) return;
-
-    if (typeof $ !== 'undefined' && $('#spotlight-products').hasClass('slick-initialized')) {
-        $('#spotlight-products').slick('unslick');
-    }
-
-    container.innerHTML = '';
-
-    if (!products || products.length === 0) {
-        container.innerHTML = `
-            <p class="text-center w-100">
-                No spotlight products found.
-            </p>
-        `;
-        return;
-    }
-
-    products.forEach(product => {
-        const imageUrl = product.primaryImage
-            ? product.primaryImage
-            : './assets/img/logo.jpeg';
-
-        const productName = product.name || 'Product Name';
-        const productPrice = product.price || 'N/A';
-        const originalPrice = product.originalPrice || productPrice;
-        const concern = product.concern || 'Skin Care';
-        const productLink = product.link || '#';
-        const stars = product.stars || '★★★★★';
-        const reviews = product.reviewsCount || '200';
-        const boughtTag = product.boughtTag || '196+ bought in past month';
-
-        container.innerHTML += `
-            <div class="px-2">
-                <div class="product-card">
-                    <a href="${productLink}">
-                        <img src="${imageUrl}" class="w-100 mb-3" alt="${productName}">
-                        <h6 class="fw-bold">${productName}</h6>
-                        <p class="small text-muted mb-2">/${concern}/</p>
-                        <div class="small mb-2">${stars} (${reviews} reviews)</div>
-                        <div class="mb-3">
-                            <span class="badge-b1g1">B1G1</span>
-                            <del class="text-muted ms-1">${originalPrice}</del>
-                            <span class="free-text ms-1">${productPrice}</span>
-                        </div>
-                        <small>${boughtTag}</small>
-                    </a>
-                    <button class="btn btn-dark w-100 rounded-0 mt-2">ADD TO CART</button>
-                </div>
-            </div>
-        `;
-    });
-
-    initSpotlightSlider();
-}
-
-function initSpotlightSlider() {
-    if (typeof $ === 'undefined' || typeof $.fn.slick === 'undefined') {
-        console.error('Slick slider JS/CSS include cheyyaledhu');
-        return;
-    }
-
-    $('#spotlight-products').slick({
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        infinite: true,
-        arrows: true,
-        dots: false,
-        autoplay: true,
-        autoplaySpeed: 2500,
-        responsive: [
-            {
-                breakpoint: 1200,
-                settings: { slidesToShow: 3 }
-            },
-            {
-                breakpoint: 768,
-                settings: { slidesToShow: 2 }
-            },
-            {
-                breakpoint: 576,
-                settings: { slidesToShow: 1 }
-            }
-        ]
-    });
-}
-    /* ================= SPOTLIGHT PRODUCTS START ================= */
-
-    async function fetchSpotlightProducts() {
-        const container = document.getElementById('spotlight-products');
-
-        if (!container) {
-            console.error('spotlight-products id not found');
-            return;
-        }
-
-        try {
-            const response = await fetch('fetch_data.php?type=spotlights');
-            const rawData = await response.text();
-
-            let result;
-
-            try {
-                result = JSON.parse(rawData);
-            } catch (e) {
-                container.innerHTML = `
-                <div class="alert alert-danger text-center w-100">
-                    Invalid JSON from fetch_data.php
-                </div>
-            `;
-                return;
-            }
-
-            if (result.error) {
-                container.innerHTML = `
-                <div class="alert alert-danger text-center w-100">
-                    ${result.error}
-                </div>
-            `;
-                return;
-            }
-
-            if (result.errors) {
-                console.error(result.errors);
-                container.innerHTML = `
-                <div class="alert alert-danger text-center w-100">
-                    GraphQL error. Console check cheyyi.
-                </div>
-            `;
-                return;
-            }
-
-            const products = result.data?.products?.items || [];
-            renderSpotlightProducts(products);
-
-        } catch (error) {
-            container.innerHTML = `
-            <div class="alert alert-danger text-center w-100">
-                ${error.message}
-            </div>
-        `;
-        }
-    }
-
-    function renderSpotlightProducts(products) {
-        const container = document.getElementById('spotlight-products');
-
-        if (!container) return;
-
-        if (typeof $ !== 'undefined' && $('#spotlight-products').hasClass('slick-initialized')) {
-            $('#spotlight-products').slick('unslick');
-        }
-
-        container.innerHTML = '';
-
-        if (!products || products.length === 0) {
-            container.innerHTML = `
-            <p class="text-center w-100">
-                No spotlight products found.
-            </p>
-        `;
-            return;
-        }
-
-        products.forEach(product => {
-            const imageUrl = product.image?.url ?
-                `http://localhost:3000${product.image.url}` :
-                './assets/img/logo.jpeg';
-
-            const productName = product.name || 'Product Name';
-            const productPrice = product.price?.regular?.text || 'N/A';
-            const concern = product.concern || 'Skin Care';
-            const productSlug = product.url_key || '#';
-
-            container.innerHTML += `
-            <div class="px-2">
-                <div class="product-card">
-                    <a href="${productSlug}.php">
-                        <img src="${imageUrl}" class="w-100 mb-3" alt="${productName}">
-                        <h6 class="fw-bold">${productName}</h6>
-                        <p class="small text-muted mb-2">/${concern}/</p>
-                        <div class="small mb-2">★★★★★ (200 reviews)</div>
-                        <div class="mb-3">
-                            <span class="badge-b1g1">B1G1</span>
-                            <del class="text-muted ms-1">${productPrice}</del>
-                            <span class="free-text ms-1">FREE</span>
-                        </div>
-                    </a>
-                    <button class="btn btn-dark w-100 rounded-0">ADD TO CART</button>
-                </div>
-            </div>
-        `;
-        });
-
-        initSpotlightSlider();
-    }
-
-    function initSpotlightSlider() {
-        if (typeof $ === 'undefined' || typeof $.fn.slick === 'undefined') {
-            console.error('Slick slider JS/CSS include cheyyaledhu');
-            return;
-        }
-
-        $('#spotlight-products').slick({
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            infinite: true,
-            arrows: true,
-            dots: false,
-            autoplay: true,
-            autoplaySpeed: 2500,
-            responsive: [{
-                    breakpoint: 1200,
-                    settings: {
-                        slidesToShow: 3
-                    }
-                },
-                {
-                    breakpoint: 768,
-                    settings: {
-                        slidesToShow: 2
-                    }
-                },
-                {
-                    breakpoint: 576,
-                    settings: {
-                        slidesToShow: 1
-                    }
-                }
-            ]
-        });
-    }
-
-    /* ================= SPOTLIGHT PRODUCTS END ================= */
-
-
-    /* ================= GLOBAL DERMATOLOGY START ================= */
-
-    async function fetchGlobalDermatologyProducts() {
-        const container = document.getElementById('global-dermatology-products');
-
-        if (!container) {
-            console.error('global-dermatology-products id not found');
-            return;
-        }
-
-        try {
-            const response = await fetch('fetch_data.php?type=global_dermatology');
-            const rawData = await response.text();
-
-            let result;
-
-            try {
-                result = JSON.parse(rawData);
-            } catch (e) {
-                container.innerHTML = `
-                <div class="alert alert-danger text-center w-100">
-                    Invalid JSON from fetch_data.php
-                </div>
-            `;
-                return;
-            }
-
-            if (result.error) {
-                container.innerHTML = `
-                <div class="alert alert-danger text-center w-100">
-                    ${result.error}
-                </div>
-            `;
-                return;
-            }
-
-            if (result.errors) {
-                console.error(result.errors);
-                container.innerHTML = `
-                <div class="alert alert-danger text-center w-100">
-                    GraphQL error. Console check cheyyi.
-                </div>
-            `;
-                return;
-            }
-
-            const products = result.data?.products?.items || [];
-            renderGlobalDermatologyProducts(products);
-
-        } catch (error) {
-            container.innerHTML = `
-            <div class="alert alert-danger text-center w-100">
-                ${error.message}
-            </div>
-        `;
-        }
-    }
-
-    function renderGlobalDermatologyProducts(products) {
-        const container = document.getElementById('global-dermatology-products');
-
-        if (!container) return;
-
-        if (typeof $ !== 'undefined' && $('#global-dermatology-products').hasClass('slick-initialized')) {
-            $('#global-dermatology-products').slick('unslick');
-        }
-
-        container.innerHTML = '';
-
-        if (!products || products.length === 0) {
-            container.innerHTML = `
-            <p class="text-center w-100">
-                No global dermatology products found.
-            </p>
-        `;
-            return;
-        }
-
-        products.forEach(product => {
-            const productName = product.name || 'Product Name';
-            const productPrice = product.price?.regular?.text || 'N/A';
-            const productSlug = product.url_key || '#';
-            const videoUrl = './assets/img/V & V WSaloon MVP.mp4';
-
-            container.innerHTML += `
-            <div class="px-2">
-                <div class="video_section_card">
-                    <div class="video_section_container">
-                        <video autoplay controls muted loop playsinline poster="${videoUrl}">
-                            <source src="${videoUrl}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-
-                    <div class="video_section_product_info">
-                        <a href="${productSlug}.php">
-                            <div class="video_section_product_name">${productName}</div>
-                            <div>
-                                <span class="video_section_price_badge">B1G1</span>
-                                <del class="small text-muted">${productPrice}</del>
-                                <span class="video_section_free">FREE</span>
-                            </div>
-                        </a>
-
-                    </div>
-                </div>
-            </div>
-        `;
-        });
-
-        initGlobalDermatologySlider();
-    }
-
-    function initGlobalDermatologySlider() {
-        if (typeof $ === 'undefined' || typeof $.fn.slick === 'undefined') {
-            console.error('Slick slider JS/CSS include cheyyaledhu');
-            return;
-        }
-
-        $('#global-dermatology-products').slick({
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            infinite: true,
-            arrows: true,
-            dots: false,
-            autoplay: true,
-            autoplaySpeed: 2500,
-            responsive: [{
-                    breakpoint: 1200,
-                    settings: {
-                        slidesToShow: 3
-                    }
-                },
-                {
-                    breakpoint: 768,
-                    settings: {
-                        slidesToShow: 2
-                    }
-                },
-                {
-                    breakpoint: 576,
-                    settings: {
-                        slidesToShow: 1
-                    }
-                }
-            ]
-        });
-    }
-
-     /* ================= GLOBAL DERMATOLOGY END ================= */
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', loadDynamicCategorySections);
-
-    function homeSectionEscape(value) {
-        return String(value ?? '').replace(/[&<>"']/g, function(char) {
-            return {
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#039;'
-            }[char];
-        });
-    }
-
-    function homeSectionProductHref(product) {
-        if (product.link) return product.link;
-        if (product.urlKey) return `${product.urlKey}.php`;
-        if (product.url_key) return `${product.url_key}.php`;
-        return '#';
-    }
-
-    async function loadDynamicCategorySections() {
-        const container = document.getElementById('dynamic-category-sections');
-        if (!container) return;
-
-        try {
-            const response = await fetch('fetch_home_sections.php');
-            const result = await response.json();
-
-            if (result.error || result.errors) {
-                console.error(result.error || result.errors);
-                container.innerHTML = `
-                    <div class="alert alert-danger text-center">
-                        Category products loading failed.
-                    </div>
-                `;
-                return;
-            }
-
-            const categories = result.data?.categories?.items || [];
-            const sectionsHtml = categories.map(category => {
-                const products = category.products?.items || [];
-                const categorySlug = category.urlKey || category.url_key || '';
-
-                if (products.length === 0) return '';
-
-                return `
-                    <section class="category-section mb-5">
-                        <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
-                            <h2 class="fw-bold text-capitalize mb-0">${homeSectionEscape(category.name)}</h2>
-                            <a href="${categorySlug ? `${homeSectionEscape(categorySlug)}.php` : '#'}" class="btn btn-sm btn-outline-dark">View All</a>
-                        </div>
-                        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
-                            ${products.map(product => {
-                                const imageUrl = product.imageUrl || product.primaryImage || './assets/img/logo.jpeg';
-                                const productName = product.name || 'Product Name';
-                                const productPrice = product.price?.regular?.text || product.price || '₹0';
-                                const concern = product.concern || 'Skincare';
-                                const stars = product.stars || '★★★★★';
-                                const reviews = product.reviewsCount || 120;
-
-                                return `
-                                    <div class="col">
-                                        <div class="product-card h-100">
-                                            <a href="${homeSectionEscape(homeSectionProductHref(product))}">
-                                                <img src="${homeSectionEscape(imageUrl)}" class="w-100 mb-3" alt="${homeSectionEscape(productName)}">
-                                                <h6 class="fw-bold">${homeSectionEscape(productName)}</h6>
-                                                <p class="small text-muted mb-2">/${homeSectionEscape(concern)}/</p>
-                                                <div class="small mb-2">${homeSectionEscape(stars)} (${homeSectionEscape(reviews)} reviews)</div>
-                                                <div class="mb-3">
-                                                    <span class="badge-b1g1">B1G1</span>
-                                                    <span class="free-text ms-1">${homeSectionEscape(productPrice)}</span>
-                                                </div>
-                                            </a>
-                                            <button class="btn btn-dark w-100 rounded-0">ADD TO CART</button>
-                                        </div>
-                                    </div>
-                                `;
-                            }).join('')}
-                        </div>
-                    </section>
-                `;
-            }).join('');
-
-            container.innerHTML = sectionsHtml.trim() || '<p class="text-center w-100">No category products found.</p>';
-        } catch (error) {
-            console.error(error);
-            container.innerHTML = `
-                <div class="alert alert-danger text-center">
-                    ${homeSectionEscape(error.message)}
-                </div>
-            `;
         }
     }
 </script>
