@@ -48,7 +48,7 @@ if ($type === 'products') {
     exit;
 }
 
-$ch = curl_init('http://localhost:3000/api/graphql');
+$ch = curl_init('https://admin.nivislabs.in/api/graphql');
 // $ch = curl_init('http://localhost:3000/graphql');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
@@ -120,7 +120,7 @@ if ($type == 'products') {
     exit;
 }
 
-$ch = curl_init('http://localhost:3000/api/graphql');
+$ch = curl_init('https://admin.nivislabs.in/api/graphql');
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 

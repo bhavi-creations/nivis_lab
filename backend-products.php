@@ -4,8 +4,8 @@ header("Content-Type: application/json");
 
 $category = $_GET['category'] ?? 'face-wash';
 
-$graphqlUrl = "http://localhost:3000/api/graphql";
-// $ch = curl_init('http://localhost:3000/api/graphql');
+$graphqlUrl = "https://admin.nivislabs.in/api/graphql";
+// $ch = curl_init('https://admin.nivislabs.in/api/graphql');
 $query = '
 query GetProductsByCategory($categorySlug: String!) {
   productsByCategory(categorySlug: $categorySlug) {

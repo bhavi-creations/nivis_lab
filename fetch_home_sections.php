@@ -2,7 +2,7 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
-$apiGraphqlUrl = "http://localhost:3000/api/graphql";
+$apiGraphqlUrl = "https://admin.nivislabs.in/api/graphql";
 
 function graphqlRequest($url, $query, $variables = [])
 {

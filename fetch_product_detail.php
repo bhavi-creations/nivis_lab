@@ -6,7 +6,7 @@ ob_start();
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
-$graphqlUrl = "http://localhost:3000/api/graphql";
+$graphqlUrl = "https://admin.nivislabs.in/api/graphql";
 $productKey = trim($_GET["product"] ?? "");
 
 function jsonExit($payload)
