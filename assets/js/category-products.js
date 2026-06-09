@@ -6,15 +6,15 @@
         const grid = document.getElementById('productsGrid');
         const count = document.getElementById('productCount');
         const footer = document.querySelector('.footer_section');
-        const pageSlug = getPageSlug();
+        const categoryKey = getCategoryKey();
 
-        if (!pageSlug) return;
+        if (!categoryKey) return;
 
         if (grid) {
             patchCaseInsensitiveFilters();
             showLoadingState(grid, count);
             document.body.classList.add('dynamic-products-loading');
-            loadProductsForExistingGrid(pageSlug, grid, count);
+            loadProductsForExistingGrid(categoryKey, grid, count);
             return;
         }
 
@@ -26,7 +26,14 @@
         loadProductsForContentPage(pageSlug, footer);
     }
 
-    function getPageSlug() {
+    function getCategoryKey() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const category = urlParams.get('category');
+
+        if (category) {
+            return String(category).trim().toLowerCase().replace(/_/g, '-');
+        }
+
         const file = window.location.pathname.split('/').pop() || '';
         return file.replace(/\.php$/i, '').replace(/_/g, '-').toLowerCase();
     }
@@ -172,6 +179,22 @@
         };
     }
 
+    function toggleFilter(header) {
+        const body = header.nextElementSibling;
+        if (!body) return;
+        const icon = header.querySelector('.toggle-icon');
+        const isOpen = body.classList.toggle('open');
+        if (icon) icon.textContent = isOpen ? '−' : '+';
+    }
+
+    function updatePrice(val) {
+        const priceMax = document.getElementById('priceMax');
+        if (priceMax) priceMax.value = val;
+        if (typeof window.applyFilters === 'function') {
+            window.applyFilters();
+        }
+    }
+
     function injectDynamicProductStyles() {
         if (document.getElementById('dynamicProductCardStyles')) return;
 
@@ -272,6 +295,16 @@
         document.body.classList.remove('dynamic-products-loading');
         document.body.classList.add('dynamic-products-ready');
 
+        const titleEl = document.getElementById('categoryPageTitle');
+        const sidebarTitleEl = document.getElementById('sidebarTitle');
+        
+        if (titleEl && categoryName) {
+            titleEl.textContent = categoryName;
+        }
+        if (sidebarTitleEl && categoryName) {
+            sidebarTitleEl.textContent = categoryName;
+        }
+
         if (!products.length) {
             targetGrid.innerHTML = `<p class="text-center w-100">No ${escapeHtml(categoryName)} products found.</p>`;
             if (targetCount) targetCount.textContent = '0 products';
@@ -298,10 +331,10 @@
         const typeTokens = productTokens(product.type);
         const popupText = product.subtitle || product.concern || product.category || 'Skincare';
         const fallbackImage = './assets/img/product.webp';
-        const primaryImage = product.imageUrl || fallbackImage;
-        const secondaryImage = product.secondaryImageUrl || primaryImage;
+        const primaryImage = (product.images && product.images.length > 0) ? product.images[0] : (product.imageUrl || fallbackImage);
+        const secondaryImage = (product.images && product.images.length > 1) ? product.images[1] : (product.secondaryImageUrl || primaryImage);
         const productKey = product.id || product.sku || product.urlKey || product.name || '';
-        const detailHref = `hyaluronic_acid_dewy_skin_serum.php?product=${encodeURIComponent(productKey)}&category=${encodeURIComponent(product.category || '')}`;
+        const detailHref = `product-detail.php?product=${encodeURIComponent(productKey)}`;
 
         return `
             <div class="product-card"

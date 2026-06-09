@@ -125,12 +125,8 @@
 
                 <li class="index_navbar_section__item">
                     <a class="index_navbar_section__link" href="#">Category</a>
-                    <ul class="index_navbar_section__dropdown">
-                        <li><a href="face_serum.php">Face Serums & Treatments</a></li>
-                        <li><a href="moisturizers.php">Moisturisers</a></li>
-                        <li><a href="face-wash.php">Face Wash</a></li>
-                        <li><a href="sunscreens.php">Sunscreens</a></li>
-                        <li><a href="products.php">All Products</a></li>
+                    <ul class="index_navbar_section__dropdown" id="navbarCategoryDesktop">
+                        <li>Loading categories...</li>
                     </ul>
                 </li>
 
@@ -245,12 +241,8 @@
                     <span class="index_navbar_section__mob-label">Category</span>
                     <span class="index_navbar_section__mob-plus"><i class="bi bi-plus"></i></span>
                 </div>
-                <ul class="index_navbar_section__mob-sub">
-                    <li><a href="face_serum.php">Face Serums & Treatments</a></li>
-                    <li><a href="moisturizers.php">Moisturisers</a></li>
-                    <li><a href="face-wash.php">Face Wash</a></li>
-                    <li><a href="sunscreens.php">Sunscreens</a></li>
-                    <!-- <li><a href="#">Explore all products</a></li> -->
+                <ul class="index_navbar_section__mob-sub" id="navbarCategoryMobile">
+                    <li>Loading categories...</li>
                 </ul>
             </li>
 
@@ -376,6 +368,43 @@
                 if (!isOpen) item.classList.add('open');
             });
         });
+
+        async function loadNavbarCategories() {
+            const desktopMenu = document.getElementById('navbarCategoryDesktop');
+            const mobileMenu = document.getElementById('navbarCategoryMobile');
+            const placeholder = '<li>No categories found</li>';
+
+            if (desktopMenu) desktopMenu.innerHTML = '<li>Loading categories...</li>';
+            if (mobileMenu) mobileMenu.innerHTML = '<li>Loading categories...</li>';
+
+            try {
+                const response = await fetch('fetch_categories.php');
+                const result = await response.json();
+                const categories = result.data?.categories?.items || [];
+
+                if (!Array.isArray(categories) || categories.length === 0) {
+                    if (desktopMenu) desktopMenu.innerHTML = placeholder;
+                    if (mobileMenu) mobileMenu.innerHTML = placeholder;
+                    return;
+                }
+
+                const itemsHtml = categories.map(category => {
+                    const slug = encodeURIComponent(category.url_key || category.urlKey || category.name || '');
+                    const label = category.name || 'Category';
+                    const url = slug ? `category.php?category=${slug}` : '#';
+                    return `<li><a href="${url}">${label}</a></li>`;
+                }).join('');
+
+                if (desktopMenu) desktopMenu.innerHTML = itemsHtml;
+                if (mobileMenu) mobileMenu.innerHTML = itemsHtml;
+            } catch (error) {
+                console.error('Unable to load navbar categories:', error);
+                if (desktopMenu) desktopMenu.innerHTML = placeholder;
+                if (mobileMenu) mobileMenu.innerHTML = placeholder;
+            }
+        }
+
+        loadNavbarCategories();
 
         /* ─── Hero keyboard accessibility ─── */
         const indexHero = document.getElementById('indexHero');

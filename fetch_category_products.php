@@ -103,7 +103,7 @@ function normalizeImageUrl($url)
         return $url;
     }
 
-    return "http://localhost:3000" . $url;
+    return "https://admin.nivislabs.in" . $url;
 }
 
 function normalizeText($value)
@@ -204,15 +204,25 @@ function normalizeProduct($product)
     }
 
     $gallery = is_array($product["gallery"] ?? null) ? $product["gallery"] : [];
-    $secondaryImage = $product["secondaryImage"] ?? $primaryImage;
+    $images = [];
+
+    if ($primaryImage) {
+        $images[] = normalizeImageUrl($primaryImage);
+    }
+
+    if (!empty($product["secondaryImage"])) {
+        $images[] = normalizeImageUrl($product["secondaryImage"]);
+    }
 
     foreach ($gallery as $image) {
         $galleryUrl = is_array($image) ? ($image["url"] ?? $image["path"] ?? $image["src"] ?? null) : $image;
-        if ($galleryUrl && $galleryUrl !== $primaryImage) {
-            $secondaryImage = $galleryUrl;
-            break;
+        if ($galleryUrl) {
+            $images[] = normalizeImageUrl($galleryUrl);
         }
     }
+
+    $images = array_values(array_unique(array_filter($images)));
+    $secondaryImage = $images[1] ?? $images[0] ?? normalizeImageUrl($primaryImage);
 
     $concern = attributeValue($attributes, ["concern", "skin_concern", "skin concern"], $categoryName ?: "Skincare");
     $ingredient = attributeValue($attributes, ["ingredient", "ingredients", "key_ingredient", "key ingredient"], $categoryName ?: "skincare");
@@ -230,8 +240,9 @@ function normalizeProduct($product)
         "description" => $displayDescription,
         "price" => $price,
         "priceNumber" => (int) round($numericPrice),
-        "imageUrl" => normalizeImageUrl($primaryImage),
-        "secondaryImageUrl" => normalizeImageUrl($secondaryImage),
+        "imageUrl" => $images[0] ?? normalizeImageUrl($primaryImage),
+        "secondaryImageUrl" => $secondaryImage,
+        "images" => $images,
         "concern" => $filterConcern ?: $concern,
         "displayConcern" => $concern,
         "ingredient" => $ingredient,

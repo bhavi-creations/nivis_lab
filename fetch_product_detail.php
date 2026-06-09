@@ -91,7 +91,7 @@ function normalizeImageUrl($url)
         return $url;
     }
 
-    return "http://localhost:3000" . $url;
+    return "https://admin.nivislabs.in" . $url;
 }
 
 function attributeValue($attributes, $keywords, $fallback)

@@ -1128,8 +1128,16 @@
   }
 
   function getProductKeyFromFilename() {
+    // First, check if there's a ?product= parameter in the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const productParam = urlParams.get('product');
+    
+    if (productParam) {
+      return productParam;
+    }
+    
+    // Fallback to extracting from filename
     const filename = window.location.pathname.split('/').pop().replace('.php', '');
-    const urlKey = filename.replace(/_/g, ' ').replace(/-/g, ' ');
     return filename;
   }
 
