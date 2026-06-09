@@ -195,6 +195,65 @@ function attributeValue($attributes, $keywords, $fallback)
     return $fallback;
 }
 
+function inferIngredientValue($product, $attributes)
+{
+    $knownIngredients = [
+        "salicylic acid" => "Salicylic Acid",
+        "salicylic-acid" => "Salicylic Acid",
+        "niacinamide" => "Niacinamide",
+        "hyaluronic acid" => "Hyaluronic Acid",
+        "hyaluronic-acid" => "Hyaluronic Acid",
+        "ceramide" => "Ceramide",
+        "ceramides" => "Ceramide",
+        "panthenol" => "Panthenol",
+        "vitamin c" => "Vitamin C",
+        "vitamin-c" => "Vitamin C",
+        "retinol" => "Retinol",
+        "alpha arbutin" => "Alpha Arbutin",
+        "alpha-arbutin" => "Alpha Arbutin",
+        "arbutin" => "Arbutin",
+        "centella" => "Centella",
+        "zinc pca" => "Zinc PCA",
+        "zinc-pca" => "Zinc PCA",
+        "peptide" => "Peptide",
+        "bakuchiol" => "Bakuchiol",
+        "ferulic acid" => "Ferulic Acid",
+        "ferulic-acid" => "Ferulic Acid",
+        "squalane" => "Squalane",
+        "shea butter" => "Shea Butter",
+        "coenzyme q10" => "Coenzyme Q10",
+        "pentavitin" => "Pentavitin",
+        "polyglutamic acid" => "Polyglutamic Acid",
+        "n acetyl glucosamine" => "N Acetyl Glucosamine",
+        "tasmanian pepper" => "Tasmanian Pepper",
+        "tyrobright" => "Tyrobright",
+        "peptazin" => "Peptazin"
+    ];
+
+    $textParts = [
+        normalizeText($product["name"] ?? ""),
+        normalizeText($product["description"] ?? ""),
+        normalizeText($product["subtitle"] ?? ""),
+        normalizeText($product["urlKey"] ?? $product["url_key"] ?? "")
+    ];
+
+    foreach (($attributes ?? []) as $attribute) {
+        $textParts[] = normalizeText($attribute["attributeName"] ?? "");
+        $textParts[] = normalizeText($attribute["optionText"] ?? "");
+    }
+
+    $text = strtolower(implode(" ", array_filter($textParts)));
+    $matches = [];
+
+    foreach ($knownIngredients as $needle => $label) {
+        if (strpos($text, $needle) !== false) {
+            $matches[] = $label;
+        }
+    }
+
+    return implode(", ", array_values(array_unique($matches)));
+}
+
 function normalizeAttributes($attributes)
 {
     $items = [];
@@ -258,7 +317,10 @@ function normalizeProduct($product)
     $secondaryImage = $images[1] ?? $images[0] ?? normalizeImageUrl($primaryImage);
 
     $concern = attributeValue($attributes, ["concern", "skin_concern", "skin concern"], $categoryName ?: "Skincare");
-    $ingredient = attributeValue($attributes, ["ingredient", "ingredients", "key_ingredient", "key ingredient"], $categoryName ?: "skincare");
+    $ingredient = attributeValue($attributes, ["ingredient", "ingredients", "key_ingredient", "key ingredient"], "");
+    if ($ingredient === "" || slugifyValue($ingredient) === slugifyValue($categoryName)) {
+        $ingredient = inferIngredientValue($product, $attributes);
+    }
     $productType = attributeValue($attributes, ["product_type", "product type", "type"], $categoryName ?: "Product");
     $requestedCategory = normalizeText($product["_requestedCategory"] ?? "");
     $displayDescription = cleanDescriptionText($product["subtitle"] ?? $product["description"] ?? "", $concern ?: $categoryName ?: "Skincare");

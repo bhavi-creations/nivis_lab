@@ -1,4 +1,7 @@
 (function() {
+    window.toggleFilter = toggleFilter;
+    window.updatePrice = updatePrice;
+
     injectDynamicProductStyles();
     start();
 
@@ -7,6 +10,8 @@
         const count = document.getElementById('productCount');
         const footer = document.querySelector('.footer_section');
         const categoryKey = getCategoryKey();
+
+        bindFilterHeaders();
 
         if (!categoryKey) return;
 
@@ -137,7 +142,7 @@
 
     function checkedFilterValues(selector) {
         return [...document.querySelectorAll(`${selector} input:checked`)]
-            .map(input => String(input.value || '').toLowerCase())
+            .flatMap(input => productTokens(input.value).split(/\s+/))
             .filter(Boolean);
     }
 
@@ -197,6 +202,30 @@
         if (typeof window.applyFilters === 'function') {
             window.applyFilters();
         }
+    }
+
+    window.toggleFilter = toggleFilter;
+    window.updatePrice = updatePrice;
+
+    function bindFilterHeaders() {
+        document.querySelectorAll('.filter-group-header').forEach(header => {
+            if (header.dataset.filterBound === 'true') return;
+
+            header.removeAttribute('onclick');
+            header.dataset.filterBound = 'true';
+            header.addEventListener('click', () => {
+                const body = header.nextElementSibling;
+                if (!body) return;
+
+                const icon = header.querySelector('.toggle-icon');
+                const group = header.closest('.filter-group');
+                const isOpen = !body.classList.contains('open');
+
+                body.classList.toggle('open', isOpen);
+                if (group) group.classList.toggle('is-open', isOpen);
+                if (icon) icon.textContent = isOpen ? '-' : '+';
+            });
+        });
     }
 
     function injectDynamicProductStyles() {
@@ -315,6 +344,7 @@
             return;
         }
 
+        populateDynamicFilters(products);
         targetGrid.innerHTML = products.map(productCard).join('');
         if (targetCount) {
             targetCount.textContent = `${products.length} product${products.length !== 1 ? 's' : ''}`;
@@ -327,6 +357,59 @@
                 console.warn('Product filters skipped:', error.message);
             }
         }
+    }
+
+    function labelFromProduct(product, field) {
+        if (field === 'concern') {
+            return product.displayConcern || product.concern || product.category || '';
+        }
+
+        return product[field] || '';
+    }
+
+    function addFilterOption(options, label) {
+        const cleanLabel = String(label || '').trim();
+        const key = slugify(cleanLabel);
+
+        if (!key) return;
+
+        if (!options.has(key)) {
+            options.set(key, {
+                label: cleanLabel,
+                count: 0
+            });
+        }
+
+        options.get(key).count++;
+    }
+
+    function renderFilterGroup(groupId, products, field) {
+        const group = document.getElementById(groupId);
+        if (!group || group.dataset.dynamicReady === 'true') return;
+
+        const options = new Map();
+        products.forEach(product => addFilterOption(options, labelFromProduct(product, field)));
+
+        if (options.size === 0) return;
+
+        group.innerHTML = [...options.entries()]
+            .sort((a, b) => a[1].label.localeCompare(b[1].label))
+            .map(([value, option]) => `
+                <label>
+                    <input type="checkbox" value="${escapeHtml(value)}" onchange="applyFilters()">
+                    ${escapeHtml(option.label)}
+                    <span class="count">(${option.count})</span>
+                </label>
+            `)
+            .join('');
+
+        group.dataset.dynamicReady = 'true';
+    }
+
+    function populateDynamicFilters(products) {
+        renderFilterGroup('filter-concern', products, 'concern');
+        renderFilterGroup('filter-ingredient', products, 'ingredient');
+        renderFilterGroup('filter-type', products, 'type');
     }
 
     function productCard(product) {
