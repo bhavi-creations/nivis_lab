@@ -254,6 +254,44 @@ function inferIngredientValue($product, $attributes)
     return implode(", ", array_values(array_unique($matches)));
 }
 
+function inferProductTypeValue($product, $categoryName)
+{
+    $knownTypes = [
+        "serum" => "Serum",
+        "sunscreen spray" => "Sunscreen Spray",
+        "sunscreen" => "Sunscreen",
+        "face wash" => "Face Wash",
+        "cleanser" => "Cleanser",
+        "moisturizer" => "Moisturizer",
+        "moisturiser" => "Moisturizer",
+        "night cream" => "Night Cream",
+        "cream" => "Cream",
+        "lotion" => "Lotion",
+        "spray" => "Spray",
+        "face mist" => "Face Mist",
+        "mist" => "Face Mist",
+        "gel" => "Gel",
+        "spot treatment" => "Spot Treatment",
+        "treatment" => "Treatment"
+    ];
+
+    $text = strtolower(implode(" ", array_filter([
+        normalizeText($product["name"] ?? ""),
+        normalizeText($product["description"] ?? ""),
+        normalizeText($product["subtitle"] ?? ""),
+        normalizeText($product["urlKey"] ?? $product["url_key"] ?? ""),
+        normalizeText($categoryName)
+    ])));
+
+    foreach ($knownTypes as $needle => $label) {
+        if (strpos($text, $needle) !== false) {
+            return $label;
+        }
+    }
+
+    return "";
+}
+
 function normalizeAttributes($attributes)
 {
     $items = [];
@@ -321,7 +359,10 @@ function normalizeProduct($product)
     if ($ingredient === "" || slugifyValue($ingredient) === slugifyValue($categoryName)) {
         $ingredient = inferIngredientValue($product, $attributes);
     }
-    $productType = attributeValue($attributes, ["product_type", "product type", "type"], $categoryName ?: "Product");
+    $productType = attributeValue($attributes, ["product_type", "product type", "type"], "");
+    if ($productType === "" || slugifyValue($productType) === slugifyValue($categoryName)) {
+        $productType = inferProductTypeValue($product, $categoryName);
+    }
     $requestedCategory = normalizeText($product["_requestedCategory"] ?? "");
     $displayDescription = cleanDescriptionText($product["subtitle"] ?? $product["description"] ?? "", $concern ?: $categoryName ?: "Skincare");
     $filterConcern = trim($concern . " " . $requestedCategory);

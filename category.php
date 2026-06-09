@@ -30,9 +30,7 @@
                     Skin Concern <span class="toggle-icon">+</span>
                 </div>
                 <div class="filter-body" id="filter-concern">
-                    <label><input type="checkbox" value="acne" onchange="applyFilters()"> Acne <span class="count">(0)</span></label>
-                    <label><input type="checkbox" value="brightening" onchange="applyFilters()"> Brightening <span class="count">(0)</span></label>
-                    <label><input type="checkbox" value="pigmentation" onchange="applyFilters()"> Pigmentation <span class="count">(0)</span></label>
+                    <p class="filter-empty">Loading filters...</p>
                 </div>
             </div>
 
@@ -42,9 +40,7 @@
                     Ingredient <span class="toggle-icon">+</span>
                 </div>
                 <div class="filter-body" id="filter-ingredient">
-                    <label><input type="checkbox" value="Salicylic-Acid" onchange="applyFilters()"> Salicylic Acid <span class="count">(0)</span></label>
-                    <label><input type="checkbox" value="Niacinamide" onchange="applyFilters()"> Niacinamide <span class="count">(0)</span></label>
-                    <label><input type="checkbox" value="Hyaluronic" onchange="applyFilters()"> Hyaluronic Acid <span class="count">(0)</span></label>
+                    <p class="filter-empty">Loading filters...</p>
                 </div>
             </div>
 
@@ -54,9 +50,7 @@
                     Product Type <span class="toggle-icon">+</span>
                 </div>
                 <div class="filter-body" id="filter-type">
-                    <label><input type="checkbox" value="serum" onchange="applyFilters()"> Serum <span class="count">(0)</span></label>
-                    <label><input type="checkbox" value="moisturizer" onchange="applyFilters()"> Moisturizer <span class="count">(0)</span></label>
-                    <label><input type="checkbox" value="cleanser" onchange="applyFilters()"> Cleanser <span class="count">(0)</span></label>
+                    <p class="filter-empty">Loading filters...</p>
                 </div>
             </div>
         </aside>

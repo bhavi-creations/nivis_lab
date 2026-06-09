@@ -60,7 +60,7 @@
     }
 
     async function fetchCategoryProducts(category) {
-        const cacheKey = `category-products:v4:${category}`;
+        const cacheKey = `category-products:v7:${category}`;
         const cacheTtl = 10000;
         const cached = sessionStorage.getItem(cacheKey);
 
@@ -367,6 +367,13 @@
         return product[field] || '';
     }
 
+    function splitFilterLabels(label) {
+        return String(label || '')
+            .split(/[,/|]+/)
+            .map(item => item.trim())
+            .filter(Boolean);
+    }
+
     function addFilterOption(options, label) {
         const cleanLabel = String(label || '').trim();
         const key = slugify(cleanLabel);
@@ -383,20 +390,39 @@
         options.get(key).count++;
     }
 
+    function addProductFilterOptions(options, product, field) {
+        const categoryKey = slugify(product.category || '');
+        const labels = splitFilterLabels(labelFromProduct(product, field));
+
+        labels.forEach(label => {
+            const labelKey = slugify(label);
+
+            if (!labelKey || labelKey === categoryKey) {
+                return;
+            }
+
+            addFilterOption(options, label);
+        });
+    }
+
     function renderFilterGroup(groupId, products, field) {
         const group = document.getElementById(groupId);
         if (!group || group.dataset.dynamicReady === 'true') return;
 
         const options = new Map();
-        products.forEach(product => addFilterOption(options, labelFromProduct(product, field)));
+        products.forEach(product => addProductFilterOptions(options, product, field));
 
-        if (options.size === 0) return;
+        if (options.size === 0) {
+            group.innerHTML = '<p class="filter-empty">No filters available</p>';
+            group.dataset.dynamicReady = 'true';
+            return;
+        }
 
         group.innerHTML = [...options.entries()]
             .sort((a, b) => a[1].label.localeCompare(b[1].label))
             .map(([value, option]) => `
                 <label>
-                    <input type="checkbox" value="${escapeHtml(value)}" onchange="applyFilters()">
+                    <input type="checkbox" value="${escapeHtml(value)}">
                     ${escapeHtml(option.label)}
                     <span class="count">(${option.count})</span>
                 </label>
@@ -404,6 +430,13 @@
             .join('');
 
         group.dataset.dynamicReady = 'true';
+        group.querySelectorAll('input[type="checkbox"]').forEach(input => {
+            input.addEventListener('change', () => {
+                if (typeof window.applyFilters === 'function') {
+                    window.applyFilters();
+                }
+            });
+        });
     }
 
     function populateDynamicFilters(products) {

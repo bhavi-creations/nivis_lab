@@ -1275,6 +1275,12 @@ a {
     color: #aaa;
 }
 
+.filter-empty {
+    margin: 0;
+    color: #999;
+    font-size: 13px;
+}
+
 /* Price range */
 .price-range-wrap {
     padding-top: 10px;
