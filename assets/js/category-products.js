@@ -50,6 +50,10 @@
         });
     }
 
+    function apiUrl(path) {
+        return new URL(path, window.location.href).href;
+    }
+
     async function fetchCategoryProducts(category) {
         const cacheKey = `category-products:v4:${category}`;
         const cacheTtl = 10000;
@@ -70,7 +74,7 @@
             }
         }
 
-        const response = await fetch(`fetch_category_products.php?category=${encodeURIComponent(category)}`);
+        const response = await fetch(apiUrl(`fetch_category_products.php?category=${encodeURIComponent(category)}`));
         const result = await response.json();
 
         if (result.error) {

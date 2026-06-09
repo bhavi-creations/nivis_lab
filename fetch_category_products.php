@@ -57,6 +57,41 @@ function nestedValue($array, $path, $fallback = null)
     return $value;
 }
 
+function executeCurlRequest($url, $options)
+{
+    $ch = curl_init($url);
+    curl_setopt_array($ch, $options);
+    $response = curl_exec($ch);
+
+    if (curl_errno($ch)) {
+        $error = curl_error($ch);
+        $hasSslError = stripos($error, 'ssl') !== false || stripos($error, 'certificate') !== false;
+        curl_close($ch);
+
+        if ($hasSslError) {
+            $options[CURLOPT_SSL_VERIFYPEER] = false;
+            $options[CURLOPT_SSL_VERIFYHOST] = false;
+            $ch = curl_init($url);
+            curl_setopt_array($ch, $options);
+            $response = curl_exec($ch);
+
+            if (curl_errno($ch)) {
+                $error = curl_error($ch);
+                curl_close($ch);
+                return ["error" => $error];
+            }
+
+            curl_close($ch);
+            return $response;
+        }
+
+        return ["error" => $error];
+    }
+
+    curl_close($ch);
+    return $response;
+}
+
 function graphqlRequest($query)
 {
     global $graphqlUrl;
@@ -65,25 +100,23 @@ function graphqlRequest($query)
         return ["error" => "PHP cURL extension is not enabled"];
     }
 
-    $ch = curl_init($graphqlUrl);
-    curl_setopt_array($ch, [
+    $options = [
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POST => true,
         CURLOPT_POSTFIELDS => json_encode(["query" => $query]),
         CURLOPT_HTTPHEADER => ["Content-Type: application/json"],
-        CURLOPT_CONNECTTIMEOUT_MS => 1000,
-        CURLOPT_TIMEOUT_MS => 3000
-    ]);
+        CURLOPT_CONNECTTIMEOUT_MS => 2000,
+        CURLOPT_TIMEOUT_MS => 5000,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_USERAGENT => "Mozilla/5.0 (compatible; NivisLabsFetcher/1.0)"
+    ];
 
-    $response = curl_exec($ch);
+    $response = executeCurlRequest($graphqlUrl, $options);
 
-    if (curl_errno($ch)) {
-        $error = curl_error($ch);
-        curl_close($ch);
-        return ["error" => $error];
+    if (is_array($response) && !empty($response["error"])) {
+        return $response;
     }
 
-    curl_close($ch);
     $decoded = json_decode($response, true);
 
     if (!is_array($decoded)) {
@@ -453,19 +486,27 @@ function fetchProductsByCategorySlug($slug)
         query {
             productsByCategory(categorySlug: "' . $safeSlug . '") {
                 id
+                sku
                 name
+                description
                 subtitle
-                price
-                originalPrice
-                reviewsCount
-                stars
-                boughtTag
+                urlKey
+                url_key
+                price { regular { text } }
+                image { url }
+                gallery { url }
+                attributeIndex {
+                    attributeCode
+                    attributeName
+                    optionText
+                }
                 primaryImage
                 secondaryImage
-                concern
-                ingredient
-                type
-                link
+                category {
+                    name
+                    url_key
+                    urlKey
+                }
             }
         }
     ';
@@ -515,9 +556,12 @@ if (!empty($result["error"]) || !empty($result["errors"])) {
     if (is_file($cacheFile)) {
         jsonExit(file_get_contents($cacheFile));
     }
+
+    $errorMessage = !empty($result["error"]) ? $result["error"] : json_encode($result["errors"]);
+    jsonExit(["error" => "Unable to load products from backend: " . $errorMessage]);
 }
 
-$backendConnectionError = !empty($result["error"]);
+$backendConnectionError = false;
 $allProducts = $result["data"]["products"]["items"] ?? [];
 $categoryKeys = $backendConnectionError ? categoryAliases($categorySlug) : resolveCategoryKeys($categorySlug);
 $products = array_values(array_filter($allProducts, function ($product) use ($categoryKeys) {

@@ -1111,7 +1111,7 @@
     const productKey = getProductKeyFromFilename();
     
     try {
-      const response = await fetch(`fetch_product_detail.php?product=${encodeURIComponent(productKey)}`);
+      const response = await fetch(new URL(`fetch_product_detail.php?product=${encodeURIComponent(productKey)}`, window.location.href).href);
       const result = await response.json();
       
       if (result.error || !result.product) {
@@ -1191,7 +1191,7 @@
 
   async function loadRelatedProducts(categoryName) {
     try {
-      const response = await fetch(`fetch_category_products.php?category=${encodeURIComponent(categoryName)}`);
+      const response = await fetch(new URL(`fetch_category_products.php?category=${encodeURIComponent(categoryName)}`, window.location.href).href);
       const result = await response.json();
       
       if (result.error || !result.products) {
