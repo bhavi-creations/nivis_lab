@@ -16,17 +16,30 @@ const GraphQLClient = {
         credentials: 'include',
       });
 
-      const json = await response.json();
+      const text = await response.text();
+      let json;
+
+      try {
+        json = text ? JSON.parse(text) : null;
+      } catch (parseError) {
+        const preview = text ? text.slice(0, 200) : 'Empty response';
+        throw new Error(`Invalid JSON from server (${response.status}): ${preview}`);
+      }
+
+      if (!response.ok) {
+        const message = json?.errors?.map((err) => err.message).join(', ') || response.statusText;
+        throw new Error(`HTTP ${response.status}: ${message}`);
+      }
+
+      if (!json) {
+        throw new Error('Empty JSON response from server');
+      }
 
       if (json.errors) {
         const message = json.errors
           .map((err) => err.message || JSON.stringify(err))
           .join(', ');
         throw new Error(`GraphQL Error: ${message}`);
-      }
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
       return json;
@@ -188,8 +201,8 @@ const GraphQLClient = {
 };
 
 window.GraphQLClient = GraphQLClient;
-window.loadProducts = GraphQLClient.getProducts.bind(GraphQLClient);
-window.getProduct = GraphQLClient.getProduct.bind(GraphQLClient);
-window.getRelatedProducts = GraphQLClient.getRelatedProducts.bind(GraphQLClient);
-window.addToCart = GraphQLClient.addToCart.bind(GraphQLClient);
-window.getCart = GraphQLClient.getCart.bind(GraphQLClient);
+window.loadProducts = async (...args) => (await GraphQLClient.getProducts(...args)).data;
+window.getProduct = async (...args) => (await GraphQLClient.getProduct(...args)).data;
+window.getRelatedProducts = async (...args) => (await GraphQLClient.getRelatedProducts(...args)).data;
+window.addToCart = async (...args) => (await GraphQLClient.addToCart(...args)).data;
+window.getCart = async (...args) => (await GraphQLClient.getCart(...args)).data;
