@@ -724,12 +724,12 @@
             <div class="px-2">
                 <div class="video_section_card">
                     <div class="video_section_container">
-                        <video autoplay controls muted loop playsinline poster="./assets/img/V & V WSaloon MVP.mp4">
-                            <source src="./assets/img/V & V WSaloon MVP.mp4" type="video/mp4">
+                        <video autoplay controls muted loop playsinline poster="./assets/img/reel_1.mp4">
+                            <source src="./assets/img/reel_1.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
-                    <div class="video_section_product_info">
+                    <!-- <div class="video_section_product_info">
                         <a href="vitamin_c_brightening_serum.php">
                             <div class="video_section_product_name">10% Vitamin C Brightening Serum</div>
                             <div>
@@ -739,18 +739,18 @@
                             </div>
                         </a>
                         <button class="video_section_add_btn">ADD TO CART</button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
             <div class="px-2">
                 <div class="video_section_card">
                     <div class="video_section_container">
-                        <video autoplay muted loop playsinline poster="./assets/img/V & V WSaloon MVP.mp4">
-                            <source src="./assets/img/V & V WSaloon MVP.mp4" type="video/mp4">
+                        <video autoplay muted loop playsinline controls poster="./assets/img/reel_2.mp4">
+                            <source src="./assets/img/reel_2.mp4" type="video/mp4">
                         </video>
                     </div>
-                    <div class="video_section_product_info">
+                    <!-- <div class="video_section_product_info">
                         <a href="vitamin_c_brightening_moisturizer.php">
                             <div class="video_section_product_name">Vitamin C Brightening Moisturizer</div>
                             <div><span class="video_section_price_badge">B1G1</span> <del
@@ -758,18 +758,18 @@
                             </div>
                         </a>
                         <button class="video_section_add_btn">ADD TO CART</button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
-            <div class="px-2">
+           <div class="px-2">
                 <div class="video_section_card">
                     <div class="video_section_container">
                         <video autoplay muted loop playsinline controls>
-                            <source src="./assets/img/V & V WSaloon MVP.mp4" type="video/mp4">
+                            <source src="./assets/img/reel_3.mp4" type="video/mp4">
                         </video>
                     </div>
-                    <div class="video_section_product_info">
+                    <!-- <div class="video_section_product_info">
                         <a href="niacinamide_spot_correcting_serum.php">
                             <div class="video_section_product_name">10% Niacinamide Spot Correcting Serum</div>
                             <div><span class="video_section_price_badge">B1G1</span> <del
@@ -777,7 +777,7 @@
                             </div>
                         </a>
                         <button class="video_section_add_btn">ADD TO CART</button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
@@ -785,10 +785,10 @@
                 <div class="video_section_card">
                     <div class="video_section_container">
                         <video autoplay muted loop playsinline controls>
-                            <source src="./assets/img/V & V WSaloon MVP.mp4" type="video/mp4">
+                            <source src="./assets/img/reel_4.mp4" type="video/mp4">
                         </video>
                     </div>
-                    <div class="video_section_product_info">
+                    <!-- <div class="video_section_product_info">
                         <a href="alpha_arbutin_depigmentation_serum.php">
                             <div class="video_section_product_name">2% Alpha Arbutin Depigmentation Serum</div>
                             <div><span class="video_section_price_badge">B1G1</span> <del
@@ -796,7 +796,7 @@
                             </div>
                         </a>
                         <button class="video_section_add_btn">ADD TO CART</button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
