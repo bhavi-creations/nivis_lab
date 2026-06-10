@@ -329,6 +329,7 @@ a {
 }
 
 #navbarCategoryDesktop {
+    display: grid;
     left: 50%;
     grid-template-columns: repeat(2, minmax(180px, 1fr));
     min-width: 420px;
@@ -338,7 +339,6 @@ a {
 }
 
 .index_navbar_section__item:hover #navbarCategoryDesktop {
-    display: grid;
     transform: translate(-50%, 0);
 }
 
