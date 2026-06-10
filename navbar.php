@@ -124,7 +124,17 @@
 
 
                 <li class="index_navbar_section__item">
-                    <a class="index_navbar_section__link" href="#">Category</a>
+                    <a class="index_navbar_section__link" href="index.php">Home</a>
+                </li>
+
+
+                <li class="index_navbar_section__item">
+                    <a class="index_navbar_section__link" href="our-story.php">About Us</a>
+                </li>
+
+
+                <li class="index_navbar_section__item">
+                    <a class="index_navbar_section__link" href="products.php">Product</a>
                     <ul class="index_navbar_section__dropdown" id="navbarCategoryDesktop">
                         <li>Loading categories...</li>
                     </ul>
@@ -141,41 +151,7 @@
                         <li><a href="retinol.php">Retinol</a></li>
                         <li><a href="hyaluronic_acid.php">Hyaluronic Acid</a></li>
                         <li><a href="ceramides.php">Ceramides</a></li>
-                        <!-- <li><a href="#">Explore all products</a></li> -->
-                    </ul>
-                </li>
-
-
-                <li class="index_navbar_section__item">
-                    <a class="index_navbar_section__link" href="#">Concern</a>
-                    <ul class="index_navbar_section__dropdown">
-                        <li><a href="brigthening.php">Brightening</a></li>
-                        <li><a href="acne.php">Acne</a></li>
-                        <li><a href="acne_marks.php">Acne Marks</a></li>
-                        <li><a href="pigmentation.php">Pigmentation</a></li>
-                        <li><a href="lines_and_wrinkles.php">Lines and Wrinkles</a></li>
-                        <li><a href="dehydration.php">Dehydration</a></li>
-                        <li><a href="eczema.php">Eczema</a></li>
-                        <!-- <li><a href="#">Sun Protection</a></li> -->
-                    </ul>
-                </li>
-
-
-                <li class="index_navbar_section__item">
-                    <a class="index_navbar_section__link" href="our-story.php">The /PHD/ Story</a>
-                </li>
-
-
-                <li class="index_navbar_section__item">
-                    <a class="index_navbar_section__link" href="skinthesis.php">Skinthesis</a>
-                </li>
-
-
-                <li class="index_navbar_section__item">
-                    <a class="index_navbar_section__link" href="#">Rewards</a>
-                    <ul class="index_navbar_section__dropdown">
-                        <li><a href="how_to_earn.php">How to earn</a></li>
-                        <li><a href="refference.php">Refer &amp; Earn</a></li>
+                        <li><a href="products.php">Explore all products</a></li>
                     </ul>
                 </li>
 
@@ -235,10 +211,20 @@
 
         <ul class="index_navbar_section__mob-list">
 
-            <!-- CATEGORY -->
+            <!-- HOME -->
+            <li class="index_navbar_section__mob-item">
+                <a href="index.php" class="index_navbar_section__mob-plain">Home</a>
+            </li>
+
+            <!-- ABOUT US -->
+            <li class="index_navbar_section__mob-item">
+                <a href="our-story.php" class="index_navbar_section__mob-plain">About Us</a>
+            </li>
+
+            <!-- PRODUCT -->
             <li class="index_navbar_section__mob-item" data-has-sub="true">
                 <div class="index_navbar_section__mob-row">
-                    <span class="index_navbar_section__mob-label">Category</span>
+                    <span class="index_navbar_section__mob-label">Product</span>
                     <span class="index_navbar_section__mob-plus"><i class="bi bi-plus"></i></span>
                 </div>
                 <ul class="index_navbar_section__mob-sub" id="navbarCategoryMobile">
@@ -264,48 +250,9 @@
                 </ul>
             </li>
 
-            <!-- CONCERN -->
-            <li class="index_navbar_section__mob-item" data-has-sub="true">
-                <div class="index_navbar_section__mob-row">
-                    <span class="index_navbar_section__mob-label">Concern</span>
-                    <span class="index_navbar_section__mob-plus"><i class="bi bi-plus"></i></span>
-                </div>
-                <ul class="index_navbar_section__mob-sub">
-                    <li><a href="brigthening.php">Brightening</a></li>
-                    <li><a href="acne.php">Acne</a></li>
-                    <li><a href="acne_marks.php">Acne Marks</a></li>
-                    <li><a href="pigmentation.php">Pigmentation</a></li>
-                    <li><a href="lines_and_wrinkles.php">Lines and Wrinkles</a></li>
-                    <li><a href="dehydration.php">Dehydration</a></li>
-                    <li><a href="eczema.php">Eczema</a></li>
-                </ul>
-            </li>
-
-            <!-- THE /PHD/ STORY -->
-            <li class="index_navbar_section__mob-item">
-                <a href="#" class="index_navbar_section__mob-plain">The /PHD/ Story</a>
-            </li>
-
-            <!-- SKINTHESIS -->
-            <li class="index_navbar_section__mob-item">
-                <a href="skinthesis.php" class="index_navbar_section__mob-plain">Skinthesis</a>
-            </li>
-
-            <!-- REWARDS -->
-            <li class="index_navbar_section__mob-item" data-has-sub="true">
-                <div class="index_navbar_section__mob-row">
-                    <span class="index_navbar_section__mob-label">Rewards</span>
-                    <span class="index_navbar_section__mob-plus"><i class="bi bi-plus"></i></span>
-                </div>
-                <ul class="index_navbar_section__mob-sub">
-                    <li><a href="how_to_earn.php">How to earn</a></li>
-                    <li><a href="refference.php">Refer &amp; Earn</a></li>
-                </ul>
-            </li>
-
             <!-- CONTACT US -->
             <li class="index_navbar_section__mob-item">
-                <a href="#" class="index_navbar_section__mob-plain">Contact Us</a>
+                <a href="contact.php" class="index_navbar_section__mob-plain">Contact Us</a>
             </li>
 
         </ul>
@@ -388,7 +335,7 @@
                     return;
                 }
 
-                const itemsHtml = categories.map(category => {
+                const itemsHtml = '<li><a href="products.php">All Products</a></li>' + categories.map(category => {
                     const slug = encodeURIComponent(category.url_key || category.urlKey || category.name || '');
                     const label = category.name || 'Category';
                     const url = slug ? `category.php?category=${slug}` : '#';

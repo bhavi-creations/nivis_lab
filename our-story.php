@@ -5,20 +5,20 @@
       <div class="row align-items-center">
         <div class="col-md-7">
           <div class="content-box p-4 p-md-5">
-            <h6 class="text-uppercase fw-normal mb-3">What does /PHD/ stand for?</h6>
+            <h6 class="text-uppercase fw-normal mb-3">About Nivis Labs</h6>
             <h2 class="display-5 mb-4">
-              <span class="text-danger">P</span>roven
-              <span class="text-danger">H</span>onest
-              <span class="text-danger">D</span>erma
+              <span class="text-danger">S</span>cience-led
+              <span class="text-danger">S</span>kin-first
+              <span class="text-danger">C</span>are
             </h2>
 
             <div class="description-text mt-4">
               <p class="lead-sm mb-4">
-                We create proven formulations backed by science, maintain honest communication without gimmicks, and
-                ensure all our products are formulated with dermatologists to prioritize skin health over trends.
+                Nivis Labs creates modern skincare essentials designed around real skin concerns, thoughtful ingredient
+                selection, and formulas that fit comfortably into everyday routines.
               </p>
               <p class="lead-sm mb-0">
-                Every ingredient is chosen with precision to deliver results you can trust.
+                Our approach is simple: clear products, transparent communication, and dependable care for healthy-looking skin.
               </p>
             </div>
           </div>
@@ -33,7 +33,7 @@
 
   <section class="philosophy-section">
 
-    <h1 class="phd-heading">The /PHD/ Philosophy</h1>
+    <h1 class="phd-heading">The Nivis Labs Philosophy</h1>
 
     <div class="track-wrap" id="trackWrap">
 
@@ -45,37 +45,37 @@
 
       <!-- Item 1 -->
       <div class="phd-item" id="item-0">
-        <div class="phd-item-title">If it's not proven, we don't make it.</div>
+        <div class="phd-item-title">Purpose before product.</div>
         <div class="phd-item-body">
-          Every /PHD/ formula is backed by clinical research and dermatological insights. We don't experiment with
-          unverified ingredients or chase untested claims—efficacy comes first.
+          Every Nivis Labs product starts with a clear skin need, whether it is hydration, sun protection, brightening,
+          barrier support, or daily cleansing.
         </div>
       </div>
 
       <!-- Item 2 -->
       <div class="phd-item" id="item-1">
-        <div class="phd-item-title">A dermatologist approves before the consumer even sees it.</div>
+        <div class="phd-item-title">Ingredients chosen with intention.</div>
         <div class="phd-item-body">
-          Every product is developed in collaboration with our /PHD/ Council—a team of global dermatologists who ensure
-          safety, effectiveness, and real-world results before a product reaches your hands.
+          We focus on useful actives, skin-compatible textures, and balanced formulas that support consistency instead
+          of overwhelming the skin.
         </div>
       </div>
 
       <!-- Item 3 -->
       <div class="phd-item" id="item-2">
-        <div class="phd-item-title">We don't follow trends blindly.</div>
+        <div class="phd-item-title">No unnecessary confusion.</div>
         <div class="phd-item-body">
-          Skincare should be science-led, not hype-driven. We focus on what truly benefits the skin, not fleeting fads
-          or marketing gimmicks.
+          Skincare should be easy to understand. We keep product communication practical, direct, and focused on what
+          the formula is made to do.
         </div>
       </div>
 
       <!-- Item 4 -->
       <div class="phd-item" id="item-3">
-        <div class="phd-item-title">We treat and teach skin</div>
+        <div class="phd-item-title">Built for everyday use.</div>
         <div class="phd-item-body">
-          At /PHD/, we go beyond creating products—we break down the science, decode ingredients, and share
-          dermatologist-backed insights so you truly understand what your skin needs.
+          Nivis Labs is designed for routines people can actually follow: comfortable textures, clear categories, and
+          products that make daily skincare feel simpler.
         </div>
       </div>
 
@@ -85,7 +85,7 @@
 
 
   <!-- ═══════════════════════════════════════
-     SECTION 4 — The /PHD/ Promise
+     SECTION 4 — The Nivis Labs Promise
 ═══════════════════════════════════════ -->
   <section class="our_section_4">
 
@@ -93,17 +93,17 @@
     <div class="our_section_4__bg"></div>
 
     <!-- Top-left label -->
-    <div class="our_section_4__label">The /PHD/ Promise</div>
+    <div class="our_section_4__label">The Nivis Labs Promise</div>
 
     <!-- Centred card -->
     <div class="our_section_4__card-wrap">
       <div class="our_section_4__card">
         <h2 class="our_section_4__card-title">
-          Skincare You Can Trust, Backed by Global Dermats
+          Skincare Made Clear, Consistent, and Reliable
         </h2>
         <p class="our_section_4__card-body">
-          Ever looked at a skincare product and thought, "Will this actually work?" You're not alone. At /PHD/, you'll
-          never have to second-guess. Every formula is developed alongside global dermatologists.
+          Nivis Labs brings together practical formulations, focused product categories, and transparent information so
+          customers can choose skincare with confidence.
         </p>
       </div>
     </div>
@@ -122,58 +122,58 @@
   <section class="our_section_5">
     <div class="our_section_5__inner">
 
-      <!-- Left: doctor photos -->
+      <!-- Left: brand pillars -->
       <div class="our_section_5__photos">
 
-        <!-- Dr. Rachel Westbay -->
+        <!-- Product Research -->
         <div class="our_section_5__doc">
           <div class="our_section_5__photo-wrap">
-            <div class="our_section_5__avatar">👩‍⚕️</div>
+            <div class="our_section_5__avatar">PR</div>
             <div class="our_section_5__coat"></div>
           </div>
           <div class="our_section_5__doc-info">
-            <div class="our_section_5__doc-name">Dr. Rachel Westbay</div>
-            <div class="our_section_5__doc-role">Board-Certified Dermatologist<br>USA</div>
-            <div class="our_section_5__doc-cred">MD FAAD</div>
+            <div class="our_section_5__doc-name">Product Research</div>
+            <div class="our_section_5__doc-role">Ingredient selection<br>and routine needs</div>
+            <div class="our_section_5__doc-cred">Nivis Labs</div>
           </div>
         </div>
 
-        <!-- Dr. Anupriya Goel -->
+        <!-- Formulation Care -->
         <div class="our_section_5__doc">
           <div class="our_section_5__photo-wrap">
-            <div class="our_section_5__avatar">👩‍⚕️</div>
+            <div class="our_section_5__avatar">FC</div>
             <div class="our_section_5__coat"></div>
           </div>
           <div class="our_section_5__doc-info">
-            <div class="our_section_5__doc-name">Dr. Anupriya Goel</div>
-            <div class="our_section_5__doc-role">Aesthetic Dermatologist<br>India</div>
-            <div class="our_section_5__doc-cred">MBBS, MD, DPD (UK)<br>Diploma in Cosmetology (UK)</div>
+            <div class="our_section_5__doc-name">Formulation Care</div>
+            <div class="our_section_5__doc-role">Texture, comfort<br>and daily usability</div>
+            <div class="our_section_5__doc-cred">Nivis Labs</div>
           </div>
         </div>
 
-        <!-- Dr. Max Emmerich -->
+        <!-- Quality Review -->
         <div class="our_section_5__doc">
           <div class="our_section_5__photo-wrap">
-            <div class="our_section_5__avatar">👨‍⚕️</div>
+            <div class="our_section_5__avatar">QR</div>
             <div class="our_section_5__coat"></div>
           </div>
           <div class="our_section_5__doc-info">
-            <div class="our_section_5__doc-name">Dr. Max Emmerich</div>
-            <div class="our_section_5__doc-role">Dermatologist<br>UK</div>
-            <div class="our_section_5__doc-cred">MA (Cantab.) BM BCh MRCP (UK)</div>
+            <div class="our_section_5__doc-name">Quality Review</div>
+            <div class="our_section_5__doc-role">Product consistency<br>and customer confidence</div>
+            <div class="our_section_5__doc-cred">Nivis Labs</div>
           </div>
         </div>
 
-        <!-- Dr. Trisha Khanna -->
+        <!-- Customer Care -->
         <div class="our_section_5__doc">
           <div class="our_section_5__photo-wrap">
-            <div class="our_section_5__avatar">👩‍⚕️</div>
+            <div class="our_section_5__avatar">CC</div>
             <div class="our_section_5__coat"></div>
           </div>
           <div class="our_section_5__doc-info">
-            <div class="our_section_5__doc-name">Dr. Trisha Khanna</div>
-            <div class="our_section_5__doc-role">Board-Certified Dermatologist<br>USA</div>
-            <div class="our_section_5__doc-cred">MD FAAD</div>
+            <div class="our_section_5__doc-name">Customer Care</div>
+            <div class="our_section_5__doc-role">Clear guidance<br>and routine support</div>
+            <div class="our_section_5__doc-cred">Nivis Labs</div>
           </div>
         </div>
 
@@ -181,16 +181,16 @@
 
       <!-- Right: copy -->
       <div class="our_section_5__copy">
-        <h2 class="our_section_5__title">The experts behind every formula</h2>
+        <h2 class="our_section_5__title">The care behind every formula</h2>
         <p class="our_section_5__para">
-          At /PHD/, every product is developed in collaboration with The /PHD/ Council
-          —a team of global dermatologists who ensure our formulations are research-backed, safe, and truly effective.
+          Every Nivis Labs product is shaped around a real use case, from daily cleansing and moisturising to targeted
+          serums and sun protection.
         </p>
         <p class="our_section_5__para">
-          From selecting clinically studied ingredients to perfecting skin-first formulations, their dermatological
-          expertise helps us create skincare that's rooted in science, not trends.
+          We pay attention to ingredient purpose, texture, product experience, and routine compatibility so skincare
+          feels both effective and easy to use.
         </p>
-        <a href="#" class="our_section_5__cta">Know more</a>
+        <a href="products.php" class="our_section_5__cta">Shop products</a>
       </div>
 
     </div>
@@ -205,14 +205,14 @@
     <div class="container position-relative text-white py-5" style="z-index: 2;">
       <div class="row justify-content-center">
         <div class="col-lg-8">
-          <p class="text-uppercase mb-3 fw-light" style="letter-spacing: 2px;">Get your /PHD/</p>
+          <p class="text-uppercase mb-3 fw-light" style="letter-spacing: 2px;">Discover Nivis Labs</p>
 
-          <h1 class="display-3 fw-bold mb-4">Skin care.</h1>
+          <h1 class="display-3 fw-bold mb-4">Skincare made simple.</h1>
 
-          <p class="h5 fw-normal mb-5 opacity-75">Formulated with Global Dermatologists.</p>
+          <p class="h5 fw-normal mb-5 opacity-75">Thoughtful formulas for everyday skin needs.</p>
 
           <div class="mt-4">
-            <a href="#" class="btn btn-light px-5 py-3 fw-semibold rounded-0 text-dark">
+            <a href="products.php" class="btn btn-light px-5 py-3 fw-semibold rounded-0 text-dark">
               Shop all
             </a>
           </div>

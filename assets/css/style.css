@@ -225,8 +225,8 @@ a {
 
 @media (min-width:992px) and (max-width:1200px) {
     .index_navbar_section__link {
-        padding:10px !important;
-        letter-spacing: 0px !important;
+        padding: 10px !important;
+        letter-spacing: 2px !important;
 
     }
 
@@ -564,9 +564,13 @@ a {
 .index_img_section__bg {
     position: absolute;
     inset: 0;
-    background:
+    /* background:
         radial-gradient(ellipse 55% 70% at 62% 55%, rgba(160, 10, 20, 0.55) 0%, transparent 70%),
-        linear-gradient(135deg, #1a0000 0%, #6b0000 40%, #8b0000 65%, #3a0000 100%);
+        linear-gradient(135deg, #1a0000 0%, #6b0000 40%, #8b0000 65%, #3a0000 100%); */
+
+    background:
+        radial-gradient(ellipse 55% 70% at 62% 55%, #0a2b4a97 0%, transparent 70%),
+        linear-gradient(135deg, #0a2b4a 0%, #0a2b4a 40%, #0a2b4a 65%, #77b3ec 100%);
     z-index: 0;
 }
 
@@ -1057,8 +1061,16 @@ a {
     overflow: hidden;
     margin: 0 10px;
     border: 1px solid #eee;
+    color: inherit;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.explore_section_card:hover {
+    color: inherit;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
 
 .explore_section_content h4 {
     font-weight: bold;
@@ -1076,8 +1088,10 @@ a {
 
 .explore_section_img {
     width: 90px;
-    height: auto;
+    height: 110px;
     object-fit: contain;
+    background: #fff;
+    border-radius: 6px;
 }
 
 .explore_section_shop_now {
@@ -1403,6 +1417,81 @@ input[type="range"]::-webkit-slider-thumb {
     overflow: hidden;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+}
+
+.product-size {
+    color: #444;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.spotlight-product-size {
+    color: #666;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 4px;
+    white-space: nowrap;
+}
+
+#spotlightProductCarousel .slick-track {
+    display: flex;
+}
+
+#spotlightProductCarousel .slick-slide {
+    display: flex;
+    height: auto;
+}
+
+#spotlightProductCarousel .slick-slide>div,
+#spotlightProductCarousel .px-2 {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+#spotlightProductCarousel .product-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+#spotlightProductCarousel .product-card a {
+    color: inherit;
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    text-decoration: none;
+}
+
+#spotlightProductCarousel .product-card img {
+    aspect-ratio: 1 / 1;
+    background: #f4f4f4;
+    object-fit: cover;
+}
+
+#spotlightProductCarousel .product-card h6,
+#spotlightProductCarousel .product-card p {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+#spotlightProductCarousel .product-card h6 {
+    line-height: 1.35;
+    min-height: calc(1em * 1.35 * 2);
+}
+
+#spotlightProductCarousel .product-card p {
+    line-height: 1.4;
+    min-height: calc(1em * 1.4 * 2);
+}
+
+#spotlightProductCarousel .product-card button {
+    margin-top: auto;
 }
 
 .product-description,
@@ -2687,9 +2776,9 @@ input[type="range"]::-webkit-slider-thumb {
 
 .last_section img {
     max-width: 100PX !important;
-    max-height: 80px;
+    max-height: 100px;
     object-fit: contain;
-    filter: grayscale(100%);
+    /* filter: grayscale(100%); */
     opacity: 0.8;
 }
 
@@ -3559,6 +3648,7 @@ button:hover {
     font-weight: 400;
     color: #fff;
     letter-spacing: -0.3px;
+    background-color: #0a2b4a;
 }
 
 /* Centred content card */
@@ -3570,6 +3660,7 @@ button:hover {
     align-items: center;
     justify-content: center;
     padding: 40px 24px 60px;
+    background-color: #0a2b4a;
 }
 
 .our_section_4__card {
@@ -3894,7 +3985,9 @@ button:hover {
 
 .our_section_2 .content-box {
     /* Text box light transparency kosam */
-    background: rgba(255, 255, 255, 0.4);
+    /* background: rgba(255, 255, 255, 0.4); */
+    background: rgb(120 117 117 / 38%);
+    color: black;
     backdrop-filter: blur(5px);
     border-radius: 8px;
 }
@@ -3917,13 +4010,22 @@ button:hover {
     max-width: 550px;
 }
 
+@media (max-width:768px) {
+
+    .our_section_2 h2,
+    .our_section_2 .description-text p {
+        color: rgb(0, 0, 0) !important;
+    }
+}
+
 @media (min-width:768px) {
 
     .our_section_2 h2,
     .our_section_2 .description-text p {
-        color: white !important;
+        color: rgb(255, 255, 255) !important;
     }
 }
+
 
 
 
@@ -5673,6 +5775,7 @@ button:hover {
     font-family: 'Arial', sans-serif;
 
 }
+
 body:not(.dynamic-products-ready) #productsGrid {
     visibility: hidden;
 }
@@ -5693,4 +5796,86 @@ body.dynamic-products-ready #productsGrid {
     font-weight: 600;
     line-height: 1.2;
     text-transform: uppercase;
+}
+
+
+/* contact us stylings  */
+
+/* CONTACT FORM */
+
+.contact-form-section {
+    padding: 80px 0;
+}
+
+.contact-form-box {
+    background: #fff;
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+    max-width: 1000px;
+    margin: auto;
+}
+
+.form-heading {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.form-heading h2 {
+    font-size: 38px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 10px;
+}
+
+.form-heading p {
+    color: #666;
+    max-width: 650px;
+    margin: auto;
+}
+
+.custom-input {
+    height: 58px;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 15px 20px;
+    box-shadow: none !important;
+    transition: .3s;
+}
+
+textarea.custom-input {
+    height: auto;
+    resize: none;
+}
+
+.custom-input:focus {
+    border-color: #0d6efd;
+}
+
+.contact-btn {
+    background: #0a2b4a;
+    color: #fff;
+    border: none;
+    padding: 15px 45px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.contact-btn:hover {
+    background: #084298;
+    transform: translateY(-3px);
+}
+
+@media(max-width:768px) {
+
+    .contact-form-box {
+        padding: 30px 20px;
+    }
+
+    .form-heading h2 {
+        font-size: 28px;
+    }
+
 }

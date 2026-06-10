@@ -1,6 +1,7 @@
 {
   "require": {
-    "webonyx/graphql-php": "^15.0"
+    "webonyx/graphql-php": "^15.0",
+    "phpmailer/phpmailer": "^7.1"
   },
   "autoload": {
     "psr-4": {

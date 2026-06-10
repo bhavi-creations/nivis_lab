@@ -67,4 +67,54 @@
     </div>
 </div>
 
+
+<!-- CONTACT FORM START -->
+<div class="contact-form-section">
+    <div class="container">
+        <div class="contact-form-box">
+
+            <div class="form-heading">
+                <h2>Send Us a Message</h2>
+                <p>Have a question or need assistance? Fill out the form below and we'll get back to you shortly.</p>
+            </div>
+
+            <form action="contact-process.php" method="POST">
+
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <input type="text" name="name" class="form-control custom-input" placeholder="Your Name" required>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <input type="email" name="email" class="form-control custom-input" placeholder="Your Email" required>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <input type="text" name="phone" class="form-control custom-input" placeholder="Phone Number" required>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <input type="text" name="subject" class="form-control custom-input" placeholder="Subject" required>
+                    </div>
+
+                    <div class="col-12 mb-4">
+                        <textarea name="message" rows="6" class="form-control custom-input" placeholder="Write Your Message Here..." required></textarea>
+                    </div>
+
+                    <div class="col-12 text-center">
+                        <button type="submit" class="contact-btn">
+                            Submit Message
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+<!-- CONTACT FORM END -->
+
+
+
 <?php include 'footer.php'; ?>

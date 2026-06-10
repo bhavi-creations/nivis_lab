@@ -56,7 +56,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/category-products.js"></script>
+<script src="assets/js/category-products.js?v=9"></script>
 
 <script>
     const cartDrawerEl = document.getElementById('cartDrawer');

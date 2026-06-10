@@ -7,16 +7,32 @@ namespace Composer\Autoload;
 class ComposerStaticInitc38c7dd4ea92379d92497be42e5ed525
 {
     public static $prefixLengthsPsr4 = array (
+        'P' =>
+        array (
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
         'G' =>
         array (
             'GraphQL\\' => 8,
         ),
+        'A' =>
+        array (
+            'App\\' => 4,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'PHPMailer\\PHPMailer\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
         'GraphQL\\' =>
         array (
             0 => __DIR__ . '/..' . '/webonyx/graphql-php/src',
+        ),
+        'App\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/graphql',
         ),
     );
 

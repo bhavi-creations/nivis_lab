@@ -60,7 +60,7 @@
     }
 
     async function fetchCategoryProducts(category) {
-        const cacheKey = `category-products:v7:${category}`;
+        const cacheKey = `category-products:v8:${category}`;
         const cacheTtl = 10000;
         const cached = sessionStorage.getItem(cacheKey);
 
@@ -455,6 +455,7 @@
         const secondaryImage = (product.images && product.images.length > 1) ? product.images[1] : (product.secondaryImageUrl || primaryImage);
         const productKey = product.id || product.sku || product.urlKey || product.name || '';
         const detailHref = `product-detail.php?product=${encodeURIComponent(productKey)}`;
+        const productSize = product.size ? `Quantity: ${product.size}` : '';
 
         return `
             <div class="product-card"
@@ -473,6 +474,7 @@
                         <div class="product-type-badge">${escapeHtml(product.type || 'Product')}</div>
                         <div class="product-name">${escapeHtml(product.name)}</div>
                         <div class="product-sub">/ ${escapeHtml(product.subtitle || product.concern || 'Skincare')} /</div>
+                        ${productSize ? `<div class="product-size">${escapeHtml(productSize)}</div>` : ''}
                         <div>
                             <span class="stars">${escapeHtml(product.stars || '★★★★½')}</span>
                             <span class="review-count">(${escapeHtml(product.reviewsCount || 120)} reviews)</span>
@@ -486,6 +488,7 @@
                         <p class="product-hover-popover__text">${escapeHtml(popupText)}</p>
                         <div class="product-hover-popover__meta">
                             <span>${escapeHtml(product.type || 'Product')}</span>
+                            ${product.size ? `<span>${escapeHtml(product.size)}</span>` : ''}
                             <span>${escapeHtml(product.price || '')}</span>
                         </div>
                     </div>

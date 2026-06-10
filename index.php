@@ -3,7 +3,7 @@
 <!-- ════════════════════════════════════════════
      3. HERO IMAGE SECTION
 ════════════════════════════════════════════ -->
-<section class="index_img_section" id="indexHero" onclick="window.location.href='panthenol-hydrating-gel-sunscreen.php'" role="link" tabindex="0" aria-label="View Panthenol Hydrating Gel Sunscreen">
+<section class="index_img_section" id="indexHero" onclick="window.location.href='#'" role="link" tabindex="0" aria-label="View Panthenol Hydrating Gel Sunscreen">
 
     <!-- Background -->
     <div class="index_img_section__bg"></div>
@@ -25,17 +25,17 @@
     <!-- Product image — using a placeholder sunscreen image -->
     <img
         class="index_img_section__product"
-        src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=500&q=90&fit=crop&crop=center"
-        alt="PHD Panthenol Hydrating Gel Sunscreen SPF 60 PA++++"
-        onerror="this.src='https://placehold.co/360x600/8b0000/ffffff?text=/PHD/+SPF60'" />
+        src="./assets/img/foot cream.jpeg"
+        alt="Nivis Labs Panthenol Hydrating Gel Sunscreen SPF 60 PA++++"
+        onerror="this.src='https://placehold.co/360x600/8b0000/ffffff?text=Nivis+Labs+SPF60'" />
 
     <!-- Content overlay -->
     <div class="index_img_section__content">
         <span class="index_img_section__new-tag">New Launch</span>
         <h1 class="index_img_section__title">
-            /Panthenol<br />
+            Panthenol<br />
             Hydrating Gel<br />
-            Sunscreen/
+            Sunscreen
         </h1>
         <div class="index_img_section__badges">
             <span class="index_img_section__badge">SPF 60 PA++++</span>
@@ -46,7 +46,7 @@
 
     <!-- CTA hint -->
     <div class="index_img_section__cta">
-        <span>Shop Now</span>
+        <!-- <span>Shop Now</span> -->
         <i class="bi bi-arrow-right-circle"></i>
     </div>
 </section>
@@ -155,25 +155,25 @@
         <div id="step-landing" class="skin-section_index py-4">
             <div class="row align-items-center">
                 <div class="col-md-7">
-                    <p class="text-danger fw-semibold mb-1">AI-POWERED SKIN ANALYSIS</p>
-                    <h2 class="skin-title_index fw-bold mb-3">GET CURATED HELP FOR YOUR SKIN</h2>
-                    <p class="text-muted">Answer 3 quick questions — our AI dermat advisor will build a personalised routine just for you.</p>
+                    <p class="text-danger fw-semibold mb-1">NIVIS LABS SKIN CHECK</p>
+                    <h2 class="skin-title_index fw-bold mb-3">BUILD A ROUTINE AROUND YOUR SKIN NEEDS</h2>
+                    <p class="text-muted">Answer a few quick questions and discover Nivis Labs products aligned with your skin type and concerns.</p>
                     <button class="skin-btn_index btn btn-dark px-4 py-2" onclick="showStep(1)">
-                        START MY SKIN ASSESSMENT →
+                        START MY ROUTINE CHECK →
                     </button>
                 </div>
                 <div class="col-md-5 mt-4 mt-md-0">
                     <div class="feature-box_index d-flex align-items-start mb-3">
                         <div class="feature-icon_index me-3"><i class="fa fa-user text-danger"></i></div>
-                        <div><strong>Know your skin</strong><br><small class="text-muted">Identify your skin type in seconds</small></div>
+                        <div><strong>Know your skin</strong><br><small class="text-muted">Understand your skin type and routine needs</small></div>
                     </div>
                     <div class="feature-box_index d-flex align-items-start mb-3">
                         <div class="feature-icon_index me-3"><i class="fa fa-heartbeat text-danger"></i></div>
-                        <div><strong>Target concerns</strong><br><small class="text-muted">Acne, pigmentation, aging & more</small></div>
+                        <div><strong>Target concerns</strong><br><small class="text-muted">Acne, pigmentation, dryness, sun care and more</small></div>
                     </div>
                     <div class="feature-box_index d-flex align-items-start">
                         <div class="feature-icon_index me-3"><i class="fa fa-image text-danger"></i></div>
-                        <div><strong>Photo analysis</strong><br><small class="text-muted">AI analyses your skin for better results</small></div>
+                        <div><strong>Product guidance</strong><br><small class="text-muted">Find Nivis Labs formulas that fit your routine</small></div>
                     </div>
                 </div>
             </div>
@@ -223,17 +223,17 @@
                 <div class="progress-bar bg-danger" style="width: 100%"></div>
             </div>
             <p class="text-danger small fw-bold mb-1">STEP 3 OF 3</p>
-            <h3 class="fw-bold">Share a photo for analysis</h3>
-            <p class="text-muted small">A clear, well-lit selfie helps us recommend better.</p>
+            <h3 class="fw-bold">Share your preference</h3>
+            <p class="text-muted small">Add a photo if you want more context for your routine selection.</p>
 
             <div class="upload-box border border-danger border-dashed rounded-3 p-5 my-4 mx-auto" style="max-width: 400px; border-style: dashed !important; cursor: pointer;" onclick="document.getElementById('fileInput').click()">
                 <i class="fa fa-image fs-1 text-danger mb-2"></i>
-                <p class="mb-0 fw-bold">Tap to upload a selfie</p>
+                <p class="mb-0 fw-bold">Tap to upload a skin photo</p>
                 <small class="text-muted">JPG, PNG under 4MB</small>
                 <input type="file" id="fileInput" class="d-none" accept="image/*">
             </div>
 
-            <button class="btn btn-danger w-100 py-3 fw-bold mb-2">GET MY ROUTINE →</button>
+            <button class="btn btn-danger w-100 py-3 fw-bold mb-2">GET MY NIVIS ROUTINE →</button>
             <a href="#" class="text-muted small text-decoration-underline">Skip photo & continue</a>
         </div>
 
@@ -610,7 +610,7 @@
 <section class="py-5 px-3 bg-light">
     <div class="container px-lg-5">
         <h2 class="fw-bold mb-4 px-3">SHOP OUR SPOTLIGHTS</h2>
-        <div class="product-carousel">
+        <div class="product-carousel" id="spotlightProductCarousel">
             <div class="px-2">
                 <div class="product-card">
                     <a href="salicylic_acid_anti_acne_serum.php">
@@ -718,7 +718,7 @@
 <!-- explore  section stylings  -->
 <section class="video_section_wrapper">
     <div class="container">
-        <h2 class="video_section_title">FORMULATED WITH GLOBAL DERMATOLOGISTS</h2>
+        <h2 class="video_section_title">NIVIS LABS FORMULAS IN FOCUS</h2>
         <div class="video_section_carousel">
 
             <div class="px-2">
@@ -889,61 +889,54 @@
         <div class="row g-3">
             <div class="col-md-6 col-lg-3">
 
-                <div class="explore_section_card">
+                <a href="category.php?category=face-serum" class="explore_section_card">
 
                     <div class="explore_section_content">
-                        <a href="face_serum.php"></a>
-                        <h4>SERUMS</h4>
-                        <p>Derm-backed actives for pigmentation, aging & acne.</p>
+                        <h4>Face Serum</h4>
+                        <p>Targeted actives for glow, acne marks, and uneven tone.</p>
                     </div>
-                    <img src="./assets/img/logo.jpeg" class="explore_section_img" alt="Serums">
-                    <a href="face_serum.php" class="explore_section_shop_now">SHOP NOW</a>
-                    </a>
+                    <img src="./assets/img/product.webp" class="explore_section_img" alt="Face Serum">
+                    <span class="explore_section_shop_now">SHOP NOW</span>
 
-                </div>
+                </a>
 
             </div>
 
             <div class="col-md-6 col-lg-3">
 
-                <div class="explore_section_card">
+                <a href="category.php?category=moisturizers" class="explore_section_card">
                     <div class="explore_section_content">
-                        <a href="moisturizers.php">
-                            <h4>CREAMS</h4>
-                            <p>Hydration & barrier repair solutions.</p>
+                        <h4>Moisturizers</h4>
+                        <p>Hydration and barrier repair for daily skin comfort.</p>
                     </div>
-                    <img src="./assets/img/logo.jpeg" class="explore_section_img" alt="Creams">
-                    <a href="moisturizers.php" class="explore_section_shop_now">SHOP NOW</a></a>
-                </div>
+                    <img src="./assets/img/moisturizers.webp" class="explore_section_img" alt="Moisturizers">
+                    <span class="explore_section_shop_now">SHOP NOW</span>
+                </a>
 
             </div>
 
             <div class="col-md-6 col-lg-3">
 
-                <div class="explore_section_card">
+                <a href="category.php?category=sunscreen" class="explore_section_card">
                     <div class="explore_section_content">
-                        <a href="sunscreens.php">
-                            <h4>SUNSCREEN</h4>
-                            <p>Advanced UV protection for daily use.</p>
+                        <h4>Sunscreen</h4>
+                        <p>Advanced UV protection for everyday outdoor care.</p>
                     </div>
-                    <img src="./assets/img/logo.jpeg" class="explore_section_img" alt="Sunscreen">
-                    <a href="sunscreens.php" class="explore_section_shop_now">SHOP NOW</a>
-                    </a>
-                </div>
+                    <img src="./assets/img/sunscreens.webp" class="explore_section_img" alt="Sunscreen">
+                    <span class="explore_section_shop_now">SHOP NOW</span>
+                </a>
 
             </div>
 
             <div class="col-md-6 col-lg-3">
-                <div class="explore_section_card">
+                <a href="category.php?category=face-cleanser" class="explore_section_card">
                     <div class="explore_section_content">
-                        <a href="face-wash.php">
-                            <h4>Face wash</h4>
-                            <p>Gentle yet effective daily cleansing.</p>
+                        <h4>Face Cleanser</h4>
+                        <p>Gentle daily cleansing for fresh, balanced skin.</p>
                     </div>
-                    <img src="./assets/img/logo.jpeg" class="explore_section_img" alt="Cleanser">
-                    <a href="face-wash.php" class="explore_section_shop_now">SHOP NOW</a>
-                    </a>
-                </div>
+                    <img src="./assets/img/face-wash.webp" class="explore_section_img" alt="Face Cleanser">
+                    <span class="explore_section_shop_now">SHOP NOW</span>
+                </a>
             </div>
         </div>
 
@@ -953,15 +946,15 @@
 <!-- SECTION 1: STRAIGHT UP (FORMER SKINTHESIS) -->
 <section class="index_straight-up_section">
     <div class="container">
-        <h5 class="text-uppercase ls-2 text-white">/SKINTHESIS/</h5>
-        <h2 class="fw-bold mb-4">Straight-up answers to your skincare questions</h2>
+        <h5 class="text-uppercase ls-2 text-white">/NIVIS SKIN GUIDE/</h5>
+        <h2 class="fw-bold mb-4">Clear answers for everyday skincare decisions</h2>
 
         <div class="search-box mx-auto">
             <div class="input-group">
                 <span class="input-group-text bg-white border-0">
                     <i class="fa fa-search text-muted"></i>
                 </span>
-                <input type="text" class="form-control border-0" placeholder="Search Skincare Tips">
+                <input type="text" class="form-control border-0" placeholder="Search Nivis skincare tips">
             </div>
         </div>
 
@@ -993,19 +986,19 @@
         <div class="row text-center">
             <div class="col-6 col-md-3 mb-3 icon-box">
                 <img src="https://cdn-icons-png.flaticon.com/512/2833/2833315.png" style="width: 100px;">
-                <p>Indian FDA Approved</p>
+                <p>Quality-Focused Formulas</p>
             </div>
             <div class="col-6 col-md-3 mb-3 icon-box">
                 <img src="https://cdn-icons-png.flaticon.com/512/3063/3063822.png" style="width: 100px;">
-                <p>Dermatologically Tested</p>
+                <p>Skin-Friendly Approach</p>
             </div>
             <div class="col-6 col-md-3 mb-3 icon-box">
                 <img src="https://cdn-icons-png.flaticon.com/512/2913/2913564.png" style="width: 100px;">
-                <p>No Toxic Chemicals</p>
+                <p>Thoughtful Ingredient Selection</p>
             </div>
             <div class="col-6 col-md-3 mb-3 icon-box">
                 <img src="https://cdn-icons-png.flaticon.com/512/802/802826.png" style="width: 100px;">
-                <p>Plastic Positive</p>
+                <p>Built for Daily Routines</p>
             </div>
         </div>
     </div>
@@ -1017,7 +1010,7 @@
 
         <h2 class="faq-title">FREQUENTLY ASKED</h2>
         <p class="faq-subtitle">
-            Quick answers about /PHD/, our dermatologist council and what makes our formulas different.
+            Quick answers about Nivis Labs, our product approach, and how to choose the right formula for your routine.
         </p>
 
         <div class="accordion" id="faqAccordion">
@@ -1026,15 +1019,13 @@
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-                        What does /PHD/ stand for?
+                        What is Nivis Labs?
                     </button>
                 </h2>
                 <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
                     <div class="accordion-body">
-                        /PHD/ stands for <b>Proven Honest Derma</b>. Every formula is co-developed with dermatologists
-                        (Proven), uses INCI-disclosed active ingredients at clinically validated concentrations – no
-                        fluff, no hidden claims (Honest), and is rooted in clinical dermatology rather than trend-led
-                        marketing (Derma).
+                        Nivis Labs is a skincare brand focused on practical, science-aware formulas for everyday skin
+                        needs like hydration, cleansing, sun protection, brightening, and barrier support.
                     </div>
                 </div>
             </div>
@@ -1044,13 +1035,13 @@
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#faq2">
-                        Who are the dermatologists behind /PHD/?
+                        How does Nivis Labs choose products?
                     </button>
                 </h2>
                 <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                     <div class="accordion-body">
-                        Our dermatologists are certified experts who co-create and validate each product using
-                        scientific research and clinical testing.
+                        We build around real use cases first, then choose ingredients, textures, and product formats
+                        that make the formula easy to understand and easy to use consistently.
                     </div>
                 </div>
             </div>
@@ -1060,13 +1051,13 @@
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#faq3">
-                        Why trust /PHD/?
+                        Why choose Nivis Labs?
                     </button>
                 </h2>
                 <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                     <div class="accordion-body">
-                        We focus on transparency, clinically proven ingredients, and dermatologist-backed formulations
-                        to ensure safe and effective skincare.
+                        Nivis Labs keeps skincare simple: clear categories, focused formulas, transparent product
+                        information, and routines that support healthy-looking skin without unnecessary confusion.
                     </div>
                 </div>
             </div>
@@ -1084,44 +1075,44 @@
         <div class="featured-line"></div>
 
         <p class="featured-subtitle">
-            Dermatologist-approved formulations, covered by leading media.
+            Trusted by customers looking for clear, practical skincare from Nivis Labs.
         </p>
 
         <div class="row g-4 justify-content-center">
 
             <div class="col-6 col-md-4 col-lg-2">
                 <div class="last_section">
-                    <img src="./assets/img/logo_1 (1).png" alt="">
+                    <img src="./assets/img/FACE SERUM.jpeg" alt="products" class="img-fluid">
                 </div>
             </div>
 
             <div class="col-6 col-md-4 col-lg-2">
                 <div class="last_section">
-                    <img src="./assets/img/logo_1 (1).png" alt="">
+                    <img src="./assets/img/face spray.jpeg" alt="product" class="img-fluid"> 
                 </div>
             </div>
 
             <div class="col-6 col-md-4 col-lg-2">
                 <div class="last_section">
-                    <img src="./assets/img/logo_1 (1).png" alt="">
+                    <img src="./assets/img/foot cream.jpeg"  alt="product" class="img-fluid">
                 </div>
             </div>
 
             <div class="col-6 col-md-4 col-lg-2">
                 <div class="last_section">
-                    <img src="./assets/img/logo_1 (1).png" alt="">
+                    <img src="./assets/img/SUNSCFREEN.jpeg"  alt="product" class="img-fluid">
                 </div>
             </div>
 
             <div class="col-6 col-md-4 col-lg-2">
                 <div class="last_section">
-                    <img src="./assets/img/logo_1 (1).png" alt="">
+                    <img src="./assets/img/INSTA GLOW.jpeg"  alt="product" class="img-fluid">
                 </div>
             </div>
 
             <div class="col-6 col-md-4 col-lg-2">
                 <div class="last_section">
-                    <img src="./assets/img/logo_1 (1).png" alt="">
+                    <img src="./assets/img/face spray.jpeg"  alt="product" class="img-fluid">
                 </div>
             </div>
 
@@ -1136,32 +1127,93 @@
 
 <script>
     $(document).ready(function() {
-        // 1. Slider Init
-        $('.product-carousel').slick({
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 2500,
-            responsive: [{
-                    breakpoint: 1024,
-                    settings: {
-                        slidesToShow: 3
+        const spotlightCarousel = $('#spotlightProductCarousel');
+
+        function escapeSpotlightHtml(value) {
+            return String(value ?? '').replace(/[&<>"']/g, function(char) {
+                return {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#039;'
+                }[char];
+            });
+        }
+
+        function spotlightProductCard(product) {
+            const fallbackImage = './assets/img/logo.jpeg';
+            const imageUrl = product.imageUrl || product.primaryImage || fallbackImage;
+            const productKey = product.id || product.sku || product.urlKey || product.url_key || product.name || '';
+            const link = `product-detail.php?product=${encodeURIComponent(productKey)}`;
+            const subtitle = product.subtitle || product.displayConcern || product.concern || product.category || 'Skincare';
+            const size = product.size ? `<span class="spotlight-product-size">${escapeSpotlightHtml(product.size)}</span>` : '';
+
+            return `
+                <div class="px-2">
+                    <div class="product-card">
+                        <a href="${escapeSpotlightHtml(link)}">
+                            <img src="${escapeSpotlightHtml(imageUrl)}" class="w-100 mb-3" alt="${escapeSpotlightHtml(product.name || 'Product')}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImage}';">
+                            <h6 class="fw-bold">${escapeSpotlightHtml(product.name || 'Product')} ${size}</h6>
+                            <p class="small text-muted mb-2">/ ${escapeSpotlightHtml(subtitle)} /</p>
+                            <div class="small mb-2">${escapeSpotlightHtml(product.stars || '★★★★★')} (${escapeSpotlightHtml(product.reviewsCount || 120)} reviews)</div>
+                            <div class="mb-3"><span class="badge-b1g1">${escapeSpotlightHtml(product.boughtTag || 'B1G1')}</span> <span class="ms-1">${escapeSpotlightHtml(product.price || '₹0')}</span></div>
+                        </a>
+                        <button class="btn btn-dark w-100 rounded-0">ADD TO CART</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initProductCarousel() {
+            if (!spotlightCarousel.length || spotlightCarousel.hasClass('slick-initialized')) return;
+
+            spotlightCarousel.slick({
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2500,
+                responsive: [{
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 3
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 2
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1
+                        }
                     }
-                },
-                {
-                    breakpoint: 768,
-                    settings: {
-                        slidesToShow: 2
-                    }
-                },
-                {
-                    breakpoint: 480,
-                    settings: {
-                        slidesToShow: 1
-                    }
+                ]
+            });
+        }
+
+        async function loadSpotlightProducts() {
+            if (!spotlightCarousel.length) return;
+
+            try {
+                const response = await fetch('fetch_category_products.php?category=all');
+                const result = await response.json();
+                const products = result.products || [];
+
+                if (products.length > 0) {
+                    spotlightCarousel.html(products.map(spotlightProductCard).join(''));
                 }
-            ]
-        });
+            } catch (error) {
+                console.error('Unable to load spotlight products:', error);
+            }
+
+            initProductCarousel();
+        }
+
+        loadSpotlightProducts();
 
         // 2. Countdown Timer Logic
         function startTimer(duration) {

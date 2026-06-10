@@ -292,6 +292,75 @@ function inferProductTypeValue($product, $categoryName)
     return "";
 }
 
+function productSizeUnit($product, $productType, $categoryName)
+{
+    $text = productSizeSearchText($product, $productType, $categoryName, true);
+
+    foreach (["cream", "moisturizer", "moisturiser", "gel", "balm", "mask", "scrub", "lotion"] as $type) {
+        if (containsText($text, $type)) {
+            return "g";
+        }
+    }
+
+    return "ml";
+}
+
+function defaultProductSize($product, $productType, $categoryName)
+{
+    $unit = productSizeUnit($product, $productType, $categoryName);
+    $text = productSizeSearchText($product, $productType, $categoryName, false);
+
+    if ($unit === "g") {
+        return containsText($text, "spot-treatment") ? "15 g" : "50 g";
+    }
+
+    if (containsText($text, "serum")) {
+        return "30 ml";
+    }
+
+    if (containsText($text, "cleanser") || containsText($text, "face-wash") || containsText($text, "mist") || containsText($text, "spray")) {
+        return "100 ml";
+    }
+
+    return "50 ml";
+}
+
+function productSizeSearchText($product, $productType, $categoryName, $includeDescription)
+{
+    $parts = [
+        normalizeText($productType),
+        normalizeText($categoryName),
+        normalizeText($product["name"] ?? ""),
+        normalizeText($product["urlKey"] ?? $product["url_key"] ?? "")
+    ];
+
+    if ($includeDescription) {
+        $parts[] = normalizeText($product["description"] ?? "");
+    }
+
+    return slugifyValue(implode(" ", array_filter($parts)));
+}
+
+function inferProductSize($product, $productType, $categoryName, $attributes)
+{
+    $size = attributeValue($attributes, ["size", "net_quantity", "net quantity", "quantity", "volume", "weight", "capacity"], "");
+    $size = $size ?: normalizeText($product["size"] ?? $product["weight"] ?? $product["volume"] ?? "");
+
+    if ($size !== "") {
+        if (preg_match('/(\d+(?:\.\d+)?)\s*(ml|millilitre|milliliter|g|gm|gram|grams)\b/i', $size, $matches)) {
+            $unit = strtolower($matches[2]);
+            $unit = in_array($unit, ["g", "gm", "gram", "grams"], true) ? "g" : "ml";
+            return rtrim(rtrim($matches[1], "0"), ".") . " " . $unit;
+        }
+
+        if (preg_match('/^\d+(?:\.\d+)?$/', $size)) {
+            return $size . " " . productSizeUnit($product, $productType, $categoryName);
+        }
+    }
+
+    return defaultProductSize($product, $productType, $categoryName);
+}
+
 function normalizeAttributes($attributes)
 {
     $items = [];
@@ -366,6 +435,7 @@ function normalizeProduct($product)
     $requestedCategory = normalizeText($product["_requestedCategory"] ?? "");
     $displayDescription = cleanDescriptionText($product["subtitle"] ?? $product["description"] ?? "", $concern ?: $categoryName ?: "Skincare");
     $filterConcern = trim($concern . " " . $requestedCategory);
+    $size = inferProductSize($product, $productType, $categoryName, $attributes);
 
     return [
         "id" => $product["id"] ?? $product["sku"] ?? $product["name"] ?? null,
@@ -383,6 +453,7 @@ function normalizeProduct($product)
         "displayConcern" => $concern,
         "ingredient" => $ingredient,
         "type" => $productType,
+        "size" => $size,
         "stars" => "★★★★½",
         "reviewsCount" => "120",
         "boughtTag" => "196+ bought in past month",
@@ -395,6 +466,7 @@ function normalizeProduct($product)
             ["label" => "Skin Concern", "value" => $concern],
             ["label" => "Ingredient", "value" => $ingredient],
             ["label" => "Product Type", "value" => $productType],
+            ["label" => "Size", "value" => $size],
             ["label" => "URL Key", "value" => normalizeText($productSlug)],
             ["label" => "Price", "value" => $price]
         ]
@@ -625,8 +697,9 @@ if ($category === "") {
 }
 
 $categorySlug = slugifyValue($category);
+$isAllProductsCategory = in_array($categorySlug, ["all", "products", "all-products"], true);
 $cacheDir = __DIR__ . "/cache";
-$cacheFile = $cacheDir . "/category-products-v8-" . $categorySlug . ".json";
+$cacheFile = $cacheDir . "/category-products-v9-" . $categorySlug . ".json";
 
 if (is_file($cacheFile) && time() - filemtime($cacheFile) < $cacheTtl) {
     jsonExit(file_get_contents($cacheFile));
@@ -666,12 +739,12 @@ if (!empty($result["error"]) || !empty($result["errors"])) {
 
 $backendConnectionError = false;
 $allProducts = $result["data"]["products"]["items"] ?? [];
-$categoryKeys = $backendConnectionError ? categoryAliases($categorySlug) : resolveCategoryKeys($categorySlug);
-$products = array_values(array_filter($allProducts, function ($product) use ($categoryKeys) {
+$categoryKeys = $isAllProductsCategory ? [] : ($backendConnectionError ? categoryAliases($categorySlug) : resolveCategoryKeys($categorySlug));
+$products = $isAllProductsCategory ? array_values($allProducts) : array_values(array_filter($allProducts, function ($product) use ($categoryKeys) {
     return productMatchesCategory($product, $categoryKeys);
 }));
 
-if (count($products) === 0 && !$backendConnectionError) {
+if (!$isAllProductsCategory && count($products) === 0 && !$backendConnectionError) {
     $productsById = [];
 
     foreach ($categoryKeys as $key) {
@@ -684,9 +757,9 @@ if (count($products) === 0 && !$backendConnectionError) {
     $products = array_values($productsById);
 }
 
-$categoryName = $category;
+$categoryName = $isAllProductsCategory ? ($categorySlug === "products" ? "Our Products" : "All Products") : $category;
 
-if (count($products) > 0) {
+if (!$isAllProductsCategory && count($products) > 0) {
     $categoryName = normalizeText($products[0]["category"] ?? "") ?: $category;
 }
 
