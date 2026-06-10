@@ -335,7 +335,7 @@
                     return;
                 }
 
-                const itemsHtml = '<li><a href="products.php">All Products</a></li>' + categories.map(category => {
+                const itemsHtml = categories.map(category => {
                     const slug = encodeURIComponent(category.url_key || category.urlKey || category.name || '');
                     const label = category.name || 'Category';
                     const url = slug ? `category.php?category=${slug}` : '#';
