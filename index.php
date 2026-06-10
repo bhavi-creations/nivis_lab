@@ -611,102 +611,10 @@
     <div class="container px-lg-5">
         <h2 class="fw-bold mb-4 px-3">SHOP OUR SPOTLIGHTS</h2>
         <div class="product-carousel" id="spotlightProductCarousel">
-            <div class="px-2">
-                <div class="product-card">
-                    <a href="salicylic_acid_anti_acne_serum.php">
-                        <img src="./assets/img/logo.jpeg" class="w-100 mb-3" alt="p1">
-                        <h6 class="fw-bold">2% Salicylic Acid Anti-Acne Serum</h6>
-                        <p class="small text-muted mb-2">/Solution for Pigmentation/</p>
-                        <div class="small mb-2">★★★★★ (193 reviews)</div>
-                        <div class="mb-3"><span class="badge-b1g1">B1G1</span> <del class="text-muted ms-1">₹699</del> <span class="free-text ms-1">FREE</span></div>
-
-                    </a>
-                    <button class="btn btn-dark w-100 rounded-0">ADD TO CART</button>
-                </div>
+            <div class="spotlight-loading text-center py-4 w-100">
+                <div class="spinner-border text-dark" role="status"></div>
+                <p class="mt-2 mb-0">Loading products...</p>
             </div>
-            <div class="px-2">
-                <div class="product-card">
-                    <a href="alpha_arbutin_depigmentation_serum.php">
-                        <img src="./assets/img/logo.jpeg" class="w-100 mb-3" alt="p2">
-                        <h6 class="fw-bold">2% Alpha Arbutin Depigmentation Serum</h6>
-                        <p class="small text-muted mb-2">/Brightening Solution/</p>
-                        <div class="small mb-2">★★★★★ (152 reviews)</div>
-                        <div class="mb-3"><span class="badge-b1g1">B1G1</span> <del class="text-muted ms-1">₹699</del> <span class="free-text ms-1">FREE</span></div>
-                    </a>
-                    <button class="btn btn-dark w-100 rounded-0">ADD TO CART</button>
-                </div>
-            </div>
-            <div class="px-2">
-                <div class="product-card">
-                    <a href="salicylic_acid_acne_spot_treatment_gel.php">
-                        <img src="./assets/img/logo.jpeg" class="w-100 mb-3" alt="p3">
-                        <h6 class="fw-bold">Salicylic Acid Acne Spot Treatment Gel</h6>
-                        <p class="small text-muted mb-2">/Spot Correcting/</p>
-                        <div class="small mb-2">★★★★★ (168 reviews)</div>
-                        <div class="mb-3"><span class="badge-b1g1">B1G1</span> <del class="text-muted ms-1">₹649</del> <span class="free-text ms-1">FREE</span></div>
-                    </a>
-                    <button class="btn btn-dark w-100 rounded-0">ADD TO CART</button>
-                </div>
-            </div>
-            <div class="px-2">
-                <div class="product-card">
-                    <a href="niacinamide_spot_correcting_serum.php">
-                        <img src="./assets/img/logo.jpeg" class="w-100 mb-3" alt="p4">
-                        <h6 class="fw-bold">10% Niacinamide Spot Correcting Serum</h6>
-                        <p class="small text-muted mb-2">/Hydrating Solution/</p>
-                        <div class="small mb-2">★★★★★ (120 reviews)</div>
-                        <div class="mb-3"><span class="badge-b1g1">B1G1</span> <del class="text-muted ms-1">₹315</del> <span class="free-text ms-1">FREE</span></div>
-                    </a>
-                    <button class="btn btn-dark w-100 rounded-0">ADD TO CART</button>
-                </div>
-            </div>
-            <div class="px-2">
-                <div class="product-card">
-
-                    <a href="pure_retinol_face_serum.php">
-                        <img src="./assets/img/logo.jpeg" class="w-100 mb-3" alt="p5">
-                        <h6 class="fw-bold">0.3% Pure Retinol Face Serum</h6>
-                        <p class="small text-muted mb-2">/UV Protection/</p>
-                        <div class="small mb-2">★★★★★ (200 reviews)</div>
-                        <div class="mb-3"><span class="badge-b1g1">B1G1</span> <del class="text-muted ms-1">₹499</del> <span class="free-text ms-1">FREE</span></div>
-                    </a>
-                    <button class="btn btn-dark w-100 rounded-0">ADD TO CART</button>
-                </div>
-            </div>
-
-            <div class="px-2">
-                <div class="product-card">
-
-                    <a href="panthenol_hydrating_gel_sunscreen_spf_60.php">
-                        <img src="./assets/img/logo.jpeg" class="w-100 mb-3" alt="p5">
-                        <h6 class="fw-bold">Panthenol Hydrating Gel Sunscreen SPF 60 PA++++</h6>
-                        <p class="small text-muted mb-2">/UV Protection/</p>
-                        <div class="small mb-2">★★★★★ (200 reviews)</div>
-                        <div class="mb-3"><span class="badge-b1g1">B1G1</span> <del class="text-muted ms-1">₹499</del> <span class="free-text ms-1">FREE</span></div>
-                    </a>
-                    <button class="btn btn-dark w-100 rounded-0">ADD TO CART</button>
-                </div>
-            </div>
-
-            <div class="px-2">
-                <div class="product-card">
-
-                    <a href="ceramides_intensive_repair_cream.php">
-                        <img src="./assets/img/logo.jpeg" class="w-100 mb-3" alt="p5">
-                        <h6 class="fw-bold">1% Ceramides Intensive Repair Cream</h6>
-                        <p class="small text-muted mb-2">/UV Protection/</p>
-                        <div class="small mb-2">★★★★★ (200 reviews)</div>
-                        <div class="mb-3"><span class="badge-b1g1">B1G1</span> <del class="text-muted ms-1">₹499</del> <span class="free-text ms-1">FREE</span></div>
-                    </a>
-                    <button class="btn btn-dark w-100 rounded-0">ADD TO CART</button>
-                </div>
-            </div>
-
-
-
-
-
-
         </div>
     </div>
 </section>
@@ -1205,12 +1113,17 @@
 
                 if (products.length > 0) {
                     spotlightCarousel.html(products.map(spotlightProductCard).join(''));
+                } else {
+                    spotlightCarousel.html('<p class="text-muted mb-0 px-3">No products found.</p>');
                 }
             } catch (error) {
                 console.error('Unable to load spotlight products:', error);
+                spotlightCarousel.html('<p class="text-danger mb-0 px-3">Unable to load products.</p>');
             }
 
-            initProductCarousel();
+            if (spotlightCarousel.children().length > 1) {
+                initProductCarousel();
+            }
         }
 
         loadSpotlightProducts();
