@@ -18,8 +18,8 @@
     </svg>
 
     <div class="index_img_section__slides" id="indexHeroSlides">
-        <a class="index_img_section__slide active" href="products.php" style="--hero-img: url('./assets/img/1.png');">
-            <img class="index_img_section__product" src="./assets/img/1.png" alt="Nivis Labs slide 1" onerror="this.src='./assets/img/1.png';" />
+        <a class="index_img_section__slide active" href="products.php" style="--hero-img: url('/assets/img/1.png');">
+            <img class="index_img_section__product" src="/assets/img/1.png" alt="Nivis Labs slide 1" onerror="this.src='/assets/img/1.png';" />
             <!-- <div class="index_img_section__content">
                 <span class="index_img_section__new-tag">New Launch</span>
                 <h1 class="index_img_section__title">Panthenol<br />Hydrating Gel<br />Sunscreen</h1>
@@ -32,8 +32,8 @@
             <div class="index_img_section__cta"><i class="bi bi-arrow-right-circle"></i></div>
         </a>
 
-        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/2.png');">
-            <img class="index_img_section__product" src="./assets/img/2.png" alt="Nivis Labs slide 2" onerror="this.src='./assets/img/2.png';" />
+        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('/assets/img/2.png');">
+            <img class="index_img_section__product" src="/assets/img/2.png" alt="Nivis Labs slide 2" onerror="this.src='/assets/img/2.png';" />
             <!-- <div class="index_img_section__content">
                 <span class="index_img_section__new-tag">Daily Protection</span>
                 <h1 class="index_img_section__title">Sun Care<br />That Feels<br />Light</h1>
@@ -46,8 +46,8 @@
             <div class="index_img_section__cta"><i class="bi bi-arrow-right-circle"></i></div>
         </a>
 
-        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/3.png');">
-            <img class="index_img_section__product" src="./assets/img/3.png" alt="Nivis Labs slide 3" onerror="this.src='./assets/img/3.png';" />
+        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('/assets/img/3.png');">
+            <img class="index_img_section__product" src="/assets/img/3.png" alt="Nivis Labs slide 3" onerror="this.src='/assets/img/3.png';" />
             <!-- <div class="index_img_section__content">
                 <span class="index_img_section__new-tag">Barrier Care</span>
                 <h1 class="index_img_section__title">Comforting<br />Moisture<br />Support</h1>
@@ -70,7 +70,7 @@
         const hero = document.getElementById('indexHero');
         const slidesWrap = document.getElementById('indexHeroSlides');
         const dotsWrap = document.getElementById('indexHeroDots');
-        const fallbackImage = './assets/img/product.webp';
+        const fallbackImage = '/assets/img/product.webp';
         let slides = [];
         let current = 0;
         let timer = null;
@@ -102,8 +102,17 @@
             return product.imageUrl || product.thumbnail || '';
         }
 
+        function normalizeHeroImage(image) {
+            const imagePath = String(image || '').trim();
+            if (!imagePath) return fallbackImage;
+            if (/^(https?:)?\/\//i.test(imagePath) || imagePath.startsWith('/')) return imagePath;
+            if (imagePath.startsWith('./')) return `/${imagePath.slice(2)}`;
+            return imagePath;
+        }
+
         function hasUploadedImage(image) {
-            return image && !String(image).includes('/assets/img/product.webp') && image !== './assets/img/product.webp';
+            const imagePath = normalizeHeroImage(image);
+            return imagePath && !imagePath.includes('/assets/img/product.webp');
         }
 
         function isHeroBannerImage(image) {
@@ -182,7 +191,7 @@
                 const candidateSlides = products
                     .map(product => ({
                         title: product.name || 'Nivis Labs Product',
-                        image: productImage(product),
+                        image: normalizeHeroImage(productImage(product)),
                         href: productHref(product),
                         tag: product.type || product.category || 'Featured Product',
                         badges: [product.size, product.subtitle || product.concern || product.category, product.price || 'Shop Now']
