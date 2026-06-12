@@ -49,7 +49,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/category-products.js?v=9"></script>
+<script src="assets/js/category-products.js?v=10"></script>
 
 <script>
     const cartDrawerEl = document.getElementById('cartDrawer');
@@ -209,8 +209,11 @@
     }
 
     function initFooterCart() {
+        if (window.__nivisFooterCartReady) return;
+        window.__nivisFooterCartReady = true;
+
         cartItems = window.NivisCart ? window.NivisCart.read() : [];
-        cartOffcanvas = new bootstrap.Offcanvas(cartDrawerEl);
+        cartOffcanvas = window.bootstrap ? bootstrap.Offcanvas.getOrCreateInstance(cartDrawerEl) : null;
         renderCart();
 
         document.body.addEventListener('click', event => {
@@ -236,24 +239,45 @@
 
         const existingScript = document.querySelector('script[src*="graphql-client.js"]');
         const script = existingScript || document.createElement('script');
+        let attempts = 0;
 
-        script.addEventListener('load', callback, {
+        const waitForCart = () => {
+            if (window.NivisCart || attempts >= 20) {
+                callback();
+                return;
+            }
+
+            attempts += 1;
+            setTimeout(waitForCart, 100);
+        };
+
+        script.addEventListener('load', waitForCart, {
             once: true
         });
 
-        script.addEventListener('error', callback, {
+        script.addEventListener('error', waitForCart, {
             once: true
         });
 
         if (!existingScript) {
             script.src = 'assets/js/graphql-client.js';
             document.head.appendChild(script);
+        } else {
+            waitForCart();
         }
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
+    function bootFooterCart() {
         if (!cartDrawerEl || !cartContentEl) return;
         ensureNivisCart(initFooterCart);
-    });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bootFooterCart, {
+            once: true
+        });
+    } else {
+        bootFooterCart();
+    }
 </script>
 </body>

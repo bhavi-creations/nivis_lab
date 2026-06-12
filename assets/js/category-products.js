@@ -28,7 +28,7 @@
             return;
         }
 
-        loadProductsForContentPage(pageSlug, footer);
+        loadProductsForContentPage(categoryKey, footer);
     }
 
     function getCategoryKey() {
