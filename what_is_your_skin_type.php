@@ -154,7 +154,7 @@
                     <p>Look for well-formulated serums with stable Vitamin C concentrations (around 10–15%).</p>
 
 
-                    <p>/PHD/’s <b> 10% Vitamin C Brightening Serum </b>is designed for effective glow enhancement, even in India’s humid, pollution-heavy environments.</p>
+                    <p>Nivis Labs’s <b> 10% Vitamin C Brightening Serum </b>is designed for effective glow enhancement, even in India’s humid, pollution-heavy environments.</p>
 
 
 
@@ -228,14 +228,14 @@
 
                     <h2>Which brand/serum is best for Vitamin C?</h2>
                     <p>Choose brands that offer stable, dermatologist-tested formulations without unnecessary fragrance or alcohol.</p>
-                    <p>/PHD/’s 10% Vitamin C Brightening Serum uses stabilized Vitamin C designed specifically for Indian skin concerns like pigmentation and pollution damage.</p>
+                    <p>Nivis Labs’s 10% Vitamin C Brightening Serum uses stabilized Vitamin C designed specifically for Indian skin concerns like pigmentation and pollution damage.</p>
 
 
                     <h2>Which Vitamin C serum is best for glowing skin?</h2>
                     <p>Look for serums that combine Vitamin C with supportive ingredients like Hyaluronic Acid or Niacinamide for hydration and enhanced results.</p>
 
                     <h2>What about moisturizers?</h2>
-                    <p>Pairing your serum with /PHD/’s Vitamin C Brightening Moisturizer boosts antioxidant benefits while locking in hydration, helping maintain long-term glow.</p>
+                    <p>Pairing your serum with Nivis Labs’s Vitamin C Brightening Moisturizer boosts antioxidant benefits while locking in hydration, helping maintain long-term glow.</p>
 
 
                     <h1>Do Vitamin C Serums Actually Work?</h1>
@@ -262,7 +262,7 @@
                     <p>Breakouts if paired incorrectly with heavy oils or unstable formulations.</p>
                     <p>Oxidation issues if not stored properly (leading to yellow/orange discoloration).</p>
 
-                    <p>Choosing stable, clinically formulated Vitamin C — like /PHD/’s 10% Serum — minimizes side effects significantly.</p>
+                    <p>Choosing stable, clinically formulated Vitamin C — like Nivis Labs’s 10% Serum — minimizes side effects significantly.</p>
 
 
                     <h2>Vitamin C for Specific Skin Concerns</h2>

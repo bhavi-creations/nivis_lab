@@ -39,7 +39,7 @@
             <div class="badge-stamp">BEST<br>SELLER<br>★</div>
 
             <!-- Title & rating -->
-            <div class="product-brand">/PHD</div>
+            <div class="product-brand">Nivis Labs</div>
             <div class="product-title">1% Ceramides Intensive Repair Cream</div>
             <div class="product-subtitle">/Solution for post-acne marks and blemishes/</div>
 
@@ -167,7 +167,7 @@
                 <div class="dermat-title">WHAT THE DERMAT SAYS</div>
                 <div class="dermat-quote">
                     UV-induced damage drives skin aging and increases the risk of skin cancer, so daily SPF is essential.
-                    However, many sunscreens can feel greasy and heavy. PHD's new panthenol hydrating gel sunscreen is
+                    However, many sunscreens can feel greasy and heavy. Nivis Labs' new panthenol hydrating gel sunscreen is
                     not only certified to provide high levels of UVA and UVB protection, but also has a super lightweight
                     texture. This makes it an ideal choice for daily sun protection without heaviness or leaving a white cast.
                 </div>
@@ -710,7 +710,7 @@
                     <div class="review-title">Bought it on day of launch!</div>
                     <div class="review-body">
                         I ordered this as soon as I received a Whatsapp message about the new launch and the product got
-                        delivered within a day! Pretty much like other products… PHD has nailed this sunscreen. I just did a
+                        delivered within a day! Pretty much like other products… Nivis Labs has nailed this sunscreen. I just did a
                         swatch test as soon as I received the product… super super light and hydrating. Cannot wait to use this everyday.
                     </div>
                     <div class="review-img">🧴</div>
@@ -744,7 +744,7 @@
                     <div class="review-body">
                         ONE COMMENT: DON'T EVER STOP OR ALTER THIS SUNSCREEN FOR EVER….<br>
                         THAT'S IT!<br>
-                        PHD ROCKS 🚫 NUKES 🟩
+                        Nivis Labs ROCKS 🚫 NUKES 🟩
                     </div>
                     <div class="review-img">🌞</div>
                     <div class="vote-row">
@@ -1186,7 +1186,7 @@
             svg: `<svg xmlns="./assets/img/sample1.png" viewBox="0 0 220 320">
         <rect width="220" height="320" fill="#f8f4f0"/>
         <rect x="70" y="20" width="80" height="240" rx="8" fill="#b01b2e"/>
-        <text x="110" y="130" font-family="Arial" font-size="18" font-weight="bold" fill="white" text-anchor="middle">/PHD</text>
+        <text x="110" y="130" font-family="Arial" font-size="18" font-weight="bold" fill="white" text-anchor="middle">Nivis Labs</text>
         <text x="110" y="152" font-family="Arial" font-size="9" fill="white" text-anchor="middle">Panthenol</text>
         <text x="110" y="165" font-family="Arial" font-size="9" fill="white" text-anchor="middle">Hydrating Sunscreen</text>
         <rect x="88" y="200" width="44" height="44" rx="22" fill="rgba(255,255,255,0.2)"/>
@@ -1199,7 +1199,7 @@
             svg: `<svg xmlns="./assets/img/sample1.png" viewBox="0 0 220 320">
         <rect width="220" height="320" fill="#f0ede9"/>
         <rect x="60" y="30" width="75" height="230" rx="8" fill="#9a1626" transform="rotate(-6,97,145)"/>
-        <text x="105" y="145" font-family="Arial" font-size="14" font-weight="bold" fill="white" text-anchor="middle" transform="rotate(-6,105,145)">/PHD</text>
+        <text x="105" y="145" font-family="Arial" font-size="14" font-weight="bold" fill="white" text-anchor="middle" transform="rotate(-6,105,145)">Nivis Labs</text>
         <text x="105" y="175" font-family="Arial" font-size="9" fill="white" text-anchor="middle" transform="rotate(-6,105,175)">SPF 60</text>
       </svg>`
         },

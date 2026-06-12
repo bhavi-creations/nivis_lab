@@ -16,7 +16,7 @@
             <div class="col-lg-10">
                 <h1 data-aos="fade-up">Retinol</h1>
                 <p data-aos="fade-up" data-aos-delay="200">
-                    Discover the transformative power of Retinol with our exclusive /PHD/ collection. Renowned as a gold standard in anti-aging skincare, Retinol accelerates cell turnover, smooths fine lines, and boosts collagen production to reveal a more youthful, radiant complexion. Our meticulously formulated products gently exfoliate and revitalize your skin, minimizing signs of aging and restoring its natural firmness and luminosity. Suitable for all skin types
+                    Discover the transformative power of Retinol with our exclusive Nivis Labs collection. Renowned as a gold standard in anti-aging skincare, Retinol accelerates cell turnover, smooths fine lines, and boosts collagen production to reveal a more youthful, radiant complexion. Our meticulously formulated products gently exfoliate and revitalize your skin, minimizing signs of aging and restoring its natural firmness and luminosity. Suitable for all skin types
                 </p>
             </div>
         </div>

@@ -11,7 +11,7 @@ if(isset($_SESSION['logged_in']))
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Website Login</title>
+    <title>Nivis Labs</title>
 
     <style>
 

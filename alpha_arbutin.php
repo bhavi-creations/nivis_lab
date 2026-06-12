@@ -16,7 +16,7 @@
             <div class="col-lg-10">
                 <h1 data-aos="fade-up">Alpha Arbutin</h1>
                 <p data-aos="fade-up" data-aos-delay="200">
-                    Discover the brightening power of Alpha Arbutin with our exclusive /PHD/ collection. Our advanced formulations are designed to target dark spots and uneven skin tone by gently inhibiting melanin production, unveiling a luminous and refined complexion. Ideal for all skin types, our Alpha Arbutin range restores clarity and radiance, making it an essential addition to your daily skincare routine.
+                    Discover the brightening power of Alpha Arbutin with our exclusive Nivis Labs collection. Our advanced formulations are designed to target dark spots and uneven skin tone by gently inhibiting melanin production, unveiling a luminous and refined complexion. Ideal for all skin types, our Alpha Arbutin range restores clarity and radiance, making it an essential addition to your daily skincare routine.
                 </p>
             </div>
         </div>

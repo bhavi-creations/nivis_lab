@@ -16,7 +16,7 @@
             <div class="col-lg-10">
                 <h1 data-aos="fade-up">Vitamin C</h1>
                 <p data-aos="fade-up" data-aos-delay="200">
-                    Discover luminous, revitalized skin with our exclusive Vitamin C collection at /PHD/. Our carefully crafted formulations harness potent antioxidants to brighten your complexion, even skin tone, and protect against environmental stressors, all while boosting collagen production for a youthful glow. Perfect for all skin types, experience the transformative power of Vitamin C and reveal a radiant, healthy-looking complexion. </p>
+                    Discover luminous, revitalized skin with our exclusive Vitamin C collection at Nivis Labs. Our carefully crafted formulations harness potent antioxidants to brighten your complexion, even skin tone, and protect against environmental stressors, all while boosting collagen production for a youthful glow. Perfect for all skin types, experience the transformative power of Vitamin C and reveal a radiant, healthy-looking complexion. </p>
             </div>
         </div>
     </div>

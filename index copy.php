@@ -50,8 +50,8 @@ if(!isset($_SESSION['website_login']))
     <img
         class="index_img_section__product"
         src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=500&q=90&fit=crop&crop=center"
-        alt="PHD Panthenol Hydrating Gel Sunscreen SPF 60 PA++++"
-        onerror="this.src='https://placehold.co/360x600/8b0000/ffffff?text=/PHD/+SPF60'" />
+        alt="Nivis Labs Panthenol Hydrating Gel Sunscreen SPF 60 PA++++"
+        onerror="this.src='https://placehold.co/360x600/8b0000/ffffff?text=Nivis+Labs+SPF60'" />
 
     <!-- Content overlay -->
     <div class="index_img_section__content">
@@ -908,7 +908,7 @@ if(!isset($_SESSION['website_login']))
 
         <h2 class="faq-title">FREQUENTLY ASKED</h2>
         <p class="faq-subtitle">
-            Quick answers about /PHD/, our dermatologist council and what makes our formulas different.
+            Quick answers about Nivis Labs, our dermatologist council and what makes our formulas different.
         </p>
 
         <div class="accordion" id="faqAccordion">
@@ -917,12 +917,12 @@ if(!isset($_SESSION['website_login']))
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-                        What does /PHD/ stand for?
+                        What does Nivis Labs stand for?
                     </button>
                 </h2>
                 <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
                     <div class="accordion-body">
-                        /PHD/ stands for <b>Proven Honest Derma</b>. Every formula is co-developed with dermatologists
+                        Nivis Labs stands for <b>Nivis Labs</b>. Every formula is co-developed with dermatologists
                         (Proven), uses INCI-disclosed active ingredients at clinically validated concentrations – no
                         fluff, no hidden claims (Honest), and is rooted in clinical dermatology rather than trend-led
                         marketing (Derma).
@@ -935,7 +935,7 @@ if(!isset($_SESSION['website_login']))
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#faq2">
-                        Who are the dermatologists behind /PHD/?
+                        Who are the dermatologists behind Nivis Labs?
                     </button>
                 </h2>
                 <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
@@ -951,7 +951,7 @@ if(!isset($_SESSION['website_login']))
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#faq3">
-                        Why trust /PHD/?
+                        Why trust Nivis Labs?
                     </button>
                 </h2>
                 <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">

@@ -16,7 +16,7 @@
             <div class="col-lg-10">
                 <h1 data-aos="fade-up">Ceramides</h1>
                 <p data-aos="fade-up" data-aos-delay="200">
-                    Discover the restorative power of ceramides with our exclusive /PHD/ collection. These essential lipids work to fortify your skin’s natural barrier, locking in moisture and shielding against environmental stressors. Our carefully formulated products help repair and maintain skin integrity, reducing dryness and enhancing overall resilience for a smoother, more radiant complexion. </p>
+                    Discover the restorative power of ceramides with our exclusive Nivis Labs collection. These essential lipids work to fortify your skin’s natural barrier, locking in moisture and shielding against environmental stressors. Our carefully formulated products help repair and maintain skin integrity, reducing dryness and enhancing overall resilience for a smoother, more radiant complexion. </p>
             </div>
         </div>
     </div>

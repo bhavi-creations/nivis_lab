@@ -53,7 +53,7 @@
         <section class="doctor_bio_section">
             <div class="container">
                 <!-- Main Title -->
-                <h2 class="doctor_bio_main_title">What our /PHD/ council recommends</h2>
+                <h2 class="doctor_bio_main_title">What our Nivis Labs council recommends</h2>
 
                 <!-- Doctor 1 Container -->
                 <div class="doctor_bio_wrapper">

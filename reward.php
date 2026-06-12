@@ -198,7 +198,7 @@
     <div class="rewards-header" id="headerArea">
       <span class="close-rewards" onclick="closeRewards()"><i class="fas fa-times"></i></span>
       <span id="backBtn" class="back-btn" onclick="showView('home')"><i class="fas fa-arrow-left"></i></span>
-      <span id="headerTitle" class="fw-bold">Welcome to /PHD/</span>
+      <span id="headerTitle" class="fw-bold">Welcome to Nivis Labs</span>
     </div>
 
     <div class="rewards-body">
@@ -287,7 +287,7 @@
         <span class="login-back-btn" onclick="hideLogin()"><i class="fas fa-arrow-left"></i></span>
         <span class="close-rewards" onclick="closeRewards()"><i class="fas fa-times"></i></span>
         <div>
-          <h3 class="fw-bold">/PHD/</h3>
+          <h3 class="fw-bold">Nivis Labs</h3>
           <p class="small">Powered by <b>KwikPass</b></p>
           <h5 class="mt-4 fw-bold">Login now to avail best offers!</h5>
         </div>
@@ -338,7 +338,7 @@
 
       if (view === 'home') {
         document.getElementById('viewHome').classList.add('active');
-        headerTitle.innerText = "Welcome to /PHD/";
+        headerTitle.innerText = "Welcome to Nivis Labs";
         backBtn.style.display = "none";
       } else if (view === 'earn') {
         document.getElementById('viewEarn').classList.add('active');

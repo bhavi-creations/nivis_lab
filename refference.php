@@ -60,7 +60,7 @@
         <div class="modal-content refer_earn_modal_content shadow-lg">
             <div class="refer_earn_modal_body">
                 <div class="refer_earn_modal_left">
-                    <h3 class="fw-bold">/PHD/</h3>
+                    <h3 class="fw-bold">Nivis Labs</h3>
                     <p class="small">PROVEN HONEST DERMA</p>
                     <div class="mt-3 small opacity-75">Powered by <span class="fw-bold">KwikPass ⚡</span></div>
                     <h4 class="mt-5 fw-bold">Login now to avail best offers!</h4>

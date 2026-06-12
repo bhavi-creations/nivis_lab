@@ -16,7 +16,7 @@
             <div class="col-lg-10">
                 <h1 data-aos="fade-up">Hyaluronic Acid</h1>
                 <p data-aos="fade-up" data-aos-delay="200">
-                    Discover the hydrating power of Hyaluronic Acid with our exclusive /PHD/ collection. Our advanced formulations deliver deep, lasting moisture to plump and revitalize your skin, reducing fine lines and promoting a smooth, radiant complexion. Ideal for all skin types, experience a refreshed and youthful glow with every application.
+                    Discover the hydrating power of Hyaluronic Acid with our exclusive Nivis Labs collection. Our advanced formulations deliver deep, lasting moisture to plump and revitalize your skin, reducing fine lines and promoting a smooth, radiant complexion. Ideal for all skin types, experience a refreshed and youthful glow with every application.
                 </p>
             </div>
         </div>

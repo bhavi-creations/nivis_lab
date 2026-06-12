@@ -42,8 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
 
         // Recipients
-        $mail->setFrom('manimalladi05@gmail.com', 'PHD Skincare');
-        $mail->addAddress('manimalladi05@gmail.com', 'PHD Skincare');
+        $mail->setFrom('manimalladi05@gmail.com', 'Nivis Labs');
+        $mail->addAddress('manimalladi05@gmail.com', 'Nivis Labs');
 
         // Email content
         $mail->isHTML(true);

@@ -39,7 +39,7 @@
       <div class="badge-stamp">BEST<br>SELLER<br>★</div>
 
       <!-- Title & rating -->
-      <div class="product-brand">/PHD</div>
+      <div class="product-brand">Nivis Labs</div>
       <div class="product-title" id="productTitle">10% Niacinamide Spot Correcting Serum</div>
       <div class="product-subtitle" id="productSubtitle">/Solution for post-acne marks and blemishes/</div>
 
@@ -133,7 +133,7 @@
         <div class="dermat-title">WHAT THE DERMAT SAYS</div>
         <div class="dermat-quote">
           UV-induced damage drives skin aging and increases the risk of skin cancer, so daily SPF is essential.
-          However, many sunscreens can feel greasy and heavy. PHD's new panthenol hydrating gel sunscreen is
+          However, many sunscreens can feel greasy and heavy. Nivis Labs' new panthenol hydrating gel sunscreen is
           not only certified to provide high levels of UVA and UVB protection, but also has a super lightweight
           texture. This makes it an ideal choice for daily sun protection without heaviness or leaving a white cast.
         </div>
@@ -604,7 +604,7 @@
           <div class="review-title">Bought it on day of launch!</div>
           <div class="review-body">
             I ordered this as soon as I received a Whatsapp message about the new launch and the product got
-            delivered within a day! Pretty much like other products… PHD has nailed this sunscreen. I just did a
+            delivered within a day! Pretty much like other products… Nivis Labs has nailed this sunscreen. I just did a
             swatch test as soon as I received the product… super super light and hydrating. Cannot wait to use this everyday.
           </div>
           <div class="review-img">🧴</div>
@@ -638,7 +638,7 @@
           <div class="review-body">
             ONE COMMENT: DON'T EVER STOP OR ALTER THIS SUNSCREEN FOR EVER….<br>
             THAT'S IT!<br>
-            PHD ROCKS 🚫 NUKES 🟩
+            Nivis Labs ROCKS 🚫 NUKES 🟩
           </div>
           <div class="review-img">🌞</div>
           <div class="vote-row">

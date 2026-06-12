@@ -182,7 +182,7 @@
 
   function renderProduct(product) {
     currentProduct = product;
-    document.title = `${product.name || 'Product'} | Nivis Labs`;
+    document.title = 'Nivis Labs';
 
     setText('breadcrumbProduct', product.name || 'Product');
     setText('productTitle', product.name || 'Product');

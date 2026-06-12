@@ -17,7 +17,7 @@
             <div class="col-lg-10">
                 <h1 data-aos="fade-up">Niacinamide</h1>
                 <p data-aos="fade-up" data-aos-delay="200">
-                    Discover the balancing power of Niacinamide with our exclusive /PHD/ collection. Renowned for its ability to even skin tone, reduce the appearance of pores, and regulate oil production, Niacinamide revitalizes your complexion for a smoother, more luminous glow. Perfect for all skin types, our carefully crafted formulas harness this potent ingredient to improve texture and enhance overall radiance, revealing your healthiest, most refined skin.
+                    Discover the balancing power of Niacinamide with our exclusive Nivis Labs collection. Renowned for its ability to even skin tone, reduce the appearance of pores, and regulate oil production, Niacinamide revitalizes your complexion for a smoother, more luminous glow. Perfect for all skin types, our carefully crafted formulas harness this potent ingredient to improve texture and enhance overall radiance, revealing your healthiest, most refined skin.
                 </p>
             </div>
         </div>

@@ -92,7 +92,7 @@
           link: "tyrobrigh.php",
           emoji: "🟢",
           bg: "#b8e8c0",
-          desc: "Discover Tyrobright™, a proprietary creation from the /PHD/ council. It acts like a gentle ‘melanin vacuum,’ targeting stubborn dark spots to deliver a brighter, more even complexion—"
+          desc: "Discover Tyrobright™, a proprietary creation from the Nivis Labs council. It acts like a gentle ‘melanin vacuum,’ targeting stubborn dark spots to deliver a brighter, more even complexion—"
         },
         {
           name: "Tasmanian Pepper",

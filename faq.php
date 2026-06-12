@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frequently Asked Questions</title>
+    <title>Nivis Labs</title>
     <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -228,14 +228,14 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q5">
-                                        What are the different ways I can order /PHD/ products?
+                                        What are the different ways I can order Nivis Labs products?
                                     </button>
                                 </h2>
                                 <div id="q5" class="accordion-collapse collapse" data-bs-parent="#orderAccordion">
                                     <div class="accordion-body">
 
                                         -
-                                        You can order /PHD/ products online from various stores including www.phdbeauty.com, Amazon and Flipkart.
+                                        You can order Nivis Labs products online from various stores including www.phdbeauty.com, Amazon and Flipkart.
                                     </div>
                                 </div>
                             </div>

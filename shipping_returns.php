@@ -17,7 +17,7 @@
         <h1 class="text-center">Shipping & Returns</h1>
         <h4>Order Handling & Shipping</h4>
         <p>All orders are dispatched within 24-48 working hours. In case of maintenance, the shipping timelines may be affected. In case you don't receive shipping information kindly contact us on this link: https://phdbeauty.com/pages/contact or Email us at care@phdbeauty.com</p>
-        <p>Although we are sure, you would love your /PHD/ products but if for some reason you are not satisfied with the purchase please get in touch and we will make it right.</p>
+        <p>Although we are sure, you would love your Nivis Labs products but if for some reason you are not satisfied with the purchase please get in touch and we will make it right.</p>
 
 
 

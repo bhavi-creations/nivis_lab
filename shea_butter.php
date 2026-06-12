@@ -33,7 +33,7 @@
 
                 <div class="col-md-2 sticky-side d-none d-md-block">
                     <div class="author-info">
-                        <p>Written By /PHD/</p>
+                        <p>Written By Nivis Labs</p>
                         <p>Editorial Contributor</p>
                         <p class="mb-3">May 22, 2025</p>
                         <p class="small"><i class="far fa-comment"></i> 0 comments</p>

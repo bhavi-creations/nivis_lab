@@ -16,7 +16,7 @@
             <div class="col-lg-10">
                 <h1 data-aos="fade-up">Salicylic Acid</h1>
                 <p data-aos="fade-up" data-aos-delay="200">
-                    Discover the clarifying power of Salicylic Acid with our exclusive /PHD/ collection.
+                    Discover the clarifying power of Salicylic Acid with our exclusive Nivis Labs collection.
                     Designed for acne-prone and oily skin, our advanced formulations gently exfoliate,
                     unclog pores, and reduce inflammation to reveal a smoother, clearer complexion.
                     Ideal for daily use, each product targets breakouts while promoting balanced,

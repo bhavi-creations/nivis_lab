@@ -82,10 +82,10 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb small">
           <li class="breadcrumb-item"><a href="#" class="text-dark">Home</a></li>
-          <li class="breadcrumb-item active">Let's Build @ /PHD/</li>
+          <li class="breadcrumb-item active">Let's Build @ Nivis Labs</li>
         </ol>
       </nav>
-      <h2 class="text-center fw-bold">Let's Build @ /PHD/</h2>
+      <h2 class="text-center fw-bold">Let's Build @ Nivis Labs</h2>
       <p class="text-center text-muted small px-md-5 mt-3">We are excited to hear from you. What do you love about our
         products? Please fill this form to help us create the best products for your skin.</p>
 
@@ -153,7 +153,7 @@
 
         </div>
 
-        <label class="build-phd-form-label mt-4">If /PHD/ could create one perfect solution for you, what would it
+        <label class="build-phd-form-label mt-4">If Nivis Labs could create one perfect solution for you, what would it
           solve?</label>
         <textarea name="solution" class="form-control build-phd-input" rows="4"></textarea>
 
@@ -170,7 +170,7 @@
         </label>
         <textarea name="doubt" class="form-control build-phd-input" rows="4"></textarea>
 
-        <label class="build-phd-form-label d-block mt-3">Would you like to be a part of /PHD/'s future product trials
+        <label class="build-phd-form-label d-block mt-3">Would you like to be a part of Nivis Labs' future product trials
           and early testing?</label>
         <div class="d-flex gap-3 mt-2 mb-4">
           <div class="form-check">
@@ -193,7 +193,7 @@
       <div class="modal-content border-0 overflow-hidden" style="border-radius: 15px;">
         <div class="row g-0">
           <div class="col-md-6 build-phd-modal-left">
-            <h3 class="fw-bold">/PHD/</h3>
+            <h3 class="fw-bold">Nivis Labs</h3>
             <p class="small opacity-75 mt-5">Login now to avail best offers!</p>
           </div>
           <div class="col-md-6 build-phd-modal-right position-relative">
