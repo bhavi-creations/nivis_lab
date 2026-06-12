@@ -1,11 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-     <meta name="title" content="Nivis labs" />
+
+    <meta name="title" content="Nivis Labs | Dermatologist-Tested Skincare Products for Healthy Skin" />
+    <meta name="descriptions" content="Discover Nivis Labs' dermatologist-tested skincare range including serums, moisturizers, sunscreens, and cleansers. Target acne, pigmentation, dark spots, dehydration, and aging with science-backed formulations." />
     <title>Nivis Labs</title>
 
     <!-- Bootstrap 5 -->
@@ -416,6 +417,4 @@
         // Update cart badge on page load
         updateCartBadge();
         window.addEventListener('nivis-cart:updated', updateCartBadge);
-
     </script>
-

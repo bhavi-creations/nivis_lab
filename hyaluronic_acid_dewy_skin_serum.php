@@ -1435,7 +1435,7 @@
             const subtitle = product.subtitle || product.description || product.concern || 'Skincare';
             const price = normalizePrice(product.price);
 
-            document.title = `${name} | /PHD/ Proven Honest Derma`;
+            document.title = `${name} | Nivis labs`;
             text('.breadcrumb-bar a:last-child', name);
             text('.product-title', name);
             text('.product-subtitle', `/ ${subtitle} /`);
