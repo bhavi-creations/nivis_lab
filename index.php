@@ -1,18 +1,13 @@
-<?php include 'navbar.php'; ?>
+﻿<?php include 'navbar.php'; ?>
 
-<!-- ════════════════════════════════════════════
+<!-- â••••••••••••••••••••••••••••••••••••••••••••
      3. HERO IMAGE SECTION
-════════════════════════════════════════════ -->
-<section class="index_img_section" id="indexHero" onclick="window.location.href='#'" role="link" tabindex="0" aria-label="View Panthenol Hydrating Gel Sunscreen">
-
-    <!-- Background -->
+â•••••••••••••••••••••••••••••••••••••••••••• -->
+<section class="index_img_section" id="indexHero" aria-label="Nivis Labs featured products">
     <div class="index_img_section__bg"></div>
     <div class="index_img_section__stripes"></div>
-
-    <!-- Spotlight glow -->
     <div class="index_img_section__glow"></div>
 
-    <!-- Light rays SVG -->
     <svg class="index_img_section__rays" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
         <line class="ray ray-1" x1="820" y1="380" x2="1440" y2="60" />
         <line class="ray ray-2" x1="820" y1="380" x2="1440" y2="200" />
@@ -22,40 +17,200 @@
         <line class="ray ray-3" x1="820" y1="380" x2="600" y2="800" />
     </svg>
 
-    <!-- Product image — using a placeholder sunscreen image -->
-    <img
-        class="index_img_section__product"
-        src="./assets/img/foot cream.jpeg"
-        alt="Nivis Labs Panthenol Hydrating Gel Sunscreen SPF 60 PA++++"
-        onerror="this.src='https://placehold.co/360x600/8b0000/ffffff?text=Nivis+Labs+SPF60'" />
+    <div class="index_img_section__slides" id="indexHeroSlides">
+        <a class="index_img_section__slide active" href="products.php" style="--hero-img: url('./assets/img/1.png');">
+            <img class="index_img_section__product" src="./assets/img/1.png" alt="Nivis Labs slide 1" onerror="this.src='./assets/img/1.png';" />
+            <!-- <div class="index_img_section__content">
+                <span class="index_img_section__new-tag">New Launch</span>
+                <h1 class="index_img_section__title">Panthenol<br />Hydrating Gel<br />Sunscreen</h1>
+                <div class="index_img_section__badges">
+                    <span class="index_img_section__badge">SPF 60 PA++++</span>
+                    <span class="index_img_section__badge">No Whitecast</span>
+                    <span class="index_img_section__badge">Shop Now</span>
+                </div>
+            </div> -->
+            <div class="index_img_section__cta"><i class="bi bi-arrow-right-circle"></i></div>
+        </a>
 
-    <!-- Content overlay -->
-    <div class="index_img_section__content">
-        <span class="index_img_section__new-tag">New Launch</span>
-        <h1 class="index_img_section__title">
-            Panthenol<br />
-            Hydrating Gel<br />
-            Sunscreen
-        </h1>
-        <div class="index_img_section__badges">
-            <span class="index_img_section__badge">SPF 60 PA++++</span>
-            <span class="index_img_section__badge">European Standard New-Generation Filters</span>
-            <span class="index_img_section__badge">No Whitecast</span>
-        </div>
+        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/2.png');">
+            <img class="index_img_section__product" src="./assets/img/2.png" alt="Nivis Labs slide 2" onerror="this.src='./assets/img/2.png';" />
+            <!-- <div class="index_img_section__content">
+                <span class="index_img_section__new-tag">Daily Protection</span>
+                <h1 class="index_img_section__title">Sun Care<br />That Feels<br />Light</h1>
+                <div class="index_img_section__badges">
+                    <span class="index_img_section__badge">Broad Spectrum</span>
+                    <span class="index_img_section__badge">Everyday Routine</span>
+                    <span class="index_img_section__badge">View Sunscreens</span>
+                </div>
+            </div> -->
+            <div class="index_img_section__cta"><i class="bi bi-arrow-right-circle"></i></div>
+        </a>
+
+        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/3.png');">
+            <img class="index_img_section__product" src="./assets/img/3.png" alt="Nivis Labs slide 3" onerror="this.src='./assets/img/3.png';" />
+            <!-- <div class="index_img_section__content">
+                <span class="index_img_section__new-tag">Barrier Care</span>
+                <h1 class="index_img_section__title">Comforting<br />Moisture<br />Support</h1>
+                <div class="index_img_section__badges">
+                    <span class="index_img_section__badge">Hydration</span>
+                    <span class="index_img_section__badge">Skin Barrier</span>
+                    <span class="index_img_section__badge">View Moisturizers</span>
+                </div>
+            </div> -->
+            <div class="index_img_section__cta"><i class="bi bi-arrow-right-circle"></i></div>
+        </a>
+
     </div>
 
-    <!-- CTA hint -->
-    <div class="index_img_section__cta">
-        <!-- <span>Shop Now</span> -->
-        <i class="bi bi-arrow-right-circle"></i>
-    </div>
+    <div class="index_img_section__dots" id="indexHeroDots" aria-label="Hero slider navigation"></div>
 </section>
+
+<script>
+    (function() {
+        const hero = document.getElementById('indexHero');
+        const slidesWrap = document.getElementById('indexHeroSlides');
+        const dotsWrap = document.getElementById('indexHeroDots');
+        const fallbackImage = './assets/img/product.webp';
+        let slides = [];
+        let current = 0;
+        let timer = null;
+
+        if (!hero || !slidesWrap || !dotsWrap) return;
+
+        function escapeHtml(value) {
+            return String(value ?? '').replace(/[&<>"']/g, match => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            } [match]));
+        }
+
+        function heroTitle(title) {
+            const words = String(title || 'Nivis Labs Product').trim().split(/\s+/);
+            const rows = [
+                words.slice(0, 2).join(' '),
+                words.slice(2, 4).join(' '),
+                words.slice(4).join(' ')
+            ].filter(Boolean);
+            return rows.map(escapeHtml).join('<br />');
+        }
+
+        function productImage(product) {
+            if (Array.isArray(product.images) && product.images.length > 0) return product.images[0];
+            return product.imageUrl || product.thumbnail || '';
+        }
+
+        function hasUploadedImage(image) {
+            return image && !String(image).includes('/assets/img/product.webp') && image !== './assets/img/product.webp';
+        }
+
+        function isHeroBannerImage(image) {
+            return new Promise(resolve => {
+                if (!hasUploadedImage(image)) {
+                    resolve(false);
+                    return;
+                }
+
+                const probe = new Image();
+                probe.onload = () => {
+                    const ratio = probe.naturalWidth / Math.max(1, probe.naturalHeight);
+                    resolve(ratio >= 2.4);
+                };
+                probe.onerror = () => resolve(false);
+                probe.src = image;
+            });
+        }
+
+        function productHref(product) {
+            const key = product.id || product.sku || product.urlKey || product.url_key || product.name || '';
+            return key ? `product-detail.php?product=${encodeURIComponent(key)}` : 'products.php';
+        }
+
+        function slideTemplate(slide) {
+            const badges = (slide.badges || []).filter(Boolean).slice(0, 3).map(badge => (
+                `<span class="index_img_section__badge">${escapeHtml(badge)}</span>`
+            )).join('');
+
+            return `
+                <a class="index_img_section__slide" href="${escapeHtml(slide.href)}" style="--hero-img: url('${escapeHtml(slide.image)}');">
+                    <img class="index_img_section__product" src="${escapeHtml(slide.image)}" alt="${escapeHtml(slide.title)}" onerror="this.src='${fallbackImage}';" />
+                    <div class="index_img_section__content">
+                        <span class="index_img_section__new-tag">${escapeHtml(slide.tag || 'Nivis Labs')}</span>
+                        <h1 class="index_img_section__title">${heroTitle(slide.title)}</h1>
+                        <div class="index_img_section__badges">${badges}</div>
+                    </div>
+                    <div class="index_img_section__cta"><i class="bi bi-arrow-right-circle"></i></div>
+                </a>
+            `;
+        }
+
+        function setSlide(index) {
+            if (!slides.length) return;
+            current = (index + slides.length) % slides.length;
+            slides.forEach((slide, slideIndex) => slide.classList.toggle('active', slideIndex === current));
+            dotsWrap.querySelectorAll('button').forEach((dot, dotIndex) => dot.classList.toggle('active', dotIndex === current));
+        }
+
+        function startSlider() {
+            clearInterval(timer);
+            if (slides.length > 1) {
+                timer = setInterval(() => setSlide(current + 1), 3500);
+            }
+        }
+
+        function initSlides() {
+            slides = Array.from(slidesWrap.querySelectorAll('.index_img_section__slide'));
+            dotsWrap.innerHTML = slides.map((_, index) => `<button type="button" aria-label="Show slide ${index + 1}"></button>`).join('');
+            dotsWrap.querySelectorAll('button').forEach((dot, index) => {
+                dot.addEventListener('click', event => {
+                    event.preventDefault();
+                    setSlide(index);
+                    startSlider();
+                });
+            });
+            setSlide(0);
+            startSlider();
+        }
+
+        async function loadBackendSlides() {
+            try {
+                const response = await fetch('fetch_category_products.php?category=all');
+                const result = await response.json();
+                const products = result.data?.products || [];
+                const candidateSlides = products
+                    .map(product => ({
+                        title: product.name || 'Nivis Labs Product',
+                        image: productImage(product),
+                        href: productHref(product),
+                        tag: product.type || product.category || 'Featured Product',
+                        badges: [product.size, product.subtitle || product.concern || product.category, product.price || 'Shop Now']
+                    }))
+                    .filter(slide => hasUploadedImage(slide.image))
+                    .slice(0, 6);
+
+                const bannerChecks = await Promise.all(candidateSlides.map(slide => isHeroBannerImage(slide.image)));
+                const backendSlides = candidateSlides.filter((_, index) => bannerChecks[index]);
+
+                if (!backendSlides.length) return;
+                slidesWrap.innerHTML = backendSlides.map(slideTemplate).join('');
+                initSlides();
+            } catch (error) {
+                console.error('Unable to load hero products:', error);
+            }
+        }
+
+        initSlides();
+        loadBackendSlides();
+    })();
+</script>
 
 <!-- our spot light  -->
 
 
 
-<div class="container">
+<!-- <div class="container">
     <div class="col-3">
         <div class="card">
 
@@ -64,7 +219,7 @@
     <div class="col-3"></div>
     <div class="col-3"></div>
     <div class="col-3"></div>
-</div>
+</div> -->
 
 
 <!-- <div class="container my-5 mb-5">
@@ -90,12 +245,12 @@
                     </h2>
 
                     <p class="text-muted">
-                        Answer 3 quick questions — our AI dermat advisor will build a personalised routine just for
+                        Answer 3 quick questions â€” our AI dermat advisor will build a personalised routine just for
                         you.
                     </p>
 
                     <button class="skin-btn_index">
-                        START MY SKIN ASSESSMENT →
+                        START MY SKIN ASSESSMENT â†’
                     </button>
                 </div>
 
@@ -143,15 +298,15 @@
 
 </div> -->
 
-<div class="container my-5 ai_powered_skin_analysis">
+<!-- <div class="container my-5 ai_powered_skin_analysis">
     <div class="skin-wrapper_index border rounded-3 position-relative ">
 
-        <!-- TOP LABEL -->
+       
         <div class="skin-label_index bg-danger text-white px-3 py-1 position-absolute top-0 start-0 translate-middle-y ms-4 fw-bold small">
             SKIN ASSESSMENT
         </div>
 
-        <!-- SECTION 0: LANDING (Your Original Code) -->
+      
         <div id="step-landing" class="skin-section_index py-4">
             <div class="row align-items-center">
                 <div class="col-md-7">
@@ -159,7 +314,7 @@
                     <h2 class="skin-title_index fw-bold mb-3">BUILD A ROUTINE AROUND YOUR SKIN NEEDS</h2>
                     <p class="text-muted">Answer a few quick questions and discover Nivis Labs products aligned with your skin type and concerns.</p>
                     <button class="skin-btn_index btn btn-dark px-4 py-2" onclick="showStep(1)">
-                        START MY ROUTINE CHECK →
+                        START MY ROUTINE CHECK â†’
                     </button>
                 </div>
                 <div class="col-md-5 mt-4 mt-md-0">
@@ -179,7 +334,7 @@
             </div>
         </div>
 
-        <!-- STEP 1: SKIN TYPE -->
+        
         <div id="step-1" class="step-container d-none text-center py-4">
             <div class="progress mb-3 mx-auto" style="height: 4px; width: 200px;">
                 <div class="progress-bar bg-danger" style="width: 33%"></div>
@@ -195,10 +350,10 @@
                 <div class="col-6 col-md-4"><button class="btn btn-outline-secondary w-100 py-3 option-btn" onclick="toggleSelection(this, 1)">Normal</button></div>
                 <div class="col-6 col-md-4"><button class="btn btn-outline-secondary w-100 py-3 option-btn" onclick="toggleSelection(this, 1)">Not sure</button></div>
             </div>
-            <button id="next-1" class="btn btn-secondary w-100 py-3 fw-bold disabled" onclick="showStep(2)">NEXT →</button>
+            <button id="next-1" class="btn btn-secondary w-100 py-3 fw-bold disabled" onclick="showStep(2)">NEXT â†’</button>
         </div>
 
-        <!-- STEP 2: CONCERNS -->
+        
         <div id="step-2" class="step-container d-none text-center py-4">
             <div class="progress mb-3 mx-auto" style="height: 4px; width: 200px;">
                 <div class="progress-bar bg-danger" style="width: 66%"></div>
@@ -214,10 +369,10 @@
                 <div class="col-6 col-md-6"><button class="btn btn-outline-secondary w-100 py-2 option-btn" onclick="toggleSelection(this, 2)">Open pores</button></div>
                 <div class="col-6 col-md-6"><button class="btn btn-outline-secondary w-100 py-2 option-btn" onclick="toggleSelection(this, 2)">Sun damage</button></div>
             </div>
-            <button id="next-2" class="btn btn-secondary w-100 py-3 fw-bold disabled" onclick="showStep(3)">NEXT →</button>
+            <button id="next-2" class="btn btn-secondary w-100 py-3 fw-bold disabled" onclick="showStep(3)">NEXT â†’</button>
         </div>
 
-        <!-- STEP 3: PHOTO UPLOAD -->
+        
         <div id="step-3" class="step-container d-none text-center py-4">
             <div class="progress mb-3 mx-auto" style="height: 4px; width: 200px;">
                 <div class="progress-bar bg-danger" style="width: 100%"></div>
@@ -233,15 +388,15 @@
                 <input type="file" id="fileInput" class="d-none" accept="image/*">
             </div>
 
-            <button class="btn btn-danger w-100 py-3 fw-bold mb-2">GET MY NIVIS ROUTINE →</button>
+            <button class="btn btn-danger w-100 py-3 fw-bold mb-2">GET MY NIVIS ROUTINE â†’</button>
             <a href="#" class="text-muted small text-decoration-underline">Skip photo & continue</a>
         </div>
 
     </div>
-</div>
+</div> -->
 
 
-<div class="container my-5">
+<!-- <div class="container my-5">
     <div class="count_section text-center">
         <div class="sale-badge mb-3">SALE ENDS IN</div>
         <div class="d-flex justify-content-center align-items-center gap-2">
@@ -265,7 +420,7 @@
             <div class="progress-bar-custom"></div>
         </div>
     </div>
-</div>
+</div> -->
 
 
 
@@ -331,73 +486,66 @@
 </div> -->
 
 
-<!-- <div class="container my-5 img_section_container">
+<div class="container my-5 img_section_container dermat-routine-section">
     <div class="img_section text-center">
-        <h2 class="fw-bold mb-4" style="letter-spacing: 1px;">FIND YOUR DERMAT ROUTINE</h2>
+        <h2 class="fw-bold mb-4" style="letter-spacing: 1px;">Build Your Perfect Skin Routine</h2>
 
        
-        <div class="d-flex flex-nowrap justify-content-start justify-content-md-center overflow-auto pb-3 gap-2 no-scrollbar">
+        <div class="d-flex flex-nowrap justify-content-start overflow-auto pb-3 no-scrollbar dermat-concern-row" id="dermatConcernRow">
 
-            <div class="concern-item" onclick="showDermatRoutine('acne', this)">
-                <div class="concern-card active-dermat">
-                    <img src="./assets/img/logo.jpeg" alt="Acne">
+            <div class="concern-item" onclick="showDermatRoutine('acne', this, 1)">
+                <div class="concern-card">
+                    <img src="./assets/img/logo.jpeg" alt="Nivis Labs Acne">
                     <div class="concern-overlay">Acne</div>
                 </div>
             </div>
 
-            <div class="concern-item" onclick="showDermatRoutine('pigmentation', this)">
+            <div class="concern-item" onclick="showDermatRoutine('pigmentation', this, 2)">
                 <div class="concern-card">
-                    <img src="./assets/img/logo.jpeg" alt="Pigmentation">
+                    <img src="./assets/img/logo.jpeg" alt="Nivis Labs Pigmentation">
                     <div class="concern-overlay">Pigmentation</div>
                 </div>
             </div>
 
-            <div class="concern-item" onclick="showDermatRoutine('acne-marks', this)">
+            <div class="concern-item" onclick="showDermatRoutine('acne-marks', this, 3)">
                 <div class="concern-card">
-                    <img src="./assets/img/logo.jpeg" alt="Acne Marks">
+                    <img src="./assets/img/logo.jpeg" alt="Nivis Labs Acne Marks">
                     <div class="concern-overlay">Acne Marks</div>
                 </div>
             </div>
 
-            <div class="concern-item" onclick="showDermatRoutine('dark-spots', this)">
+            <div class="concern-item" onclick="showDermatRoutine('dark-spots', this, 4)">
                 <div class="concern-card">
-                    <img src="./assets/img/logo.jpeg" alt="Dark Spots">
+                    <img src="./assets/img/logo.jpeg" alt="Nivis Labs Dark Spots">
                     <div class="concern-overlay">Dark Spots</div>
                 </div>
             </div>
 
-            <div class="concern-item" onclick="showDermatRoutine('anti-ageing', this)">
+            <div class="concern-item" onclick="showDermatRoutine('anti-ageing', this, 5)">
                 <div class="concern-card">
-                    <img src="./assets/img/logo.jpeg" alt="Anti-Ageing">
-                    <div class="concern-overlay">Anti-Ageing</div>
+                    <img src="./assets/img/logo.jpeg" alt="Nivis Labs Anti-Aging">
+                    <div class="concern-overlay">Anti-Aging</div>
                 </div>
             </div>
 
-            <div class="concern-item" onclick="showDermatRoutine('dehydration', this)">
+            <div class="concern-item" onclick="showDermatRoutine('dehydration', this, 6)">
                 <div class="concern-card">
-                    <img src="./assets/img/logo.jpeg" alt="Dehydration">
+                    <img src="./assets/img/logo.jpeg" alt="Nivis Labs Dehydration">
                     <div class="concern-overlay">Dehydration</div>
-                </div>
-            </div>
-
-            <div class="concern-item" onclick="showDermatRoutine('eczema', this)">
-                <div class="concern-card">
-                    <img src="./assets/img/logo.jpeg" alt="Eczema">
-                    <div class="concern-overlay">Eczema</div>
                 </div>
             </div>
 
         </div>
 
        
-        <div id="dermat-results" class="mt-4">
+        <div id="dermat-results" class="mt-4" style="display:none;">
             <p class="text-muted small mb-3">Choose your serum / treatment:</p>
 
             
             <div id="routine-content" class="mx-auto" style="max-width: 1100px;"></div>
         </div>
     </div>
-</div> -->
+</div>
 
 
 
@@ -407,88 +555,143 @@
 
 
 <script>
+    const dermatCategoryMap = {
+        acne: 'acne',
+        pigmentation: 'pigmentation',
+        'acne-marks': 'acne-marks',
+        'dark-spots': 'pigmentation',
+        'anti-ageing': 'lines-and-wrinkles',
+        dehydration: 'dehydration',
+        'sun-protection': 'sunscreen'
+    };
+
+    const dermatDisplayLimits = {
+        acne: 4,
+        pigmentation: 1,
+        'acne-marks': 2,
+        'dark-spots': 1,
+        'anti-ageing': 1,
+        dehydration: 1,
+        'sun-protection': 1
+    };
+
+    let dermatSelectedIndex = 1;
+    let dermatCurrentType = '';
+    let dermatVisibleProducts = [];
+    let dermatCurrentRoutine = [];
+
     const dermatFallbackProducts = {
-        acne: [{
+        acne: [
+            {
                 name: '2% Salicylic Acid Anti-Acne Serum',
                 subtitle: 'Solution for acne, clogged pores and sebum regulation',
-                price: '₹699',
-                imageUrl: './assets/img/logo.jpeg',
-                secondaryImageUrl: './assets/img/logo.jpeg',
+                price: 'Rs. 699',
+                imageUrl: './assets/img/FACE SERUM.jpeg',
+                secondaryImageUrl: './assets/img/product.webp',
                 link: 'salicylic_acid_anti_acne_serum.php',
                 type: 'Serum'
             },
             {
                 name: 'Salicylic Acid Acne Spot Treatment Gel',
                 subtitle: 'Solution for rapid healing of acne, pimples and breakouts',
-                price: '₹649',
-                imageUrl: './assets/img/logo.jpeg',
-                secondaryImageUrl: './assets/img/logo.jpeg',
+                price: 'Rs. 649',
+                imageUrl: './assets/img/product.webp',
+                secondaryImageUrl: './assets/img/FACE SERUM.jpeg',
                 link: 'salicylic_acid_acne_spot_treatment_gel.php',
                 type: 'Treatment'
             },
             {
                 name: '10% Niacinamide Spot Correcting Serum',
                 subtitle: 'Solution for acne marks, spots and uneven skin tone',
-                price: '₹699',
-                imageUrl: './assets/img/logo.jpeg',
-                secondaryImageUrl: './assets/img/logo.jpeg',
+                price: 'Rs. 699',
+                imageUrl: './assets/img/INSTA GLOW.jpeg',
+                secondaryImageUrl: './assets/img/FACE SERUM.jpeg',
                 link: 'niacinamide_spot_correcting_serum.php',
+                type: 'Serum'
+            },
+            {
+                name: '2% Alpha Arbutin Depigmentation Serum',
+                subtitle: 'Solution for pigmentation and acne marks',
+                price: 'Rs. 699',
+                imageUrl: './assets/img/INSTA GLOW.jpeg',
+                secondaryImageUrl: './assets/img/FACE SERUM.jpeg',
+                link: 'alpha_arbutin_depigmentation_serum.php',
                 type: 'Serum'
             }
         ],
         pigmentation: [{
             name: '2% Alpha Arbutin Depigmentation Serum',
             subtitle: 'Brightening solution for pigmentation',
-            price: '₹699',
-            imageUrl: './assets/img/logo.jpeg',
-            secondaryImageUrl: './assets/img/logo.jpeg',
+            price: 'Rs. 699',
+            imageUrl: './assets/img/INSTA GLOW.jpeg',
+            secondaryImageUrl: './assets/img/FACE SERUM.jpeg',
             link: 'alpha_arbutin_depigmentation_serum.php',
             type: 'Serum'
         }],
-        'acne-marks': [{
-            name: '10% Niacinamide Spot Correcting Serum',
-            subtitle: 'Solution for post-acne marks and blemishes',
-            price: '₹699',
-            imageUrl: './assets/img/logo.jpeg',
-            secondaryImageUrl: './assets/img/logo.jpeg',
-            link: 'niacinamide_spot_correcting_serum.php',
-            type: 'Serum'
-        }],
+        'acne-marks': [
+            {
+                name: '10% Niacinamide Spot Correcting Serum',
+                subtitle: 'Solution for post-acne marks and blemishes',
+                price: 'Rs. 699',
+                imageUrl: './assets/img/INSTA GLOW.jpeg',
+                secondaryImageUrl: './assets/img/FACE SERUM.jpeg',
+                link: 'niacinamide_spot_correcting_serum.php',
+                type: 'Serum'
+            },
+            {
+                name: '2% Salicylic Acid Anti-Acne Serum',
+                subtitle: 'Helps acne-prone skin and visible blemishes',
+                price: 'Rs. 699',
+                imageUrl: './assets/img/FACE SERUM.jpeg',
+                secondaryImageUrl: './assets/img/product.webp',
+                link: 'salicylic_acid_anti_acne_serum.php',
+                type: 'Serum'
+            }
+        ],
         'dark-spots': [{
             name: '10% Vitamin C Brightening Serum',
             subtitle: 'Solution for dark spots and dullness',
-            price: '₹699',
-            imageUrl: './assets/img/logo.jpeg',
-            secondaryImageUrl: './assets/img/logo.jpeg',
+            price: 'Rs. 699',
+            imageUrl: './assets/img/FACE SERUM.jpeg',
+            secondaryImageUrl: './assets/img/INSTA GLOW.jpeg',
             link: 'vitamin_c_brightening_serum.php',
             type: 'Serum'
         }],
         'anti-ageing': [{
             name: '0.3% Pure Retinol Face Serum',
             subtitle: 'Solution for fine lines and ageing',
-            price: '₹699',
-            imageUrl: './assets/img/logo.jpeg',
-            secondaryImageUrl: './assets/img/logo.jpeg',
+            price: 'Rs. 699',
+            imageUrl: './assets/img/night cream.jpeg',
+            secondaryImageUrl: './assets/img/FACE SERUM.jpeg',
             link: 'pure_retinol_face_serum.php',
             type: 'Serum'
         }],
         dehydration: [{
             name: '2% Hyaluronic Acid Dewy Skin Serum',
             subtitle: 'Solution for hydration and plump skin',
-            price: '₹699',
-            imageUrl: './assets/img/logo.jpeg',
-            secondaryImageUrl: './assets/img/logo.jpeg',
+            price: 'Rs. 699',
+            imageUrl: './assets/img/face spray.jpeg',
+            secondaryImageUrl: './assets/img/moisturizers.webp',
             link: 'hyaluronic_acid_dewy_skin_serum.php',
             type: 'Serum'
         }],
-        eczema: [{
-            name: 'Ceramides Intensive Repair Cream',
-            subtitle: 'Barrier support for dry, sensitive skin',
-            price: '₹699',
-            imageUrl: './assets/img/logo.jpeg',
-            secondaryImageUrl: './assets/img/logo.jpeg',
-            link: 'ceramides_intensive_repair_cream.php',
-            type: 'Cream'
+        'sun-protection': [{
+            name: 'Panthenol Hydrating Gel Sunscreen SPF 60',
+            subtitle: 'Daily sun protection with a lightweight gel feel',
+            price: 'Rs. 699',
+            imageUrl: './assets/img/SUNSCFREEN.jpeg',
+            secondaryImageUrl: './assets/img/sunscreens.webp',
+            link: 'panthenol_hydrating_gel_sunscreen_spf_60.php',
+            type: 'Sunscreen'
+        },
+        {
+            name: 'Niacinamide Dry Touch Matte Sunscreen',
+            subtitle: 'Matte finish sunscreen for daily outdoor routine',
+            price: 'Rs. 699',
+            imageUrl: './assets/img/sunscreens.webp',
+            secondaryImageUrl: './assets/img/SUNSCFREEN.jpeg',
+            link: 'niacinamide_dry_touch_matte_sunscreen.php',
+            type: 'Sunscreen'
         }]
     };
 
@@ -504,50 +707,257 @@
         });
     }
 
-    function dermatProductCard(product) {
-        const fallbackImage = './assets/img/logo.jpeg';
-        const imageUrl = product.imageUrl || product.primaryImage || fallbackImage;
-        const hoverImageUrl = product.secondaryImageUrl || product.secondaryImage || imageUrl;
-        const productKey = product.id || product.sku || product.urlKey || product.url_key || product.name || '';
-        const link = product.urlKey || product.sku || product.id ?
-            `hyaluronic_acid_dewy_skin_serum.php?product=${encodeURIComponent(productKey)}&category=${encodeURIComponent(product.category || '')}` :
-            (product.link && product.link !== '#' ? product.link : '#');
+    function dermatProductKey(product) {
+        return String(product.id || product.sku || product.urlKey || product.url_key || product.name || 'product')
+            .trim()
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-|-$/g, '');
+    }
+
+    function dermatProductImage(product) {
+        return (product.images && product.images.length > 0)
+            ? product.images[0]
+            : (product.imageUrl || product.primaryImage || './assets/img/product.webp');
+    }
+
+    function dermatHasNivisImage(product) {
+        const image = dermatProductImage(product);
+        if (!image) return false;
+
+        const normalized = String(image).toLowerCase();
+        return normalized.includes('admin.nivislabs.in') ||
+            normalized.includes('/assets/img/') &&
+            !normalized.includes('/assets/img/product.webp') &&
+            !normalized.includes('/assets/img/logo.jpeg');
+    }
+
+    function dermatPriceNumber(product) {
+        const displayPrice = String(product.price || '').replace(/,/g, '');
+        const displayAmount = Number(displayPrice.replace(/[^0-9.]/g, ''));
+        if (displayAmount) return displayAmount;
+
+        const rawAmount = Number(product.priceNumber || 0);
+        if (!rawAmount) return 0;
+
+        return rawAmount > 0 && rawAmount < 100 ? Math.round(rawAmount * 100) : rawAmount;
+    }
+
+    function dermatCartAttrs(product) {
+        const imageUrl = dermatProductImage(product);
+        const priceNumber = dermatPriceNumber(product);
 
         return `
-            <div class="product-card">
-                <a href="${escapeDermatHtml(link)}">
+            data-product-id="${escapeDermatHtml(dermatProductKey(product))}"
+            data-product-name="${escapeDermatHtml(product.name || 'Product')}"
+            data-product-price="${escapeDermatHtml(priceNumber)}"
+            data-product-image="${escapeDermatHtml(imageUrl)}"
+            data-price="${escapeDermatHtml(priceNumber)}"
+        `;
+    }
+
+    function dermatProductCard(product, index = 0, selectable = false, active = false) {
+        const fallbackImage = './assets/img/product.webp';
+        const imageUrl = dermatProductImage(product);
+        const price = String(product.price || 'Rs. 0').replace(/^Rs\.?\s*/i, '₹');
+        const selectableAttrs = selectable ? `role="button" tabindex="0" data-dermat-select="${index}"` : '';
+
+        return `
+            <div class="product-card dermat-choice-card${active ? ' active' : ''}" ${dermatCartAttrs(product)} ${selectableAttrs}>
+                <div class="dermat-choice-inner">
                     <div class="product-img-wrap">
                         <img class="img-primary" src="${escapeDermatHtml(imageUrl)}" alt="${escapeDermatHtml(product.name)}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImage}';">
-                        <img class="img-secondary" src="${escapeDermatHtml(hoverImageUrl)}" alt="${escapeDermatHtml(product.name)}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImage}';">
                     </div>
                     <div class="product-info">
-                        <div class="product-type-badge">${escapeDermatHtml(product.type || 'Product')}</div>
                         <div class="product-name">${escapeDermatHtml(product.name || 'Product')}</div>
-                        <div class="product-sub">/ ${escapeDermatHtml(product.subtitle || product.concern || 'Skincare')} /</div>
-                        <div>
-                            <span class="stars">${escapeDermatHtml(product.stars || '★★★★½')}</span>
-                            <span class="review-count">(${escapeDermatHtml(product.reviewsCount || 120)} reviews)</span>
-                        </div>
-                        <div class="product-price">${escapeDermatHtml(product.price || '₹0')}</div>
+                        <div class="product-price">${escapeDermatHtml(price)}</div>
                     </div>
-                </a>
-                <button class="btn-cart">Add to Cart</button>
+                </div>
             </div>
         `;
+    }
+
+    function dermatRoutineItem(step, item, label) {
+        const product = item.product || item;
+        const imageUrl = dermatProductImage(product);
+        const price = String(product.price || 'Rs. 0').replace(/^Rs\.?\s*/i, '₹');
+
+        return `
+            <div class="dermat-routine-step${item.active === false ? ' inactive' : ''}" ${dermatCartAttrs(product)}>
+                <button class="dermat-routine-check" type="button" data-routine-toggle="${step - 1}" aria-label="Toggle ${escapeDermatHtml(product.name || 'Product')}"><i class="fa fa-check"></i></button>
+                <img src="${escapeDermatHtml(imageUrl)}" alt="${escapeDermatHtml(product.name || 'Product')}" loading="lazy" onerror="this.onerror=null;this.src='./assets/img/product.webp';">
+                <div class="dermat-routine-step-copy">
+                    <div class="dermat-routine-step-label">STEP ${step} · ${escapeDermatHtml(label)}</div>
+                    <div class="dermat-routine-step-name">${escapeDermatHtml(product.name || 'Product')}</div>
+                    <div class="dermat-routine-step-price">${escapeDermatHtml(price)}</div>
+                </div>
+                <button class="dermat-direct-cart" type="button">ADD</button>
+            </div>
+        `;
+    }
+
+    function dermatBuildRoutine(type, selectedProduct) {
+        return [
+            {
+                name: 'Ceramide Hydrating Cleanser',
+                subtitle: 'Gentle cleanser for daily routine',
+                price: 'Rs. 315',
+                imageUrl: './assets/img/face-wash.webp',
+                type: 'Cleanser'
+            },
+            selectedProduct,
+            {
+                name: type === 'anti-ageing' ? 'Ceramides Intensive Repair Cream' : 'Vitamin C Brightening Moisturizer',
+                subtitle: 'Moisturizer step for barrier support',
+                price: 'Rs. 549',
+                imageUrl: './assets/img/moisturizers.webp',
+                type: 'Moisturizer'
+            },
+            {
+                name: 'Panthenol Hydrating Gel Sunscreen SPF 60 PA++++',
+                subtitle: 'Daily sunscreen protection',
+                price: 'Rs. 599',
+                imageUrl: './assets/img/SUNSCFREEN.jpeg',
+                type: 'Sunscreen'
+            }
+        ];
+    }
+
+    function dermatRoutineDoctor(type) {
+        return 'Nivis Labs Recommends';
+    }
+
+    function dermatAddCardToCart(card) {
+        if (!card || !window.NivisCart) return;
+
+        const product = window.NivisCart.fromCard(card);
+        if (!product) return;
+
+        window.NivisCart.add(product, 1);
+
+        const drawer = document.getElementById('cartDrawer');
+        if (drawer && window.bootstrap) {
+            bootstrap.Offcanvas.getOrCreateInstance(drawer).show();
+        }
+    }
+
+    function dermatRoutineLabels() {
+        return ['CLEANSER', 'SERUM', 'MOISTURIZER', 'SUNSCREEN'];
+    }
+
+    function dermatUpdateRoutineSummary() {
+        const activeItems = dermatCurrentRoutine.filter(item => item.active !== false);
+        const total = activeItems.reduce((sum, item) => sum + dermatPriceNumber(item.product), 0);
+        const oldTotal = total ? Math.round(total / 0.72) : 0;
+        const save = oldTotal - total;
+
+        const countEl = document.getElementById('dermatRoutineCount');
+        const oldEl = document.getElementById('dermatRoutineOld');
+        const totalEl = document.getElementById('dermatRoutineTotal');
+        const saveEl = document.getElementById('dermatRoutineSave');
+        const offerEl = document.getElementById('dermatRoutineOffer');
+
+        if (countEl) countEl.textContent = `${activeItems.length} items selected`;
+        if (oldEl) oldEl.textContent = oldTotal ? `₹${oldTotal.toLocaleString('en-IN')}` : '';
+        if (totalEl) totalEl.textContent = `₹${total.toLocaleString('en-IN')}`;
+        if (saveEl) saveEl.textContent = `You save ₹${save.toLocaleString('en-IN')}`;
+        if (offerEl) offerEl.textContent = `Buy ${activeItems.length} @ ₹${total.toLocaleString('en-IN')}`;
+    }
+
+    function dermatSetRoutineFromProduct(type, selectedProduct) {
+        dermatCurrentRoutine = dermatBuildRoutine(type, selectedProduct).map(product => ({
+            product,
+            active: true
+        }));
+    }
+
+    function renderDermatRoutineMode(type, visibleProducts, selectedProductIndex = 0, includeChoices = false) {
+        const contentArea = document.getElementById('routine-content');
+        const selectedProduct = visibleProducts[selectedProductIndex] || visibleProducts[0];
+        if (!contentArea || !selectedProduct) return;
+
+        const selectedImage = dermatProductImage(selectedProduct);
+        const selectedPrice = String(selectedProduct.price || 'Rs. 0').replace(/^Rs\.?\s*/i, '₹');
+        dermatSetRoutineFromProduct(type, selectedProduct);
+        const labels = dermatRoutineLabels();
+        const choicesHtml = includeChoices
+            ? `<div class="dermat-products-grid dermat-choice-grid text-start">${visibleProducts.map((product, index) => dermatProductCard(product, index, true, index === selectedProductIndex)).join('')}</div>`
+            : '';
+        const selectedCardHtml = includeChoices ? '' : `
+            <div class="dermat-selected-product product-card" ${dermatCartAttrs(selectedProduct)}>
+                <img src="${escapeDermatHtml(selectedImage)}" alt="${escapeDermatHtml(selectedProduct.name || 'Product')}" loading="lazy" onerror="this.onerror=null;this.src='./assets/img/product.webp';">
+                <div class="product-name">${escapeDermatHtml(selectedProduct.name || 'Product')}</div>
+                <div class="product-price">${escapeDermatHtml(selectedPrice)}</div>
+            </div>
+        `;
+
+        contentArea.innerHTML = `
+            ${choicesHtml}
+            ${selectedCardHtml}
+
+            <div class="dermat-routine-card">
+                <div class="dermat-routine-head">
+                    <div class="dermat-brand-mark">NIVIS<br>LABS</div>
+                    <div>
+                        <div class="dermat-routine-doctor">${escapeDermatHtml(dermatRoutineDoctor(type))}</div>
+                        <div class="dermat-routine-tag">SOLUTION FOR ${escapeDermatHtml((selectedProduct.concern || selectedProduct.subtitle || selectedProduct.category || 'SKINCARE').toUpperCase())}</div>
+                    </div>
+                </div>
+                <div class="dermat-routine-body">
+                    ${dermatCurrentRoutine.map((item, index) => dermatRoutineItem(index + 1, item, labels[index])).join('')}
+                </div>
+                <div class="dermat-routine-summary">
+                    <span id="dermatRoutineCount">4 items selected</span>
+                    <span class="dermat-routine-old" id="dermatRoutineOld"></span>
+                    <strong id="dermatRoutineTotal">₹0</strong>
+                </div>
+                <div class="dermat-routine-saving"><span id="dermatRoutineOffer"></span> <em id="dermatRoutineSave"></em></div>
+                <button class="dermat-complete-cart" type="button">ADD COMPLETE ROUTINE</button>
+                <div class="dermat-routine-individual">or add products individually</div>
+            </div>
+        `;
+
+        dermatUpdateRoutineSummary();
+    }
+
+    function mergeDermatProducts(type, products) {
+        const mergedProducts = (products || []).filter(dermatHasNivisImage);
+        const seenProducts = new Set();
+
+        return mergedProducts.filter(product => {
+            const key = String(product.id || product.sku || product.urlKey || product.url_key || product.name || '').toLowerCase();
+            if (!key || seenProducts.has(key)) return false;
+            seenProducts.add(key);
+            return true;
+        });
     }
 
     function renderDermatProducts(type, products) {
         const contentArea = document.getElementById('routine-content');
         if (!contentArea) return;
 
-        const visibleProducts = products.length ? products : (dermatFallbackProducts[type] || []);
+        const limit = dermatDisplayLimits[type] || 4;
+        const visibleProducts = mergeDermatProducts(type, products).slice(0, limit);
 
         if (!visibleProducts.length) {
             contentArea.innerHTML = '<p class="text-muted mb-0">No products found for this concern.</p>';
             return;
         }
 
-        contentArea.innerHTML = `<div class="products-grid text-start">${visibleProducts.map(dermatProductCard).join('')}</div>`;
+        dermatCurrentType = type;
+        dermatVisibleProducts = visibleProducts;
+
+        if (type === 'acne' || type === 'acne-marks') {
+            contentArea.innerHTML = `<div class="dermat-products-grid dermat-choice-grid text-start">${visibleProducts.map((product, index) => dermatProductCard(product, index, true, false)).join('')}</div>`;
+            return;
+        }
+
+        if ([2, 4, 5, 6].includes(dermatSelectedIndex)) {
+            renderDermatRoutineMode(type, visibleProducts);
+            return;
+        }
+
+        contentArea.innerHTML = `<div class="dermat-products-grid text-start">${visibleProducts.map((product, index) => dermatProductCard(product, index, false, false)).join('')}</div>`;
     }
 
     async function loadDermatProducts(type) {
@@ -562,23 +972,25 @@
         `;
 
         try {
-            const response = await fetch(`fetch_category_products.php?category=${encodeURIComponent(type)}`);
+            const category = dermatCategoryMap[type] || type;
+            const response = await fetch(`fetch_category_products.php?category=${encodeURIComponent(category)}`);
             const result = await response.json();
-            renderDermatProducts(type, result.products || []);
+            renderDermatProducts(type, result.data?.products || result.products || []);
         } catch (error) {
             renderDermatProducts(type, []);
         }
     }
 
-    function showDermatRoutine(type, element) {
-        // 1. Remove active border from all navigation cards
-        document.querySelectorAll('.concern-card').forEach(card => {
+    function showDermatRoutine(type, element, index = 1) {
+        dermatSelectedIndex = index;
+        const results = document.getElementById('dermat-results');
+        if (results) results.style.display = '';
+        document.querySelectorAll('.dermat-routine-section .concern-card').forEach(card => {
             card.classList.remove('active-dermat');
         });
 
-        // 2. Add active border to clicked navigation card
         if (element) {
-            element.querySelector('.concern-card').classList.add('active-dermat');
+            element.querySelector('.concern-card')?.classList.add('active-dermat');
         }
 
         loadDermatProducts(type);
@@ -589,8 +1001,93 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        loadDermatProducts('acne');
+        const dermatSection = document.querySelector('.dermat-routine-section');
+        dermatSection?.addEventListener('click', function(event) {
+            const selectionCard = event.target.closest('[data-dermat-select]');
+            if (selectionCard) {
+                const selectedIndex = Number(selectionCard.dataset.dermatSelect || 0);
+                renderDermatRoutineMode(dermatCurrentType, dermatVisibleProducts, selectedIndex, true);
+                event.preventDefault();
+                return;
+            }
+
+            const toggleButton = event.target.closest('[data-routine-toggle]');
+            if (toggleButton) {
+                const index = Number(toggleButton.dataset.routineToggle || 0);
+                if (dermatCurrentRoutine[index]) {
+                    dermatCurrentRoutine[index].active = dermatCurrentRoutine[index].active === false;
+                    toggleButton.closest('.dermat-routine-step')?.classList.toggle('inactive', dermatCurrentRoutine[index].active === false);
+                    dermatUpdateRoutineSummary();
+                }
+                event.preventDefault();
+                return;
+            }
+
+            const directButton = event.target.closest('.dermat-direct-cart');
+            if (directButton) {
+                const card = directButton.closest('[data-product-id]');
+                dermatAddCardToCart(card);
+                event.preventDefault();
+                return;
+            }
+
+            const completeButton = event.target.closest('.dermat-complete-cart');
+            if (completeButton && window.NivisCart) {
+                dermatCurrentRoutine.filter(item => item.active !== false).forEach(item => {
+                    const product = item.product;
+                    window.NivisCart.add({
+                        id: dermatProductKey(product),
+                        name: product.name || 'Product',
+                        price: dermatPriceNumber(product),
+                        image: dermatProductImage(product),
+                        quantity: 1
+                    }, 1);
+                });
+                const drawer = document.getElementById('cartDrawer');
+                if (drawer && window.bootstrap) bootstrap.Offcanvas.getOrCreateInstance(drawer).show();
+                event.preventDefault();
+            }
+        });
+        initDermatMobileSlider();
     });
+
+    function initDermatMobileSlider() {
+        const row = document.getElementById('dermatConcernRow');
+        if (!row) return;
+
+        let timer = null;
+
+        function start() {
+            if (timer || !window.matchMedia('(max-width: 576px)').matches) return;
+            timer = setInterval(function() {
+                const item = row.querySelector('.concern-item');
+                if (!item) return;
+
+                const nextLeft = row.scrollLeft + item.offsetWidth + 12;
+                const maxLeft = row.scrollWidth - row.clientWidth - 4;
+                row.scrollTo({
+                    left: nextLeft >= maxLeft ? 0 : nextLeft,
+                    behavior: 'smooth'
+                });
+            }, 2600);
+        }
+
+        function stop() {
+            clearInterval(timer);
+            timer = null;
+        }
+
+        row.addEventListener('mouseenter', stop);
+        row.addEventListener('mouseleave', start);
+        row.addEventListener('touchstart', stop, { passive: true });
+        row.addEventListener('touchend', start, { passive: true });
+        window.addEventListener('resize', function() {
+            stop();
+            start();
+        });
+
+        start();
+    }
 </script>
 
 
@@ -642,7 +1139,7 @@
                             <div class="video_section_product_name">10% Vitamin C Brightening Serum</div>
                             <div>
                                 <span class="video_section_price_badge">B1G1</span>
-                                <del class="small text-muted">₹699</del>
+                                <del class="small text-muted">â‚¹699</del>
                                 <span class="video_section_free">FREE</span>
                             </div>
                         </a>
@@ -662,7 +1159,7 @@
                         <a href="vitamin_c_brightening_moisturizer.php">
                             <div class="video_section_product_name">Vitamin C Brightening Moisturizer</div>
                             <div><span class="video_section_price_badge">B1G1</span> <del
-                                    class="small text-muted">₹549</del> <span class="video_section_free">FREE</span>
+                                    class="small text-muted">â‚¹549</del> <span class="video_section_free">FREE</span>
                             </div>
                         </a>
                         <button class="video_section_add_btn">ADD TO CART</button>
@@ -681,7 +1178,7 @@
                         <a href="niacinamide_spot_correcting_serum.php">
                             <div class="video_section_product_name">10% Niacinamide Spot Correcting Serum</div>
                             <div><span class="video_section_price_badge">B1G1</span> <del
-                                    class="small text-muted">₹649</del> <span class="video_section_free">FREE</span>
+                                    class="small text-muted">â‚¹649</del> <span class="video_section_free">FREE</span>
                             </div>
                         </a>
                         <button class="video_section_add_btn">ADD TO CART</button>
@@ -700,7 +1197,7 @@
                         <a href="alpha_arbutin_depigmentation_serum.php">
                             <div class="video_section_product_name">2% Alpha Arbutin Depigmentation Serum</div>
                             <div><span class="video_section_price_badge">B1G1</span> <del
-                                    class="small text-muted">₹699</del> <span class="video_section_free">FREE</span>
+                                    class="small text-muted">â‚¹699</del> <span class="video_section_free">FREE</span>
                             </div>
                         </a>
                         <button class="video_section_add_btn">ADD TO CART</button>
@@ -1056,18 +1553,24 @@
             const link = `product-detail.php?product=${encodeURIComponent(productKey)}`;
             const subtitle = product.subtitle || product.displayConcern || product.concern || product.category || 'Skincare';
             const size = product.size ? `<span class="spotlight-product-size">${escapeSpotlightHtml(product.size)}</span>` : '';
+            const priceNumber = product.priceNumber || String(product.price || '0').replace(/[^0-9.]/g, '') || 0;
 
             return `
                 <div class="px-2">
-                    <div class="product-card">
+                    <div class="product-card"
+                        data-product-id="${escapeSpotlightHtml(productKey)}"
+                        data-product-name="${escapeSpotlightHtml(product.name || 'Product')}"
+                        data-product-price="${escapeSpotlightHtml(priceNumber)}"
+                        data-product-image="${escapeSpotlightHtml(imageUrl)}"
+                        data-price="${escapeSpotlightHtml(priceNumber)}">
                         <a href="${escapeSpotlightHtml(link)}">
                             <img src="${escapeSpotlightHtml(imageUrl)}" class="w-100 mb-3" alt="${escapeSpotlightHtml(product.name || 'Product')}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImage}';">
                             <h6 class="fw-bold">${escapeSpotlightHtml(product.name || 'Product')} ${size}</h6>
                             <p class="small text-muted mb-2">/ ${escapeSpotlightHtml(subtitle)} /</p>
-                            <div class="small mb-2">${escapeSpotlightHtml(product.stars || '★★★★★')} (${escapeSpotlightHtml(product.reviewsCount || 120)} reviews)</div>
-                            <div class="mb-3"><span class="badge-b1g1">${escapeSpotlightHtml(product.boughtTag || 'B1G1')}</span> <span class="ms-1">${escapeSpotlightHtml(product.price || '₹0')}</span></div>
+                            <div class="small mb-2">${escapeSpotlightHtml(product.stars || 'â˜…â˜…â˜…â˜…â˜…')} (${escapeSpotlightHtml(product.reviewsCount || 120)} reviews)</div>
+                            <div class="mb-3"><span class="badge-b1g1">${escapeSpotlightHtml(product.boughtTag || 'B1G1')}</span> <span class="ms-1">${escapeSpotlightHtml(product.price || 'â‚¹0')}</span></div>
                         </a>
-                        <button class="btn btn-dark w-100 rounded-0">ADD TO CART</button>
+                        <button class="btn btn-dark btn-cart w-100 rounded-0">ADD TO CART</button>
                     </div>
                 </div>
             `;

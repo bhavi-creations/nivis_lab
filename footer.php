@@ -5,9 +5,8 @@
                 <h6>Information</h6>
                 <ul>
                     <li><a href="tracking.php">Track Your Order</a></li>
-                    <li><a href="our-story.php">The /PHD/ Story</a></li>
-                    <li><a href="our_team.php">The /PHD/ Council</a></li>
-                   
+                    <li><a href="our-story.php">The Nivis Labs Story</a></li>
+                    <li><a href="our_team.php">The Nivis Labs Council</a></li>
                     <li><a href="skinthesis.php">Skinthesis</a></li>
                     <li><a href="reward.php">Rewards</a></li>
                 </ul>
@@ -20,7 +19,7 @@
                     <li><a href="privacy_policy.php">Privacy Policy</a></li>
                     <li><a href="refund.php">Refund Policy</a></li>
                     <li><a href="contact.php">Contact Us</a></li>
-                    <li><a href="build_phd.php">Let's Build /PHD/</a></li>
+                    <li><a href="build_phd.php">Let's Build Nivis Labs</a></li>
                 </ul>
             </div>
             <div class="col-md-4 mb-4 text-center">
@@ -35,24 +34,18 @@
 
         <div class="row text-center">
             <div class="col-12">
-                <div class="footer-logo">/NIVIS LAB/</div>
-                <!-- <p class="text-uppercase small tracking-widest">Proven Honest Derma</p>
-                    <div class="copyright">Copyright © 2026 /PHD/. All rights reserved.</div> -->
-                <!-- <img src="./assets/img/logo_1 (1).png" alt="" style="width: 200px;"> -->
+                <div class="footer-logo">NIVIS LABS</div>
             </div>
         </div>
     </div>
 </footer>
-
-
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="cartDrawer">
     <div class="offcanvas-header border-bottom">
         <h5>Mee Cart</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
-    <div class="offcanvas-body" id="cartContent">
-    </div>
+    <div class="offcanvas-body" id="cartContent"></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -61,7 +54,7 @@
 <script>
     const cartDrawerEl = document.getElementById('cartDrawer');
     const cartContentEl = document.getElementById('cartContent');
-    const cartItems = [];
+    let cartItems = window.NivisCart ? window.NivisCart.read() : [];
     let cartOffcanvas = null;
 
     function formatPrice(value) {
@@ -71,91 +64,70 @@
 
     function getProductInfoFromCard(card) {
         if (!card) return null;
-
         const nameEl = card.querySelector('.product-name');
         const priceEl = card.querySelector('.product-price');
-        const imgEl = card.querySelector('.product-img-wrap img.img-primary, .product-img-wrap img');
-
+        const imgEl = card.querySelector('.product-img-wrap img.img-primary, .product-img-wrap img, img');
         const name = nameEl ? nameEl.textContent.trim() : 'Product';
         const priceText = priceEl ? priceEl.textContent.replace(/[^0-9.]/g, '').trim() : card.dataset.price || '0';
-        const image = imgEl ? imgEl.src : '';
-        const quantity = 1;
 
         return {
             id: card.dataset.productId || name.replace(/\s+/g, '_').toLowerCase(),
             name,
             price: Number(priceText) || Number(card.dataset.price) || 0,
-            image,
-            quantity,
+            image: imgEl ? imgEl.src : '',
+            quantity: 1,
         };
     }
 
     function removeFromCart(itemId) {
-        const item = cartItems.find(cartItem => cartItem.id === itemId);
-        if (item) {
-            if (item.quantity > 1) {
-                item.quantity -= 1;
-            } else {
-                const index = cartItems.indexOf(item);
-                if (index > -1) {
-                    cartItems.splice(index, 1);
-                }
-            }
-            renderCart();
-        }
+        if (!window.NivisCart) return;
+        window.NivisCart.remove(itemId);
+        renderCart();
     }
 
-    function getRelatedProducts(currentItem) {
+    function getRelatedProducts() {
         const allProducts = document.querySelectorAll('.product-card');
         const relatedProducts = [];
-        
+
         allProducts.forEach(product => {
-            if (relatedProducts.length < 4) {
-                const productId = product.dataset.productId || product.querySelector('.product-name')?.textContent.trim().replace(/\s+/g, '_').toLowerCase();
-                
-                // Skip if already in cart
-                if (cartItems.some(item => item.id === productId)) return;
-                
-                const name = product.querySelector('.product-name')?.textContent.trim() || '';
-                const priceText = product.querySelector('.product-price')?.textContent.replace(/[^0-9.]/g, '').trim() || product.dataset.price || '0';
-                const price = Number(priceText) || 0;
-                const image = product.querySelector('.product-img-wrap img')?.src || '';
-                const sub = product.querySelector('.product-sub')?.textContent.trim() || '';
-                
-                if (name && image) {
-                    relatedProducts.push({
-                        id: productId,
-                        name,
-                        price,
-                        image,
-                        sub
-                    });
-                }
+            if (relatedProducts.length >= 4) return;
+            const productId = product.dataset.productId || product.querySelector('.product-name')?.textContent.trim().replace(/\s+/g, '_').toLowerCase();
+            if (!productId || cartItems.some(item => item.id === productId)) return;
+
+            const name = product.querySelector('.product-name')?.textContent.trim() || '';
+            const priceText = product.querySelector('.product-price')?.textContent.replace(/[^0-9.]/g, '').trim() || product.dataset.price || '0';
+            const image = product.querySelector('.product-img-wrap img, img')?.src || '';
+            const sub = product.querySelector('.product-sub')?.textContent.trim() || '';
+
+            if (name && image) {
+                relatedProducts.push({
+                    id: productId,
+                    name,
+                    price: Number(priceText) || 0,
+                    image,
+                    sub
+                });
             }
         });
-        
+
         return relatedProducts;
     }
 
     function addRelatedToCart(itemId, itemName, itemPrice, itemImage, quantity = 1) {
-        const existing = cartItems.find(item => item.id === itemId);
-        if (existing) {
-            existing.quantity += quantity;
-        } else {
-            cartItems.push({
-                id: itemId,
-                name: itemName,
-                price: itemPrice,
-                image: itemImage,
-                quantity: quantity
-            });
-        }
+        if (!window.NivisCart) return;
+        window.NivisCart.add({
+            id: itemId,
+            name: itemName,
+            price: itemPrice,
+            image: itemImage
+        }, quantity);
         renderCart();
         openCartDrawer();
     }
 
     function renderCart() {
         if (!cartContentEl) return;
+        cartItems = window.NivisCart ? window.NivisCart.read() : cartItems;
 
         if (cartItems.length === 0) {
             cartContentEl.innerHTML = `
@@ -185,38 +157,27 @@
             </div>
         `).join('');
 
-        const relatedProductsHtml = cartItems.length > 0 ? (() => {
-            const relatedProducts = getRelatedProducts(cartItems[0]);
-            if (relatedProducts.length === 0) return '';
-            
-            const relatedHtml = relatedProducts.map((product, idx) => `
-                <div class="border-bottom pb-3 mb-3">
-                    <div style="display: flex; gap: 12px; align-items: flex-start;">
-                        <div style="width: 70px; min-width: 70px;">
-                            <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 70px; object-fit: cover; border-radius: 4px;" />
-                        </div>
-                        <div style="flex: 1; font-size: 13px;">
-                            <div class="fw-bold" style="margin-bottom: 2px; font-size: 14px;">${product.name.substring(0, 35)}${product.name.length > 35 ? '...' : ''}</div>
-                            <div class="text-muted small" style="margin-bottom: 4px;">${product.sub.substring(0, 40)}${product.sub.length > 40 ? '...' : ''}</div>
-                            <div class="fw-bold" style="color: #d32f2f; margin-bottom: 6px;">₹${product.price}</div>
-                            <div style="display: flex; gap: 6px; align-items: center;">
-                                <button onclick="changeRelatedQty('${idx}', -1)" class="btn btn-sm btn-outline-secondary" style="padding: 2px 6px; font-size: 12px;">−</button>
-                                <span id="qty-${idx}" style="min-width: 20px; text-align: center;">1</span>
-                                <button onclick="changeRelatedQty('${idx}', 1)" class="btn btn-sm btn-outline-secondary" style="padding: 2px 6px; font-size: 12px;">+</button>
-                                <button onclick="addRelatedToCart('${product.id}', '${product.name.replace(/'/g, "\\'")}', ${product.price}, '${product.image}', parseInt(document.getElementById('qty-${idx}').textContent))" class="btn btn-sm btn-dark" style="margin-left: auto; font-size: 12px;">Add</button>
+        const relatedProducts = getRelatedProducts();
+        const relatedProductsHtml = relatedProducts.length > 0 ? `
+            <div class="mt-3 pt-3 border-top">
+                <h6 class="mb-3" style="font-size: 14px;">You might also like</h6>
+                ${relatedProducts.map((product, idx) => `
+                    <div class="border-bottom pb-3 mb-3">
+                        <div style="display: flex; gap: 12px; align-items: flex-start;">
+                            <div style="width: 70px; min-width: 70px;">
+                                <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 70px; object-fit: cover; border-radius: 4px;" />
+                            </div>
+                            <div style="flex: 1; font-size: 13px;">
+                                <div class="fw-bold" style="margin-bottom: 2px; font-size: 14px;">${product.name.substring(0, 35)}${product.name.length > 35 ? '...' : ''}</div>
+                                <div class="text-muted small" style="margin-bottom: 4px;">${product.sub.substring(0, 40)}${product.sub.length > 40 ? '...' : ''}</div>
+                                <div class="fw-bold" style="color: #d32f2f; margin-bottom: 6px;">${formatPrice(product.price)}</div>
+                                <button onclick="addRelatedToCart('${product.id}', '${product.name.replace(/'/g, "\\'")}', ${product.price}, '${product.image}', 1)" class="btn btn-sm btn-dark" style="font-size: 12px;">Add</button>
                             </div>
                         </div>
                     </div>
-                </div>
-            `).join('');
-            
-            return `
-                <div class="mt-3 pt-3 border-top">
-                    <h6 class="mb-3" style="font-size: 14px;">You might also like</h6>
-                    ${relatedHtml}
-                </div>
-            `;
-        })() : '';
+                `).join('')}
+            </div>
+        ` : '';
 
         cartContentEl.innerHTML = `
             <div class="cart-items">
@@ -235,36 +196,20 @@
         `;
     }
 
-    function changeRelatedQty(idx, change) {
-        const qtyEl = document.getElementById(`qty-${idx}`);
-        if (qtyEl) {
-            const current = parseInt(qtyEl.textContent) || 1;
-            const newQty = Math.max(1, current + change);
-            qtyEl.textContent = newQty;
-        }
-    }
-
     function openCartDrawer() {
         if (!cartOffcanvas || !cartDrawerEl) return;
         cartOffcanvas.show();
     }
 
-    function addToCart(item) {
-        if (!item || !item.name) return;
-
-        const existing = cartItems.find(cartItem => cartItem.id === item.id);
-        if (existing) {
-            existing.quantity += item.quantity;
-        } else {
-            cartItems.push({ ...item });
-        }
-
+    function addProductToCart(item) {
+        if (!window.NivisCart || !item || !item.name) return;
+        window.NivisCart.add(item, item.quantity || 1);
         renderCart();
         openCartDrawer();
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        if (!cartDrawerEl || !cartContentEl) return;
+    function initFooterCart() {
+        cartItems = window.NivisCart ? window.NivisCart.read() : [];
         cartOffcanvas = new bootstrap.Offcanvas(cartDrawerEl);
         renderCart();
 
@@ -273,12 +218,42 @@
             if (!button) return;
 
             const card = button.closest('.product-card');
-            const product = getProductInfoFromCard(card);
+            const product = window.NivisCart ? window.NivisCart.fromCard(card) : getProductInfoFromCard(card);
             if (!product) return;
 
-            addToCart(product);
+            addProductToCart(product);
             event.preventDefault();
         });
+
+        window.addEventListener('nivis-cart:updated', renderCart);
+    }
+
+    function ensureNivisCart(callback) {
+        if (window.NivisCart) {
+            callback();
+            return;
+        }
+
+        const existingScript = document.querySelector('script[src*="graphql-client.js"]');
+        const script = existingScript || document.createElement('script');
+
+        script.addEventListener('load', callback, {
+            once: true
+        });
+
+        script.addEventListener('error', callback, {
+            once: true
+        });
+
+        if (!existingScript) {
+            script.src = 'assets/js/graphql-client.js';
+            document.head.appendChild(script);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        if (!cartDrawerEl || !cartContentEl) return;
+        ensureNivisCart(initFooterCart);
     });
 </script>
 </body>

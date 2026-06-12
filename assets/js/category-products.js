@@ -459,6 +459,10 @@
 
         return `
             <div class="product-card"
+                data-product-id="${escapeHtml(productKey)}"
+                data-product-name="${escapeHtml(product.name || 'Product')}"
+                data-product-price="${escapeHtml(product.priceNumber || product.price || 0)}"
+                data-product-image="${escapeHtml(primaryImage)}"
                 data-price="${escapeHtml(product.priceNumber || 0)}"
                 data-concern="${escapeHtml(concernTokens)}"
                 data-ingredient="${escapeHtml(ingredientTokens)}"

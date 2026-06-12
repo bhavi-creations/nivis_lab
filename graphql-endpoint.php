@@ -366,10 +366,23 @@ $mutationType = new ObjectType([
                     ];
                 }
 
-                $cart['items'][] = [
-                    'product' => $product,
-                    'quantity' => $args['quantity'],
-                ];
+                $existingIndex = null;
+                foreach ($cart['items'] as $index => $cartItem) {
+                    if (($cartItem['product']['id'] ?? null) === $product['id']) {
+                        $existingIndex = $index;
+                        break;
+                    }
+                }
+
+                if ($existingIndex === null) {
+                    $cart['items'][] = [
+                        'product' => $product,
+                        'quantity' => $args['quantity'],
+                    ];
+                } else {
+                    $cart['items'][$existingIndex]['quantity'] += $args['quantity'];
+                }
+
                 $cart['total'] += $product['price'] * $args['quantity'];
 
                 return [

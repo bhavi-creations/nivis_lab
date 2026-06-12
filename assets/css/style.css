@@ -571,11 +571,13 @@ a {
 .index_img_section {
     position: relative;
     width: 100%;
-    /* height = viewport minus marquee bar */
-    height: calc(100vh - var(--marquee-h));
-    min-height: 500px;
+    aspect-ratio: 16 / 5;
+    height: auto;
+    min-height: 0;
+    margin: 0;
     overflow: hidden;
     cursor: pointer;
+    background: #fff;
 }
 
 /* Dark red radial hero bg (matches brand) */
@@ -626,18 +628,54 @@ a {
     z-index: 3;
 }
 
+.index_img_section__slides {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+}
+
+.index_img_section__slide {
+    position: absolute;
+    inset: 0;
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.65s ease, visibility 0.65s ease;
+}
+
+.index_img_section__slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    background-image: var(--hero-img);
+    background-size: cover;
+    background-position: center;
+    filter: blur(18px);
+    transform: scale(1.08);
+    opacity: 0.28;
+    pointer-events: none;
+}
+
+.index_img_section__slide.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
 /* Product image */
 .index_img_section__product {
     position: absolute;
-    right: 22%;
-    bottom: 0;
-    height: 92%;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
-    object-position: bottom;
+    object-position: center center;
     z-index: 5;
-    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.6));
-    transform: translateY(3%);
-    animation: productFloat 5s ease-in-out infinite;
+    filter: none;
 }
 
 @keyframes productFloat {
@@ -737,6 +775,32 @@ a {
     font-size: 1rem;
 }
 
+.index_img_section__dots {
+    position: absolute;
+    left: 50%;
+    bottom: 1.25rem;
+    z-index: 12;
+    display: flex;
+    gap: 0.55rem;
+    transform: translateX(-50%);
+}
+
+.index_img_section__dots button {
+    width: 34px;
+    height: 4px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.35);
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.2s, width 0.2s;
+}
+
+.index_img_section__dots button.active {
+    width: 48px;
+    background: rgba(255, 255, 255, 0.9);
+}
+
 /* light rays SVG animation */
 .ray {
     stroke: rgba(255, 255, 255, 0.18);
@@ -790,8 +854,9 @@ a {
     }
 
     .index_img_section {
+        aspect-ratio: 16 / 5;
         height: auto;
-        min-height: 90vh;
+        min-height: 0;
     }
 
     .index_img_section__content {
@@ -803,28 +868,48 @@ a {
     }
 
     .index_img_section__product {
-        right: 0;
-        height: 70%;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center center;
     }
 }
 
 @media (max-width: 640px) {
-    .index_img_section__title {
-        font-size: 1.9rem;
+    .index_img_section {
+        aspect-ratio: auto;
+        height: 175px;
+        min-height: 0;
+        margin-bottom: 0;
     }
 
-    .index_img_section__content {
-        max-width: 80%;
-        bottom: 28%;
+    .index_img_section__bg,
+    .index_img_section__stripes,
+    .index_img_section__glow,
+    .index_img_section__rays,
+    .index_img_section__content,
+    .index_img_section__cta {
+        display: none;
+    }
+
+    .index_img_section__slide::after {
+        display: block;
     }
 
     .index_img_section__product {
-        height: 55%;
-        opacity: 0.7;
+        width: 100%;
+        height: 100%;
+        opacity: 1;
+        object-fit: contain;
+        object-position: center center;
     }
 
-    .index_img_section__cta {
-        display: none;
+    .index_img_section__dots {
+        bottom: 0.45rem;
+    }
+
+    .index_img_section + * {
+        margin-top: 0 !important;
     }
 
     :root {
@@ -5692,22 +5777,39 @@ button:hover {
 }
 
 .concern-item {
-    min-width: 130px;
-    flex: 0 0 auto;
+    flex: 0 0 calc((100% - 60px) / 6);
+    min-width: 165px;
     cursor: pointer;
+}
+
+.dermat-routine-section {
+    max-width: 1580px;
+}
+
+.dermat-routine-section .img_section {
+    padding: 18px 0 16px;
+}
+
+.dermat-concern-row {
+    gap: 12px;
+    margin: 0 auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
 }
 
 .concern-card {
     position: relative;
-    border-radius: 12px;
+    border-radius: 8px;
     overflow: hidden;
     transition: all 0.3s ease;
     border: 2px solid transparent;
+    background: #111;
+    scroll-snap-align: start;
 }
 
 .concern-card img {
     width: 100%;
-    height: 160px;
+    height: 222px;
     object-fit: cover;
     display: block;
 }
@@ -5718,15 +5820,457 @@ button:hover {
     width: 100%;
     background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
     color: white;
-    padding: 10px 5px;
-    font-size: 13px;
-    font-weight: 600;
+    padding: 42px 10px 16px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.15;
+    text-align: center;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
 }
 
 /* Active Highlight */
 .active-dermat {
     border-color: #b02a37;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 18px rgba(176, 42, 55, 0.22);
+}
+
+.dermat-products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 360px));
+    gap: 20px;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.dermat-products-grid .product-card {
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: 12px;
+    box-shadow: 0 8px 22px rgba(16, 24, 40, 0.07);
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.dermat-products-grid .product-card:hover {
+    border-color: rgba(176, 42, 55, 0.35);
+    box-shadow: 0 14px 30px rgba(16, 24, 40, 0.11);
+    transform: translateY(-2px);
+}
+
+.dermat-choice-grid {
+    grid-template-columns: repeat(4, minmax(0, 210px));
+    gap: 14px;
+}
+
+.dermat-choice-grid .product-card {
+    cursor: pointer;
+}
+
+.dermat-choice-grid .product-card.active {
+    border-color: #b02a37;
+    box-shadow: 0 0 0 1px #b02a37, 0 12px 28px rgba(176, 42, 55, 0.12);
+}
+
+.dermat-products-grid .product-card a {
+    color: inherit;
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    column-gap: 14px;
+    align-items: center;
+    text-decoration: none;
+}
+
+.dermat-choice-grid .dermat-choice-inner,
+.dermat-choice-grid .product-card a {
+    display: block;
+}
+
+.dermat-products-grid .product-img-wrap {
+    width: 112px;
+    height: 112px;
+    background: linear-gradient(180deg, #fbfbfb 0%, #f5f5f5 100%);
+    border-radius: 10px;
+    min-height: 0;
+    margin: 10px 0 10px 10px;
+}
+
+.dermat-choice-grid .product-img-wrap {
+    width: auto;
+    height: 178px;
+    margin: 16px 16px 0;
+}
+
+.dermat-products-grid .product-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 14px;
+}
+
+.dermat-products-grid .product-info {
+    padding: 12px 12px 6px 0;
+}
+
+.dermat-choice-grid .product-info {
+    padding: 14px 14px 16px;
+}
+
+.dermat-products-grid .product-name {
+    color: #111;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 6px;
+    min-height: 0;
+}
+
+.dermat-choice-grid .product-name {
+    font-size: 16px;
+    min-height: 48px;
+    line-height: 1.2;
+}
+
+.dermat-products-grid .product-price {
+    color: #111;
+    font-size: 15px;
+    font-weight: 800;
+    margin: 0;
+}
+
+.dermat-choice-grid .product-price {
+    font-size: 17px;
+}
+
+.dermat-card-cart {
+    width: fit-content;
+    min-width: 112px;
+    margin: 0 12px 12px 126px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    box-shadow: none;
+}
+
+.dermat-selected-product .dermat-card-cart {
+    width: calc(100% - 16px);
+    margin: 0 8px 10px;
+}
+
+.dermat-selected-product {
+    width: 142px;
+    margin: 0 auto 8px;
+    padding: 10px;
+    border: 2px solid #b02a37;
+    border-radius: 10px;
+    text-align: left;
+    background: #fff;
+}
+
+.dermat-selected-product img {
+    width: 100%;
+    height: 118px;
+    object-fit: contain;
+    background: #fafafa;
+    display: block;
+}
+
+.dermat-selected-product .product-name {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 8px 0 4px;
+}
+
+.dermat-selected-product .product-price {
+    font-size: 13px;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 8px;
+}
+
+.dermat-routine-card {
+    width: min(100%, 500px);
+    margin: 18px auto 0;
+    border: 1px solid #dedede;
+    border-radius: 12px;
+    background: #fff;
+    overflow: hidden;
+    text-align: left;
+    box-shadow: 0 12px 30px rgba(16, 24, 40, 0.08);
+}
+
+.dermat-routine-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 14px 12px;
+    border-bottom: 1px solid #ececec;
+}
+
+.dermat-routine-card .dermat-avatar,
+.dermat-brand-mark {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid #b02a37;
+    overflow: hidden;
+    flex: 0 0 auto;
+}
+
+.dermat-brand-mark {
+    display: grid;
+    place-items: center;
+    background: #b02a37;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    line-height: 1.05;
+    text-align: center;
+    letter-spacing: 0.2px;
+}
+
+.dermat-routine-card .dermat-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dermat-routine-doctor {
+    color: #111;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.dermat-routine-tag {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 2px 8px;
+    border: 1px solid #efb8c0;
+    border-radius: 999px;
+    color: #b02a37;
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.dermat-routine-step {
+    display: grid;
+    grid-template-columns: 18px 44px minmax(0, 1fr) 48px;
+    gap: 12px;
+    align-items: center;
+    padding: 16px 14px;
+    border-bottom: 1px solid #ececec;
+    transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.dermat-routine-step:hover {
+    background: #fffafa;
+}
+
+.dermat-routine-check {
+    border: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    background: #b02a37;
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 9px;
+}
+
+.dermat-routine-step.inactive {
+    opacity: 0.52;
+}
+
+.dermat-routine-step.inactive .dermat-routine-check {
+    background: #fff;
+    border: 1px solid #b02a37;
+    color: transparent;
+}
+
+.dermat-routine-step img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+}
+
+.dermat-routine-step-label {
+    color: #b02a37;
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.dermat-routine-step-name {
+    color: #111;
+    font-size: 13px;
+    line-height: 1.25;
+}
+
+.dermat-routine-step-price {
+    color: #111;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.dermat-direct-cart {
+    height: 30px;
+    border: 1px solid #111;
+    border-radius: 6px;
+    background: #fff;
+    color: #111;
+    font-size: 11px;
+    font-weight: 700;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.dermat-direct-cart:hover {
+    background: #111;
+    color: #fff;
+}
+
+.dermat-routine-summary {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 14px 14px 4px;
+    color: #111;
+    font-size: 13px;
+}
+
+.dermat-routine-summary span:first-child {
+    margin-right: auto;
+    color: #777;
+    font-size: 12px;
+}
+
+.dermat-routine-old {
+    color: #999;
+    font-size: 11px;
+    text-decoration: line-through;
+}
+
+.dermat-routine-summary strong {
+    font-size: 20px;
+}
+
+.dermat-routine-saving {
+    padding: 0 14px 10px;
+    text-align: right;
+    color: #099640;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.dermat-routine-saving span {
+    display: inline-block;
+    margin-right: 4px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: #b02a37;
+    color: #fff;
+}
+
+.dermat-complete-cart {
+    display: block;
+    width: calc(100% - 28px);
+    margin: 0 14px 14px;
+    border: 0;
+    border-radius: 4px;
+    background: #b02a37;
+    color: #fff;
+    padding: 14px;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.dermat-routine-individual {
+    color: #aaa;
+    font-size: 10px;
+    text-align: center;
+    margin: -8px 0 14px;
+}
+
+@media (max-width: 992px) {
+    .dermat-products-grid {
+        grid-template-columns: repeat(2, minmax(0, 210px));
+    }
+
+    .dermat-choice-grid {
+        grid-template-columns: repeat(2, minmax(0, 210px));
+    }
+
+    .concern-item {
+        flex-basis: calc((100% - 36px) / 4);
+        min-width: 180px;
+    }
+
+    .concern-card img {
+        height: 240px;
+    }
+
+    .concern-overlay {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 576px) {
+    .concern-item {
+        flex-basis: calc((100% - 12px) / 2);
+        min-width: calc((100% - 12px) / 2);
+    }
+
+    .concern-card img {
+        height: 180px;
+    }
+
+    .concern-overlay {
+        font-size: 15px;
+        padding: 34px 8px 12px;
+    }
+
+    .dermat-products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .dermat-choice-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        justify-content: center;
+    }
+
+    .dermat-products-grid .product-card {
+        border-radius: 12px;
+    }
+
+    .dermat-products-grid .product-img-wrap img {
+        padding: 10px;
+    }
+
+    .dermat-products-grid .product-info {
+        padding: 10px 10px 12px;
+    }
+
+    .dermat-products-grid .product-name {
+        font-size: 14px;
+        min-height: 52px;
+    }
+
+    .dermat-choice-grid .product-name {
+        font-size: 14px;
+        min-height: 46px;
+    }
+
+    .dermat-products-grid .product-price {
+        font-size: 15px;
+    }
+
+    .dermat-choice-grid .product-price {
+        font-size: 15px;
+    }
 }
 
 

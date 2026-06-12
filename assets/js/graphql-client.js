@@ -206,3 +206,111 @@ window.getProduct = async (...args) => (await GraphQLClient.getProduct(...args))
 window.getRelatedProducts = async (...args) => (await GraphQLClient.getRelatedProducts(...args)).data;
 window.addToCart = async (...args) => (await GraphQLClient.addToCart(...args)).data;
 window.getCart = async (...args) => (await GraphQLClient.getCart(...args)).data;
+
+const NivisCart = {
+  key: 'nivis_lab_cart',
+
+  read() {
+    try {
+      const cart = JSON.parse(localStorage.getItem(this.key) || '[]');
+      return Array.isArray(cart) ? cart : [];
+    } catch (error) {
+      return [];
+    }
+  },
+
+  write(items) {
+    localStorage.setItem(this.key, JSON.stringify(items));
+    window.dispatchEvent(new CustomEvent('nivis-cart:updated', {
+      detail: this.toCart(items),
+    }));
+  },
+
+  add(item, quantity = 1) {
+    if (!item || !item.name) return this.toCart();
+
+    const id = String(item.id || item.name).trim();
+    const qty = Math.max(1, Number(quantity || item.quantity || 1));
+    const parsedPrice = Number(item.price || 0);
+    const price = parsedPrice > 0 && parsedPrice < 100 ? Math.round(parsedPrice * 100) : parsedPrice;
+    const items = this.read();
+    const existing = items.find((cartItem) => cartItem.id === id);
+
+    if (existing) {
+      existing.quantity += qty;
+      existing.price = price;
+      if (item.image) existing.image = item.image;
+    } else {
+      items.push({
+        id,
+        name: item.name,
+        price,
+        image: item.image || '',
+        quantity: qty,
+      });
+    }
+
+    this.write(items);
+    return this.toCart(items);
+  },
+
+  remove(id) {
+    const itemId = String(id || '');
+    const items = this.read();
+    const existing = items.find((cartItem) => cartItem.id === itemId);
+
+    if (existing) {
+      existing.quantity -= 1;
+      if (existing.quantity <= 0) {
+        items.splice(items.indexOf(existing), 1);
+      }
+    }
+
+    this.write(items);
+    return this.toCart(items);
+  },
+
+  clear() {
+    this.write([]);
+  },
+
+  count(items = this.read()) {
+    return items.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
+  },
+
+  total(items = this.read()) {
+    return items.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 0), 0);
+  },
+
+  toCart(items = this.read()) {
+    return {
+      items,
+      total: this.total(items),
+      count: this.count(items),
+    };
+  },
+
+  fromCard(card) {
+    if (!card) return null;
+
+    const nameEl = card.querySelector('.product-name, h6, [data-product-name]');
+    const priceEl = card.querySelector('.product-price, [data-product-price]');
+    const imgEl = card.querySelector('.product-img-wrap img.img-primary, .product-img-wrap img, img');
+    const name = card.dataset.productName || nameEl?.textContent?.trim() || 'Product';
+    const rawPrice = card.dataset.price || card.dataset.productPrice || priceEl?.textContent || '0';
+    const parsedPrice = Number(String(rawPrice).replace(/,/g, '').replace(/[^0-9.]/g, '')) || 0;
+    const price = parsedPrice > 0 && parsedPrice < 100 ? Math.round(parsedPrice * 100) : parsedPrice;
+    const idSource = card.dataset.productId || card.dataset.sku || name;
+    const id = String(idSource).trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+    return {
+      id,
+      name,
+      price,
+      image: card.dataset.productImage || imgEl?.src || '',
+      quantity: 1,
+    };
+  },
+};
+
+window.NivisCart = NivisCart;

@@ -5,7 +5,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>/PHD/ Proven Honest Derma</title>
+     <meta name="title" content="Nivis labs" />
+    <title>Nivis Labs</title>
 
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -15,7 +16,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="./assets/css/style.css?v=10">
+    <link rel="stylesheet" href="./assets/css/style.css?v=12">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
@@ -170,7 +171,7 @@
                 <button class="index_navbar_section__icon-btn" title="Account">
                     <i class="bi bi-person"></i>
                 </button>
-                <button class="index_navbar_section__icon-btn" title="Cart" style="position:relative" data-bs-toggle="modal" data-bs-target="#cartModal">
+                <button class="index_navbar_section__icon-btn" title="Cart" style="position:relative" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">
                     <i class="bi bi-bag"></i>
                     <span class="index_navbar_section__cart-badge" id="cartBadge">0</span>
                 </button>
@@ -203,7 +204,7 @@
     <div class="index_navbar_section__offcanvas" id="navOffcanvas">
 
         <div class="index_navbar_section__offcanvas-head">
-            <span class="index_navbar_section__offcanvas-logo">/PHD/</span>
+            <span class="index_navbar_section__offcanvas-logo">Nivis Labs</span>
             <button class="index_navbar_section__offcanvas-close" id="navClose">
                 <i class="bi bi-x-lg"></i>
             </button>
@@ -362,14 +363,10 @@
         }
 
         /* ─── Cart functionality ─── */
-        async function updateCartBadge() {
-            try {
-                const data = await getCart();
-                const totalItems = data.cart.items.reduce((sum, item) => sum + item.quantity, 0);
-                document.getElementById('cartBadge').textContent = totalItems;
-            } catch (error) {
-                console.error('Error updating cart badge:', error);
-            }
+        function updateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            if (!badge || !window.NivisCart) return;
+            badge.textContent = window.NivisCart.count();
         }
 
         function displayCart(cart) {
@@ -377,6 +374,26 @@
             const cartTotal = document.getElementById('cart-total');
 
             if (!cartItems || !cartTotal) return; // Modal might not be loaded on all pages
+
+            if (window.NivisCart) {
+                const localCart = cart || window.NivisCart.toCart();
+
+                if (localCart.items.length === 0) {
+                    cartItems.innerHTML = '<p>Your cart is empty.</p>';
+                    cartTotal.innerHTML = '';
+                    return;
+                }
+
+                cartItems.innerHTML = localCart.items.map(item => `
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div><strong>${item.name}</strong> (x${item.quantity})</div>
+                        <div>Rs. ${Number(item.price || 0) * Number(item.quantity || 0)}</div>
+                    </div>
+                `).join('');
+
+                cartTotal.innerHTML = `<strong>Total: Rs. ${localCart.total}</strong>`;
+                return;
+            }
 
             if (cart.items.length === 0) {
                 cartItems.innerHTML = '<p>Your cart is empty.</p>';
@@ -398,42 +415,7 @@
 
         // Update cart badge on page load
         updateCartBadge();
+        window.addEventListener('nivis-cart:updated', updateCartBadge);
 
-        // Load cart when modal is shown
-        const cartModal = document.getElementById('cartModal');
-        if (cartModal) {
-            cartModal.addEventListener('show.bs.modal', async () => {
-                try {
-                    const data = await getCart();
-                    displayCart(data.cart);
-                } catch (error) {
-                    console.error('Error loading cart:', error);
-                }
-            });
-        }
     </script>
-
-    <!-- Cart Modal -->
-    <div class="modal fade" id="cartModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Your Cart</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="cart-items">
-                        <!-- Cart items will be loaded here -->
-                    </div>
-                    <div id="cart-total" class="mt-3">
-                        <!-- Total will be shown here -->
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continue Shopping</button>
-                    <button type="button" class="btn btn-primary">Checkout</button>
-                </div>
-            </div>
-        </div>
-    </div>
 

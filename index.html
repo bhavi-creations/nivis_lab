@@ -1,71 +1,264 @@
-<style>
-.products {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  margin-bottom: 40px;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nivis Labs Hero Slider</title>
 
-.card {
-  background: #fff;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px #ddd;
-  text-align: center;
-}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
-.card img {
-  max-width: 100%;
-  height: 180px;
-  object-fit: contain;
-}
-</style>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: #071b55;
+      overflow-x: hidden;
+    }
+
+    /* TOP MOVING BAR */
+    .nivis_top_bar {
+      height: 45px;
+      background: #f7fbff;
+      border-bottom: 1px solid #dce9fb;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .nivis_top_track {
+      display: flex;
+      animation: nivisMove 22s linear infinite;
+    }
+
+    .nivis_top_item {
+      min-width: 320px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 800;
+      color: #071b55;
+      border-right: 1px solid #d6e4f7;
+    }
+
+    .nivis_top_item i {
+      color: #0b66e4;
+      margin-right: 8px;
+    }
+
+    @keyframes nivisMove {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* NAVBAR */
+    .nivis_navbar {
+      background: #fff;
+      min-height: 105px;
+      box-shadow: 0 2px 18px rgba(0,0,0,0.04);
+      z-index: 10;
+    }
+
+    .nivis_logo {
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1;
+      color: #09205b;
+      text-align: center;
+    }
+
+    .nivis_logo span {
+      display: block;
+      font-size: 15px;
+      letter-spacing: 4px;
+    }
+
+    .nivis_menu a {
+      color: #071b55;
+      font-weight: 800;
+      font-size: 15px;
+      text-decoration: none;
+      margin: 0 24px;
+      position: relative;
+    }
+
+    .nivis_menu a.active::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -14px;
+      transform: translateX(-50%);
+      width: 28px;
+      height: 3px;
+      background: #0b66e4;
+      border-radius: 20px;
+    }
+
+    .nivis_icons i {
+      font-size: 24px;
+      color: #071b55;
+      margin-left: 24px;
+    }
+
+    .nivis_cart {
+      position: relative;
+      display: inline-block;
+    }
+
+    .nivis_cart span {
+      position: absolute;
+      top: -9px;
+      right: -10px;
+      background: #0b66e4;
+      color: #fff;
+      font-size: 10px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+    }
+
+   
+
+    @media (max-width: 991px) {
+      .nivis_navbar {
+        padding: 15px 0;
+      }
+
+      .nivis_menu {
+        margin-top: 12px;
+        text-align: center;
+      }
+
+      .nivis_menu a {
+        margin: 0 10px;
+        font-size: 13px;
+      }
+
+      .nivis_icons {
+        margin-top: 15px;
+        text-align: center;
+      }
+
+      .nivis_slide {
+        padding: 35px 0 120px;
+      }
+
+      .nivis_product_img {
+        margin-top: 35px;
+        max-height: 420px;
+      }
+
+      .nivis_features {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+      }
+
+      .nivis_feature {
+        border-right: 0;
+      }
+
+      .nivis_bottom_strip {
+        grid-template-columns: repeat(2, 1fr);
+        bottom: 10px;
+        gap: 14px;
+      }
+
+      .nivis_bottom_item {
+        border-right: 0;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .nivis_top_item {
+        min-width: 260px;
+        font-size: 12px;
+      }
+
+      .nivis_title {
+        font-size: 48px;
+      }
+
+      .nivis_subtitle {
+        font-size: 17px;
+      }
+
+      .nivis_desc {
+        font-size: 15px;
+      }
+
+      .nivis_features {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .nivis_btn_primary,
+      .nivis_btn_outline {
+        width: 100%;
+        margin-bottom: 12px;
+      }
+
+      .nivis_test_box {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .nivis_bottom_strip {
+        position: relative;
+        bottom: auto;
+        margin-top: 20px;
+        width: 100%;
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
 
 
-<div id="face-wash-section"></div>
-<div id="moisturizers-section"></div>
-<div id="sunscreen-section"></div>
 
-<script>
-const sections = [
-  {
-    category: "face-wash",
-    title: "Face Wash Products",
-    container: "face-wash-section"
-  },
-  {
-    category: "moisturizers",
-    title: "Moisturizers Products",
-    container: "moisturizers-section"
-  },
-  {
-    category: "sunscreen",
-    title: "Sunscreen Products",
-    container: "sunscreen-section"
-  }
-];
-
-sections.forEach(section => {
-  fetch(`backend-products.php?category=${section.category}`)
-    .then(res => res.json())
-    .then(result => {
-      const products = result.data.productsByCategory;
-      const box = document.getElementById(section.container);
-
-      box.innerHTML = `
-        <h2>${section.title}</h2>
-        <div class="products">
-          ${products.map(product => `
-            <div class="card">
-              <img src="${product.primaryImage}" width="200">
-              <h3>${product.name}</h3>
-              <p>₹${product.price}</p>
-              <a href="${product.link}">View Product</a>
-            </div>
-          `).join("")}
+<nav class="nivis_navbar d-flex align-items-center">
+  <div class="container-fluid px-lg-5">
+    <div class="row align-items-center">
+      <div class="col-lg-3 text-center text-lg-start">
+        <div class="nivis_logo">
+          NIVIS
+          <span>LABS</span>
         </div>
-      `;
-    })
-    .catch(error => console.log(error));
-});
-</script>
+      </div>
+
+      <div class="col-lg-6 text-center">
+        <div class="nivis_menu">
+          <a href="#" class="active">HOME</a>
+          <a href="#">ABOUT US</a>
+          <a href="#">PRODUCT</a>
+          <a href="#">INGREDIENTS</a>
+          <a href="#">CONTACT US</a>
+        </div>
+      </div>
+
+      <div class="col-lg-3 text-center text-lg-end">
+        <div class="nivis_icons">
+          <i class="bi bi-search"></i>
+          <i class="bi bi-bag"></i>
+          <div class="nivis_cart">
+            <i class="bi bi-bag-plus"></i>
+            <span>0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
