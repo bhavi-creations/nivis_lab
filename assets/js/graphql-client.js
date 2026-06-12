@@ -204,7 +204,30 @@ window.GraphQLClient = GraphQLClient;
 window.loadProducts = async (...args) => (await GraphQLClient.getProducts(...args)).data;
 window.getProduct = async (...args) => (await GraphQLClient.getProduct(...args)).data;
 window.getRelatedProducts = async (...args) => (await GraphQLClient.getRelatedProducts(...args)).data;
-window.addToCart = async (...args) => (await GraphQLClient.addToCart(...args)).data;
+window.addToCart = async (productId, quantity = 1) => {
+  const result = (await GraphQLClient.addToCart(productId, quantity)).data;
+
+  if (result?.addToCart?.success && window.NivisCart) {
+    try {
+      const productResult = await GraphQLClient.getProduct(productId);
+      const product = productResult?.data?.product;
+
+      if (product) {
+        window.NivisCart.add({
+          id: product.id || productId,
+          name: product.name || 'Product',
+          price: Number(String(product.price || 0).replace(/,/g, '').replace(/[^0-9.]/g, '')) || 0,
+          image: product.imageUrl || '',
+          quantity,
+        }, quantity);
+      }
+    } catch (error) {
+      console.warn('Unable to sync GraphQL cart item locally:', error);
+    }
+  }
+
+  return result;
+};
 window.getCart = async (...args) => (await GraphQLClient.getCart(...args)).data;
 
 const NivisCart = {
@@ -231,8 +254,7 @@ const NivisCart = {
 
     const id = String(item.id || item.name).trim();
     const qty = Math.max(1, Number(quantity || item.quantity || 1));
-    const parsedPrice = Number(item.price || 0);
-    const price = parsedPrice > 0 && parsedPrice < 100 ? Math.round(parsedPrice * 100) : parsedPrice;
+    const price = Number(item.price || 0);
     const items = this.read();
     const existing = items.find((cartItem) => cartItem.id === id);
 
@@ -297,9 +319,8 @@ const NivisCart = {
     const priceEl = card.querySelector('.product-price, [data-product-price]');
     const imgEl = card.querySelector('.product-img-wrap img.img-primary, .product-img-wrap img, img');
     const name = card.dataset.productName || nameEl?.textContent?.trim() || 'Product';
-    const rawPrice = card.dataset.price || card.dataset.productPrice || priceEl?.textContent || '0';
-    const parsedPrice = Number(String(rawPrice).replace(/,/g, '').replace(/[^0-9.]/g, '')) || 0;
-    const price = parsedPrice > 0 && parsedPrice < 100 ? Math.round(parsedPrice * 100) : parsedPrice;
+    const parsePrice = (value) => Number(String(value || '').replace(/,/g, '').replace(/[^0-9.]/g, '')) || 0;
+    const price = parsePrice(card.dataset.price) || parsePrice(card.dataset.productPrice) || parsePrice(priceEl?.textContent);
     const idSource = card.dataset.productId || card.dataset.sku || name;
     const id = String(idSource).trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 

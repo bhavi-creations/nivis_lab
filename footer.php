@@ -49,7 +49,8 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/category-products.js?v=10"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="assets/js/category-products.js?v=11"></script>
 
 <script>
     const cartDrawerEl = document.getElementById('cartDrawer');
@@ -190,10 +191,93 @@
                     <strong>${formatPrice(totalAmount)}</strong>
                 </div>
                 <div class="d-grid gap-2">
-                    <a href="#" class="btn btn-dark">Go to Checkout</a>
+                    <button type="button" class="btn btn-dark" id="razorpayCheckoutBtn">Go to Checkout</button>
                 </div>
             </div>
         `;
+    }
+
+    async function startRazorpayCheckout() {
+        if (!window.NivisCart) return;
+
+        const cart = window.NivisCart.toCart();
+        if (!cart.items.length || cart.total <= 0) {
+            alert('Your cart is empty.');
+            return;
+        }
+
+        const checkoutBtn = document.getElementById('razorpayCheckoutBtn');
+        if (checkoutBtn) {
+            checkoutBtn.disabled = true;
+            checkoutBtn.textContent = 'Opening Checkout...';
+        }
+
+        try {
+            const orderResponse = await fetch('create_razorpay_order.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    items: cart.items
+                })
+            });
+            const orderResult = await orderResponse.json();
+
+            if (!orderResult.success || !orderResult.order?.id || !orderResult.key) {
+                throw new Error(orderResult.message || 'Unable to create Razorpay order.');
+            }
+
+            const options = {
+                key: orderResult.key,
+                amount: orderResult.order.amount,
+                currency: orderResult.order.currency || 'INR',
+                name: orderResult.company || 'Nivis Labs',
+                description: `${cart.count} item${cart.count !== 1 ? 's' : ''}`,
+                order_id: orderResult.order.id,
+                theme: {
+                    color: '#0a2b4a'
+                },
+                handler: async function(response) {
+                    const verifyResponse = await fetch('verify_razorpay_payment.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(response)
+                    });
+                    const verifyResult = await verifyResponse.json();
+
+                    if (!verifyResult.success) {
+                        alert(verifyResult.message || 'Payment verification failed.');
+                        return;
+                    }
+
+                    window.NivisCart.clear();
+                    renderCart();
+                    alert('Payment successful. Thank you for your order.');
+                    if (cartOffcanvas) cartOffcanvas.hide();
+                },
+                modal: {
+                    ondismiss: function() {
+                        if (checkoutBtn) {
+                            checkoutBtn.disabled = false;
+                            checkoutBtn.textContent = 'Go to Checkout';
+                        }
+                    }
+                }
+            };
+
+            const razorpay = new Razorpay(options);
+            razorpay.open();
+        } catch (error) {
+            alert(error.message || 'Unable to open Razorpay checkout.');
+        } finally {
+            if (checkoutBtn) {
+                checkoutBtn.disabled = false;
+                checkoutBtn.textContent = 'Go to Checkout';
+            }
+        }
     }
 
     function openCartDrawer() {
@@ -208,6 +292,8 @@
         openCartDrawer();
     }
 
+    window.addProductToCart = addProductToCart;
+
     function initFooterCart() {
         if (window.__nivisFooterCartReady) return;
         window.__nivisFooterCartReady = true;
@@ -215,8 +301,16 @@
         cartItems = window.NivisCart ? window.NivisCart.read() : [];
         cartOffcanvas = window.bootstrap ? bootstrap.Offcanvas.getOrCreateInstance(cartDrawerEl) : null;
         renderCart();
+        cartDrawerEl.addEventListener('show.bs.offcanvas', renderCart);
 
         document.body.addEventListener('click', event => {
+            const checkoutButton = event.target.closest('#razorpayCheckoutBtn');
+            if (checkoutButton) {
+                event.preventDefault();
+                startRazorpayCheckout();
+                return;
+            }
+
             const button = event.target.closest('.btn-cart, .video_section_add_btn');
             if (!button) return;
 

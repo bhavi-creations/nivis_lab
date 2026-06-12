@@ -204,6 +204,15 @@
         }
     }
 
+    function productPriceNumber(product) {
+        return Number(String(product.priceNumber || product.price || '0').replace(/,/g, '').replace(/[^0-9.]/g, '')) || 0;
+    }
+
+    function productPriceLabel(product) {
+        const amount = productPriceNumber(product);
+        return amount ? `₹${amount.toLocaleString('en-IN')}` : '₹0';
+    }
+
     window.toggleFilter = toggleFilter;
     window.updatePrice = updatePrice;
 
@@ -456,14 +465,16 @@
         const productKey = product.id || product.sku || product.urlKey || product.name || '';
         const detailHref = `product-detail.php?product=${encodeURIComponent(productKey)}`;
         const productSize = product.size ? `Quantity: ${product.size}` : '';
+        const priceNumber = productPriceNumber(product);
+        const priceLabel = productPriceLabel(product);
 
         return `
             <div class="product-card"
                 data-product-id="${escapeHtml(productKey)}"
                 data-product-name="${escapeHtml(product.name || 'Product')}"
-                data-product-price="${escapeHtml(product.priceNumber || product.price || 0)}"
+                data-product-price="${escapeHtml(priceNumber)}"
                 data-product-image="${escapeHtml(primaryImage)}"
-                data-price="${escapeHtml(product.priceNumber || 0)}"
+                data-price="${escapeHtml(priceNumber)}"
                 data-concern="${escapeHtml(concernTokens)}"
                 data-ingredient="${escapeHtml(ingredientTokens)}"
                 data-type="${escapeHtml(typeTokens)}">
@@ -483,7 +494,7 @@
                             <span class="stars">${escapeHtml(product.stars || '★★★★½')}</span>
                             <span class="review-count">(${escapeHtml(product.reviewsCount || 120)} reviews)</span>
                         </div>
-                        <div class="product-price">${escapeHtml(product.price || '₹0')}</div>
+                        <div class="product-price">${escapeHtml(priceLabel)}</div>
                         <span class="bought-tag">${escapeHtml(product.boughtTag || '')}</span>
                     </div>
 
@@ -493,7 +504,7 @@
                         <div class="product-hover-popover__meta">
                             <span>${escapeHtml(product.type || 'Product')}</span>
                             ${product.size ? `<span>${escapeHtml(product.size)}</span>` : ''}
-                            <span>${escapeHtml(product.price || '')}</span>
+                            <span>${escapeHtml(priceLabel)}</span>
                         </div>
                     </div>
                 </a>

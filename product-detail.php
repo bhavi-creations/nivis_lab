@@ -109,6 +109,11 @@
     return Number(String(value || '0').replace(/[^0-9.]/g, '')) || 0;
   }
 
+  function priceLabel(value) {
+    const amount = priceNumber(value);
+    return amount ? `₹${amount.toLocaleString('en-IN')}` : '₹0';
+  }
+
   function productId(product) {
     return String(product.id || product.sku || product.urlKey || product.url_key || product.name || 'product')
       .trim()
@@ -189,7 +194,7 @@
     setText('productSubtitle', product.subtitle || product.concern ? `/${product.subtitle || product.concern}/` : '');
     setText('productStars', product.stars || '★★★★½');
     setText('productReviews', `${product.reviewsCount || 120} reviews`);
-    setText('productPrice', product.price || 'Rs. 0');
+    setText('productPrice', priceLabel(product.priceNumber || product.price));
     setText('productDesc', product.description || product.subtitle || '');
     setText('boughtNote', product.boughtTag || '');
 
@@ -297,7 +302,7 @@
                   <img src="${escapeHtml(image)}" alt="${escapeHtml(product.name || 'Product')}" style="width:100%;height:180px;object-fit:contain;border-radius:6px;margin-bottom:10px;">
                   <div class="product-name" style="font-weight:600;font-size:13px;color:#333;margin-bottom:6px;">${escapeHtml(product.name || 'Product')}</div>
                   <div style="color:#999;font-size:11px;margin-bottom:8px;">${escapeHtml(product.type || product.category || 'Product')}</div>
-                  <div class="product-price" style="color:#1a73e8;font-weight:600;font-size:14px;">${escapeHtml(product.price || 'Rs. 0')}</div>
+                  <div class="product-price" style="color:#1a73e8;font-weight:600;font-size:14px;">${escapeHtml(priceLabel(product.priceNumber || product.price))}</div>
                 </a>
                 <button class="btn-cart mt-3" type="button">Add to Cart</button>
               </div>

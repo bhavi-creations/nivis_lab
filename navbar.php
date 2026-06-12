@@ -266,7 +266,7 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/js/graphql-client.js?v=2"></script>
+    <script src="./assets/js/graphql-client.js?v=5"></script>
 
     <script>
         /* ─── Navbar scroll behaviour ─── */

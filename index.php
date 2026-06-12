@@ -504,42 +504,42 @@
 
             <div class="concern-item" onclick="showDermatRoutine('acne', this, 1)">
                 <div class="concern-card">
-                    <img src="./assets/img/logo.jpeg" alt="Nivis Labs Acne">
+                    <img src="./assets/img/acne.png" alt="Nivis Labs Acne">
                     <div class="concern-overlay">Acne</div>
                 </div>
             </div>
 
             <div class="concern-item" onclick="showDermatRoutine('pigmentation', this, 2)">
                 <div class="concern-card">
-                    <img src="./assets/img/logo.jpeg" alt="Nivis Labs Pigmentation">
+                    <img src="./assets/img/Pigmentation.png" alt="Nivis Labs Pigmentation">
                     <div class="concern-overlay">Pigmentation</div>
                 </div>
             </div>
 
             <div class="concern-item" onclick="showDermatRoutine('acne-marks', this, 3)">
                 <div class="concern-card">
-                    <img src="./assets/img/logo.jpeg" alt="Nivis Labs Acne Marks">
+                    <img src="./assets/img/Acne Marks.png" alt="Nivis Labs Acne Marks">
                     <div class="concern-overlay">Acne Marks</div>
                 </div>
             </div>
 
             <div class="concern-item" onclick="showDermatRoutine('dark-spots', this, 4)">
                 <div class="concern-card">
-                    <img src="./assets/img/logo.jpeg" alt="Nivis Labs Dark Spots">
+                    <img src="./assets/img/Dark Spots.png" alt="Nivis Labs Dark Spots">
                     <div class="concern-overlay">Dark Spots</div>
                 </div>
             </div>
 
             <div class="concern-item" onclick="showDermatRoutine('anti-ageing', this, 5)">
                 <div class="concern-card">
-                    <img src="./assets/img/logo.jpeg" alt="Nivis Labs Anti-Aging">
+                    <img src="./assets/img/Anti-Aging.png" alt="Nivis Labs Anti-Aging">
                     <div class="concern-overlay">Anti-Aging</div>
                 </div>
             </div>
 
             <div class="concern-item" onclick="showDermatRoutine('dehydration', this, 6)">
                 <div class="concern-card">
-                    <img src="./assets/img/logo.jpeg" alt="Nivis Labs Dehydration">
+                    <img src="./assets/img/Dehydration.png" alt="Nivis Labs Dehydration">
                     <div class="concern-overlay">Dehydration</div>
                 </div>
             </div>
@@ -749,7 +749,12 @@
         const rawAmount = Number(product.priceNumber || 0);
         if (!rawAmount) return 0;
 
-        return rawAmount > 0 && rawAmount < 100 ? Math.round(rawAmount * 100) : rawAmount;
+        return rawAmount;
+    }
+
+    function dermatPriceLabel(product) {
+        const amount = dermatPriceNumber(product);
+        return amount ? `₹${amount.toLocaleString('en-IN')}` : '₹0';
     }
 
     function dermatCartAttrs(product) {
@@ -768,7 +773,6 @@
     function dermatProductCard(product, index = 0, selectable = false, active = false) {
         const fallbackImage = './assets/img/product.webp';
         const imageUrl = dermatProductImage(product);
-        const price = String(product.price || 'Rs. 0').replace(/^Rs\.?\s*/i, '₹');
         const selectableAttrs = selectable ? `role="button" tabindex="0" data-dermat-select="${index}"` : '';
 
         return `
@@ -779,7 +783,6 @@
                     </div>
                     <div class="product-info">
                         <div class="product-name">${escapeDermatHtml(product.name || 'Product')}</div>
-                        <div class="product-price">${escapeDermatHtml(price)}</div>
                     </div>
                 </div>
             </div>
@@ -789,7 +792,7 @@
     function dermatRoutineItem(step, item, label) {
         const product = item.product || item;
         const imageUrl = dermatProductImage(product);
-        const price = String(product.price || 'Rs. 0').replace(/^Rs\.?\s*/i, '₹');
+        const price = dermatPriceLabel(product);
 
         return `
             <div class="dermat-routine-step${item.active === false ? ' inactive' : ''}" ${dermatCartAttrs(product)}>
@@ -886,7 +889,6 @@
         if (!contentArea || !selectedProduct) return;
 
         const selectedImage = dermatProductImage(selectedProduct);
-        const selectedPrice = String(selectedProduct.price || 'Rs. 0').replace(/^Rs\.?\s*/i, '₹');
         dermatSetRoutineFromProduct(type, selectedProduct);
         const labels = dermatRoutineLabels();
         const choicesHtml = includeChoices
@@ -896,7 +898,6 @@
             <div class="dermat-selected-product product-card" ${dermatCartAttrs(selectedProduct)}>
                 <img src="${escapeDermatHtml(selectedImage)}" alt="${escapeDermatHtml(selectedProduct.name || 'Product')}" loading="lazy" onerror="this.onerror=null;this.src='./assets/img/product.webp';">
                 <div class="product-name">${escapeDermatHtml(selectedProduct.name || 'Product')}</div>
-                <div class="product-price">${escapeDermatHtml(selectedPrice)}</div>
             </div>
         `;
 
@@ -1309,7 +1310,7 @@
                         <h4>Face Serum</h4>
                         <p>Targeted actives for glow, acne marks, and uneven tone.</p>
                     </div>
-                    <img src="./assets/img/product.webp" class="explore_section_img" alt="Face Serum">
+                    <img src="./assets/img/FACE SERUM.jpeg" class="explore_section_img" alt="Face Serum">
                     <span class="explore_section_shop_now">SHOP NOW</span>
 
                 </a>
@@ -1323,7 +1324,7 @@
                         <h4>Moisturizers</h4>
                         <p>Hydration and barrier repair for daily skin comfort.</p>
                     </div>
-                    <img src="./assets/img/moisturizers.webp" class="explore_section_img" alt="Moisturizers">
+                    <img src="./assets/img/foot cream.jpeg" class="explore_section_img" alt="Moisturizers">
                     <span class="explore_section_shop_now">SHOP NOW</span>
                 </a>
 
@@ -1336,7 +1337,7 @@
                         <h4>Sunscreen</h4>
                         <p>Advanced UV protection for everyday outdoor care.</p>
                     </div>
-                    <img src="./assets/img/sunscreens.webp" class="explore_section_img" alt="Sunscreen">
+                    <img src="./assets/img/face spray.jpeg" class="explore_section_img" alt="Sunscreen">
                     <span class="explore_section_shop_now">SHOP NOW</span>
                 </a>
 
@@ -1348,7 +1349,7 @@
                         <h4>Face Cleanser</h4>
                         <p>Gentle daily cleansing for fresh, balanced skin.</p>
                     </div>
-                    <img src="./assets/img/face-wash.webp" class="explore_section_img" alt="Face Cleanser">
+                    <img src="./assets/img/SUNSCFREEN.jpeg" class="explore_section_img" alt="Face Cleanser">
                     <span class="explore_section_shop_now">SHOP NOW</span>
                 </a>
             </div>
@@ -1395,7 +1396,7 @@
 
 
 <!-- SECTION 2: ICONS -->
-<section class="index_last_second">
+<!-- <section class="index_last_second">
     <div class="container">
         <div class="row text-center">
             <div class="col-6 col-md-3 mb-3 icon-box">
@@ -1416,7 +1417,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 
 <section>
@@ -1436,7 +1437,7 @@
                         What is Nivis Labs?
                     </button>
                 </h2>
-                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                <d    iv id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
                     <div class="accordion-body">
                         Nivis Labs is a skincare brand focused on practical, science-aware formulas for everyday skin
                         needs like hydration, cleansing, sun protection, brightening, and barrier support.
@@ -1562,7 +1563,8 @@
             const link = `product-detail.php?product=${encodeURIComponent(productKey)}`;
             const subtitle = product.subtitle || product.displayConcern || product.concern || product.category || 'Skincare';
             const size = product.size ? `<span class="spotlight-product-size">${escapeSpotlightHtml(product.size)}</span>` : '';
-            const priceNumber = product.priceNumber || String(product.price || '0').replace(/[^0-9.]/g, '') || 0;
+            const priceNumber = Number(String(product.priceNumber || product.price || '0').replace(/,/g, '').replace(/[^0-9.]/g, '')) || 0;
+            const priceLabel = priceNumber ? `₹${priceNumber.toLocaleString('en-IN')}` : '₹0';
 
             return `
                 <div class="px-2">
@@ -1577,7 +1579,7 @@
                             <h6 class="fw-bold">${escapeSpotlightHtml(product.name || 'Product')} ${size}</h6>
                             <p class="small text-muted mb-2">/ ${escapeSpotlightHtml(subtitle)} /</p>
                             <div class="small mb-2">${escapeSpotlightHtml(product.stars || 'â˜…â˜…â˜…â˜…â˜…')} (${escapeSpotlightHtml(product.reviewsCount || 120)} reviews)</div>
-                            <div class="mb-3"><span class="badge-b1g1">${escapeSpotlightHtml(product.boughtTag || 'B1G1')}</span> <span class="ms-1">${escapeSpotlightHtml(product.price || 'â‚¹0')}</span></div>
+                            <div class="mb-3"><span class="badge-b1g1">${escapeSpotlightHtml(product.boughtTag || 'B1G1')}</span> <span class="ms-1">${escapeSpotlightHtml(priceLabel)}</span></div>
                         </a>
                         <button class="btn btn-dark btn-cart w-100 rounded-0">ADD TO CART</button>
                     </div>
