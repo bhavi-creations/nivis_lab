@@ -454,7 +454,7 @@ function normalizeProduct($product)
         "ingredient" => $ingredient,
         "type" => $productType,
         "size" => $size,
-        "stars" => "★★★★½",
+        "stars" => "4",
         "reviewsCount" => "120",
         "boughtTag" => "196+ bought in past month",
         "link" => normalizeText($product["link"] ?? "") ?: ($productSlug ? $productSlug . ".php" : "#"),

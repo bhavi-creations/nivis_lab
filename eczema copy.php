@@ -180,7 +180,7 @@
                     <div class="product-info">
                         <div class="product-name">${product.name}</div>
                         <div class="product-sub">${product.description}</div>
-                        <div><span class="stars">★★★★½</span><span class="review-count">(Reviews)</span></div>
+                        <div><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span><span class="review-count">(Reviews)</span></div>
                         <div class="product-price">₹${product.price}</div>
                     </div>
                 </a>

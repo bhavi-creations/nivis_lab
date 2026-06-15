@@ -171,7 +171,7 @@
               <div class="product-sub">/ ${concern} /</div>
 
               <div>
-                <span class="stars">★★★★½</span>
+                <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
                 <span class="review-count">(120 reviews)</span>
               </div>
 

@@ -171,7 +171,7 @@
                         <div class="product-info">
                             <div class="product-name">10% Niacinamide Spot Correcting Serum</div>
                             <div class="product-sub">/ Solution for pore, acne marks and blemishes /</div>
-                            <div><span class="stars">★★★★½</span><span class="review-count">(344 reviews)</span></div>
+                            <div><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span><span class="review-count">(344 reviews)</span></div>
                             <div class="product-price">₹649</div>
                             <span class="bought-tag">196+ bought in past month</span>
 

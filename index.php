@@ -553,7 +553,7 @@
 
        
         <div id="dermat-results" class="mt-4" style="display:none;">
-            <p class="text-muted small mb-3">Choose your serum / treatment:</p>
+            <p class="text-muted small mb-3" id="dermatResultHint">Choose a product to build your routine:</p>
 
             
             <div id="routine-content" class="mx-auto" style="max-width: 1100px;"></div>
@@ -579,19 +579,10 @@
         'sun-protection': 'sunscreen'
     };
 
-    const dermatDisplayLimits = {
-        acne: 4,
-        pigmentation: 1,
-        'acne-marks': 2,
-        'dark-spots': 1,
-        'anti-ageing': 1,
-        dehydration: 1,
-        'sun-protection': 1
-    };
-
     let dermatSelectedIndex = 1;
     let dermatCurrentType = '';
     let dermatVisibleProducts = [];
+    let dermatAllProducts = [];
     let dermatCurrentRoutine = [];
 
     function escapeDermatHtml(value) {
@@ -644,7 +635,7 @@
 
     function dermatPriceLabel(product) {
         const amount = dermatPriceNumber(product);
-        return amount ? `?${amount.toLocaleString('en-IN')}` : '?0';
+        return amount ? `Rs. ${amount.toLocaleString('en-IN')}` : 'Rs. 0';
     }
 
     function dermatCartAttrs(product) {
@@ -664,6 +655,7 @@
         const fallbackImage = './assets/img/product.webp';
         const imageUrl = dermatProductImage(product);
         const selectableAttrs = selectable ? `role="button" tabindex="0" data-dermat-select="${index}"` : '';
+        const price = dermatPriceLabel(product);
 
         return `
             <div class="product-card dermat-choice-card${active ? ' active' : ''}" ${dermatCartAttrs(product)} ${selectableAttrs}>
@@ -673,6 +665,10 @@
                     </div>
                     <div class="product-info">
                         <div class="product-name">${escapeDermatHtml(product.name || 'Product')}</div>
+                        <div class="dermat-choice-footer">
+                            <span class="product-price">${escapeDermatHtml(price)}</span>
+                            <span class="dermat-select-pill">Select</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -698,31 +694,63 @@
         `;
     }
 
-    function dermatBuildRoutine(type, selectedProduct) {
+    function dermatProductSearchText(product) {
         return [
-            {
-                name: 'Ceramide Hydrating Cleanser',
-                subtitle: 'Gentle cleanser for daily routine',
-                price: 'Rs. 315',
-                imageUrl: './assets/img/face-wash.webp',
-                type: 'Cleanser'
-            },
-            selectedProduct,
-            {
-                name: type === 'anti-ageing' ? 'Ceramides Intensive Repair Cream' : 'Vitamin C Brightening Moisturizer',
-                subtitle: 'Moisturizer step for barrier support',
-                price: 'Rs. 549',
-                imageUrl: './assets/img/moisturizers.webp',
-                type: 'Moisturizer'
-            },
-            {
-                name: 'Panthenol Hydrating Gel Sunscreen SPF 60 PA++++',
-                subtitle: 'Daily sunscreen protection',
-                price: 'Rs. 599',
-                imageUrl: './assets/img/SUNSCFREEN.jpeg',
-                type: 'Sunscreen'
-            }
-        ];
+            product.name,
+            product.subtitle,
+            product.description,
+            product.type,
+            product.category,
+            product.concern,
+            product.displayConcern,
+            product.ingredient,
+            product.urlKey,
+            product.sku
+        ].filter(Boolean).join(' ').toLowerCase();
+    }
+
+    function dermatFindProduct(products, matchers, excludedKeys = new Set()) {
+        return (products || []).find(product => {
+            const key = dermatProductKey(product);
+            const text = dermatProductSearchText(product);
+            return key && !excludedKeys.has(key) && matchers.some(matcher => matcher(text, product));
+        });
+    }
+
+    function dermatBuildRoutine(type, selectedProduct, products = dermatAllProducts) {
+        const availableProducts = mergeDermatProducts(type, products);
+        const selectedKey = dermatProductKey(selectedProduct);
+        const usedKeys = new Set(selectedKey ? [selectedKey] : []);
+        const routine = [];
+
+        const cleanser = dermatFindProduct(availableProducts, [
+            text => text.includes('cleanser') || text.includes('face wash') || text.includes('face-wash')
+        ], usedKeys);
+        if (cleanser) {
+            routine.push({ label: 'CLEANSER', product: cleanser });
+            usedKeys.add(dermatProductKey(cleanser));
+        }
+
+        if (selectedProduct) {
+            routine.push({ label: 'TREATMENT', product: selectedProduct });
+        }
+
+        const moisturizer = dermatFindProduct(availableProducts, [
+            text => text.includes('moisturizer') || text.includes('moisturiser') || text.includes('cream')
+        ], usedKeys);
+        if (moisturizer) {
+            routine.push({ label: 'MOISTURIZER', product: moisturizer });
+            usedKeys.add(dermatProductKey(moisturizer));
+        }
+
+        const sunscreen = dermatFindProduct(availableProducts, [
+            text => text.includes('sunscreen') || text.includes('spf') || text.includes('sun protection')
+        ], usedKeys);
+        if (sunscreen) {
+            routine.push({ label: 'SUNSCREEN', product: sunscreen });
+        }
+
+        return routine;
     }
 
     function dermatRoutineDoctor(type) {
@@ -743,10 +771,6 @@
         }
     }
 
-    function dermatRoutineLabels() {
-        return ['CLEANSER', 'SERUM', 'MOISTURIZER', 'SUNSCREEN'];
-    }
-
     function dermatUpdateRoutineSummary() {
         const activeItems = dermatCurrentRoutine.filter(item => item.active !== false);
         const total = activeItems.reduce((sum, item) => sum + dermatPriceNumber(item.product), 0);
@@ -760,39 +784,52 @@
         const offerEl = document.getElementById('dermatRoutineOffer');
 
         if (countEl) countEl.textContent = `${activeItems.length} items selected`;
-        if (oldEl) oldEl.textContent = oldTotal ? `?${oldTotal.toLocaleString('en-IN')}` : '';
-        if (totalEl) totalEl.textContent = `?${total.toLocaleString('en-IN')}`;
-        if (saveEl) saveEl.textContent = `You save ?${save.toLocaleString('en-IN')}`;
-        if (offerEl) offerEl.textContent = `Buy ${activeItems.length} @ ?${total.toLocaleString('en-IN')}`;
+        if (oldEl) oldEl.textContent = oldTotal ? `Rs. ${oldTotal.toLocaleString('en-IN')}` : '';
+        if (totalEl) totalEl.textContent = `Rs. ${total.toLocaleString('en-IN')}`;
+        if (saveEl) saveEl.textContent = `You save Rs. ${save.toLocaleString('en-IN')}`;
+        if (offerEl) offerEl.textContent = `Buy ${activeItems.length} @ Rs. ${total.toLocaleString('en-IN')}`;
     }
 
     function dermatSetRoutineFromProduct(type, selectedProduct) {
-        dermatCurrentRoutine = dermatBuildRoutine(type, selectedProduct).map(product => ({
-            product,
+        dermatCurrentRoutine = dermatBuildRoutine(type, selectedProduct).map(item => ({
+            product: item.product,
+            label: item.label,
             active: true
         }));
     }
 
     function renderDermatRoutineMode(type, visibleProducts, selectedProductIndex = 0, includeChoices = false) {
         const contentArea = document.getElementById('routine-content');
+        const hint = document.getElementById('dermatResultHint');
         const selectedProduct = visibleProducts[selectedProductIndex] || visibleProducts[0];
         if (!contentArea || !selectedProduct) return;
 
-        const selectedImage = dermatProductImage(selectedProduct);
         dermatSetRoutineFromProduct(type, selectedProduct);
-        const labels = dermatRoutineLabels();
         const choicesHtml = includeChoices
             ? `<div class="dermat-products-grid dermat-choice-grid text-start">${visibleProducts.map((product, index) => dermatProductCard(product, index, true, index === selectedProductIndex)).join('')}</div>`
             : '';
-        const backendProductsHtml = !includeChoices && visibleProducts.length > 0
-            ? `<div class="dermat-products-grid dermat-choice-grid text-start mt-3">${visibleProducts.map((product, index) => dermatProductCard(product, index, true, index === selectedProductIndex)).join('')}</div>`
-            : '';
-        const selectedCardHtml = includeChoices ? '' : `
-            <div class="dermat-selected-product product-card" ${dermatCartAttrs(selectedProduct)}>
-                <img src="${escapeDermatHtml(selectedImage)}" alt="${escapeDermatHtml(selectedProduct.name || 'Product')}" loading="lazy" onerror="this.onerror=null;this.src='./assets/img/product.webp';">
-                <div class="product-name">${escapeDermatHtml(selectedProduct.name || 'Product')}</div>
+        const selectedImage = dermatProductImage(selectedProduct);
+        const selectedSubtitle = selectedProduct.subtitle || selectedProduct.displayConcern || selectedProduct.concern || selectedProduct.category || 'Selected skincare product';
+        const selectedCardHtml = `
+            <div class="dermat-selected-product-card" ${dermatCartAttrs(selectedProduct)}>
+                <div class="dermat-selected-product-media">
+                    <img src="${escapeDermatHtml(selectedImage)}" alt="${escapeDermatHtml(selectedProduct.name || 'Product')}" loading="lazy" onerror="this.onerror=null;this.src='./assets/img/product.webp';">
+                </div>
+                <div class="dermat-selected-product-copy">
+                    <div class="dermat-selected-kicker">Selected product</div>
+                    <h3>${escapeDermatHtml(selectedProduct.name || 'Product')}</h3>
+                    <p>${escapeDermatHtml(selectedSubtitle)}</p>
+                    <div class="dermat-selected-actions">
+                        <strong>${escapeDermatHtml(dermatPriceLabel(selectedProduct))}</strong>
+                        <button class="dermat-direct-cart" type="button">ADD</button>
+                    </div>
+                </div>
             </div>
         `;
+
+        if (hint) {
+            hint.textContent = 'Selected product and related routine:';
+        }
 
         contentArea.innerHTML = `
             ${choicesHtml}
@@ -807,21 +844,40 @@
                     </div>
                 </div>
                 <div class="dermat-routine-body">
-                    ${dermatCurrentRoutine.map((item, index) => dermatRoutineItem(index + 1, item, labels[index])).join('')}
+                    ${dermatCurrentRoutine.map((item, index) => dermatRoutineItem(index + 1, item, item.label || 'PRODUCT')).join('')}
                 </div>
                 <div class="dermat-routine-summary">
                     <span id="dermatRoutineCount">4 items selected</span>
                     <span class="dermat-routine-old" id="dermatRoutineOld"></span>
-                    <strong id="dermatRoutineTotal">?0</strong>
+                    <strong id="dermatRoutineTotal">Rs. 0</strong>
                 </div>
                 <div class="dermat-routine-saving"><span id="dermatRoutineOffer"></span> <em id="dermatRoutineSave"></em></div>
                 <button class="dermat-complete-cart" type="button">ADD COMPLETE ROUTINE</button>
                 <div class="dermat-routine-individual">or add products individually</div>
             </div>
-            ${backendProductsHtml}
         `;
 
         dermatUpdateRoutineSummary();
+    }
+
+    function renderDermatProductChoices(type, visibleProducts) {
+        const contentArea = document.getElementById('routine-content');
+        const hint = document.getElementById('dermatResultHint');
+        if (!contentArea) return;
+
+        dermatCurrentType = type;
+        dermatVisibleProducts = visibleProducts;
+        dermatCurrentRoutine = [];
+
+        if (hint) {
+            hint.textContent = 'Choose a product to build your routine:';
+        }
+
+        contentArea.innerHTML = `
+            <div class="dermat-products-grid dermat-choice-grid text-start">
+                ${visibleProducts.map((product, index) => dermatProductCard(product, index, true, false)).join('')}
+            </div>
+        `;
     }
 
     function mergeDermatProducts(type, products) {
@@ -836,12 +892,29 @@
         });
     }
 
+    function dermatConcernProductsFromAll(type, products) {
+        const concernAliases = {
+            acne: ['acne', 'pimple', 'breakout', 'salicylic'],
+            pigmentation: ['pigmentation', 'brightening', 'vitamin c', 'alpha arbutin', 'depigmentation'],
+            'acne-marks': ['acne mark', 'acne marks', 'blemish', 'spot correcting'],
+            'dark-spots': ['dark spot', 'dark spots', 'pigmentation', 'alpha arbutin'],
+            'anti-ageing': ['anti ageing', 'anti aging', 'wrinkle', 'retinol', 'bakuchiol', 'peptide'],
+            dehydration: ['dehydration', 'hydrating', 'hyaluronic', 'ceramide', 'moisture'],
+            'sun-protection': ['sunscreen', 'spf', 'sun protection']
+        };
+        const aliases = concernAliases[type] || [type.replace(/-/g, ' ')];
+
+        return mergeDermatProducts(type, products).filter(product => {
+            const text = dermatProductSearchText(product);
+            return aliases.some(alias => text.includes(alias));
+        });
+    }
+
     function renderDermatProducts(type, products) {
         const contentArea = document.getElementById('routine-content');
         if (!contentArea) return;
 
-        const limit = dermatDisplayLimits[type] || 4;
-        const visibleProducts = mergeDermatProducts(type, products).slice(0, limit);
+        const visibleProducts = mergeDermatProducts(type, products);
 
         if (!visibleProducts.length) {
             contentArea.innerHTML = '<p class="text-muted mb-0">No products found for this concern.</p>';
@@ -850,18 +923,7 @@
 
         dermatCurrentType = type;
         dermatVisibleProducts = visibleProducts;
-
-        if (type === 'acne' || type === 'acne-marks') {
-            contentArea.innerHTML = `<div class="dermat-products-grid dermat-choice-grid text-start">${visibleProducts.map((product, index) => dermatProductCard(product, index, true, false)).join('')}</div>`;
-            return;
-        }
-
-        if ([2, 4, 5, 6].includes(dermatSelectedIndex)) {
-            renderDermatRoutineMode(type, visibleProducts);
-            return;
-        }
-
-        contentArea.innerHTML = `<div class="dermat-products-grid text-start">${visibleProducts.map((product, index) => dermatProductCard(product, index, false, false)).join('')}</div>`;
+        renderDermatProductChoices(type, visibleProducts);
     }
 
     async function loadDermatProducts(type) {
@@ -877,9 +939,17 @@
 
         try {
             const category = dermatCategoryMap[type] || type;
-            const response = await fetch(`fetch_category_products.php?category=${encodeURIComponent(category)}`);
-            const result = await response.json();
-            renderDermatProducts(type, result.data?.products || result.products || []);
+            const [categoryResult, allResult] = await Promise.all([
+                fetch(`fetch_category_products.php?category=${encodeURIComponent(category)}`).then(response => response.json()),
+                fetch('fetch_category_products.php?category=all').then(response => response.json())
+            ]);
+            const categoryProducts = categoryResult.data?.products || categoryResult.products || [];
+            const allProducts = allResult.data?.products || allResult.products || [];
+            dermatAllProducts = mergeDermatProducts('all', allProducts.length ? allProducts : categoryProducts);
+            renderDermatProducts(
+                type,
+                categoryProducts.length ? categoryProducts : dermatConcernProductsFromAll(type, dermatAllProducts)
+            );
         } catch (error) {
             renderDermatProducts(type, []);
         }
@@ -911,6 +981,10 @@
             if (selectionCard) {
                 const selectedIndex = Number(selectionCard.dataset.dermatSelect || 0);
                 renderDermatRoutineMode(dermatCurrentType, dermatVisibleProducts, selectedIndex, true);
+                document.querySelector('.dermat-selected-product-card')?.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest'
+                });
                 event.preventDefault();
                 return;
             }
@@ -1458,7 +1532,8 @@
             const subtitle = product.subtitle || product.displayConcern || product.concern || product.category || 'Skincare';
             const size = product.size ? `<span class="spotlight-product-size">${escapeSpotlightHtml(product.size)}</span>` : '';
             const priceNumber = Number(String(product.priceNumber || product.price || '0').replace(/,/g, '').replace(/[^0-9.]/g, '')) || 0;
-            const priceLabel = priceNumber ? `?${priceNumber.toLocaleString('en-IN')}` : '?0';
+            const priceLabel = priceNumber ? `&#8377;${priceNumber.toLocaleString('en-IN')}` : '&#8377;0';
+            const ratingHtml = '<span class="text-warning">★★★★☆</span>';
 
             return `
                 <div class="px-2">
@@ -1472,8 +1547,8 @@
                             <img src="${escapeSpotlightHtml(imageUrl)}" class="w-100 mb-3" alt="${escapeSpotlightHtml(product.name || 'Product')}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImage}';">
                             <h6 class="fw-bold">${escapeSpotlightHtml(product.name || 'Product')} ${size}</h6>
                             <p class="small text-muted mb-2">/ ${escapeSpotlightHtml(subtitle)} /</p>
-                            <div class="small mb-2">${escapeSpotlightHtml(product.stars || '★★★★★')} (${escapeSpotlightHtml(product.reviewsCount || 120)} reviews)</div>
-                            <div class="mb-3"><span class="badge-b1g1">${escapeSpotlightHtml(product.boughtTag || 'B1G1')}</span> <span class="ms-1">${escapeSpotlightHtml(priceLabel)}</span></div>
+                            <div class="small mb-2">${ratingHtml} (${escapeSpotlightHtml(product.reviewsCount || 120)} reviews)</div>
+                            <div class="mb-3"><span class="badge-b1g1">${escapeSpotlightHtml(product.boughtTag || 'B1G1')}</span> <span class="ms-1">${priceLabel}</span></div>
                         </a>
                         <button class="btn btn-dark btn-cart w-100 rounded-0">ADD TO CART</button>
                     </div>

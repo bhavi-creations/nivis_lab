@@ -127,6 +127,11 @@
     if (el) el.textContent = value || '';
   }
 
+  function setRatingStars() {
+    const el = document.getElementById('productStars');
+    if (el) el.innerHTML = '&#9733;&#9733;&#9733;&#9733;&#9734;';
+  }
+
   function setImage(index) {
     if (!galleryImages.length) return;
     currentImageIndex = (index + galleryImages.length) % galleryImages.length;
@@ -192,7 +197,7 @@
     setText('breadcrumbProduct', product.name || 'Product');
     setText('productTitle', product.name || 'Product');
     setText('productSubtitle', product.subtitle || product.concern ? `/${product.subtitle || product.concern}/` : '');
-    setText('productStars', product.stars || '★★★★½');
+    setRatingStars();
     setText('productReviews', `${product.reviewsCount || 120} reviews`);
     setText('productPrice', priceLabel(product.priceNumber || product.price));
     setText('productDesc', product.description || product.subtitle || '');

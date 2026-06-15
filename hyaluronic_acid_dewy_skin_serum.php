@@ -1443,7 +1443,7 @@
             text('.product-what-is', product.whatIs || `${name} is a ${product.type || 'skincare product'} for ${product.concern || 'your skincare routine'}.`);
             text('.price-main', price);
             text('.size-tag', product.type || product.category || 'Product');
-            text('.review-count', `${product.stars || '★★★★½'} | ${product.reviewsCount || 120} reviews`);
+            text('.review-count', `${product.stars || '?????'} | ${product.reviewsCount || 120} reviews`);
             text('.bought-note', product.boughtTag || '#1 Bought in past month');
             text('.spf-badge', product.category || product.type || 'Skincare');
             text('.big-score', '4.8');

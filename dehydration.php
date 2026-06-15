@@ -141,7 +141,7 @@
                         <div class="product-info">
                             <div class="product-name">Panthenol Hydrating Gel Sunscreen SPF 60 PA++++</div>
                             <div class="product-sub">/Photostable, lightweight sunscreen with New-Gen filters for broad-spectrum UVA, UVB & blue-light protection/</div>
-                            <div><span class="stars">★★★★½</span><span class="review-count">(344 reviews)</span></div>
+                            <div><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span><span class="review-count">(344 reviews)</span></div>
                             <div class="product-price">₹649</div>
                             <span class="bought-tag">196+ bought in past month</span>
 
@@ -163,7 +163,7 @@
                         <div class="product-info">
                             <div class="product-name">2% Hyaluronic Acid Dewy Skin Serum</div>
                             <div class="product-sub">/Solution for compromised skin barrier, dull, dry and dehydrated skin/</div>
-                            <div><span class="stars">★★★★½</span><span class="review-count">(327 reviews)</span></div>
+                            <div><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span><span class="review-count">(327 reviews)</span></div>
                             <div class="product-price">₹699</div>
                             <span class="bought-tag">129+ bought in past month</span>
 
@@ -184,7 +184,7 @@
                     <div class="product-info">
                         <div class="product-name">10% Vitamin C Brightening Serum</div>
                         <div class="product-sub">/ Solution for dark spots, uneven skin tone, dullness /</div>
-                        <div><span class="stars">★★★★½</span><span class="review-count">(128 reviews)</span></div>
+                        <div><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span><span class="review-count">(128 reviews)</span></div>
                         <div class="product-price">₹699</div>
                         <span class="bought-tag">58+ bought in past month</span>
                         <button class="btn-cart">Add to Cart</button>
@@ -203,7 +203,7 @@
                     <div class="product-info">
                         <div class="product-name">0.3% Pure Retinol Face Serum</div>
                         <div class="product-sub">/ Solution for visible signs of ageing like fine lines, wrinkles /</div>
-                        <div><span class="stars">★★★★½</span><span class="review-count">(128 reviews)</span></div>
+                        <div><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span><span class="review-count">(128 reviews)</span></div>
                         <div class="product-price">₹699</div>
                         <span class="bought-tag">58+ bought in past month</span>
                         <button class="btn-cart">Add to Cart</button>

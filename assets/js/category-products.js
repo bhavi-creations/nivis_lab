@@ -491,7 +491,7 @@
                         <div class="product-sub">/ ${escapeHtml(product.subtitle || product.concern || 'Skincare')} /</div>
                         ${productSize ? `<div class="product-size">${escapeHtml(productSize)}</div>` : ''}
                         <div>
-                            <span class="stars">${escapeHtml(product.stars || '★★★★½')}</span>
+                            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
                             <span class="review-count">(${escapeHtml(product.reviewsCount || 120)} reviews)</span>
                         </div>
                         <div class="product-price">${escapeHtml(priceLabel)}</div>

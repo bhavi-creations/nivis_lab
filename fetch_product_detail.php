@@ -214,7 +214,7 @@ function normalizeProduct($product)
         "concern" => normalizeText($concern),
         "ingredient" => normalizeText($ingredient),
         "type" => normalizeText($productType),
-        "stars" => normalizeText($product["stars"] ?? "★★★★½"),
+        "stars" => normalizeText($product["stars"] ?? "4"),
         "reviewsCount" => normalizeText($product["reviewsCount"] ?? "120"),
         "boughtTag" => normalizeText($product["boughtTag"] ?? "196+ bought in past month"),
         "category" => $categoryName,
