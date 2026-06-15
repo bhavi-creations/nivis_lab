@@ -17,7 +17,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="./assets/css/style.css?v=12">
+    <link rel="stylesheet" href="./assets/css/style.css?v=14">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
@@ -145,7 +145,7 @@
 
                 <li class="index_navbar_section__item">
                     <a class="index_navbar_section__link" href="#">Ingredients</a>
-                    <ul class="index_navbar_section__dropdown">
+                    <ul class="index_navbar_section__dropdown" id="navbarIngredientDesktop">
                         <li><a href="salicylic_acid.php">Salicylic Acid</a></li>
                         <li><a href="niacinamide.php">Niacinamide</a></li>
                         <li><a href="alpha_arbutin.php">Alpha Arbutin</a></li>
@@ -240,7 +240,7 @@
                     <span class="index_navbar_section__mob-label">Ingredients</span>
                     <span class="index_navbar_section__mob-plus"><i class="bi bi-plus"></i></span>
                 </div>
-                <ul class="index_navbar_section__mob-sub">
+                <ul class="index_navbar_section__mob-sub" id="navbarIngredientMobile">
                     <li><a href="salicylic_acid.php">Salicylic Acid</a></li>
                     <li><a href="niacinamide.php">Niacinamide</a></li>
                     <li><a href="alpha_arbutin.php">Alpha Arbutin</a></li>
@@ -354,6 +354,26 @@
         }
 
         loadNavbarCategories();
+        function loadNavbarIngredients() {
+            const desktopMenu = document.getElementById('navbarIngredientDesktop');
+            const mobileMenu = document.getElementById('navbarIngredientMobile');
+            const ingredients = [
+                ['Salicylic Acid', 'salicylic_acid.php'],
+                ['Niacinamide', 'niacinamide.php'],
+                ['Alpha Arbutin', 'alpha_arbutin.php'],
+                ['Vitamin C', 'vitamin_c.php'],
+                ['Retinol', 'retinol.php'],
+                ['Hyaluronic Acid', 'hyaluronic_acid.php'],
+                ['Ceramides', 'ceramides.php'],
+                ['Explore all products', 'products.php']
+            ];
+            const itemsHtml = ingredients.map(([label, url]) => `<li><a href="${url}">${label}</a></li>`).join('');
+
+            if (desktopMenu) desktopMenu.innerHTML = itemsHtml;
+            if (mobileMenu) mobileMenu.innerHTML = itemsHtml;
+        }
+
+        loadNavbarIngredients();
 
         /* ─── Hero keyboard accessibility ─── */
         const indexHero = document.getElementById('indexHero');

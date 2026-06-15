@@ -130,7 +130,7 @@ a {
     /* background: transparent; */
     /* transition: background 0.3s ease; */
 
-    padding: 30px 0px;
+    padding: 14px 0;
 }
 
 .index_navbar_section.index_navbar_section--scrolled {
@@ -152,6 +152,12 @@ a {
 .index_navbar_section__logo {
     flex-shrink: 0;
     margin-right: 2rem;
+}
+
+.index_navbar_section__logo img {
+    width: 82px !important;
+    height: auto;
+    display: block;
 }
 
 .index_navbar_section__logo-mark {
@@ -328,7 +334,8 @@ a {
     padding: 0.5rem 0;
 }
 
-#navbarCategoryDesktop {
+#navbarCategoryDesktop,
+#navbarIngredientDesktop {
     display: grid;
     left: 50%;
     grid-template-columns: repeat(2, minmax(180px, 1fr));
@@ -338,7 +345,8 @@ a {
     transform: translate(-50%, 8px);
 }
 
-.index_navbar_section__item:hover #navbarCategoryDesktop {
+.index_navbar_section__item:hover #navbarCategoryDesktop,
+.index_navbar_section__item:hover #navbarIngredientDesktop {
     transform: translate(-50%, 0);
 }
 
@@ -348,7 +356,8 @@ a {
     transform: translateY(0);
 }
 
-.index_navbar_section__item:hover #navbarCategoryDesktop {
+.index_navbar_section__item:hover #navbarCategoryDesktop,
+.index_navbar_section__item:hover #navbarIngredientDesktop {
     transform: translate(-50%, 0);
 }
 
@@ -752,8 +761,8 @@ a {
 /* click hint */
 .index_img_section__cta {
     position: absolute;
-    bottom: 2rem;
-    right: 3rem;
+    bottom: 1.45rem;
+    right: 2rem;
     z-index: 10;
     display: flex;
     align-items: center;
@@ -763,12 +772,20 @@ a {
     font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.65);
-    transition: color 0.2s;
+    color: #fff;
+    padding: 0.48rem 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 999px;
+    background: rgba(10, 43, 74, 0.78);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
+    backdrop-filter: blur(6px);
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
 }
 
 .index_img_section:hover .index_img_section__cta {
-    color: rgba(255, 255, 255, 0.95);
+    background: rgba(10, 43, 74, 0.95);
+    border-color: rgba(255, 255, 255, 0.95);
+    transform: translateY(-1px);
 }
 
 .index_img_section__cta i {
@@ -778,27 +795,32 @@ a {
 .index_img_section__dots {
     position: absolute;
     left: 50%;
-    bottom: 1.25rem;
+    bottom: 0.8rem;
     z-index: 12;
     display: flex;
-    gap: 0.55rem;
+    gap: 0.4rem;
     transform: translateX(-50%);
 }
 
 .index_img_section__dots button {
-    width: 34px;
-    height: 4px;
+    width: 24px;
+    height: 24px;
     border: 0;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.35);
+    background: rgba(10, 43, 74, 0.72);
+    color: #fff;
+    font-size: 0.72rem;
+    line-height: 1;
+    font-weight: 700;
     padding: 0;
     cursor: pointer;
-    transition: background 0.2s, width 0.2s;
+    transition: background 0.2s, transform 0.2s;
 }
 
 .index_img_section__dots button.active {
-    width: 48px;
-    background: rgba(255, 255, 255, 0.9);
+    background: #fff;
+    color: #0a2b4a;
+    transform: translateY(-1px);
 }
 
 /* light rays SVG animation */
@@ -837,6 +859,10 @@ a {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 992px) {
+    .index_navbar_section {
+        padding: 10px 0;
+    }
+
     .index_navbar_section__links {
         display: none;
     }
@@ -851,6 +877,10 @@ a {
 
     .index_navbar_section__inner {
         padding: 0 1.2rem;
+    }
+
+    .index_navbar_section__logo img {
+        width: 72px !important;
     }
 
     .index_img_section {
@@ -877,8 +907,8 @@ a {
 
 @media (max-width: 640px) {
     .index_img_section {
-        aspect-ratio: auto;
-        height: 175px;
+        aspect-ratio: 16 / 5;
+        height: auto;
         min-height: 0;
         margin-bottom: 0;
     }
@@ -887,8 +917,7 @@ a {
     .index_img_section__stripes,
     .index_img_section__glow,
     .index_img_section__rays,
-    .index_img_section__content,
-    .index_img_section__cta {
+    .index_img_section__content {
         display: none;
     }
 
@@ -905,7 +934,26 @@ a {
     }
 
     .index_img_section__dots {
-        bottom: 0.45rem;
+        bottom: 0.35rem;
+    }
+
+    .index_img_section__cta {
+        right: 0.7rem;
+        bottom: 0.55rem;
+        padding: 0.34rem 0.58rem;
+        font-size: 0.62rem;
+        letter-spacing: 0.12em;
+        gap: 0.35rem;
+    }
+
+    .index_img_section__cta i {
+        font-size: 0.78rem;
+    }
+
+    .index_img_section__dots button {
+        width: 20px;
+        height: 20px;
+        font-size: 0.65rem;
     }
 
     .index_img_section + * {
@@ -1237,7 +1285,7 @@ a {
 /* skinthesis section stylings */
 /* SECTION 1 */
 .index_straight-up_section {
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../img/bg_img.png') no-repeat center center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../img/5.png') no-repeat center center/cover;
     height: 80vh;
     display: flex;
     align-items: center;
@@ -4102,7 +4150,7 @@ button:hover {
 .our_section_2 {
     background-color: #fcfbf7;
     /* Light cream background */
-    background-image: url('../img/bg_img.png');
+    background-image: url('../img/5.png');
     /* Background image path ikkada ivvandi */
     background-size: cover;
     background-position: right center;
@@ -4174,7 +4222,7 @@ button:hover {
 .last {
     min-height: 100vh;
     /* Screen motham cover avvadaniki */
-    background-image: url('../img/bg_img.png');
+    background-image: url('../img/5.png');
     /* Nee image path ikkada ivvu */
     background-size: cover;
     background-position: center;
