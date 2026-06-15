@@ -115,7 +115,7 @@
   }
 
   function productId(product) {
-    return String(product.id || product.sku || product.urlKey || product.url_key || product.name || 'product')
+    return String(product.sku || product.id || product.urlKey || product.url_key || product.name || 'product')
       .trim()
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
@@ -219,6 +219,7 @@
 
     const cartItem = {
       id: productId(currentProduct),
+      sku: currentProduct.sku || currentProduct.productCode || currentProduct.id || '',
       name: currentProduct.name || 'Product',
       price: currentProduct.priceNumber || priceNumber(currentProduct.price),
       image: (currentProduct.images && currentProduct.images[0]) || currentProduct.imageUrl || './assets/img/product.webp',

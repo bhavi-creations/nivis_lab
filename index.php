@@ -607,7 +607,7 @@
     }
 
     function dermatProductKey(product) {
-        return String(product.id || product.sku || product.urlKey || product.url_key || product.name || 'product')
+        return String(product.sku || product.id || product.urlKey || product.url_key || product.name || 'product')
             .trim()
             .toLowerCase()
             .replace(/[^a-z0-9]+/g, '-')
@@ -625,7 +625,7 @@
         if (!image) return false;
 
         const normalized = String(image).toLowerCase();
-        return normalized.includes('admin.nivislabs.in') ||
+        return normalized.includes('localhost:3000') ||
             normalized.includes('/assets/img/') &&
             !normalized.includes('/assets/img/product.webp') &&
             !normalized.includes('/assets/img/logo.jpeg');
@@ -653,6 +653,7 @@
 
         return `
             data-product-id="${escapeDermatHtml(dermatProductKey(product))}"
+            data-sku="${escapeDermatHtml(product.sku || '')}"
             data-product-name="${escapeDermatHtml(product.name || 'Product')}"
             data-product-price="${escapeDermatHtml(priceNumber)}"
             data-product-image="${escapeDermatHtml(imageUrl)}"
@@ -941,6 +942,7 @@
                     const product = item.product;
                     window.NivisCart.add({
                         id: dermatProductKey(product),
+                        sku: product.sku || product.productCode || product.id || '',
                         name: product.name || 'Product',
                         price: dermatPriceNumber(product),
                         image: dermatProductImage(product),

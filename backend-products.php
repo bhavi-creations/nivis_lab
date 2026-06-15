@@ -4,8 +4,10 @@ header("Content-Type: application/json");
 
 $category = $_GET['category'] ?? 'face-wash';
 
-$graphqlUrl = "https://admin.nivislabs.in/api/graphql";
-// $ch = curl_init('https://admin.nivislabs.in/api/graphql');
+require_once __DIR__ . '/backend_config.php';
+
+$graphqlUrl = EVERSHOP_GRAPHQL_URL;
+// $ch = curl_init(EVERSHOP_GRAPHQL_URL);
 $query = '
 query GetProductsByCategory($categorySlug: String!) {
   productsByCategory(categorySlug: $categorySlug) {

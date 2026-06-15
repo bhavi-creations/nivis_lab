@@ -2,6 +2,8 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
+require_once __DIR__ . '/backend_config.php';
+
 $graphqlQuery = '
 query GetProductsByCategory($categorySlug: String!) {
   productsByCategory(categorySlug: $categorySlug) {
@@ -32,7 +34,7 @@ $data = json_encode([
     "variables" => $variables
 ]);
 
-$ch = curl_init("http://localhost:3000/graphql");
+$ch = curl_init(EVERSHOP_GRAPHQL_URL);
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);

@@ -2,6 +2,8 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
+require_once __DIR__ . '/backend_config.php';
+
 // ఫ్రంటెండ్ నుండి వచ్చే కేటగిరీని తీసుకుంటుంది (ఉదాహరణకు: face-wash, spotlights, global_dermatology)
 $type = $_GET['type'] ?? '';
 
@@ -40,7 +42,7 @@ if (empty($type) || $type == 'products') {
 
 // GraphQL కి రిక్వెస్ట్ పంపడం
 $query = json_encode(['query' => $graphqlQuery]);
-$ch = curl_init('https://admin.nivislabs.in/api/graphql');
+$ch = curl_init(EVERSHOP_GRAPHQL_URL);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $query);

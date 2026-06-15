@@ -471,6 +471,7 @@
         return `
             <div class="product-card"
                 data-product-id="${escapeHtml(productKey)}"
+                data-sku="${escapeHtml(product.sku || '')}"
                 data-product-name="${escapeHtml(product.name || 'Product')}"
                 data-product-price="${escapeHtml(priceNumber)}"
                 data-product-image="${escapeHtml(primaryImage)}"
