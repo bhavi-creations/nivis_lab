@@ -2,6 +2,8 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
+require_once __DIR__ . '/backend_config.php';
+
 // EverShop నుండి అన్ని కేటగిరీలను తెచ్చే GraphQL Query
 $graphqlQuery = '{
     categories {
@@ -14,7 +16,7 @@ $graphqlQuery = '{
 }';
 
 $query = json_encode(['query' => $graphqlQuery]);
-$ch = curl_init('https://admin.nivislabs.in/api/graphql');
+$ch = curl_init(EVERSHOP_GRAPHQL_URL);
 curl_setopt_array($ch, [
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_POST => true,

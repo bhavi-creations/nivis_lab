@@ -70,9 +70,11 @@
         const imgEl = card.querySelector('.product-img-wrap img.img-primary, .product-img-wrap img, img');
         const name = nameEl ? nameEl.textContent.trim() : 'Product';
         const priceText = priceEl ? priceEl.textContent.replace(/[^0-9.]/g, '').trim() : card.dataset.price || '0';
+        const sku = card.dataset.sku || card.dataset.productSku || card.dataset.productCode || '';
 
         return {
-            id: card.dataset.productId || name.replace(/\s+/g, '_').toLowerCase(),
+            id: sku || card.dataset.productId || name.replace(/\s+/g, '_').toLowerCase(),
+            sku,
             name,
             price: Number(priceText) || Number(card.dataset.price) || 0,
             image: imgEl ? imgEl.src : '',
@@ -93,6 +95,7 @@
         allProducts.forEach(product => {
             if (relatedProducts.length >= 4) return;
             const productId = product.dataset.productId || product.querySelector('.product-name')?.textContent.trim().replace(/\s+/g, '_').toLowerCase();
+            const sku = product.dataset.sku || product.dataset.productSku || product.dataset.productCode || '';
             if (!productId || cartItems.some(item => item.id === productId)) return;
 
             const name = product.querySelector('.product-name')?.textContent.trim() || '';
@@ -103,6 +106,7 @@
             if (name && image) {
                 relatedProducts.push({
                     id: productId,
+                    sku,
                     name,
                     price: Number(priceText) || 0,
                     image,
@@ -114,10 +118,11 @@
         return relatedProducts;
     }
 
-    function addRelatedToCart(itemId, itemName, itemPrice, itemImage, quantity = 1) {
+    function addRelatedToCart(itemId, itemName, itemPrice, itemImage, sku = '', quantity = 1) {
         if (!window.NivisCart) return;
         window.NivisCart.add({
             id: itemId,
+            sku,
             name: itemName,
             price: itemPrice,
             image: itemImage
@@ -172,7 +177,7 @@
                                 <div class="fw-bold" style="margin-bottom: 2px; font-size: 14px;">${product.name.substring(0, 35)}${product.name.length > 35 ? '...' : ''}</div>
                                 <div class="text-muted small" style="margin-bottom: 4px;">${product.sub.substring(0, 40)}${product.sub.length > 40 ? '...' : ''}</div>
                                 <div class="fw-bold" style="color: #d32f2f; margin-bottom: 6px;">${formatPrice(product.price)}</div>
-                                <button onclick="addRelatedToCart('${product.id}', '${product.name.replace(/'/g, "\\'")}', ${product.price}, '${product.image}', 1)" class="btn btn-sm btn-dark" style="font-size: 12px;">Add</button>
+                                <button onclick="addRelatedToCart('${product.id}', '${product.name.replace(/'/g, "\\'")}', ${product.price}, '${product.image}', '${(product.sku || '').replace(/'/g, "\\'")}', 1)" class="btn btn-sm btn-dark" style="font-size: 12px;">Add</button>
                             </div>
                         </div>
                     </div>
@@ -206,6 +211,11 @@
             return;
         }
 
+        const checkoutItems = cart.items.map(item => ({
+            sku: item.sku || item.productSku || item.productCode || item.id,
+            qty: Math.max(1, Number(item.quantity || 1))
+        }));
+
         const checkoutBtn = document.getElementById('razorpayCheckoutBtn');
         if (checkoutBtn) {
             checkoutBtn.disabled = true;
@@ -219,22 +229,22 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    items: cart.items
+                    items: checkoutItems
                 })
             });
             const orderResult = await orderResponse.json();
 
-            if (!orderResult.success || !orderResult.order?.id || !orderResult.key) {
+            if (!orderResult.success || !orderResult.gateway?.razorpayOrderId || !orderResult.gateway?.keyId || !orderResult.order_id) {
                 throw new Error(orderResult.message || 'Unable to create Razorpay order.');
             }
 
             const options = {
-                key: orderResult.key,
-                amount: orderResult.order.amount,
-                currency: orderResult.order.currency || 'INR',
+                key: orderResult.gateway.keyId,
+                amount: orderResult.gateway.amount,
+                currency: orderResult.gateway.currency || 'INR',
                 name: orderResult.company || 'Nivis Labs',
                 description: `${cart.count} item${cart.count !== 1 ? 's' : ''}`,
-                order_id: orderResult.order.id,
+                order_id: orderResult.gateway.razorpayOrderId,
                 theme: {
                     color: '#0a2b4a'
                 },
@@ -244,7 +254,12 @@
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify(response)
+                        body: JSON.stringify({
+                            order_id: orderResult.order_id,
+                            razorpay_payment_id: response.razorpay_payment_id,
+                            razorpay_order_id: response.razorpay_order_id,
+                            razorpay_signature: response.razorpay_signature
+                        })
                     });
                     const verifyResult = await verifyResponse.json();
 

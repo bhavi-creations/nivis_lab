@@ -6,7 +6,9 @@ ob_start();
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
-$graphqlUrl = "https://admin.nivislabs.in/api/graphql";
+require_once __DIR__ . '/backend_config.php';
+
+$graphqlUrl = EVERSHOP_GRAPHQL_URL;
 $productKey = trim($_GET["product"] ?? "");
 
 function jsonExit($payload)
@@ -91,7 +93,7 @@ function normalizeImageUrl($url)
         return $url;
     }
 
-    return "https://admin.nivislabs.in" . $url;
+    return EVERSHOP_ASSET_BASE_URL . $url;
 }
 
 function attributeValue($attributes, $keywords, $fallback)

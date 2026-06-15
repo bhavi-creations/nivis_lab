@@ -255,18 +255,21 @@ const NivisCart = {
     const id = String(item.id || item.name).trim();
     const qty = Math.max(1, Number(quantity || item.quantity || 1));
     const price = Number(item.price || 0);
+    const sku = String(item.sku || item.productSku || item.productCode || item.id || '').trim();
     const items = this.read();
     const existing = items.find((cartItem) => cartItem.id === id);
 
     if (existing) {
       existing.quantity += qty;
       existing.price = price;
+      if (sku) existing.sku = sku;
       if (item.image) existing.image = item.image;
     } else {
       items.push({
         id,
         name: item.name,
         price,
+        sku,
         image: item.image || '',
         quantity: qty,
       });
@@ -321,11 +324,13 @@ const NivisCart = {
     const name = card.dataset.productName || nameEl?.textContent?.trim() || 'Product';
     const parsePrice = (value) => Number(String(value || '').replace(/,/g, '').replace(/[^0-9.]/g, '')) || 0;
     const price = parsePrice(card.dataset.price) || parsePrice(card.dataset.productPrice) || parsePrice(priceEl?.textContent);
-    const idSource = card.dataset.productId || card.dataset.sku || name;
+    const sku = String(card.dataset.sku || card.dataset.productSku || card.dataset.productCode || '').trim();
+    const idSource = sku || card.dataset.productId || name;
     const id = String(idSource).trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
     return {
       id,
+      sku,
       name,
       price,
       image: card.dataset.productImage || imgEl?.src || '',

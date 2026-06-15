@@ -2,7 +2,9 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
-$apiGraphqlUrl = "https://admin.nivislabs.in/api/graphql";
+require_once __DIR__ . '/backend_config.php';
+
+$apiGraphqlUrl = EVERSHOP_GRAPHQL_URL;
 
 function graphqlRequest($url, $query, $variables = [])
 {
@@ -48,7 +50,7 @@ function normalizeImageUrl($url)
         return $url;
     }
 
-    return "http://localhost:3000" . $url;
+    return EVERSHOP_ASSET_BASE_URL . $url;
 }
 
 function slugify($value)
