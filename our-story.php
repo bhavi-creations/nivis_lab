@@ -5,7 +5,7 @@
       <div class="row align-items-center">
         <div class="col-md-7">
           <div class="content-box p-4 p-md-5">
-            <h6 class="text-uppercase fw-normal mb-3">About Nivis Labs</h6>
+            <h6 class="text-uppercase fw-normal mb-3 text-white">About Nivis Labs</h6>
             <h2 class="display-5 mb-4">
               <span class="text-danger">S</span>cience-led
               <span class="text-danger">S</span>kin-first

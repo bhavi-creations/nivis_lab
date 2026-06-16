@@ -553,7 +553,7 @@
 
        
         <div id="dermat-results" class="mt-4" style="display:none;">
-            <p class="text-muted small mb-3" id="dermatResultHint">Choose a product to build your routine:</p>
+            <!-- <p class="text-muted small mb-3" id="dermatResultHint">Choose a product to build your routine:</p> -->
 
             
             <div id="routine-content" class="mx-auto" style="max-width: 1100px;"></div>

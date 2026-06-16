@@ -19,7 +19,7 @@
                     <li><a href="privacy_policy.php">Privacy Policy</a></li>
                     <li><a href="refund.php">Refund Policy</a></li>
                     <li><a href="contact.php">Contact Us</a></li>
-                    <li><a href="build_phd.php">Let's Build Nivis Labs</a></li>
+                    <!-- <li><a href="build_phd.php">Let's Build Nivis Labs</a></li> -->
                 </ul>
             </div>
             <div class="col-md-4 mb-4 text-center">
