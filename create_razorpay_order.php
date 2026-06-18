@@ -33,14 +33,76 @@ function postJson(string $url, array $payload): array
     ];
 }
 
-function fetchAvailableSkus(string $baseUrl): array
+function normalizeLookupKey(string $value): string
+{
+    $value = strtolower(trim($value));
+    $value = preg_replace('/[^a-z0-9]+/', '-', $value);
+    return trim($value, '-');
+}
+
+function provinceCandidates(array $address): array
+{
+    $province = trim((string) ($address['province'] ?? ''));
+    $candidates = [];
+
+    if ($province !== '') {
+        $candidates[] = $province;
+    }
+
+    $provinceMap = [
+        'AP' => 'Andhra Pradesh',
+        'AR' => 'Arunachal Pradesh',
+        'AS' => 'Assam',
+        'BR' => 'Bihar',
+        'CG' => 'Chhattisgarh',
+        'CH' => 'Chandigarh',
+        'DL' => 'Delhi',
+        'GA' => 'Goa',
+        'GJ' => 'Gujarat',
+        'HR' => 'Haryana',
+        'HP' => 'Himachal Pradesh',
+        'JH' => 'Jharkhand',
+        'KA' => 'Karnataka',
+        'KL' => 'Kerala',
+        'MP' => 'Madhya Pradesh',
+        'MH' => 'Maharashtra',
+        'MN' => 'Manipur',
+        'ML' => 'Meghalaya',
+        'MZ' => 'Mizoram',
+        'NL' => 'Nagaland',
+        'OD' => 'Odisha',
+        'OR' => 'Odisha',
+        'PB' => 'Punjab',
+        'RJ' => 'Rajasthan',
+        'SK' => 'Sikkim',
+        'TN' => 'Tamil Nadu',
+        'TS' => 'Telangana',
+        'TG' => 'Telangana',
+        'TR' => 'Tripura',
+        'UP' => 'Uttar Pradesh',
+        'UK' => 'Uttarakhand',
+        'UT' => 'Uttarakhand',
+        'WB' => 'West Bengal'
+    ];
+
+    $upperProvince = strtoupper($province);
+    if ($upperProvince !== '' && isset($provinceMap[$upperProvince])) {
+        $candidates[] = $provinceMap[$upperProvince];
+    }
+
+    return array_values(array_unique(array_filter($candidates)));
+}
+
+function fetchAvailableCatalogItems(string $baseUrl): array
 {
     $query = <<<'GRAPHQL'
 query AvailableProducts {
   products(filters: []) {
     items {
+      id
       sku
       name
+      urlKey
     }
   }
 }
@@ -62,38 +124,195 @@ GRAPHQL;
         if (!is_array($item)) {
             continue;
         }
-        $sku = trim((string) ($item['sku'] ?? ''));
-        if ($sku !== '') {
-            $available[strtoupper($sku)] = [
-                'sku' => $sku,
-                'name' => trim((string) ($item['name'] ?? ''))
-            ];
+
+        $catalogItem = [
+            'id' => trim((string) ($item['id'] ?? '')),
+            'sku' => trim((string) ($item['sku'] ?? '')),
+            'name' => trim((string) ($item['name'] ?? '')),
+            'urlKey' => trim((string) ($item['urlKey'] ?? ''))
+        ];
+
+        foreach ([$catalogItem['sku'], $catalogItem['id'], $catalogItem['urlKey'], $catalogItem['name']] as $candidate) {
+            $candidateKey = normalizeLookupKey((string) $candidate);
+            if ($candidateKey !== '') {
+                $available[$candidateKey] = $catalogItem;
+            }
         }
     }
 
     return $available;
 }
 
-function normalizeSku(array $item): string
+function fetchAvailableShippingMethods(string $baseUrl, string $cartId, array $address): array
 {
-    return trim((string) (
-        $item['sku'] ??
-        $item['productSku'] ??
-        $item['productCode'] ??
-        $item['id'] ??
-        ''
-    ));
+    $query = <<<'GRAPHQL'
+query CartShippingMethods($cartId: String!, $country: String, $province: String, $postcode: String) {
+  cart(id: $cartId) {
+    availableShippingMethods(country: $country, province: $province, postcode: $postcode) {
+      id
+      code
+      name
+      cost {
+        value
+        text
+      }
+    }
+  }
+}
+GRAPHQL;
+
+    foreach (provinceCandidates($address) as $province) {
+        $result = postJson($baseUrl . '/api/graphql', [
+            'query' => $query,
+            'variables' => [
+                'cartId' => $cartId,
+                'country' => $address['country'] ?? null,
+                'province' => $province,
+                'postcode' => $address['postcode'] ?? null
+            ]
+        ]);
+
+        if ($result['error']) {
+            continue;
+        }
+
+        $decoded = json_decode((string) $result['response'], true);
+        $methods = $decoded['data']['cart']['availableShippingMethods'] ?? [];
+        if (!is_array($methods) || $methods === []) {
+            continue;
+        }
+
+        return array_values(array_filter($methods, static function ($method) {
+            return is_array($method) && !empty($method['code']);
+        }));
+    }
+
+    return [];
 }
 
-function defaultBillingAddress(): array
+function normalizeSku(array $item): string
+{
+    foreach (['sku', 'productSku', 'productCode', 'id', 'productId', 'urlKey', 'url_key', 'name', 'product_name'] as $key) {
+        $value = trim((string) ($item[$key] ?? ''));
+        if ($value !== '') {
+            return $value;
+        }
+    }
+
+    return '';
+}
+
+function resolveCatalogItem(array $item, array $catalog): ?array
+{
+    $candidates = [
+        $item['sku'] ?? null,
+        $item['productSku'] ?? null,
+        $item['productCode'] ?? null,
+        $item['id'] ?? null,
+        $item['productId'] ?? null,
+        $item['urlKey'] ?? null,
+        $item['url_key'] ?? null,
+        $item['name'] ?? null,
+        $item['product_name'] ?? null
+    ];
+
+    foreach ($candidates as $candidate) {
+        $candidateKey = normalizeLookupKey(trim((string) $candidate));
+        if ($candidateKey !== '' && isset($catalog[$candidateKey])) {
+            return $catalog[$candidateKey];
+        }
+    }
+
+    return null;
+}
+
+function sanitizeAddress(array $address, array $fallback = []): array
+{
+    $normalized = [];
+
+    $map = [
+        'full_name' => ['full_name', 'name', 'customer_name'],
+        'address_1' => ['address_1', 'address1', 'street', 'line1'],
+        'address_2' => ['address_2', 'address2', 'line2', 'landmark'],
+        'city' => ['city', 'town'],
+        'province' => ['province', 'state'],
+        'postcode' => ['postcode', 'zip', 'pincode'],
+        'country' => ['country'],
+        'telephone' => ['telephone', 'phone', 'mobile'],
+        'email' => ['email']
+    ];
+
+    foreach ($map as $target => $keys) {
+        foreach ($keys as $key) {
+            $value = trim((string) ($address[$key] ?? ''));
+            if ($value === '') {
+                $value = trim((string) ($fallback[$key] ?? ''));
+            }
+            if ($value !== '') {
+                $normalized[$target] = $value;
+                break;
+            }
+        }
+    }
+
+    return $normalized;
+}
+
+function defaultAddress(): array
 {
     return [
         'full_name' => getenv('EVERSHOP_BILLING_NAME') ?: 'Nivis Test Customer',
         'address_1' => getenv('EVERSHOP_BILLING_ADDRESS1') ?: '123 Main Street',
+        'address_2' => getenv('EVERSHOP_BILLING_ADDRESS2') ?: '',
+        'city' => getenv('EVERSHOP_BILLING_CITY') ?: 'Bengaluru',
         'province' => getenv('EVERSHOP_BILLING_PROVINCE') ?: 'KA',
         'country' => getenv('EVERSHOP_BILLING_COUNTRY') ?: 'IN',
         'postcode' => getenv('EVERSHOP_BILLING_POSTCODE') ?: '560001',
-        'telephone' => getenv('EVERSHOP_BILLING_PHONE') ?: null
+        'telephone' => getenv('EVERSHOP_BILLING_PHONE') ?: null,
+        'email' => getenv('EVERSHOP_BILLING_EMAIL') ?: null
+    ];
+}
+
+function addressIsComplete(array $address): bool
+{
+    return !empty($address['full_name'])
+        && !empty($address['address_1'])
+        && !empty($address['city'])
+        && !empty($address['province'])
+        && !empty($address['postcode'])
+        && !empty($address['country']);
+}
+
+function pickShippingMethod(array $methods): ?array
+{
+    if ($methods === []) {
+        return null;
+    }
+
+    usort($methods, static function (array $left, array $right): int {
+        $leftCost = (float) ($left['cost']['value'] ?? PHP_FLOAT_MAX);
+        $rightCost = (float) ($right['cost']['value'] ?? PHP_FLOAT_MAX);
+        return $leftCost <=> $rightCost;
+    });
+
+    return $methods[0] ?? null;
+}
+
+function fallbackShippingMethod(): ?array
+{
+    $code = trim((string) (getenv('EVERSHOP_FALLBACK_SHIPPING_METHOD_CODE') ?: ''));
+    if ($code === '') {
+        return null;
+    }
+
+    return [
+        'id' => trim((string) (getenv('EVERSHOP_FALLBACK_SHIPPING_METHOD_ID') ?: $code)),
+        'code' => $code,
+        'name' => trim((string) (getenv('EVERSHOP_FALLBACK_SHIPPING_METHOD_NAME') ?: 'Standard Shipping')),
+        'cost' => [
+            'value' => (float) (getenv('EVERSHOP_FALLBACK_SHIPPING_METHOD_AMOUNT') ?: 0),
+            'text' => trim((string) (getenv('EVERSHOP_FALLBACK_SHIPPING_METHOD_TEXT') ?: 'Calculated at confirmation'))
+        ]
     ];
 }
 
@@ -102,105 +321,110 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $input = json_decode(file_get_contents('php://input'), true);
+$cartId = trim((string) ($input['cart_id'] ?? ''));
 $items = is_array($input['items'] ?? null) ? $input['items'] : [];
+$createCartPayload = null;
 
-if ($items === []) {
-    jsonResponse(['success' => false, 'message' => 'Cart total is empty.'], 400);
-}
-
-$cartItems = [];
-$cartItemLabels = [];
-foreach ($items as $item) {
-    if (!is_array($item)) {
-        continue;
+if ($cartId === '') {
+    if ($items === []) {
+        jsonResponse(['success' => false, 'message' => 'Cart total is empty.'], 400);
     }
 
-    $sku = normalizeSku($item);
-    $quantity = max(1, (int) ($item['quantity'] ?? $item['qty'] ?? 1));
+    $availableCatalog = fetchAvailableCatalogItems(rtrim(EVERSHOP_API_BASE_URL, '/'));
 
-    if ($sku === '') {
-        jsonResponse([
-            'success' => false,
-            'message' => 'Each cart item must include a SKU.'
-        ], 400);
-    }
-
-    $cartItems[] = [
-        'sku' => $sku,
-        'qty' => $quantity
-    ];
-    $cartItemLabels[] = [
-        'sku' => $sku,
-        'name' => trim((string) ($item['name'] ?? $item['product_name'] ?? $sku))
-    ];
-}
-
-if ($cartItems === []) {
-    jsonResponse(['success' => false, 'message' => 'Cart total is empty.'], 400);
-}
-
-$availableSkus = fetchAvailableSkus(rtrim(EVERSHOP_API_BASE_URL, '/'));
-if ($availableSkus !== []) {
-    $missingItems = [];
-    foreach ($cartItemLabels as $cartItem) {
-        $lookupKey = strtoupper($cartItem['sku']);
-        if (!isset($availableSkus[$lookupKey])) {
-            $missingItems[] = $cartItem;
+    $cartItems = [];
+    foreach ($items as $item) {
+        if (!is_array($item)) {
+            continue;
         }
+
+        $resolvedCatalogItem = $availableCatalog !== [] ? resolveCatalogItem($item, $availableCatalog) : null;
+        $resolvedSku = trim((string) (
+            $resolvedCatalogItem['sku'] ??
+            $resolvedCatalogItem['id'] ??
+            $resolvedCatalogItem['urlKey'] ??
+            normalizeSku($item)
+        ));
+        $quantity = max(1, (int) ($item['quantity'] ?? $item['qty'] ?? 1));
+
+        if ($resolvedSku === '' || ($availableCatalog !== [] && !$resolvedCatalogItem)) {
+            jsonResponse([
+                'success' => false,
+                'message' => $resolvedSku === ''
+                    ? 'Each cart item must include a SKU or a resolvable product identifier.'
+                    : 'These items are not available in the connected Evershop catalog.'
+            ], 400);
+        }
+
+        $cartItems[] = [
+            'sku' => $resolvedSku,
+            'qty' => $quantity
+        ];
     }
 
-    if ($missingItems !== []) {
-        $missingLabel = implode(', ', array_map(static function (array $item): string {
-            $label = $item['name'];
-            if ($label !== '' && strcasecmp($label, $item['sku']) !== 0) {
-                return $label . ' (' . $item['sku'] . ')';
-            }
+    if ($cartItems === []) {
+        jsonResponse(['success' => false, 'message' => 'Cart total is empty.'], 400);
+    }
 
-            return $item['sku'];
-        }, $missingItems));
+    $createCartPayload = [
+        'items' => $cartItems
+    ];
 
-        jsonResponse([
-            'success' => false,
-            'message' => 'These items are not available in the connected Evershop catalog: ' . $missingLabel . '.',
-            'error' => [
-                'missing_items' => $missingItems,
-                'catalog_hint' => 'The local Evershop backend appears to contain only its sample products. Import the Nivis catalog or add a SKU mapping before checkout.'
-            ]
-        ], 400);
+    if (!empty($input['customer_full_name'])) {
+        $createCartPayload['customer_full_name'] = trim((string) $input['customer_full_name']);
+    }
+
+    if (!empty($input['customer_email'])) {
+        $createCartPayload['customer_email'] = trim((string) $input['customer_email']);
+    }
+
+    $customerPhone = trim((string) ($input['customer_phone'] ?? ''));
+    if ($customerPhone !== '') {
+        $createCartPayload['customer_phone'] = $customerPhone;
     }
 }
 
-$createCartPayload = [
-    'items' => $cartItems
-];
+$defaultAddress = defaultAddress();
+$billingAddressInput = is_array($input['billing_address'] ?? null) ? $input['billing_address'] : [];
+$shippingAddressInput = is_array($input['shipping_address'] ?? null) ? $input['shipping_address'] : [];
+$billingAddress = sanitizeAddress($billingAddressInput, $defaultAddress);
+$shippingAddress = sanitizeAddress($shippingAddressInput, $billingAddress ?: $defaultAddress);
 
-if (!empty($input['customer_full_name'])) {
-    $createCartPayload['customer_full_name'] = trim((string) $input['customer_full_name']);
+if (!addressIsComplete($billingAddress)) {
+    jsonResponse([
+        'success' => false,
+        'message' => 'Please fill in all required billing address fields.'
+    ], 400);
 }
 
-if (!empty($input['customer_email'])) {
-    $createCartPayload['customer_email'] = trim((string) $input['customer_email']);
+if (!addressIsComplete($shippingAddress)) {
+    jsonResponse([
+        'success' => false,
+        'message' => 'Please fill in all required shipping address fields.'
+    ], 400);
 }
 
 $baseUrl = rtrim(EVERSHOP_API_BASE_URL, '/');
 
-$cartResult = postJson($baseUrl . '/api/carts', $createCartPayload);
-$cartDecoded = json_decode((string) $cartResult['response'], true);
+if ($cartId === '') {
+    $cartResult = postJson($baseUrl . '/api/carts', $createCartPayload);
+    $cartDecoded = json_decode((string) $cartResult['response'], true);
 
-if ($cartResult['error']) {
-    jsonResponse([
-        'success' => false,
-        'message' => 'Unable to connect to Evershop cart service: ' . $cartResult['error']
-    ], 500);
-}
+    if ($cartResult['error']) {
+        jsonResponse([
+            'success' => false,
+            'message' => 'Unable to connect to Evershop cart service: ' . $cartResult['error']
+        ], 500);
+    }
 
-$cartId = $cartDecoded['data']['cartId'] ?? $cartDecoded['data']['cart_id'] ?? null;
-if ($cartResult['http_code'] < 200 || $cartResult['http_code'] >= 300 || !$cartId) {
-    jsonResponse([
-        'success' => false,
-        'message' => $cartDecoded['error']['message'] ?? 'Evershop cart creation failed.',
-        'error' => $cartDecoded
-    ], 500);
+    $cartId = $cartDecoded['data']['cartId'] ?? $cartDecoded['data']['cart_id'] ?? null;
+    if ($cartResult['http_code'] < 200 || $cartResult['http_code'] >= 300 || !$cartId) {
+        jsonResponse([
+            'success' => false,
+            'message' => $cartDecoded['error']['message'] ?? 'Evershop cart creation failed.',
+            'error' => $cartDecoded
+        ], 500);
+    }
 }
 
 $paymentMethodResult = postJson($baseUrl . "/api/carts/{$cartId}/paymentMethods", [
@@ -226,7 +450,7 @@ if ($paymentMethodResult['http_code'] < 200 || $paymentMethodResult['http_code']
 
 $billingAddressResult = postJson($baseUrl . "/api/carts/{$cartId}/addresses", [
     'type' => 'billing',
-    'address' => array_filter(defaultBillingAddress(), static function ($value) {
+    'address' => array_filter($billingAddress, static function ($value) {
         return $value !== null && $value !== '';
     })
 ]);
@@ -245,6 +469,25 @@ if ($billingAddressResult['http_code'] < 200 || $billingAddressResult['http_code
         'message' => $billingAddressDecoded['error']['message'] ?? 'Unable to set billing address on the Evershop cart.',
         'error' => $billingAddressDecoded
     ], 500);
+}
+
+$shippingWarning = null;
+if ($shippingAddress !== []) {
+    $shippingAddressResult = postJson($baseUrl . "/api/carts/{$cartId}/addresses", [
+        'type' => 'shipping',
+        'address' => array_filter($shippingAddress, static function ($value) {
+            return $value !== null && $value !== '';
+        })
+    ]);
+    $shippingAddressDecoded = json_decode((string) $shippingAddressResult['response'], true);
+
+    if ($shippingAddressResult['error']) {
+        $shippingWarning = 'Unable to connect to Evershop shipping address service: ' . $shippingAddressResult['error'];
+    }
+
+    if ($shippingWarning === null && ($shippingAddressResult['http_code'] < 200 || $shippingAddressResult['http_code'] >= 300 || !empty($shippingAddressDecoded['error']))) {
+        $shippingWarning = $shippingAddressDecoded['error']['message'] ?? 'Shipping address could not be validated for this cart.';
+    }
 }
 
 $orderResult = postJson($baseUrl . '/api/orders', [
@@ -296,6 +539,7 @@ jsonResponse([
     'order_id' => $orderId,
     'cart_id' => $cartId,
     'gateway' => $gateway,
-    'company' => RAZORPAY_COMPANY_NAME
+    'company' => RAZORPAY_COMPANY_NAME,
+    'shipping_warning' => $shippingWarning
 ]);
 ?>
