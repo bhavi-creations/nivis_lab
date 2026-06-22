@@ -232,6 +232,10 @@ window.getCart = async (...args) => (await GraphQLClient.getCart(...args)).data;
 
 const NivisCart = {
   key: 'nivis_lab_cart',
+  cartIdKey: 'nivis_lab_evershop_cart_id',
+  syncEndpoint: 'evershop_cart.php',
+  pendingSync: null,
+  syncQueue: null,
 
   read() {
     try {
@@ -247,6 +251,132 @@ const NivisCart = {
     window.dispatchEvent(new CustomEvent('nivis-cart:updated', {
       detail: this.toCart(items),
     }));
+  },
+
+  getStoredCartId() {
+    return String(localStorage.getItem(this.cartIdKey) || '').trim() || null;
+  },
+
+  setStoredCartId(cartId) {
+    if (cartId) {
+      localStorage.setItem(this.cartIdKey, String(cartId));
+    } else {
+      localStorage.removeItem(this.cartIdKey);
+    }
+  },
+
+  async requestProxy(payload = {}, method = 'POST') {
+    const response = await fetch(this.syncEndpoint, {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'same-origin',
+      body: method === 'GET' ? undefined : JSON.stringify(payload),
+    });
+
+    const text = await response.text();
+    let json = null;
+
+    if (text) {
+      try {
+        json = JSON.parse(text);
+      } catch (error) {
+        throw new Error(`Invalid response from ${this.syncEndpoint} (${response.status})`);
+      }
+    }
+
+    if (!response.ok) {
+      const message = json?.message || json?.error?.message || response.statusText || 'Request failed';
+      throw new Error(message);
+    }
+
+    return json || {};
+  },
+
+  async getCartId() {
+    const storedId = this.getStoredCartId();
+    if (storedId) {
+      return storedId;
+    }
+
+    try {
+      const result = await this.requestProxy({}, 'GET');
+      const cartId = String(result.cart_id || '').trim();
+      if (cartId) {
+        this.setStoredCartId(cartId);
+        return cartId;
+      }
+    } catch (error) {
+      console.warn('Unable to fetch EverShop cart id:', error);
+    }
+
+    return null;
+  },
+
+  async syncRemote(items = this.read(), extra = {}) {
+    const normalizedItems = Array.isArray(items) ? items : [];
+    if (normalizedItems.length === 0) {
+      await this.clearRemote();
+      return null;
+    }
+
+    const payload = {
+      action: 'sync',
+      items: normalizedItems.map((item) => ({
+        id: item.id || '',
+        sku: String(item.sku || item.productSku || item.productCode || item.id || '').trim(),
+        qty: Math.max(1, Number(item.quantity || item.qty || 1)),
+      })),
+    };
+
+    if (extra.customer_full_name) payload.customer_full_name = extra.customer_full_name;
+    if (extra.customer_email) payload.customer_email = extra.customer_email;
+
+    const result = await this.requestProxy(payload);
+    const cartId = String(result.cart_id || '').trim();
+    if (cartId) {
+      this.setStoredCartId(cartId);
+    }
+    return cartId || null;
+  },
+
+  queueSync(extra = {}) {
+    this.syncQueue = {
+      items: this.read(),
+      extra,
+    };
+
+    if (this.pendingSync) {
+      return this.pendingSync;
+    }
+
+    this.pendingSync = (async () => {
+      while (this.syncQueue) {
+        const next = this.syncQueue;
+        this.syncQueue = null;
+
+        try {
+          await this.syncRemote(next.items, next.extra);
+        } catch (error) {
+          console.warn('Unable to sync EverShop cart:', error);
+        }
+      }
+      return null;
+    })().finally(() => {
+      this.pendingSync = null;
+    });
+
+    return this.pendingSync;
+  },
+
+  async refresh(extra = {}) {
+    const items = this.read();
+    if (items.length > 0) {
+      return await this.syncRemote(items, extra);
+    }
+
+    return await this.getCartId();
   },
 
   add(item, quantity = 1) {
@@ -276,6 +406,7 @@ const NivisCart = {
     }
 
     this.write(items);
+    void this.queueSync().catch(() => {});
     return this.toCart(items);
   },
 
@@ -292,11 +423,23 @@ const NivisCart = {
     }
 
     this.write(items);
+    void this.queueSync().catch(() => {});
     return this.toCart(items);
+  },
+
+  async clearRemote() {
+    try {
+      await this.requestProxy({ action: 'clear' });
+    } catch (error) {
+      console.warn('Unable to clear EverShop cart id:', error);
+    } finally {
+      this.setStoredCartId(null);
+    }
   },
 
   clear() {
     this.write([]);
+    void this.clearRemote();
   },
 
   count(items = this.read()) {

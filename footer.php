@@ -196,13 +196,13 @@
                     <strong>${formatPrice(totalAmount)}</strong>
                 </div>
                 <div class="d-grid gap-2">
-                    <button type="button" class="btn btn-dark" id="razorpayCheckoutBtn">Go to Checkout</button>
+                    <button type="button" class="btn btn-dark" id="checkoutPageBtn">Proceed to Checkout</button>
                 </div>
             </div>
         `;
     }
 
-    async function startRazorpayCheckout() {
+    function goToCheckoutPage() {
         if (!window.NivisCart) return;
 
         const cart = window.NivisCart.toCart();
@@ -211,88 +211,7 @@
             return;
         }
 
-        const checkoutItems = cart.items.map(item => ({
-            sku: item.sku || item.productSku || item.productCode || item.id,
-            qty: Math.max(1, Number(item.quantity || 1))
-        }));
-
-        const checkoutBtn = document.getElementById('razorpayCheckoutBtn');
-        if (checkoutBtn) {
-            checkoutBtn.disabled = true;
-            checkoutBtn.textContent = 'Opening Checkout...';
-        }
-
-        try {
-            const orderResponse = await fetch('create_razorpay_order.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    items: checkoutItems
-                })
-            });
-            const orderResult = await orderResponse.json();
-
-            if (!orderResult.success || !orderResult.gateway?.razorpayOrderId || !orderResult.gateway?.keyId || !orderResult.order_id) {
-                throw new Error(orderResult.message || 'Unable to create Razorpay order.');
-            }
-
-            const options = {
-                key: orderResult.gateway.keyId,
-                amount: orderResult.gateway.amount,
-                currency: orderResult.gateway.currency || 'INR',
-                name: orderResult.company || 'Nivis Labs',
-                description: `${cart.count} item${cart.count !== 1 ? 's' : ''}`,
-                order_id: orderResult.gateway.razorpayOrderId,
-                theme: {
-                    color: '#0a2b4a'
-                },
-                handler: async function(response) {
-                    const verifyResponse = await fetch('verify_razorpay_payment.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            order_id: orderResult.order_id,
-                            razorpay_payment_id: response.razorpay_payment_id,
-                            razorpay_order_id: response.razorpay_order_id,
-                            razorpay_signature: response.razorpay_signature
-                        })
-                    });
-                    const verifyResult = await verifyResponse.json();
-
-                    if (!verifyResult.success) {
-                        alert(verifyResult.message || 'Payment verification failed.');
-                        return;
-                    }
-
-                    window.NivisCart.clear();
-                    renderCart();
-                    alert('Payment successful. Thank you for your order.');
-                    if (cartOffcanvas) cartOffcanvas.hide();
-                },
-                modal: {
-                    ondismiss: function() {
-                        if (checkoutBtn) {
-                            checkoutBtn.disabled = false;
-                            checkoutBtn.textContent = 'Go to Checkout';
-                        }
-                    }
-                }
-            };
-
-            const razorpay = new Razorpay(options);
-            razorpay.open();
-        } catch (error) {
-            alert(error.message || 'Unable to open Razorpay checkout.');
-        } finally {
-            if (checkoutBtn) {
-                checkoutBtn.disabled = false;
-                checkoutBtn.textContent = 'Go to Checkout';
-            }
-        }
+        window.location.href = 'checkout.php';
     }
 
     function openCartDrawer() {
@@ -319,10 +238,10 @@
         cartDrawerEl.addEventListener('show.bs.offcanvas', renderCart);
 
         document.body.addEventListener('click', event => {
-            const checkoutButton = event.target.closest('#razorpayCheckoutBtn');
+            const checkoutButton = event.target.closest('#checkoutPageBtn');
             if (checkoutButton) {
                 event.preventDefault();
-                startRazorpayCheckout();
+                goToCheckoutPage();
                 return;
             }
 
