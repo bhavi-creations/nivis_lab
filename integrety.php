@@ -211,6 +211,17 @@
       let activeCategory = "all";
       let currentPage = 1;
 
+      function ingredientProductLink(item) {
+        const slug = String(item.name || "")
+          .toLowerCase()
+          .replace(/\([^)]*\)/g, "")
+          .replace(/®|™/g, "")
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "");
+
+        return `category.php?category=${encodeURIComponent(slug || item.link.replace(/\.php$/i, ""))}`;
+      }
+
       function filtered() {
         return activeCategory === "all" ?
           ingredients :
@@ -240,7 +251,7 @@
           card.style.animationDelay = (idx * 40) + "ms";
 
           card.innerHTML = `
-        <a href="${item.link}" style="text-decoration:none; color:inherit; display:block; height:100%;">
+        <a href="${ingredientProductLink(item)}" style="text-decoration:none; color:inherit; display:block; height:100%;">
           
           <div class="ing-card__img-placeholder" style="background:${item.bg}">
             ${item.emoji}

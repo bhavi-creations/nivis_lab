@@ -164,6 +164,13 @@ function normalizeProduct($product)
         }
     }
 
+    foreach (($product["images"] ?? []) as $image) {
+        $imageUrl = is_array($image) ? ($image["url"] ?? $image["path"] ?? $image["src"] ?? null) : $image;
+        if ($imageUrl) {
+            $images[] = normalizeImageUrl($imageUrl);
+        }
+    }
+
     foreach ($gallery as $image) {
         $galleryUrl = is_array($image) ? ($image["url"] ?? $image["path"] ?? $image["src"] ?? null) : $image;
         if ($galleryUrl) {
@@ -334,18 +341,27 @@ function productMatches($product, $productKey)
 
 function findProductInCache($productKey)
 {
+    $bestProduct = null;
+    $bestImageCount = 0;
+
     foreach (glob(__DIR__ . "/cache/category-products-v*.json") ?: [] as $file) {
         $payload = json_decode(file_get_contents($file), true);
         $products = $payload["products"] ?? [];
 
         foreach ($products as $product) {
             if (productMatches($product, $productKey)) {
-                return normalizeProduct($product);
+                $normalizedProduct = normalizeProduct($product);
+                $imageCount = count($normalizedProduct["images"] ?? []);
+
+                if ($imageCount > $bestImageCount) {
+                    $bestProduct = $normalizedProduct;
+                    $bestImageCount = $imageCount;
+                }
             }
         }
     }
 
-    return null;
+    return $bestProduct;
 }
 
 if ($productKey === "") {

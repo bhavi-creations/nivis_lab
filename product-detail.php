@@ -16,6 +16,10 @@
   .product-detail-page .info-tab.active {
     border-bottom-color: #1a1a1a;
   }
+
+  .product-detail-page .arrow-zone.is-hidden {
+    display: none;
+  }
 </style>
 
 <main class="container">
@@ -88,6 +92,7 @@
   let currentProduct = null;
   let galleryImages = [];
   let currentImageIndex = 0;
+  let galleryTimer = null;
 
   function escapeHtml(value) {
     return String(value ?? '').replace(/[&<>"']/g, char => ({
@@ -145,21 +150,59 @@
     });
   }
 
+  function stopGalleryAutoSlide() {
+    clearInterval(galleryTimer);
+    galleryTimer = null;
+  }
+
+  function startGalleryAutoSlide() {
+    stopGalleryAutoSlide();
+    if (galleryImages.length > 1) {
+      galleryTimer = setInterval(() => setImage(currentImageIndex + 1), 3000);
+    }
+  }
+
+  function goToGalleryImage(index) {
+    setImage(index);
+    startGalleryAutoSlide();
+  }
+
+  function isPlaceholderImage(image) {
+    return String(image || '').toLowerCase().includes('/assets/img/product.webp') ||
+      String(image || '').toLowerCase().endsWith('assets/img/product.webp');
+  }
+
   function renderGallery(product) {
-    galleryImages = Array.isArray(product.images) && product.images.length
-      ? product.images
-      : [product.imageUrl || './assets/img/product.webp'];
+    galleryImages = [
+      ...(Array.isArray(product.images) ? product.images : []),
+      product.imageUrl,
+      product.primaryImage,
+      product.secondaryImageUrl
+    ].filter(Boolean).filter((image, index, list) => list.indexOf(image) === index);
+
+    const realImages = galleryImages.filter(image => !isPlaceholderImage(image));
+    if (realImages.length) {
+      galleryImages = realImages;
+    }
+
+    if (!galleryImages.length) {
+      galleryImages = ['./assets/img/product.webp'];
+    }
 
     const thumbCol = document.getElementById('thumbCol');
     thumbCol.innerHTML = galleryImages.map((image, index) => `
-      <img class="thumb-item${index === 0 ? ' active' : ''}" src="${escapeHtml(image)}" alt="${escapeHtml(product.name || 'Product')} image ${index + 1}" />
+      <img class="thumb-item${index === 0 ? ' active' : ''}" src="${escapeHtml(image)}" alt="${escapeHtml(product.name || 'Product')} image ${index + 1}" onerror="this.onerror=null;this.src='./assets/img/product.webp';" />
     `).join('');
 
     thumbCol.querySelectorAll('img').forEach((thumb, index) => {
-      thumb.addEventListener('click', () => setImage(index));
+      thumb.addEventListener('click', () => goToGalleryImage(index));
     });
 
+    document.getElementById('arrowLeft')?.classList.toggle('is-hidden', galleryImages.length < 2);
+    document.getElementById('arrowRight')?.classList.toggle('is-hidden', galleryImages.length < 2);
+
     setImage(0);
+    startGalleryAutoSlide();
   }
 
   function renderBenefits(product) {
@@ -292,7 +335,7 @@
       <div class="row">
         ${products.map(product => {
           const image = (product.images && product.images[0]) || product.imageUrl || './assets/img/product.webp';
-          const key = product.id || product.sku || product.urlKey || product.url_key || product.name || '';
+          const key = product.urlKey || product.url_key || product.sku || product.id || product.name || '';
           const priceValue = product.priceNumber || priceNumber(product.price);
 
           return `
@@ -320,8 +363,10 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('arrowLeft')?.addEventListener('click', () => setImage(currentImageIndex - 1));
-    document.getElementById('arrowRight')?.addEventListener('click', () => setImage(currentImageIndex + 1));
+    document.getElementById('arrowLeft')?.addEventListener('click', () => goToGalleryImage(currentImageIndex - 1));
+    document.getElementById('arrowRight')?.addEventListener('click', () => goToGalleryImage(currentImageIndex + 1));
+    document.getElementById('imgSection')?.addEventListener('mouseenter', stopGalleryAutoSlide);
+    document.getElementById('imgSection')?.addEventListener('mouseleave', startGalleryAutoSlide);
     document.getElementById('addToCartBtn')?.addEventListener('click', addCurrentProductToCart);
 
     document.querySelectorAll('.info-tab').forEach(tab => {

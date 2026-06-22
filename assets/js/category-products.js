@@ -60,7 +60,7 @@
     }
 
     async function fetchCategoryProducts(category) {
-        const cacheKey = `category-products:v8:${category}`;
+        const cacheKey = `category-products:v10:${category}`;
         const cacheTtl = 10000;
         const cached = sessionStorage.getItem(cacheKey);
 
@@ -462,7 +462,7 @@
         const fallbackImage = './assets/img/product.webp';
         const primaryImage = (product.images && product.images.length > 0) ? product.images[0] : (product.imageUrl || fallbackImage);
         const secondaryImage = (product.images && product.images.length > 1) ? product.images[1] : (product.secondaryImageUrl || primaryImage);
-        const productKey = product.id || product.sku || product.urlKey || product.name || '';
+        const productKey = product.urlKey || product.url_key || product.sku || product.id || product.name || '';
         const detailHref = `product-detail.php?product=${encodeURIComponent(productKey)}`;
         const productSize = product.size ? `Quantity: ${product.size}` : '';
         const priceNumber = productPriceNumber(product);

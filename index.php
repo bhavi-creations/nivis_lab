@@ -18,8 +18,8 @@
     </svg>
 
     <div class="index_img_section__slides" id="indexHeroSlides">
-        <a class="index_img_section__slide active" href="products.php" style="--hero-img: url('./assets/img/1.png');">
-            <img class="index_img_section__product" src="./assets/img/1.png" alt="Nivis Labs slide 1" onerror="this.src='./assets/img/1.png';" />
+        <a class="index_img_section__slide active" href="products.php" style="--hero-img: url('./assets/img/2.png');">
+            <img class="index_img_section__product" src="./assets/img/2.png" alt="Nivis Labs slide 1" onerror="this.src='./assets/img/2.png';" />
             <!-- <div class="index_img_section__content">
                 <span class="index_img_section__new-tag">New Launch</span>
                 <h1 class="index_img_section__title">Panthenol<br />Hydrating Gel<br />Sunscreen</h1>
@@ -32,8 +32,8 @@
             <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
         </a>
 
-        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/2.png');">
-            <img class="index_img_section__product" src="./assets/img/2.png" alt="Nivis Labs slide 2" onerror="this.src='./assets/img/2.png';" />
+        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/3.png');">
+            <img class="index_img_section__product" src="./assets/img/3.png" alt="Nivis Labs slide 2" onerror="this.src='./assets/img/3.png';" />
             <!-- <div class="index_img_section__content">
                 <span class="index_img_section__new-tag">Daily Protection</span>
                 <h1 class="index_img_section__title">Sun Care<br />That Feels<br />Light</h1>
@@ -46,8 +46,8 @@
             <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
         </a>
 
-        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/3.png');">
-            <img class="index_img_section__product" src="./assets/img/3.png" alt="Nivis Labs slide 3" onerror="this.src='./assets/img/3.png';" />
+        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/4.png');">
+            <img class="index_img_section__product" src="./assets/img/4.png" alt="Nivis Labs slide 3" onerror="this.src='./assets/img/4.png';" />
             <!-- <div class="index_img_section__content">
                 <span class="index_img_section__new-tag">Barrier Care</span>
                 <h1 class="index_img_section__title">Comforting<br />Moisture<br />Support</h1>
@@ -60,8 +60,8 @@
             <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
         </a>
 
-        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/bg_img.png');">
-            <img class="index_img_section__product" src="./assets/img/bg_img.png" alt="Nivis Labs slide 4" onerror="this.src='./assets/img/bg_img.png';" />
+        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/5.png');">
+            <img class="index_img_section__product" src="./assets/img/5.png" alt="Nivis Labs slide 4" onerror="this.src='./assets/img/5.png';" />
             <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
         </a>
 
@@ -138,7 +138,7 @@
         }
 
         function productHref(product) {
-            const key = product.id || product.sku || product.urlKey || product.url_key || product.name || '';
+            const key = product.urlKey || product.url_key || product.sku || product.id || product.name || '';
             return key ? `product-detail.php?product=${encodeURIComponent(key)}` : 'products.php';
         }
 
@@ -176,7 +176,7 @@
 
         function initSlides() {
             slides = Array.from(slidesWrap.querySelectorAll('.index_img_section__slide'));
-            dotsWrap.innerHTML = slides.map((_, index) => `<button type="button" aria-label="Show slide ${index + 1}">${index + 1}</button>`).join('');
+            dotsWrap.innerHTML = slides.map((_, index) => `<button type="button" aria-label="Show slide ${index + 1}"></button>`).join('');
             dotsWrap.querySelectorAll('button').forEach((dot, index) => {
                 dot.addEventListener('click', event => {
                     event.preventDefault();
@@ -611,15 +611,59 @@
             : (product.imageUrl || product.primaryImage || './assets/img/product.webp');
     }
 
+    function dermatFallbackProducts(type) {
+        const samples = {
+            acne: [
+                { name: 'Acne Control Treatment', urlKey: 'acne', category: 'Acne', concern: 'Acne', type: 'Treatment', priceNumber: 500, price: 'Rs. 500', imageUrl: './assets/img/acne.png' },
+                { name: 'Acne Marks Care', urlKey: 'acnemarks', category: 'Acne', concern: 'Acne Marks', type: 'Treatment', priceNumber: 520, price: 'Rs. 520', imageUrl: './assets/img/Acne Marks.png' }
+            ],
+            pigmentation: [
+                { name: 'Pigmentation Brightening Care', urlKey: 'pigmentation', category: 'Pigmentation', concern: 'Pigmentation', type: 'Treatment', priceNumber: 520, price: 'Rs. 520', imageUrl: './assets/img/Pigmentation.png' },
+                { name: 'Dark Spots Correcting Care', urlKey: 'dark-spots', category: 'Pigmentation', concern: 'Dark Spots', type: 'Treatment', priceNumber: 500, price: 'Rs. 500', imageUrl: './assets/img/Dark Spots.png' }
+            ],
+            'acne-marks': [
+                { name: 'Acne Marks Care', urlKey: 'acnemarks', category: 'Acne', concern: 'Acne Marks', type: 'Treatment', priceNumber: 520, price: 'Rs. 520', imageUrl: './assets/img/Acne Marks.png' },
+                { name: 'Post Acne Spot Care', urlKey: 'acne-marks', category: 'Acne', concern: 'Acne Marks', type: 'Treatment', priceNumber: 500, price: 'Rs. 500', imageUrl: './assets/img/acne.png' }
+            ],
+            'dark-spots': [
+                { name: 'Dark Spots Correcting Care', urlKey: 'dark-spots', category: 'Pigmentation', concern: 'Dark Spots', type: 'Treatment', priceNumber: 500, price: 'Rs. 500', imageUrl: './assets/img/Dark Spots.png' },
+                { name: 'Brightening Support Care', urlKey: 'pigmentation', category: 'Pigmentation', concern: 'Pigmentation', type: 'Treatment', priceNumber: 520, price: 'Rs. 520', imageUrl: './assets/img/Pigmentation.png' }
+            ],
+            'anti-ageing': [
+                { name: 'Anti-Aging Routine Care', urlKey: 'anti-aging', category: 'Anti-Aging', concern: 'Anti-Aging', type: 'Treatment', priceNumber: 540, price: 'Rs. 540', imageUrl: './assets/img/Anti-Aging.png' },
+                { name: 'Night Repair Cream', urlKey: 'korean-moon-light-night-cream', category: 'Night Cream', concern: 'Anti-Aging', type: 'Night Cream', priceNumber: 360, price: 'Rs. 360', imageUrl: './assets/img/night cream.jpeg' }
+            ],
+            dehydration: [
+                { name: 'Hydration Support Care', urlKey: 'dehydration', category: 'Dehydration', concern: 'Dehydration', type: 'Moisturizer', priceNumber: 500, price: 'Rs. 500', imageUrl: './assets/img/Dehydration.png' },
+                { name: 'Hydromist Moisturizing Spray', urlKey: 'hydromist-moisturizing-spray', category: 'Face Mist', concern: 'Dehydration', type: 'Spray', priceNumber: 260, price: 'Rs. 260', imageUrl: './assets/img/face spray.jpeg' }
+            ]
+        };
+
+        return (samples[type] || samples.acne).map(product => ({
+            ...product,
+            id: product.urlKey,
+            sku: product.urlKey,
+            images: [product.imageUrl],
+            subtitle: product.concern,
+            displayConcern: product.concern,
+            reviewsCount: '120',
+            boughtTag: 'Sample routine pick'
+        }));
+    }
+
     function dermatHasNivisImage(product) {
         const image = dermatProductImage(product);
         if (!image) return false;
 
         const normalized = String(image).toLowerCase();
-        return normalized.includes('localhost:3000') ||
-            normalized.includes('/assets/img/') &&
-            !normalized.includes('/assets/img/product.webp') &&
+        const isUsableImage = !normalized.includes('/assets/img/product.webp') &&
             !normalized.includes('/assets/img/logo.jpeg');
+
+        return isUsableImage &&
+            (normalized.includes('localhost:3000') ||
+            normalized.includes('/assets/img/') ||
+            /^https?:\/\//.test(normalized) ||
+            normalized.startsWith('./assets/img/'));
     }
 
     function dermatPriceNumber(product) {
@@ -915,11 +959,13 @@
         const contentArea = document.getElementById('routine-content');
         if (!contentArea) return;
 
-        const visibleProducts = mergeDermatProducts(type, products);
+        let visibleProducts = dermatConcernProductsFromAll(type, products);
+        if (!visibleProducts.length) {
+            visibleProducts = mergeDermatProducts(type, products);
+        }
 
         if (!visibleProducts.length) {
-            contentArea.innerHTML = '<p class="text-muted mb-0">No products found for this concern.</p>';
-            return;
+            visibleProducts = dermatFallbackProducts(type);
         }
 
         dermatCurrentType = type;
@@ -947,10 +993,8 @@
             const categoryProducts = categoryResult.data?.products || categoryResult.products || [];
             const allProducts = allResult.data?.products || allResult.products || [];
             dermatAllProducts = mergeDermatProducts('all', allProducts.length ? allProducts : categoryProducts);
-            renderDermatProducts(
-                type,
-                categoryProducts.length ? categoryProducts : dermatConcernProductsFromAll(type, dermatAllProducts)
-            );
+            const matchedProducts = dermatConcernProductsFromAll(type, dermatAllProducts);
+            renderDermatProducts(type, categoryProducts.length ? categoryProducts.concat(matchedProducts) : matchedProducts);
         } catch (error) {
             renderDermatProducts(type, []);
         }
@@ -1529,7 +1573,7 @@
         function spotlightProductCard(product) {
             const fallbackImage = './assets/img/logo.jpeg';
             const imageUrl = product.imageUrl || product.primaryImage || fallbackImage;
-            const productKey = product.id || product.sku || product.urlKey || product.url_key || product.name || '';
+            const productKey = product.urlKey || product.url_key || product.sku || product.id || product.name || '';
             const link = `product-detail.php?product=${encodeURIComponent(productKey)}`;
             const subtitle = product.subtitle || product.displayConcern || product.concern || product.category || 'Skincare';
             const size = product.size ? `<span class="spotlight-product-size">${escapeSpotlightHtml(product.size)}</span>` : '';

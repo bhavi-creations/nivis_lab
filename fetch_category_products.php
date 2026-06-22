@@ -210,6 +210,7 @@ function inferIngredientValue($product, $attributes)
         "panthenol" => "Panthenol",
         "vitamin c" => "Vitamin C",
         "vitamin-c" => "Vitamin C",
+        "ascorbic-acid" => "Vitamin C",
         "retinol" => "Retinol",
         "alpha arbutin" => "Alpha Arbutin",
         "alpha-arbutin" => "Alpha Arbutin",
@@ -229,6 +230,7 @@ function inferIngredientValue($product, $attributes)
         "n acetyl glucosamine" => "N Acetyl Glucosamine",
         "tasmanian pepper" => "Tasmanian Pepper",
         "tyrobright" => "Tyrobright",
+        "tyrobrigh" => "Tyrobright",
         "peptazin" => "Peptazin"
     ];
 
@@ -415,6 +417,17 @@ function normalizeProduct($product)
         $images[] = normalizeImageUrl($product["secondaryImage"]);
     }
 
+    if (!empty($product["secondaryImageUrl"])) {
+        $images[] = normalizeImageUrl($product["secondaryImageUrl"]);
+    }
+
+    foreach (($product["images"] ?? []) as $image) {
+        $imageUrl = is_array($image) ? ($image["url"] ?? $image["path"] ?? $image["src"] ?? null) : $image;
+        if ($imageUrl) {
+            $images[] = normalizeImageUrl($imageUrl);
+        }
+    }
+
     foreach ($gallery as $image) {
         $galleryUrl = is_array($image) ? ($image["url"] ?? $image["path"] ?? $image["src"] ?? null) : $image;
         if ($galleryUrl) {
@@ -511,7 +524,36 @@ function categoryAliases($slug)
         "brigthening" => ["brightening"]
     ];
 
-    return array_values(array_unique(array_merge([$slug], $map[$slug] ?? [])));
+    $ingredientAliases = [
+        "salicylic-acid" => ["salicylic-acid", "salicylic", "bha", "acne"],
+        "niacinamide" => ["niacinamide", "vitamin-b3"],
+        "hyaluronic-acid" => ["hyaluronic-acid", "hyaluronic", "hydrating", "hydration"],
+        "ceramide" => ["ceramide", "ceramides", "barrier"],
+        "ceramides" => ["ceramide", "ceramides", "barrier"],
+        "panthenol" => ["panthenol", "vitamin-b5", "hydrating"],
+        "vitamin-c" => ["vitamin-c", "ascorbic-acid", "brightening", "glow"],
+        "ascorbic-acid" => ["vitamin-c", "ascorbic-acid", "brightening", "glow"],
+        "retinol" => ["retinol", "anti-ageing", "anti-aging", "wrinkle"],
+        "alpha-arbutin" => ["alpha-arbutin", "arbutin", "pigmentation", "depigmentation", "dark-spots"],
+        "arbutin" => ["alpha-arbutin", "arbutin", "pigmentation", "depigmentation", "dark-spots"],
+        "centella-asiatica" => ["centella-asiatica", "centella", "cica", "soothing"],
+        "centella" => ["centella-asiatica", "centella", "cica", "soothing"],
+        "peptide" => ["peptide", "peptides", "anti-ageing", "anti-aging"],
+        "bakuchiol" => ["bakuchiol", "retinol", "anti-ageing", "anti-aging"],
+        "ferulic-acid" => ["ferulic-acid", "ferulic", "antioxidant", "vitamin-c"],
+        "squalane" => ["squalane", "hydration", "moisture"],
+        "shea-butter" => ["shea-butter", "shea", "hydration", "moisture"],
+        "coenzyme-q10" => ["coenzyme-q10", "coq10", "q10", "anti-ageing", "anti-aging"],
+        "pentavitin" => ["pentavitin", "hydration", "moisture"],
+        "polyglutamic-acid" => ["polyglutamic-acid", "pga", "hydration"],
+        "n-acetyl-glucosamine" => ["n-acetyl-glucosamine", "nag", "brightening", "pigmentation"],
+        "tasmanian-pepper" => ["tasmanian-pepper", "soothing", "redness"],
+        "tyrobright" => ["tyrobright", "tyrobrigh", "brightening", "pigmentation"],
+        "tyrobrigh" => ["tyrobright", "tyrobrigh", "brightening", "pigmentation"],
+        "peptazin" => ["peptazin", "peptide", "acne"]
+    ];
+
+    return array_values(array_unique(array_merge([$slug], $map[$slug] ?? [], $ingredientAliases[$slug] ?? [])));
 }
 
 function fetchCategories()
