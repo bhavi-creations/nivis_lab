@@ -1145,6 +1145,61 @@
 
 <!-- formulated sesction   -->
 <!-- explore  section stylings  -->
+<!-- <section class="video_section_wrapper">
+    <div class="container">
+        <h2 class="video_section_title">NIVIS LABS FORMULAS IN FOCUS</h2>
+        <div class="video_section_carousel">
+
+            <div class="px-2">
+                <div class="video_section_card">
+                    <div class="video_section_container">
+                        <video autoplay controls muted loop playsinline poster="./assets/img/reel_1.mp4">
+                            <source src="./assets/img/reel_1.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                   
+                </div>
+            </div>
+
+            <div class="px-2">
+                <div class="video_section_card">
+                    <div class="video_section_container">
+                        <video autoplay muted loop playsinline controls poster="./assets/img/reel_2.mp4">
+                            <source src="./assets/img/reel_2.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                   
+                </div>
+            </div>
+
+           <div class="px-2">
+                <div class="video_section_card">
+                    <div class="video_section_container">
+                        <video autoplay muted loop playsinline controls>
+                            <source src="./assets/img/reel_3.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                   
+                </div>
+            </div>
+
+            <div class="px-2">
+                <div class="video_section_card">
+                    <div class="video_section_container">
+                        <video autoplay muted loop playsinline controls>
+                            <source src="./assets/img/reel_4.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section> -->
+
+
 <section class="video_section_wrapper">
     <div class="container">
         <h2 class="video_section_title">NIVIS LABS FORMULAS IN FOCUS</h2>
@@ -1176,7 +1231,7 @@
                 <div class="video_section_card">
                     <div class="video_section_container">
                         <video autoplay muted loop playsinline controls poster="./assets/img/reel_2.mp4">
-                            <source src="./assets/img/reel_2.mp4" type="video/mp4">
+                            <source src="./assets/img/new_video_1.mp4" type="video/mp4">
                         </video>
                     </div>
                     <!-- <div class="video_section_product_info">
@@ -1195,7 +1250,7 @@
                 <div class="video_section_card">
                     <div class="video_section_container">
                         <video autoplay muted loop playsinline controls>
-                            <source src="./assets/img/reel_3.mp4" type="video/mp4">
+                            <source src="./assets/img/UV Aqua.mp4" type="video/mp4">
                         </video>
                     </div>
                     <!-- <div class="video_section_product_info">
@@ -1214,7 +1269,7 @@
                 <div class="video_section_card">
                     <div class="video_section_container">
                         <video autoplay muted loop playsinline controls>
-                            <source src="./assets/img/reel_4.mp4" type="video/mp4">
+                            <source src="./assets/img/nivis glow.mp4" type="video/mp4">
                         </video>
                     </div>
                     <!-- <div class="video_section_product_info">
@@ -1232,6 +1287,7 @@
         </div>
     </div>
 </section>
+
 
 <hr>
 
@@ -1378,13 +1434,14 @@
         <h5 class="text-uppercase ls-2 text-white">/NIVIS SKIN GUIDE/</h5>
         <h2 class="fw-bold mb-4">Clear answers for everyday skincare decisions</h2>
 
-        <div class="search-box mx-auto">
+        <div class="search-box mx-auto nivis-inline-search">
             <div class="input-group">
                 <span class="input-group-text bg-white border-0">
                     <i class="fa fa-search text-muted"></i>
                 </span>
-                <input type="text" class="form-control border-0" placeholder="Search Nivis skincare tips">
+                <input type="search" class="form-control border-0" id="indexGuideSearchInput" autocomplete="off" placeholder="Search products and categories">
             </div>
+            <div class="nivis-search-results nivis-search-results--inline" id="indexGuideSearchResults"></div>
         </div>
 
         <div class="d-flex flex-wrap justify-content-center mt-4">

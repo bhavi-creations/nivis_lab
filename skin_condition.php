@@ -32,7 +32,7 @@
                 <div class="col-md-4 card-item" data-category="acne">
                     <div class="skin_condition_card">
                         <div class="skin_condition_img_wrapper">
-                            <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&q=80&w=500" alt="Squalane">
+                            <img src="./assets/img/Squalane.png" alt="Squalane">
                         </div>
                         <div class="skin_condition_card_body">
                             <h3 class="skin_condition_card_title">Squalane</h3>
@@ -45,7 +45,7 @@
                 <div class="col-md-4 card-item" data-category="acne">
                     <div class="skin_condition_card">
                         <div class="skin_condition_img_wrapper">
-                            <img src="https://images.unsplash.com/photo-1612817288484-6f916006741a?auto=format&fit=crop&q=80&w=500" alt="Peptazin">
+                            <img src="./assets/img/Peptazin.png" alt="Peptazin">
                         </div>
                         <div class="skin_condition_card_body">
                             <h3 class="skin_condition_card_title">Peptazin™</h3>
@@ -58,7 +58,7 @@
                 <div class="col-md-4 card-item" data-category="lines">
                     <div class="skin_condition_card">
                         <div class="skin_condition_img_wrapper">
-                            <img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&q=80&w=500" alt="Bakuchiol">
+                            <img src="./assets/img/Bakuchiol.png" alt="Bakuchiol">
                         </div>
                         <div class="skin_condition_card_body">
                             <h3 class="skin_condition_card_title">Bakuchiol</h3>
@@ -71,7 +71,7 @@
                 <div class="col-md-4 card-item" data-category="eczema">
                     <div class="skin_condition_card">
                         <div class="skin_condition_img_wrapper">
-                            <img src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&q=80&w=500" alt="Tasmanian Pepper">
+                            <img src="./assets/img/retional.png" alt="Tasmanian Pepper">
                         </div>
                         <div class="skin_condition_card_body">
                             <h3 class="skin_condition_card_title">Retinol</h3>
@@ -84,7 +84,7 @@
                 <div class="col-md-4 card-item" data-category="brightening">
                     <div class="skin_condition_card">
                         <div class="skin_condition_img_wrapper">
-                            <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&q=80&w=500" alt="NAG">
+                            <img src="./assets/img/acne_new.png" alt="NAG">
                         </div>
                         <div class="skin_condition_card_body">
                             <h3 class="skin_condition_card_title">How To Treat Acne?</h3>
@@ -97,7 +97,7 @@
                 <div class="col-md-4 card-item" data-category="hydration">
                     <div class="skin_condition_card">
                         <div class="skin_condition_img_wrapper">
-                            <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&q=80&w=500" alt="Peptide">
+                            <img src="./assets/img/Acne Sequelae.png" alt="Peptide">
                         </div>
                         <div class="skin_condition_card_body">
                             <h3 class="skin_condition_card_title">How to Get Rid of Acne Sequelae (or Scars)?</h3>
@@ -110,7 +110,7 @@
                 <div class="col-md-4 card-item" data-category="brightening">
                     <div class="skin_condition_card">
                         <div class="skin_condition_img_wrapper">
-                            <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&q=80&w=500" alt="Vitamin C">
+                            <img src="./assets/img/Tasmanian Pepper.png" alt="Vitamin C">
                         </div>
                         <div class="skin_condition_card_body">
                             <h3 class="skin_condition_card_title">Tasmanian Pepper</h3>
@@ -123,7 +123,7 @@
                 <div class="col-md-4 card-item" data-category="hydration">
                     <div class="skin_condition_card">
                         <div class="skin_condition_img_wrapper">
-                            <img src="https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&q=80&w=500" alt="Hyaluronic Acid">
+                            <img src="./assets/img/N-Acetyl.png" alt="Hyaluronic Acid">
                         </div>
                         <div class="skin_condition_card_body">
                             <h3 class="skin_condition_card_title">N-Acetyl Glucosamine (NAG)</h3>
@@ -136,7 +136,7 @@
                 <div class="col-md-4 card-item" data-category="lines">
                     <div class="skin_condition_card">
                         <div class="skin_condition_img_wrapper">
-                            <img src="https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&q=80&w=500" alt="Retinol">
+                            <img src="./assets/img/Peptide.png" alt="Retinol">
                         </div>
                         <div class="skin_condition_card_body">
                             <h3 class="skin_condition_card_title">Peptide</h3>
@@ -150,7 +150,7 @@
                 <div class="col-md-4 card-item" data-category="pigmentation">
                     <div class="skin_condition_card">
                         <div class="skin_condition_img_wrapper">
-                            <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&q=80&w=500" alt="Vitamin C">
+                            <img src="./assets/img/Salicylic Acid.png" alt="Vitamin C">
                         </div>
                         <div class="skin_condition_card_body">
                             <h3 class="skin_condition_card_title">Salicylic Acid</h3>
@@ -164,7 +164,7 @@
                 <div class="col-md-4 card-item" data-category="pigmentation">
                     <div class="skin_condition_card">
                         <div class="skin_condition_img_wrapper">
-                            <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&q=80&w=500" alt="Vitamin C">
+                            <img src="./assets/img/Centella Asiatica (Cica).png" alt="Vitamin C">
                         </div>
                         <div class="skin_condition_card_body">
                             <h3 class="skin_condition_card_title">Centella Asiatica (Cica)</h3>
@@ -179,7 +179,7 @@
                 <div class="col-md-4 card-item" data-category="pigmentation">
                     <div class="skin_condition_card">
                         <div class="skin_condition_img_wrapper">
-                            <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&q=80&w=500" alt="Vitamin C">
+                            <img src="./assets/img/Niacinamide.png" alt="Vitamin C">
                         </div>
                         <div class="skin_condition_card_body">
                             <h3 class="skin_condition_card_title">Niacinamide</h3>

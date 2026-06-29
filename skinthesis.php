@@ -70,7 +70,7 @@
             <div class="col-md-4">
                 <div class="skinthesis-card h-100">
                     <div class="card-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1556228720-195a672e8a13?auto=format&fit=crop&q=80&w=600"
+                        <img src="./assets/img/Layer Skincare.png"
                             class="card-img-top" alt="Layer Skincare">
                     </div>
                     <div class="card-body p-4">
@@ -88,7 +88,7 @@
             <div class="col-md-4">
                 <div class="skinthesis-card h-100">
                     <div class="card-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1596755389378-7d0afac6b856?auto=format&fit=crop&q=80&w=600"
+                        <img src="./assets/img/Skin Type.png"
                             class="card-img-top" alt="Skin Type">
                     </div>
                     <div class="card-body p-4">
@@ -111,7 +111,7 @@
             <div class="col-md-4">
                 <div class="skinthesis-card h-100">
                     <div class="card-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc2069?auto=format&fit=crop&q=80&w=600"
+                        <img src="./assets/img/Skin Glow.png"
                             class="card-img-top" alt="Skin Glow">
                     </div>
                     <div class="card-body p-4">
@@ -129,7 +129,7 @@
             <div class="col-md-4">
                 <div class="skinthesis-card h-100">
                     <div class="card-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1581057390911-3fb39eb2b896?auto=format&fit=crop&q=80&w=600"
+                        <img src="./assets/img/acne_new.png"
                             class="card-img-top" alt="Treat Acne">
                     </div>
                     <div class="card-body p-4">
@@ -170,7 +170,7 @@
             <div class="col-md-4">
                 <div class="skinthesis-card h-100">
                     <div class="card-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=600"
+                        <img src="./assets/img/Squalane.png"
                             class="card-img-top" alt="Squalane">
                     </div>
                     <div class="card-body p-4">
@@ -188,7 +188,7 @@
             <div class="col-md-4">
                 <div class="skinthesis-card h-100">
                     <div class="card-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&q=80&w=600"
+                        <img src="./assets/img/Shea Butter.png"
                             class="card-img-top" alt="Shea Butter">
                     </div>
                     <div class="card-body p-4">
@@ -206,7 +206,7 @@
             <div class="col-md-4">
                 <div class="skinthesis-card h-100">
                     <div class="card-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&q=80&w=600"
+                        <img src="./assets/img/Peptazin.png"
                             class="card-img-top" alt="Peptazin">
                     </div>
                     <div class="card-body p-4">

@@ -17,7 +17,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="./assets/css/style.css?v=14">
+    <link rel="stylesheet" href="./assets/css/style.css?v=15">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
@@ -126,17 +126,7 @@
 
 
                 <li class="index_navbar_section__item">
-                    <a class="index_navbar_section__link" href="index.php">Home</a>
-                </li>
-
-
-                <li class="index_navbar_section__item">
-                    <a class="index_navbar_section__link" href="our-story.php">About Us</a>
-                </li>
-
-
-                <li class="index_navbar_section__item">
-                    <a class="index_navbar_section__link" href="products.php">Product</a>
+                    <a class="index_navbar_section__link" href="products.php">Category</a>
                     <ul class="index_navbar_section__dropdown" id="navbarCategoryDesktop">
                         <li>Loading categories...</li>
                     </ul>
@@ -157,6 +147,33 @@
                     </ul>
                 </li>
 
+                <li class="index_navbar_section__item">
+                    <a class="index_navbar_section__link" href="#">Concern</a>
+                    <ul class="index_navbar_section__dropdown" id="navbarConcernDesktop">
+                        <!-- Manual concern dropdown: edit these items directly when needed. -->
+                        <li><a href="brigthening.php">Brightening</a></li>
+                        <li><a href="acne.php">Acne</a></li>
+                        <li><a href="acne_marks.php">Acne Marks</a></li>
+                        <li><a href="pigmentation.php">Pigmentation</a></li>
+                        <li><a href="lines_and_wrinkles.php">Lines and Wrinkles</a></li>
+                        <li><a href="dehydration.php">Dehydration</a></li>
+                        <li><a href="eczema.php">Eczema</a></li>
+                    
+
+</ul>
+                </li>
+
+                <li class="index_navbar_section__item">
+                    <a class="index_navbar_section__link" href="our-story.php">The /PHD/ Story</a>
+                </li>
+
+                <li class="index_navbar_section__item">
+                    <a class="index_navbar_section__link" href="skinthesis.php">Skinthesis</a>
+                </li>
+
+                <li class="index_navbar_section__item">
+                    <a class="index_navbar_section__link" href="#" onclick="toggleRewards(event)">Rewards</a>
+                </li>
 
                 <li class="index_navbar_section__item">
                     <a class="index_navbar_section__link" href="contact.php">Contact Us</a>
@@ -166,7 +183,7 @@
 
 
             <div class="index_navbar_section__icons">
-                <button class="index_navbar_section__icon-btn" title="Search">
+                <button class="index_navbar_section__icon-btn" id="navbarSearchButton" type="button" title="Search" aria-label="Search products and categories">
                     <i class="bi bi-search"></i>
                 </button>
                 <button class="index_navbar_section__icon-btn" title="Account">
@@ -185,6 +202,20 @@
 
         </div>
     </header>
+
+    <div class="nivis-search-panel" id="navbarSearchPanel" aria-hidden="true">
+        <div class="nivis-search-panel__box">
+            <button class="nivis-search-panel__close" id="navbarSearchClose" type="button" aria-label="Close search">
+                <i class="bi bi-x-lg"></i>
+            </button>
+            <label class="nivis-search-panel__label" for="navbarSearchInput">Search products and categories</label>
+            <div class="nivis-search-field">
+                <i class="bi bi-search"></i>
+                <input id="navbarSearchInput" type="search" autocomplete="off" placeholder="Type product or category name">
+            </div>
+            <div class="nivis-search-results" id="navbarSearchResults"></div>
+        </div>
+    </div>
 
 
 
@@ -213,20 +244,10 @@
 
         <ul class="index_navbar_section__mob-list">
 
-            <!-- HOME -->
-            <li class="index_navbar_section__mob-item">
-                <a href="index.php" class="index_navbar_section__mob-plain">Home</a>
-            </li>
-
-            <!-- ABOUT US -->
-            <li class="index_navbar_section__mob-item">
-                <a href="our-story.php" class="index_navbar_section__mob-plain">About Us</a>
-            </li>
-
-            <!-- PRODUCT -->
+            <!-- CATEGORY -->
             <li class="index_navbar_section__mob-item" data-has-sub="true">
                 <div class="index_navbar_section__mob-row">
-                    <span class="index_navbar_section__mob-label">Product</span>
+                    <span class="index_navbar_section__mob-label">Category</span>
                     <span class="index_navbar_section__mob-plus"><i class="bi bi-plus"></i></span>
                 </div>
                 <ul class="index_navbar_section__mob-sub" id="navbarCategoryMobile">
@@ -252,6 +273,36 @@
                 </ul>
             </li>
 
+            <!-- CONCERN -->
+            <li class="index_navbar_section__mob-item" data-has-sub="true">
+                <div class="index_navbar_section__mob-row">
+                    <span class="index_navbar_section__mob-label">Concern</span>
+                    <span class="index_navbar_section__mob-plus"><i class="bi bi-plus"></i></span>
+                </div>
+                <ul class="index_navbar_section__mob-sub">
+                    <!-- Manual concern dropdown: keep this list same as desktop. -->
+                    <li><a href="acne.php">Acne</a></li>
+                    <li><a href="acne_marks.php">Acne Marks</a></li>
+                    <li><a href="pigmentation.php">Pigmentation</a></li>
+                    <li><a href="dehydration.php">Dehydration</a></li>
+                </ul>
+            </li>
+
+            <!-- THE /PHD/ STORY -->
+            <li class="index_navbar_section__mob-item">
+                <a href="our-story.php" class="index_navbar_section__mob-plain">The /PHD/ Story</a>
+            </li>
+
+            <!-- SKINTHESIS -->
+            <li class="index_navbar_section__mob-item">
+                <a href="skinthesis.php" class="index_navbar_section__mob-plain">Skinthesis</a>
+            </li>
+
+            <!-- REWARDS -->
+            <li class="index_navbar_section__mob-item">
+                <a href="#" class="index_navbar_section__mob-plain" onclick="toggleRewards(event)">Rewards</a>
+            </li>
+
             <!-- CONTACT US -->
             <li class="index_navbar_section__mob-item">
                 <a href="contact.php" class="index_navbar_section__mob-plain">Contact Us</a>
@@ -267,6 +318,7 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/js/graphql-client.js?v=5"></script>
+    <script src="./assets/js/search-suggestions.js?v=1"></script>
 
     <script>
         /* ─── Navbar scroll behaviour ─── */

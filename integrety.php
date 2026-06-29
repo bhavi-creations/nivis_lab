@@ -1,4 +1,4 @@
-<?php include 'navbar.php' ; ?>                                           
+<?php include 'navbar.php'; ?>
 
 <body class="">
 
@@ -32,6 +32,7 @@
           name: "Squalane",
           cat: "Hydration",
           link: "squalane.php",
+          image:"./assets/img/Squalane.png",
           emoji: "🟡",
           bg: "#f5e6b0",
           desc: "A lightweight, non-greasy oil that works wonders for your skin by locking in moisture, protecting the skin barrier, and keeping your complexion hydrated and balanced. Derived from..."
@@ -40,6 +41,7 @@
           name: "Shea Butter",
           cat: "Hydration",
           link: "shea_butter.php",
+          image:"./assets/img/Shea Butter.png",
           emoji: "🤍",
           bg: "#e8d5b0",
           desc: "Shea butter is a natural skincare powerhouse known for its ability to deeply moisturise, soothe dryness, and protect the skin barrier. Derived from the nuts of the African Shea tree, this rich butter is packed with..."
@@ -47,6 +49,7 @@
         {
           name: "Peptazin™",
           cat: "Hydration",
+          image:"./assets/img/Peptazin.png",
           link: "Peptazin.php",
           emoji: "💧",
           bg: "#d0e8f5",
@@ -56,6 +59,7 @@
           name: "Ceramides",
           cat: "Hydration",
           link: "ceramides.php",
+          image:"./assets/img/Ceramides .png",
           emoji: "🫧",
           bg: "#c8e8f0",
           desc: "Ceramides are the building blocks of your skin barrier, working like glue to hold skin cells together and lock in moisture. These natural fats help keep your skin hydrated, smooth, and"
@@ -64,6 +68,7 @@
           name: "Bakuchiol",
           cat: "Hydration",
           link: "bakuchiol.php",
+            image:"./assets/img/Bakuchiol.png",
           emoji: "🔵",
           bg: "#b8d8f0",
           desc: "Bakuchiol is a plant-based alternative to retinol, offering similar anti-aging benefits without irritation. Derived from the Babchi plant, this gentle yet powerful ingredient helps boost"
@@ -74,6 +79,7 @@
           name: "Retinol",
           cat: "Acne",
           link: "retinol.php",
+            image:"./assets/img/retional.png",
           emoji: "🔶",
           bg: "#f5c880",
           desc: "Retinol is a powerful Vitamin A derivative known for its ability to boost collagen, reduce wrinkles, clear acne, and improve skin texture. It works by speeding up skin renewal, unclogging pores, and evening out skin tone, making it a must-have"
@@ -82,6 +88,7 @@
           name: "Pentavitin®",
           cat: "Acne",
           link: "Pentavitin.php",
+           image:"./assets/img/retional.png",
           emoji: "🌸",
           bg: "#e0b0e8",
           desc: "Pentavitin® is a powerful moisture magnet that keeps your skin hydrated for up to 72 hours, making it an essential ingredient for dry, sensitive, and dehydrated skin. Unlike regular moisturizers, Pentavitin® binds to the skin’s natural proteins,"
@@ -90,6 +97,7 @@
           name: "Tyrobright™",
           cat: "Acne",
           link: "tyrobrigh.php",
+            image:"./assets/img/retional.png",
           emoji: "🟢",
           bg: "#b8e8c0",
           desc: "Discover Tyrobright™, a proprietary creation from the Nivis Labs council. It acts like a gentle ‘melanin vacuum,’ targeting stubborn dark spots to deliver a brighter, more even complexion—"
@@ -98,6 +106,7 @@
           name: "Tasmanian Pepper",
           cat: "Acne",
           link: "tasmanian_pepper.php",
+            image:"./assets/img/Tasmanian Pepper.png",
           emoji: "⚗️",
           bg: "#d0f0d0",
           desc: "Tasmanian Pepper is a powerful natural ingredient known for its ability to soothe irritation, reduce redness, and protect sensitive skin. Packed with antioxidants and anti-inflammatory"
@@ -108,6 +117,8 @@
           name: "N-Acetyl Glucosamine (NAG)",
           cat: "Brightening",
           link: "n_acetyl_glucosamine.php",
+            image:"./assets/img/N-Acetyl.png",
+          
           emoji: "💜",
           bg: "#d8c8f0",
           desc: "N-Acetyl Glucosamine (NAG) is a powerful yet gentle skincare ingredient that helps boost hydration, fade dark spots, smooth fine lines, and strengthen the skin barrier. Naturally found in the"
@@ -116,6 +127,7 @@
           name: "Peptide",
           cat: "Brightening",
           link: "peptide.php",
+            image:"./assets/img/Peptide.png",
           emoji: "🟠",
           bg: "#f5d8a0",
           desc: "Peptides are tiny but powerful building blocks that play a key role in keeping your skin firm, smooth, and youthful. Acting as messengers, peptides signal your skin to produce more"
@@ -124,6 +136,7 @@
           name: "Salicylic Acid",
           cat: "Brightening",
           link: "salicylic_acid.php",
+            image:"./assets/img/Salicylic Acid.png",
           emoji: "🌿",
           bg: "#c8f0d8",
           desc: "Salicylic Acid is a powerful skincare ingredient known for its ability to clear clogged pores, reduce acne, and smooth rough skin. Derived from willow bark, this Beta Hydroxy Acid (BHA)"
@@ -134,6 +147,7 @@
           name: "Centella Asiatica (Cica)",
           cat: "Lines and Wrinkles",
           link: "centella_asiatica.php ",
+            image:"./assets/img/Centella Asiatica (Cica).png",
           emoji: "🟡",
           bg: "#f0e8b0",
           desc: "Centella Asiatica, also known as Cica or Gotu Kola, is a powerful skin-healing ingredient that has been used for centuries to soothe irritation, reduce redness, and repair the skin barrier."
@@ -142,6 +156,7 @@
           name: "Panthenol",
           cat: "Lines and Wrinkles",
           link: "Panthenol.php",
+              image:"./assets/img/Anti-Aging.png",
           emoji: "🔗",
           bg: "#e0d8f0",
           desc: "Panthenol, a form of Vitamin B5, is a powerhouse ingredient that hydrates, soothes, and strengthens both skin and hair. Acting as a moisture magnet, it locks in hydration, softens"
@@ -150,6 +165,7 @@
           name: "Polyglutamic Acid (PGA)",
           cat: "Lines and Wrinkles",
           link: "polyglutamic_acid.php",
+            image:"./assets/img/acne.png",
           emoji: "⚡",
           bg: "#f0f0b8",
           desc: "Polyglutamic Acid (PGA) is a powerful hydration booster that helps your skin retain moisture, stay plump, and feel ultra-soft. Known for its ability to hold up to 5,000 times its weight in water, PGA"
@@ -160,6 +176,7 @@
           name: "Hyaluronic Acid",
           cat: "Pigmentation",
           link: "hyaluronic_acid.php",
+            image:"./assets/img/FACE SERUM.jpeg",
           emoji: "❄️",
           bg: "#d0f0f8",
           desc: "Hyaluronic Acid is a powerful moisture-binding ingredient that keeps your skin hydrated, plump, and youthful. Naturally found in the body, it acts like a sponge, holding up to 1,000 times its"
@@ -168,6 +185,7 @@
           name: "Coenzyme Q10",
           cat: "Pigmentation",
           link: "coenzyme_q10.php",
+            image:"./assets/img/Niacinamide.png",
           emoji: "✨",
           bg: "#f0f0d0",
           desc: "Coenzyme Q10 (CoQ10) is a powerful antioxidant that helps energize your skin, reduce fine lines and wrinkles, fight free radicals, and improve elasticity. Naturally found in the body, CoQ10"
@@ -176,6 +194,7 @@
           name: "Ferulic Acid",
           cat: "Pigmentation",
           link: "ferulic_acid.php",
+            image:"./assets/img/foot cream.jpeg",
           emoji: "🌶️",
           bg: "#d8f0d8",
           desc: "Ferulic Acid is a powerful antioxidant that helps protect your skin from sun damage, pollution, and premature aging. Found naturally in plants like apples, oranges, and rice, this skincare hero"
@@ -186,6 +205,7 @@
           name: "Niacinamide",
           cat: "Eczema",
           link: "niacinamide.php",
+            image:"./assets/img/Niacinamide.png",
           emoji: "🌾",
           bg: "#f0e8c8",
           desc: "Niacinamide is a skincare superhero that does it all—strengthening the skin barrier, reducing redness, minimizing pores, and keeping skin hydrated. Whether you're dealing with acne,"
@@ -194,6 +214,7 @@
           name: "Vitamin C (Ascorbic Acid)",
           cat: "Eczema",
           link: "vitamin_c.php",
+            image:"./assets/img/vitamin_c.png",
           emoji: "🍃",
           bg: "#c8f0c8",
           desc: "Vitamin C, also known as Ascorbic Acid, is a powerhouse ingredient in skincare, loved for its ability to brighten skin, fade dark spots, and protect against environmental damage. But how does it work, and what’s the best way to use it"
@@ -202,6 +223,8 @@
           name: "Alpha Arbutin",
           cat: "Eczema",
           link: "alpha_arbutin.php",
+            image:"./assets/img/N-Acetyl.png",
+          image: "./assets",
           emoji: "🌼",
           bg: "#f8f0c0",
           desc: "Struggling with dark spots, uneven skin tone, or hyperpigmentation? Alpha Arbutin might be the solution you need! This powerful yet gentle skincare ingredient works to brighten your complexion by reducing melanin product"
@@ -253,9 +276,12 @@
           card.innerHTML = `
         <a href="${ingredientProductLink(item)}" style="text-decoration:none; color:inherit; display:block; height:100%;">
           
+       
+
+
           <div class="ing-card__img-placeholder" style="background:${item.bg}">
-            ${item.emoji}
-          </div>
+  <img src="${item.image}" alt="${item.name}" class="ing-card__img">
+</div>
 
           <div class="ing-card__body">
             <div class="ing-card__name">${item.name}</div>
@@ -264,6 +290,7 @@
           </div>
 
         </a>
+        
       `;
 
           grid.appendChild(card);
@@ -335,13 +362,13 @@
           btn.classList.add("active");
           activeCategory = btn.dataset.cat;
           currentPage = 1;
-        renderGrid();
-        renderPagination();
-      });
+          renderGrid();
+          renderPagination();
+        });
       });
     </script>
   </div>
-  <?php include 'footer.php' ; ?>
+  <?php include 'footer.php'; ?>
 </body>
 
 </html>
