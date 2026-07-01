@@ -198,10 +198,52 @@
 
     function updatePrice(val) {
         const priceMax = document.getElementById('priceMax');
+        const priceRange = document.getElementById('priceRange');
+
         if (priceMax) priceMax.value = val;
+        if (priceRange) {
+            priceRange.value = val;
+            updateRangeBackground(priceRange);
+        }
+
         if (typeof window.applyFilters === 'function') {
             window.applyFilters();
         }
+    }
+
+    function updateRangeBackground(rangeInput) {
+        if (!rangeInput) return;
+
+        const min = Number(rangeInput.min || 0);
+        const max = Number(rangeInput.max || 100);
+        const value = Number(rangeInput.value || 0);
+        const percent = max > min ? ((value - min) / (max - min)) * 100 : 100;
+
+        rangeInput.style.setProperty('--range-progress', `${Math.min(Math.max(percent, 0), 100)}%`);
+    }
+
+    function syncPriceSliderForProducts(products) {
+        const rangeInput = document.getElementById('priceRange');
+        const priceMax = document.getElementById('priceMax');
+        const priceMin = document.getElementById('priceMin');
+
+        if (!rangeInput) return;
+
+        const productPrices = products
+            .map(productPriceNumber)
+            .filter(price => price > 0);
+
+        const highestPrice = productPrices.length ? Math.max(...productPrices) : Number(rangeInput.max || 1500);
+        const newMax = Math.max(1500, Math.ceil(highestPrice + 100));
+
+        rangeInput.max = newMax;
+        if (Number(rangeInput.value) > newMax || Number(rangeInput.value) <= 0) {
+            rangeInput.value = newMax;
+        }
+
+        if (priceMax) priceMax.value = rangeInput.value;
+        if (priceMin && !priceMin.value) priceMin.value = '0';
+        updateRangeBackground(rangeInput);
     }
 
     function productPriceNumber(product) {
@@ -354,6 +396,7 @@
         }
 
         populateDynamicFilters(products);
+        syncPriceSliderForProducts(products);
         targetGrid.innerHTML = products.map(productCard).join('');
         if (targetCount) {
             targetCount.textContent = `${products.length} product${products.length !== 1 ? 's' : ''}`;
