@@ -225,9 +225,9 @@
 
     </div>
  
-    <div class="skinthesis">
+    <!-- <div class="skinthesis">
         <button class="btn-btn-primary" href="integrety.php">More Articles on Ingredients</button>
-    </div>
+    </div> -->
 
 </section>
 

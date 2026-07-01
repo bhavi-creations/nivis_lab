@@ -1372,7 +1372,7 @@
         <h2 class="explore_section_title">EXPLORE OUR CATEGORIES</h2>
 
         <div class="row g-3">
-            <div class="col-md-6 col-lg-3">
+            <div class="col-md-6 col-xl-3">
 
                 <a href="category.php?category=face-serum" class="explore_section_card">
 
@@ -1387,7 +1387,7 @@
 
             </div>
 
-            <div class="col-md-6 col-lg-3">
+            <div class="col-md-6 col-xl-3">
 
                 <a href="category.php?category=moisturizers" class="explore_section_card">
                     <div class="explore_section_content">
@@ -1400,7 +1400,7 @@
 
             </div>
 
-            <div class="col-md-6 col-lg-3">
+            <div class="col-md-6 col-xl-3">
 
                 <a href="category.php?category=sunscreen" class="explore_section_card">
                     <div class="explore_section_content">
@@ -1413,7 +1413,7 @@
 
             </div>
 
-            <div class="col-md-6 col-lg-3">
+            <div class="col-md-6 col-xl-3">
                 <a href="category.php?category=face-cleanser" class="explore_section_card">
                     <div class="explore_section_content">
                         <h4>Face Cleanser</h4>
