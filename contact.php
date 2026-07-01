@@ -22,7 +22,7 @@
             <p>
                 Our phone lines are currently unavailable. Please reach us via WhatsApp or email — we'll get back to you within a few hours.
             </p>
-            <small>Last updated at 10:10 PM, 23 April 2026</small>
+            <!-- <small>Last updated at 10:10 PM, 23 April 2026</small> -->
         </div>
     </div>
 </div>

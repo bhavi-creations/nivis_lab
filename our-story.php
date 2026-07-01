@@ -2,11 +2,11 @@
   <!-- section 2 -->
   <section class="our_section_2 py-5">
     <div class="container py-lg-5">
-      <div class="row align-items-center">
-        <div class="col-md-7">
-          <div class="content-box p-4 p-md-5">
-            <h6 class="text-uppercase fw-normal mb-3 text-white">About Nivis Labs</h6>
-            <h2 class="display-5 mb-4">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-12 col-md-10 col-lg-8">
+          <div class="content-box p-4 p-md-5 text-center">
+            <h6 class="text-uppercase fw-normal mb-3 our_story_section">About Nivis Labs</h6>
+            <h2 class="our_story_section_name mb-4">
               <span class="text-danger">S</span>cience-led
               <span class="text-danger">S</span>kin-first
               <span class="text-danger">C</span>are
@@ -22,9 +22,6 @@
               </p>
             </div>
           </div>
-        </div>
-
-        <div class="col-md-5 d-none d-md-block">
         </div>
       </div>
     </div>
@@ -120,13 +117,15 @@
      SECTION 5 — The experts behind every formula
 ═══════════════════════════════════════ -->
   <section class="our_section_5">
-    <div class="our_section_5__inner">
+    <div class="our_section_5__inner row">
 
       <!-- Left: brand pillars -->
-      <div class="our_section_5__photos">
+      <div class="our_section_5__photos col-md-6">
+      
+      <img src="./assets/img/our-story.png" alt="product imag" class="img-fluid">
 
-        <!-- Product Research -->
-        <div class="our_section_5__doc">
+       
+        <!-- <div class="our_section_5__doc">
           <div class="our_section_5__photo-wrap">
             <div class="our_section_5__avatar">PR</div>
             <div class="our_section_5__coat"></div>
@@ -138,7 +137,7 @@
           </div>
         </div>
 
-        <!-- Formulation Care -->
+       
         <div class="our_section_5__doc">
           <div class="our_section_5__photo-wrap">
             <div class="our_section_5__avatar">FC</div>
@@ -151,7 +150,7 @@
           </div>
         </div>
 
-        <!-- Quality Review -->
+        
         <div class="our_section_5__doc">
           <div class="our_section_5__photo-wrap">
             <div class="our_section_5__avatar">QR</div>
@@ -164,7 +163,7 @@
           </div>
         </div>
 
-        <!-- Customer Care -->
+        
         <div class="our_section_5__doc">
           <div class="our_section_5__photo-wrap">
             <div class="our_section_5__avatar">CC</div>
@@ -175,12 +174,12 @@
             <div class="our_section_5__doc-role">Clear guidance<br>and routine support</div>
             <div class="our_section_5__doc-cred">Nivis Labs</div>
           </div>
-        </div>
+        </div> -->
 
       </div><!-- /.our_section_5__photos -->
 
       <!-- Right: copy -->
-      <div class="our_section_5__copy">
+      <div class="our_section_5__copy col-md-6">
         <h2 class="our_section_5__title">The care behind every formula</h2>
         <p class="our_section_5__para">
           Every Nivis Labs product is shaped around a real use case, from daily cleansing and moisturising to targeted

@@ -23,7 +23,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
 
-
+<!-- image slider   -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
 </head>
 
@@ -164,7 +166,7 @@
                 </li>
 
                 <li class="index_navbar_section__item">
-                    <a class="index_navbar_section__link" href="our-story.php">The /PHD/ Story</a>
+                    <a class="index_navbar_section__link" href="our-story.php">The /Nivis/ Story</a>
                 </li>
 
                 <li class="index_navbar_section__item">
@@ -290,7 +292,7 @@
 
             <!-- THE /PHD/ STORY -->
             <li class="index_navbar_section__mob-item">
-                <a href="our-story.php" class="index_navbar_section__mob-plain">The /PHD/ Story</a>
+                <a href="our-story.php" class="index_navbar_section__mob-plain">The /Nivis/ Story</a>
             </li>
 
             <!-- SKINTHESIS -->

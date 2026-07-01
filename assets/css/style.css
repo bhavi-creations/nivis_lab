@@ -967,6 +967,7 @@ a {
     padding: 0.45rem 1.1rem;
     background: rgba(255, 255, 255, 0.07);
     backdrop-filter: blur(4px);
+    margin: 10px;
     transition: background 0.25s, border-color 0.25s;
 }
 
@@ -1173,7 +1174,7 @@ a {
         font-size: 0.65rem;
     }
 
-    .index_img_section + * {
+    .index_img_section+* {
         margin-top: 0 !important;
     }
 
@@ -1753,6 +1754,12 @@ input[type="range"]::-webkit-slider-thumb {
 /* ── PRODUCT CARD ── */
 .product-card {
     position: relative;
+    padding: 15px;
+    border: 1px solid #ececec;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .product-card.hidden {
@@ -1917,6 +1924,13 @@ input[type="range"]::-webkit-slider-thumb {
     margin: 6px 0 3px;
 }
 
+.product-price {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--clr-dark);
+    margin: 10px 0 6px;
+}
+
 .bought-tag {
     font-size: 10px;
     color: #888;
@@ -1927,22 +1941,22 @@ input[type="range"]::-webkit-slider-thumb {
 .btn-cart {
     display: block;
     width: 100%;
-    padding: 9px 0;
-    background: var(--clr-dark);
+    padding: 10px 0;
+    background: #000;
     color: #fff;
     font-size: 13px;
     font-weight: 700;
-    letter-spacing: .1em;
+    letter-spacing: .08em;
     text-transform: uppercase;
     border: none;
-    border-radius: 2px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background .2s;
+    transition: background .2s ease, transform .2s ease;
 }
 
 .btn-cart:hover {
-    /* background: var(--clr-primary); */
-    background-color: #0a2b4a;
+    background: #222;
+    transform: translateY(-1px);
 }
 
 /* ── RESPONSIVE ── */
@@ -3078,13 +3092,21 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 
+@media (max-width: 768px) {
+    .faq-section {
 
+        margin: 20px 20px !important;
+
+    }
+}
 
 
 
 .faq-section {
     max-width: 900px;
     margin: 50px auto;
+
+
 }
 
 .faq-title {
@@ -4372,7 +4394,7 @@ button:hover {
     background-image: url('../img/5.png');
     /* Background image path ikkada ivvandi */
     background-size: cover;
-    background-position: right center;
+    background-position:  center;
     background-repeat: no-repeat;
     min-height: 500px;
     display: flex;
@@ -4383,16 +4405,23 @@ button:hover {
 .our_section_2 .content-box {
     /* Text box light transparency kosam */
     /* background: rgba(255, 255, 255, 0.4); */
-    background: rgb(120 117 117 / 38%);
+    background: rgb(255 255 255 / 75%);
+    /* background: rgb(120 117 117 / 38%); */
     color: black;
     backdrop-filter: blur(5px);
     border-radius: 8px;
+    margin: 0 auto;
+    max-width: 760px;
+    text-align: center;
 }
 
 .our_section_2 h2 {
     font-weight: 300;
     color: #000000;
     letter-spacing: 1px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .our_section_2 h2 .text-danger {
@@ -4404,7 +4433,10 @@ button:hover {
     color: #000000;
     line-height: 1.8;
     font-size: 1.05rem;
-    max-width: 550px;
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 @media (max-width:768px) {
@@ -4419,7 +4451,7 @@ button:hover {
 
     .our_section_2 h2,
     .our_section_2 .description-text p {
-        color: rgb(255, 255, 255) !important;
+        color: rgb(0, 0, 0) !important;
     }
 }
 
@@ -6829,7 +6861,7 @@ body.dynamic-products-ready #productsGrid {
 /* CONTACT FORM */
 
 .contact-form-section {
-    padding: 80px 0;
+    padding: 20px 0;
 }
 
 .contact-form-box {
@@ -6903,4 +6935,32 @@ textarea.custom-input {
         font-size: 28px;
     }
 
+}
+
+
+@media (max-width: 992px) {
+
+    .our_story_section {
+        color: black;
+    }
+
+    .our_story_section_name {
+        font-size: calc(0.925rem + 2.1vw);
+    }
+
+}
+
+@media (min-width: 7992px) {
+
+   
+    .our_story_section_name{
+        font-size:40px !important;
+    }
+    
+}
+
+.our_story_section_name {
+
+    font-weight: 300;
+    line-height: 1.2;
 }

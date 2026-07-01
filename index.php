@@ -504,7 +504,7 @@
     <div class="img_section text-center">
         <h2 class="fw-bold mb-4" style="letter-spacing: 1px;">Build Your Perfect Skin Routine</h2>
 
-       
+
         <div class="d-flex flex-nowrap justify-content-start overflow-auto pb-3 no-scrollbar dermat-concern-row" id="dermatConcernRow">
 
             <div class="concern-item" onclick="showDermatRoutine('acne', this, 1)">
@@ -551,11 +551,11 @@
 
         </div>
 
-       
+
         <div id="dermat-results" class="mt-4" style="display:none;">
             <!-- <p class="text-muted small mb-3" id="dermatResultHint">Choose a product to build your routine:</p> -->
 
-            
+
             <div id="routine-content" class="mx-auto" style="max-width: 1100px;"></div>
         </div>
     </div>
@@ -593,7 +593,7 @@
                 '>': '&gt;',
                 '"': '&quot;',
                 "'": '&#039;'
-            }[char];
+            } [char];
         });
     }
 
@@ -606,36 +606,138 @@
     }
 
     function dermatProductImage(product) {
-        return (product.images && product.images.length > 0)
-            ? product.images[0]
-            : (product.imageUrl || product.primaryImage || './assets/img/product.webp');
+        return (product.images && product.images.length > 0) ?
+            product.images[0] :
+            (product.imageUrl || product.primaryImage || './assets/img/product.webp');
     }
 
     function dermatFallbackProducts(type) {
         const samples = {
-            acne: [
-                { name: 'Acne Control Treatment', urlKey: 'acne', category: 'Acne', concern: 'Acne', type: 'Treatment', priceNumber: 500, price: 'Rs. 500', imageUrl: './assets/img/acne.png' },
-                { name: 'Acne Marks Care', urlKey: 'acnemarks', category: 'Acne', concern: 'Acne Marks', type: 'Treatment', priceNumber: 520, price: 'Rs. 520', imageUrl: './assets/img/Acne Marks.png' }
+            acne: [{
+                    name: 'Acne Control Treatment',
+                    urlKey: 'acne',
+                    category: 'Acne',
+                    concern: 'Acne',
+                    type: 'Treatment',
+                    priceNumber: 500,
+                    price: 'Rs. 500',
+                    imageUrl: './assets/img/acne.png'
+                },
+                {
+                    name: 'Acne Marks Care',
+                    urlKey: 'acnemarks',
+                    category: 'Acne',
+                    concern: 'Acne Marks',
+                    type: 'Treatment',
+                    priceNumber: 520,
+                    price: 'Rs. 520',
+                    imageUrl: './assets/img/Acne Marks.png'
+                }
             ],
-            pigmentation: [
-                { name: 'Pigmentation Brightening Care', urlKey: 'pigmentation', category: 'Pigmentation', concern: 'Pigmentation', type: 'Treatment', priceNumber: 520, price: 'Rs. 520', imageUrl: './assets/img/Pigmentation.png' },
-                { name: 'Dark Spots Correcting Care', urlKey: 'dark-spots', category: 'Pigmentation', concern: 'Dark Spots', type: 'Treatment', priceNumber: 500, price: 'Rs. 500', imageUrl: './assets/img/Dark Spots.png' }
+            pigmentation: [{
+                    name: 'Pigmentation Brightening Care',
+                    urlKey: 'pigmentation',
+                    category: 'Pigmentation',
+                    concern: 'Pigmentation',
+                    type: 'Treatment',
+                    priceNumber: 520,
+                    price: 'Rs. 520',
+                    imageUrl: './assets/img/Pigmentation.png'
+                },
+                {
+                    name: 'Dark Spots Correcting Care',
+                    urlKey: 'dark-spots',
+                    category: 'Pigmentation',
+                    concern: 'Dark Spots',
+                    type: 'Treatment',
+                    priceNumber: 500,
+                    price: 'Rs. 500',
+                    imageUrl: './assets/img/Dark Spots.png'
+                }
             ],
-            'acne-marks': [
-                { name: 'Acne Marks Care', urlKey: 'acnemarks', category: 'Acne', concern: 'Acne Marks', type: 'Treatment', priceNumber: 520, price: 'Rs. 520', imageUrl: './assets/img/Acne Marks.png' },
-                { name: 'Post Acne Spot Care', urlKey: 'acne-marks', category: 'Acne', concern: 'Acne Marks', type: 'Treatment', priceNumber: 500, price: 'Rs. 500', imageUrl: './assets/img/acne.png' }
+            'acne-marks': [{
+                    name: 'Acne Marks Care',
+                    urlKey: 'acnemarks',
+                    category: 'Acne',
+                    concern: 'Acne Marks',
+                    type: 'Treatment',
+                    priceNumber: 520,
+                    price: 'Rs. 520',
+                    imageUrl: './assets/img/Acne Marks.png'
+                },
+                {
+                    name: 'Post Acne Spot Care',
+                    urlKey: 'acne-marks',
+                    category: 'Acne',
+                    concern: 'Acne Marks',
+                    type: 'Treatment',
+                    priceNumber: 500,
+                    price: 'Rs. 500',
+                    imageUrl: './assets/img/acne.png'
+                }
             ],
-            'dark-spots': [
-                { name: 'Dark Spots Correcting Care', urlKey: 'dark-spots', category: 'Pigmentation', concern: 'Dark Spots', type: 'Treatment', priceNumber: 500, price: 'Rs. 500', imageUrl: './assets/img/Dark Spots.png' },
-                { name: 'Brightening Support Care', urlKey: 'pigmentation', category: 'Pigmentation', concern: 'Pigmentation', type: 'Treatment', priceNumber: 520, price: 'Rs. 520', imageUrl: './assets/img/Pigmentation.png' }
+            'dark-spots': [{
+                    name: 'Dark Spots Correcting Care',
+                    urlKey: 'dark-spots',
+                    category: 'Pigmentation',
+                    concern: 'Dark Spots',
+                    type: 'Treatment',
+                    priceNumber: 500,
+                    price: 'Rs. 500',
+                    imageUrl: './assets/img/Dark Spots.png'
+                },
+                {
+                    name: 'Brightening Support Care',
+                    urlKey: 'pigmentation',
+                    category: 'Pigmentation',
+                    concern: 'Pigmentation',
+                    type: 'Treatment',
+                    priceNumber: 520,
+                    price: 'Rs. 520',
+                    imageUrl: './assets/img/Pigmentation.png'
+                }
             ],
-            'anti-ageing': [
-                { name: 'Anti-Aging Routine Care', urlKey: 'anti-aging', category: 'Anti-Aging', concern: 'Anti-Aging', type: 'Treatment', priceNumber: 540, price: 'Rs. 540', imageUrl: './assets/img/Anti-Aging.png' },
-                { name: 'Night Repair Cream', urlKey: 'korean-moon-light-night-cream', category: 'Night Cream', concern: 'Anti-Aging', type: 'Night Cream', priceNumber: 360, price: 'Rs. 360', imageUrl: './assets/img/night cream.jpeg' }
+            'anti-ageing': [{
+                    name: 'Anti-Aging Routine Care',
+                    urlKey: 'anti-aging',
+                    category: 'Anti-Aging',
+                    concern: 'Anti-Aging',
+                    type: 'Treatment',
+                    priceNumber: 540,
+                    price: 'Rs. 540',
+                    imageUrl: './assets/img/Anti-Aging.png'
+                },
+                {
+                    name: 'Night Repair Cream',
+                    urlKey: 'korean-moon-light-night-cream',
+                    category: 'Night Cream',
+                    concern: 'Anti-Aging',
+                    type: 'Night Cream',
+                    priceNumber: 360,
+                    price: 'Rs. 360',
+                    imageUrl: './assets/img/night cream.jpeg'
+                }
             ],
-            dehydration: [
-                { name: 'Hydration Support Care', urlKey: 'dehydration', category: 'Dehydration', concern: 'Dehydration', type: 'Moisturizer', priceNumber: 500, price: 'Rs. 500', imageUrl: './assets/img/Dehydration.png' },
-                { name: 'Hydromist Moisturizing Spray', urlKey: 'hydromist-moisturizing-spray', category: 'Face Mist', concern: 'Dehydration', type: 'Spray', priceNumber: 260, price: 'Rs. 260', imageUrl: './assets/img/face spray.jpeg' }
+            dehydration: [{
+                    name: 'Hydration Support Care',
+                    urlKey: 'dehydration',
+                    category: 'Dehydration',
+                    concern: 'Dehydration',
+                    type: 'Moisturizer',
+                    priceNumber: 500,
+                    price: 'Rs. 500',
+                    imageUrl: './assets/img/Dehydration.png'
+                },
+                {
+                    name: 'Hydromist Moisturizing Spray',
+                    urlKey: 'hydromist-moisturizing-spray',
+                    category: 'Face Mist',
+                    concern: 'Dehydration',
+                    type: 'Spray',
+                    priceNumber: 260,
+                    price: 'Rs. 260',
+                    imageUrl: './assets/img/face spray.jpeg'
+                }
             ]
         };
 
@@ -661,9 +763,9 @@
 
         return isUsableImage &&
             (normalized.includes('localhost:3000') ||
-            normalized.includes('/assets/img/') ||
-            /^https?:\/\//.test(normalized) ||
-            normalized.startsWith('./assets/img/'));
+                normalized.includes('/assets/img/') ||
+                /^https?:\/\//.test(normalized) ||
+                normalized.startsWith('./assets/img/'));
     }
 
     function dermatPriceNumber(product) {
@@ -772,19 +874,28 @@
             text => text.includes('cleanser') || text.includes('face wash') || text.includes('face-wash')
         ], usedKeys);
         if (cleanser) {
-            routine.push({ label: 'CLEANSER', product: cleanser });
+            routine.push({
+                label: 'CLEANSER',
+                product: cleanser
+            });
             usedKeys.add(dermatProductKey(cleanser));
         }
 
         if (selectedProduct) {
-            routine.push({ label: 'TREATMENT', product: selectedProduct });
+            routine.push({
+                label: 'TREATMENT',
+                product: selectedProduct
+            });
         }
 
         const moisturizer = dermatFindProduct(availableProducts, [
             text => text.includes('moisturizer') || text.includes('moisturiser') || text.includes('cream')
         ], usedKeys);
         if (moisturizer) {
-            routine.push({ label: 'MOISTURIZER', product: moisturizer });
+            routine.push({
+                label: 'MOISTURIZER',
+                product: moisturizer
+            });
             usedKeys.add(dermatProductKey(moisturizer));
         }
 
@@ -792,7 +903,10 @@
             text => text.includes('sunscreen') || text.includes('spf') || text.includes('sun protection')
         ], usedKeys);
         if (sunscreen) {
-            routine.push({ label: 'SUNSCREEN', product: sunscreen });
+            routine.push({
+                label: 'SUNSCREEN',
+                product: sunscreen
+            });
         }
 
         return routine;
@@ -850,9 +964,9 @@
         if (!contentArea || !selectedProduct) return;
 
         dermatSetRoutineFromProduct(type, selectedProduct);
-        const choicesHtml = includeChoices
-            ? `<div class="dermat-products-grid dermat-choice-grid text-start">${visibleProducts.map((product, index) => dermatProductCard(product, index, true, index === selectedProductIndex)).join('')}</div>`
-            : '';
+        const choicesHtml = includeChoices ?
+            `<div class="dermat-products-grid dermat-choice-grid text-start">${visibleProducts.map((product, index) => dermatProductCard(product, index, true, index === selectedProductIndex)).join('')}</div>` :
+            '';
         const selectedImage = dermatProductImage(selectedProduct);
         const selectedSubtitle = selectedProduct.subtitle || selectedProduct.displayConcern || selectedProduct.concern || selectedProduct.category || 'Selected skincare product';
         const selectedCardHtml = `
@@ -1103,8 +1217,12 @@
 
         row.addEventListener('mouseenter', stop);
         row.addEventListener('mouseleave', start);
-        row.addEventListener('touchstart', stop, { passive: true });
-        row.addEventListener('touchend', start, { passive: true });
+        row.addEventListener('touchstart', stop, {
+            passive: true
+        });
+        row.addEventListener('touchend', start, {
+            passive: true
+        });
         window.addEventListener('resize', function() {
             stop();
             start();
@@ -1200,10 +1318,10 @@
 </section> -->
 
 
-<section class="video_section_wrapper">
+<section class="video_section_wrapper d-none d-lg-block">
     <div class="container">
         <h2 class="video_section_title">NIVIS LABS FORMULAS IN FOCUS</h2>
-        <div class="video_section_carousel">
+        <div class="video_section_carousel ">
 
             <div class="px-2">
                 <div class="video_section_card">
@@ -1213,17 +1331,7 @@
                             Your browser does not support the video tag.
                         </video>
                     </div>
-                    <!-- <div class="video_section_product_info">
-                        <a href="vitamin_c_brightening_serum.php">
-                            <div class="video_section_product_name">10% Vitamin C Brightening Serum</div>
-                            <div>
-                                <span class="video_section_price_badge">B1G1</span>
-                                <del class="small text-muted">₹699</del>
-                                <span class="video_section_free">FREE</span>
-                            </div>
-                        </a>
-                        <button class="video_section_add_btn">ADD TO CART</button>
-                    </div> -->
+
                 </div>
             </div>
 
@@ -1234,34 +1342,18 @@
                             <source src="./assets/img/new_video_1.mp4" type="video/mp4">
                         </video>
                     </div>
-                    <!-- <div class="video_section_product_info">
-                        <a href="vitamin_c_brightening_moisturizer.php">
-                            <div class="video_section_product_name">Vitamin C Brightening Moisturizer</div>
-                            <div><span class="video_section_price_badge">B1G1</span> <del
-                                    class="small text-muted">₹549</del> <span class="video_section_free">FREE</span>
-                            </div>
-                        </a>
-                        <button class="video_section_add_btn">ADD TO CART</button>
-                    </div> -->
+
                 </div>
             </div>
 
-           <div class="px-2">
+            <div class="px-2">
                 <div class="video_section_card">
                     <div class="video_section_container">
                         <video autoplay muted loop playsinline controls>
                             <source src="./assets/img/UV Aqua.mp4" type="video/mp4">
                         </video>
                     </div>
-                    <!-- <div class="video_section_product_info">
-                        <a href="niacinamide_spot_correcting_serum.php">
-                            <div class="video_section_product_name">10% Niacinamide Spot Correcting Serum</div>
-                            <div><span class="video_section_price_badge">B1G1</span> <del
-                                    class="small text-muted">₹649</del> <span class="video_section_free">FREE</span>
-                            </div>
-                        </a>
-                        <button class="video_section_add_btn">ADD TO CART</button>
-                    </div> -->
+
                 </div>
             </div>
 
@@ -1272,23 +1364,136 @@
                             <source src="./assets/img/nivis glow.mp4" type="video/mp4">
                         </video>
                     </div>
-                    <!-- <div class="video_section_product_info">
-                        <a href="alpha_arbutin_depigmentation_serum.php">
-                            <div class="video_section_product_name">2% Alpha Arbutin Depigmentation Serum</div>
-                            <div><span class="video_section_price_badge">B1G1</span> <del
-                                    class="small text-muted">₹699</del> <span class="video_section_free">FREE</span>
-                            </div>
-                        </a>
-                        <button class="video_section_add_btn">ADD TO CART</button>
-                    </div> -->
+
                 </div>
             </div>
 
         </div>
+
+
+
+
+
+
     </div>
 </section>
 
 
+<section class="video_section_wrapper d-block d-lg-none">
+    <div class="container">
+        <h2 class="video_section_title">NIVIS LABS FORMULAS IN FOCUS</h2>
+        <div class="video_section_carousel ">
+
+            <div class="swiper-container team-slider">
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide">
+                        <div class="px-2">
+                            <div class="video_section_card">
+                                <div class="video_section_container">
+                                    <video autoplay controls muted loop playsinline poster="./assets/img/reel_1.mp4">
+                                        <source src="./assets/img/reel_1.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide " >
+                        <div class="px-2">
+                            <div class="video_section_card">
+                                <div class="video_section_container">
+                                    <video autoplay controls muted loop playsinline poster="./assets/img/new_video_1.mp4">
+                                        <source src="./assets/img/new_video_1.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="swiper-slide">
+                        <div class="px-2">
+                            <div class="video_section_card">
+                                <div class="video_section_container">
+                                    <video autoplay controls muted loop playsinline poster="./assets/img/UV Aqua.mp4">
+                                        <source src="./assets/img/UV Aqua.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="swiper-slide">
+                        <div class="px-2">
+                            <div class="video_section_card">
+                                <div class="video_section_container">
+                                    <video autoplay controls muted loop playsinline poster="./assets/img/nivis glow.mp4">
+                                        <source src="./assets/img/nivis glow.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+
+    </div>
+</section>
+
+
+
+
+
+
+
+
+<script>
+    var swiper = new Swiper(".team-slider", {
+        slidesPerView: 3, // Show 3 slides at a time
+        spaceBetween: 20, // Adjust spacing between slides
+        loop: true, // Enables infinite scrolling
+        autoplay: {
+            delay: 3000, // Auto-slide every 3 seconds
+            disableOnInteraction: false,
+        },
+
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        breakpoints: {
+            1024: {
+                slidesPerView: 3
+            },
+            768: {
+                slidesPerView: 2
+            },
+            0: {
+                slidesPerView: 1
+            }
+        }
+    });
+</script>
 <hr>
 
 <!-- <section class="explore_section_wrapper">
@@ -1574,31 +1779,31 @@
 
             <div class="col-6 col-md-4 col-lg-2">
                 <div class="last_section">
-                    <img src="./assets/img/face spray.jpeg" alt="product" class="img-fluid"> 
+                    <img src="./assets/img/face spray.jpeg" alt="product" class="img-fluid">
                 </div>
             </div>
 
             <div class="col-6 col-md-4 col-lg-2">
                 <div class="last_section">
-                    <img src="./assets/img/foot cream.jpeg"  alt="product" class="img-fluid">
+                    <img src="./assets/img/foot cream.jpeg" alt="product" class="img-fluid">
                 </div>
             </div>
 
             <div class="col-6 col-md-4 col-lg-2">
                 <div class="last_section">
-                    <img src="./assets/img/SUNSCFREEN.jpeg"  alt="product" class="img-fluid">
+                    <img src="./assets/img/SUNSCFREEN.jpeg" alt="product" class="img-fluid">
                 </div>
             </div>
 
             <div class="col-6 col-md-4 col-lg-2">
                 <div class="last_section">
-                    <img src="./assets/img/INSTA GLOW.jpeg"  alt="product" class="img-fluid">
+                    <img src="./assets/img/INSTA GLOW.jpeg" alt="product" class="img-fluid">
                 </div>
             </div>
 
             <div class="col-6 col-md-4 col-lg-2">
                 <div class="last_section">
-                    <img src="./assets/img/face spray.jpeg"  alt="product" class="img-fluid">
+                    <img src="./assets/img/face spray.jpeg" alt="product" class="img-fluid">
                 </div>
             </div>
 
@@ -1623,7 +1828,7 @@
                     '>': '&gt;',
                     '"': '&quot;',
                     "'": '&#039;'
-                }[char];
+                } [char];
             });
         }
 
