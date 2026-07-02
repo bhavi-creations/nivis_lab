@@ -16,13 +16,13 @@
     <div class="container">
         <h1 class="text-center">Shipping & Returns</h1>
         <h4>Order Handling & Shipping</h4>
-        <p>All orders are dispatched within 24-48 working hours. In case of maintenance, the shipping timelines may be affected. In case you don't receive shipping information kindly contact us on this link: https://phdbeauty.com/pages/contact or Email us at care@phdbeauty.com</p>
+        <p>All orders are dispatched within 24-48 working hours. In case of maintenance, the shipping timelines may be affected. In case you don't receive shipping information kindly contact us on this link: https://nivislabs.in/ or Email us at https://nivislabs.in/</p>
         <p>Although we are sure, you would love your Nivis Labs products but if for some reason you are not satisfied with the purchase please get in touch and we will make it right.</p>
 
 
 
         <h4>Wrong Item Delivered</h4>
-        <p> <strong>Step 1</strong>- Raise a replacement request within 3 days from the date of delivery at Email - care@phdbeauty.com or on this link: https://phdbeauty.com/pages/contact with the pictures of the wrong item delivered and your order ID.</p>
+        <p> <strong>Step 1</strong>- Raise a replacement request within 3 days from the date of delivery at Email - https://nivislabs.in/ or on this link: https://nivislabs.in/ with the pictures of the wrong item delivered and your order ID.</p>
         <p><strong>Step 2</strong> - Allow us 48 working hours to review your replacement request.</p>
 
         <p><strong>Step 3</strong> - On reviewing your replacement request, we will send our courier partner to collect the wrong product delivered to you.</p>
@@ -33,7 +33,7 @@
 <section>
     <div class="container">
         <h4>Item Damaged</h4>
-        <p><strong>Step 1 </strong>- Raise a replacement request within 3 days from the date of delivery at care@phdbeauty.com or on this link: https://phdbeauty.com/pages/contact with the pictures of the wrong item delivered and your order ID.
+        <p><strong>Step 1 </strong>- Raise a replacement request within 3 days from the date of delivery at https://nivislabs.in/ or on this link: https://nivislabs.in/ with the pictures of the wrong item delivered and your order ID.
         </p>
         <p><strong>Step 2 </strong>- Allow us 48 working hours to review your replacement request.</p>
         <p><strong>Step 3 </strong>- On reviewing your replacement request, we will send our courier partner to collect the damaged product delivered to you.</p>

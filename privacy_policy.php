@@ -12,9 +12,9 @@
 <section>
     <h1 class="text-center">Privacy Policy</h1>
     <div class="container">
-        <p>Welcome to the Nivis Labs website. The Nivis Labs website is an owned property of Heavenly Secrets Private Limited. Nivis Labs offers our users (collectively, "Users," "you," or " your") high-quality, skincare products (the "Products") through our website at www.phdbeauty.com (the " Site").</p>
+        <p>Welcome to the Nivis Labs website. The Nivis Labs website is an owned property of Heavenly Secrets Private Limited. Nivis Labs offers our users (collectively, "Users," "you," or " your") high-quality, skincare products (the "Products") through our website at https://nivislabs.in/ (the " Site").</p>
         <p>This Privacy Policy explains what personal data we collect through the Site, how we use and share that data, and your choices concerning our data practices.</p>
-        <p>By providing us with your personal data when using the Site, you agree to the practices described in this Privacy Policy. If you do not agree to this Privacy Policy, please do not access or use the Site. Before you submit any personal data to Nivis Labs through the Site, please review this Privacy Policy carefully, and contact us at care@phdbeauty.com if you have any questions.</p>
+        <p>By providing us with your personal data when using the Site, you agree to the practices described in this Privacy Policy. If you do not agree to this Privacy Policy, please do not access or use the Site. Before you submit any personal data to Nivis Labs through the Site, please review this Privacy Policy carefully, and contact us at https://nivislabs.in/ if you have any questions.</p>
         <p>Nivis Labs does not make any representations concerning the privacy practices or policies or terms of use of such third-party service providers.</p>
         <p>Nivis Labs uses Shopify to power its online store and the personal information of the customer may be shared with Shopify. Additionally, we may set out the link to the privacy policy of Shopify.</p>
 

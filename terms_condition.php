@@ -12,7 +12,7 @@
 <section>
     <h1 class="text-center">Terms & Conditions</h1>
     <div class="container">
-        <p>Thank you for visiting our site. Nivis Labs provides the information, content and services ("Services") available via our website www.phdbeauty.com (the "Site") to you ("you") pursuant to the following Terms & Conditions of Use ("Terms").</p>
+        <p>Thank you for visiting our site. Nivis Labs provides the information, content and services ("Services") available via our website https://nivislabs.in/ (the "Site") to you ("you") pursuant to the following Terms & Conditions of Use ("Terms").</p>
         <p>Please read these Terms carefully before using our Site, as they set forth the legally binding terms and conditions for your use of the Site and all related Content (defined below), Services, apps and purchases that you make from the Site, regardless of the means, manner or place from which you access our Site. By accessing and using Nivis Labs' Site and Content, you acknowledge and agree to abide by the following terms. If you do not agree to these Terms, do not use Nivis Labs' Site or Content.</p>
         <p>Nivis Labs reserves the right to change these Terms at any time without notice. Such changed Terms will take effect once We post them on the Site, and Your continued use of the Site following any such changes will mean that You accept and agree to them.</p>
 

@@ -235,7 +235,7 @@
                                     <div class="accordion-body">
 
                                         -
-                                        You can order Nivis Labs products online from various stores including www.phdbeauty.com, Amazon and Flipkart.
+                                        You can order Nivis Labs products online from various stores including https://nivislabs.in/, Amazon and Flipkart.
                                     </div>
                                 </div>
                             </div>
@@ -304,7 +304,7 @@
 
 
                                         -
-                                        We regret to inform you that once you have placed an order, it cannot be modified. However, you can contact us via care@phdbeauty.com and we will do our best to assist you.
+                                        We regret to inform you that once you have placed an order, it cannot be modified. However, you can contact us via https://nivislabs.in/ and we will do our best to assist you.
                                     </div>
                                 </div>
                             </div>
@@ -339,7 +339,7 @@
                                     <div class="accordion-body">
 
                                         -
-                                        We apologise for the inconvenience caused. Kindly try again after clearing your browser’s cache and cookies, or, try using a different payment method. However, if the issue still persists, kindly contact us at care@phdbeauty.com and we will assist you.
+                                        We apologise for the inconvenience caused. Kindly try again after clearing your browser’s cache and cookies, or, try using a different payment method. However, if the issue still persists, kindly contact us at https://nivislabs.in/ and we will assist you.
                                     </div>
                                 </div>
                             </div>
@@ -475,7 +475,7 @@
 
 
                                         -
-                                        We only allow return in specific cases. Please refer to our Return Policy before applying for return. You can view our return policy at https://phdbeauty.com/pages/shipping-returns
+                                        We only allow return in specific cases. Please refer to our Return Policy before applying for return. You can view our return policy at https://nivislabs.in/
                                     </div>
                                 </div>
                             </div>
@@ -502,7 +502,7 @@
                                         Your order might be shipped in multiple packages. You will receive separate tracking details for each package. To track your order, please visit
 
                                         <br>
-                                        If you don’t see separate tracking links for your items or need further assistance, feel free to reach out to us via email at care@phdbeauty.com or write to us on this link: https://phdbeauty.com/pages/contact. We will do our best to assist you.
+                                        If you don’t see separate tracking links for your items or need further assistance, feel free to reach out to us via email at https://nivislabs.in/ or write to us on this link: https://nivislabs.in/. We will do our best to assist you.
                                     </div>
                                 </div>
                             </div>
@@ -515,7 +515,7 @@
                                 <div id="d2" class="accordion-collapse collapse" data-bs-parent="#paymentAccordion">
                                     <div class="accordion-body">
 
-                                        We apologise for the inconvenience caused. Please reach out to our customer support team via Email (care@phdbeauty.com) or write to us on this link: https://phdbeauty.com/pages/contact and we can promptly have this rectified.
+                                        We apologise for the inconvenience caused. Please reach out to our customer support team via Email (https://nivislabs.in/) or write to us on this link: https://nivislabs.in/ and we can promptly have this rectified.
                                     </div>
                                 </div>
                             </div>
@@ -531,7 +531,7 @@
 
 
 
-                                        We take this matter seriously and sincerely apologize for the inconvenience you've faced. Please contact our customer support team on care@phdbeauty.com or write to us on this link: https://phdbeauty.com/pages/contact
+                                        We take this matter seriously and sincerely apologize for the inconvenience you've faced. Please contact our customer support team on https://nivislabs.in/ or write to us on this link: https://nivislabs.in/
                                     </div>
                                 </div>
                             </div>
@@ -546,8 +546,7 @@
 
 
 
-                                        You can track your current order status by visiting our website https://phdbeauty.com/pages/track-your-order. If your query remains unresolved, please reach out to our customer support team on care@phdbeauty.com or write to us on this link: https://phdbeauty.com/pages/contact .You can track your current order status by visiting our website. If your query remains unresolved, please reach out to our customer support team on care@phdbeauty.com
-
+                                        You can track your current order status by visiting our website https://nivislabs.in/. If your query remains unresolved, please reach out to our customer support team on https://nivislabs.in/ or write to us on this link: https://nivislabs.in/. You can track your current order status by visiting our website. If your query remains unresolved, please reach out to our customer support team on https://nivislabs.in/
                                     </div>
                                 </div>
                             </div>
@@ -559,7 +558,7 @@
                                 </h2>
                                 <div id="d5" class="accordion-collapse collapse" data-bs-parent="#paymentAccordion">
                                     <div class="accordion-body">
-                                        We’re sorry to hear that. Typically, our courier partner makes 3 delivery attempts before returning the order. Please check your SMS or email for any updates about the delivery. You can also check detailed status for your order by clicking on https://phdbeauty.com/pages/track-your-order
+                                        We’re sorry to hear that. Typically, our courier partner makes 3 delivery attempts before returning the order. Please check your SMS or email for any updates about the delivery. You can also check detailed status for your order by clicking on https://nivislabs.in/
                                     </div>
                                 </div>
                             </div>

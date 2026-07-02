@@ -13,7 +13,7 @@
     <h1 class="text-center">Refund Policy</h1>
     <div class="container">
         <h4>Wrong Item Delivered</h4>
-        <p><strong>Step 1</strong> - Raise a replacement request within 3 days from the date of delivery at Email - care@phdbeauty.com or on this with the pictures of the wrong item delivered and your order ID.</p>
+        <p><strong>Step 1</strong> - Raise a replacement request within 3 days from the date of delivery at Email - https://nivislabs.in/ or on this with the pictures of the wrong item delivered and your order ID.</p>
 
         <p><strong>Step 2</strong> - Allow us 48 working hours to review your replacement request.</p>
         <p><strong>Step 3</strong> - On reviewing your replacement request, we will send our courier partner to collect the wrong product delivered to you.</p>
@@ -25,7 +25,7 @@
 
         <h4>Item Damaged</h4>
 
-        <p><strong>Step 1</strong> - Raise a replacement request within 3 days from the date of delivery at care@phdbeauty.com or on this link: https://phdbeauty.com/pages/contact with the pictures of the wrong item delivered and your order ID.</p>
+        <p><strong>Step 1</strong> - Raise a replacement request within 3 days from the date of delivery at https://nivislabs.in/ or on this link: https://nivislabs.in/ with the pictures of the wrong item delivered and your order ID.</p>
         <p><strong>Step 2</strong> - Allow us 48 working hours to review your replacement request.</p>
         <p><strong>Step 3</strong> - On reviewing your replacement request, we will send our courier partner to collect the damaged product delivered to you.</p>
         <p><strong>Step 4</strong> - In case our reverse pick up service is not available at your location, we will assist you with an alternative option.</p>
