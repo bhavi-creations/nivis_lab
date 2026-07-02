@@ -1571,6 +1571,94 @@
     </div>
 </section> -->
 
+
+
+<!-- <section class="video_section_wrapper d-block d-lg-none">
+    <div class="container">
+        <h2 class="video_section_title">EXPLORE OUR CATEGORIES</h2>
+        <div class="video_section_carousel ">
+
+            <div class="swiper-container team-slider">
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide">
+                        <div class="px-2">
+                            <div class="video_section_card">
+                                <div class="video_section_container">
+                                    <video autoplay controls muted loop playsinline poster="./assets/img/reel_1.mp4">
+                                        <source src="./assets/img/reel_1.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide " >
+                        <div class="px-2">
+                            <div class="video_section_card">
+                                <div class="video_section_container">
+                                    <video autoplay controls muted loop playsinline poster="./assets/img/new_video_1.mp4">
+                                        <source src="./assets/img/new_video_1.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="swiper-slide">
+                        <div class="px-2">
+                            <div class="video_section_card">
+                                <div class="video_section_container">
+                                    <video autoplay controls muted loop playsinline poster="./assets/img/UV Aqua.mp4">
+                                        <source src="./assets/img/UV Aqua.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="swiper-slide">
+                        <div class="px-2">
+                            <div class="video_section_card">
+                                <div class="video_section_container">
+                                    <video autoplay controls muted loop playsinline poster="./assets/img/nivis glow.mp4">
+                                        <source src="./assets/img/nivis glow.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+
+    </div>
+</section> -->
+
+
+
+
+
+
 <section class="explore_section_wrapper">
     <div class="container">
 
@@ -1630,7 +1718,12 @@
             </div>
         </div>
 
+
     </div>
+
+
+
+    
 </section>
 <!-- skinthesis section  -->
 <!-- SECTION 1: STRAIGHT UP (FORMER SKINTHESIS) -->

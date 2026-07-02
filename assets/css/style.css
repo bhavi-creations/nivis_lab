@@ -1461,8 +1461,11 @@ a {
 .explore_section_img {
     position: absolute;
     right: 14px;
-    bottom: 18px;
-    width: 112px;
+    bottom: 30px;
+
+     /* right: 14px;
+    bottom: 18px; */
+    width: 80px;   
     height: 122px;
     object-fit: contain;
     background: #fff;
