@@ -502,7 +502,7 @@
 
 <div class="container py-5 img_section_container dermat-routine-section">
     <div class="img_section text-center">
-        <h2 class="fw-bold mb-4" style="letter-spacing: 1px; background-color: oramge">Build Your Perfect Skin Routine</h2>
+        <h2 class="fw-bold mb-4" style="letter-spacing: 1px; color:white">Build Your Perfect Skin Routine</h2>
 
 
         <div class="d-flex flex-nowrap justify-content-start overflow-auto pb-3 no-scrollbar dermat-concern-row" id="dermatConcernRow">
@@ -1248,7 +1248,7 @@
 
 <section class="py-5 px-3 " style="background-color:rgb(197 206 215);">
     <div class="container px-lg-5">
-        <h2 class="fw-bold mb-4 px-3">SHOP OUR SPOTLIGHTS</h2>
+        <h2 class="fw-bold mb-4 px-3 text-center">SHOP OUR SPOTLIGHTS</h2>
         <div class="product-carousel" id="spotlightProductCarousel">
             <div class="spotlight-loading text-center py-4 w-100">
                 <div class="spinner-border text-dark" role="status"></div>
@@ -1729,7 +1729,7 @@
 <!-- SECTION 1: STRAIGHT UP (FORMER SKINTHESIS) -->
 <section class="index_straight-up_section">
     <div class="container">
-        <h5 class="text-uppercase ls-2 text-white">/NIVIS SKIN GUIDE/</h5>
+        <h5 class="text-uppercase ls-2 text-black">/NIVIS SKIN GUIDE/</h5>
         <h2 class="fw-bold mb-4">Clear answers for everyday skincare decisions</h2>
 
         <div class="search-box mx-auto nivis-inline-search">

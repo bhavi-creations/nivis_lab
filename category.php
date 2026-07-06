@@ -1,7 +1,7 @@
 <?php include 'navbar.php'; ?>
 
 <!-- PAGE TITLE & DESCRIPTION -->
-<div class="container mt-5">
+<div class="container my-5">
     <div class="shop-layout">
 
         <!-- SIDEBAR FILTERS -->
