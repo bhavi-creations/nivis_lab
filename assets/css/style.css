@@ -972,7 +972,7 @@ a {
 
 .index_img_section__badge {
     display: inline-block;
-    border: 1.5px solid rgba(255, 255, 255, 0.75);
+    border: 1.5px solid rgba(0, 0, 0, 0.75);
     /* border: 1.5px solid rgba(255, 255, 255, 0.75); */
     color: #000000;
     /* color: #fff; */
