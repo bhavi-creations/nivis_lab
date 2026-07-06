@@ -5,13 +5,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
 :root {
-    --phd-red: #c0001a;
-    --phd-dark: #6b0000;
-    --phd-white: #ffffff;
-    --phd-light: #f5f5f5;
-    --phd-gray: #888;
+    --phd-red: #2563EB;
+    --phd-dark: #1D4ED8;
+    --phd-white: #FFFFFF;
+    --phd-light: #F8FAFC;
+    --phd-gray: #64748B;
     --nav-h: 64px;
     --marquee-h: 38px;
+    --brand-primary: #2563EB;
+    --brand-primary-dark: #1D4ED8;
+    --brand-accent: #F97316;
+    --brand-text: #1F2937;
+    --brand-surface: #FFFFFF;
+    --brand-muted: #6B7280;
+    --brand-border: #E5E7EB;
+    --brand-shadow: 0 12px 30px rgba(37, 99, 235, 0.12);
 }
 
 * {
@@ -39,10 +47,9 @@ p {
 } */
 
 body {
-    /* font-family: "Bai Jamjuree", sans-serif; */
-    /* font-family: 'Barlow', sans-serif; */
-    background: #fff;
-    color: #111;
+    background: linear-gradient(180deg, #d2dcf1 0%, #ffffff 100%);
+    /* background: linear-gradient(180deg, #f9fbff 0%, #ffffff 100%); */
+    color: var(--brand-text);
     overflow-x: hidden;
 }
 
@@ -55,8 +62,8 @@ a {
        1. MARQUEE SECTION
     ══════════════════════════════════════════ */
 .index_marquee_section {
-    background: #fff;
-    border-bottom: 1px solid #eee;
+    background: linear-gradient(90deg, #f8fbff 0%, #ffffff 100%);
+    border-bottom: 1px solid var(--brand-border);
     height: var(--marquee-h);
     overflow: hidden;
     display: flex;
@@ -120,17 +127,13 @@ a {
        2. NAVBAR SECTION
     ══════════════════════════════════════════ */
 .index_navbar_section {
-    /* position: absolute; */
     top: var(--marquee-h);
     left: 0;
     width: 100%;
     z-index: 150;
-    /* background-color: #a31d2f; */
-    background-color: #0a2b4a;
-    /* background: transparent; */
-    /* transition: background 0.3s ease; */
-
+    background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 55%, #3b82f6 100%);
     padding: 14px 0;
+    box-shadow: 0 14px 32px rgba(37, 99, 235, 0.24);
 }
 
 .index_navbar_section.index_navbar_section--scrolled {
@@ -280,7 +283,8 @@ a {
 
 .index_navbar_section__link:hover {
     color: #fff;
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.16);
+    border-radius: 8px;
 }
 
 /* on scrolled nav */
@@ -798,12 +802,13 @@ a {
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 5;
-    height: auto;
-    min-height: 0;
+    min-height: 420px;
     margin: 0;
     overflow: hidden;
     cursor: pointer;
-    background: #fff;
+    background: linear-gradient(135deg, #eef6ff 0%, #f8fbff 55%, #ffffff 100%);
+    border-bottom: 1px solid rgba(37, 99, 235, 0.12);
+    box-shadow: inset 0 -20px 45px rgba(37, 99, 235, 0.04);
 }
 
 /* Dark red radial hero bg (matches brand) */
@@ -992,13 +997,12 @@ a {
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: #fff;
-    padding: 0.48rem 0.8rem;
-    border: 1px solid rgba(255, 255, 255, 0.75);
+    padding: 0.6rem 0.95rem;
+    border: 0;
     border-radius: 999px;
-    background: rgba(10, 43, 74, 0.78);
-    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
-    backdrop-filter: blur(6px);
-    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    background: linear-gradient(135deg, var(--brand-accent) 0%, #fb923c 100%);
+    box-shadow: 0 10px 24px rgba(249, 115, 22, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .index_img_section:hover .index_img_section__cta {
@@ -1274,16 +1278,21 @@ a {
     position: relative;
     overflow: hidden;
     cursor: pointer;
+    border: 1px solid rgba(37, 99, 235, 0.16);
+    border-radius: 24px;
+    box-shadow: 0 16px 42px rgba(37, 99, 235, 0.10);
+    background: linear-gradient(145deg, #ffffff 0%, #f4f9ff 100%);
 }
 
 .concern-card img {
     width: 100%;
-    filter: brightness(0.7);
+    filter: brightness(0.72);
     transition: 0.3s;
+    border-radius: 24px;
 }
 
 .concern-card:hover img {
-    transform: scale(1.1);
+    transform: scale(1.08);
 }
 
 .concern-overlay {
@@ -1297,8 +1306,11 @@ a {
 
 /* Slider */
 .product-card {
-    background: #fff;
+    background: linear-gradient(145deg, #ffffff 0%, #f8fbff 100%);
     padding: 15px;
+    border: 1px solid rgba(37, 99, 235, 0.16);
+    border-radius: 22px;
+    box-shadow: 0 16px 42px rgba(37, 99, 235, 0.10);
 }
 
 .img-wrapper img {
@@ -1327,6 +1339,7 @@ a {
 /* 1. Video Section Styling */
 .video_section_wrapper {
     padding: 60px 0;
+    background-color: #c5e0e4a4;
 }
 
 .video_section_title {
@@ -1337,17 +1350,17 @@ a {
 }
 
 .video_section_card {
-    /* background: #fff; */
-    /* background: #aeababcd; */
-    padding: 5px;
-    border-radius: 12px;
+    padding: 10px;
+    border-radius: 22px;
+    background: linear-gradient(145deg, #ffffff 0%, #f4f9ff 100%);
+    border: 1px solid rgba(37, 99, 235, 0.14);
+    box-shadow: 0 16px 42px rgba(37, 99, 235, 0.10);
 }
 
 .video_section_container {
     position: relative;
     overflow: hidden;
-    border-radius: 12px;
-    /* Smoother corners */
+    border-radius: 18px;
     aspect-ratio: 9/16;
     background: #000;
 }
@@ -1357,7 +1370,8 @@ a {
     height: 100%;
     object-fit: cover;
     display: block;
-    border: 10px solid grey !important;
+    border: 8px solid rgba(255,255,255,0.95) !important;
+    border-radius: 16px;
 }
 
 .video_section_product_info {
@@ -1421,8 +1435,8 @@ a {
 }
 
 .explore_section_card {
-    background: linear-gradient(135deg, #f8fafc 0%, #eef3f7 100%);
-    border-radius: 8px;
+    background: linear-gradient(135deg, #ffffff 0%, #f4f9ff 100%);
+    border-radius: 24px;
     padding: 20px;
     display: flex;
     justify-content: space-between;
@@ -1432,16 +1446,17 @@ a {
     height: 180px;
     overflow: hidden;
     margin: 0 10px;
-    border: 1px solid #e6e9ee;
+    border: 1px solid rgba(37, 99, 235, 0.16);
     color: inherit;
     text-decoration: none;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 16px 42px rgba(37, 99, 235, 0.10);
 }
 
 .explore_section_card:hover {
     color: inherit;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
+    box-shadow: 0 24px 54px rgba(37, 99, 235, 0.16);
+    transform: translateY(-4px);
 }
 
 .explore_section_content h4 {
@@ -1462,28 +1477,26 @@ a {
     position: absolute;
     right: 14px;
     bottom: 30px;
-
-     /* right: 14px;
-    bottom: 18px; */
-    width: 80px;   
+    width: 80px;
     height: 122px;
     object-fit: contain;
-    background: #fff;
-    border-radius: 8px;
+    background: linear-gradient(145deg, #ffffff 0%, #f4f9ff 100%);
+    border-radius: 16px;
     padding: 8px;
-    box-shadow: 0 10px 22px rgba(10, 43, 74, 0.08);
+    box-shadow: 0 12px 28px rgba(37, 99, 235, 0.12);
 }
 
 .explore_section_shop_now {
     position: absolute;
     bottom: 20px;
     left: 20px;
-    background: #000;
+    background: linear-gradient(135deg, var(--brand-accent) 0%, #fb923c 100%);
     color: #fff;
     padding: 6px 18px;
     font-size: 0.7rem;
     text-decoration: none;
     font-weight: bold;
+    border-radius: 999px;
 }
 
 @media (max-width: 576px) {
@@ -1986,21 +1999,22 @@ input[type="range"]::-ms-thumb {
     display: block;
     width: 100%;
     padding: 10px 0;
-    background: #000;
+    background: linear-gradient(135deg, var(--brand-accent) 0%, #fb923c 100%);
     color: #fff;
     font-size: 13px;
     font-weight: 700;
     letter-spacing: .08em;
     text-transform: uppercase;
     border: none;
-    border-radius: 4px;
+    border-radius: 999px;
     cursor: pointer;
-    transition: background .2s ease, transform .2s ease;
+    transition: transform .2s ease, box-shadow .2s ease;
+    box-shadow: 0 10px 20px rgba(249, 115, 22, 0.2);
 }
 
 .btn-cart:hover {
-    background: #222;
     transform: translateY(-1px);
+    box-shadow: 0 14px 26px rgba(249, 115, 22, 0.24);
 }
 
 /* ── RESPONSIVE ── */
@@ -6143,6 +6157,7 @@ button:hover {
 
 .dermat-routine-section {
     max-width: 1580px;
+    background-color:#a7c2c8;
 }
 
 .dermat-routine-section .img_section {
@@ -6952,7 +6967,7 @@ textarea.custom-input {
 }
 
 .contact-btn {
-    background: #0a2b4a;
+    background: linear-gradient(135deg, var(--brand-accent) 0%, #fb923c 100%);
     color: #fff;
     border: none;
     padding: 15px 45px;
@@ -6963,8 +6978,8 @@ textarea.custom-input {
 }
 
 .contact-btn:hover {
-    background: #084298;
     transform: translateY(-3px);
+    box-shadow: 0 14px 24px rgba(249, 115, 22, 0.24);
 }
 
 @media(max-width:768px) {

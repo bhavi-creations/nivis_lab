@@ -1,7 +1,7 @@
 <?php include 'navbar.php'; ?>
 
 
-<section class="index_straight-up_section">
+<section class="index_straight-up_section" >
     <div class="container">
         <h5 class="text-uppercase ls-2 text-white">/SKINTHESIS/</h5>
         <h2 class="fw-bold mb-4">Straight-up answers to your skincare questions</h2>
@@ -43,7 +43,7 @@
 
 
 
-<section class="skinthesis_section py-5">
+<section class="skinthesis_section py-5" style="background-color: #ffa50026;">
     <div class="container">
 
         <h2 class="text-center section-title mb-5">Dermatologist-Approved Answers to Your Everyday Questions</h2>
