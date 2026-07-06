@@ -153,13 +153,13 @@
                     <a class="index_navbar_section__link" href="#">Concern</a>
                     <ul class="index_navbar_section__dropdown" id="navbarConcernDesktop">
                         <!-- Manual concern dropdown: edit these items directly when needed. -->
-                        <li><a href="brigthening.php">Brightening</a></li>
+                        <!-- <li><a href="brigthening.php">Brightening</a></li>
                         <li><a href="acne.php">Acne</a></li>
                         <li><a href="acne_marks.php">Acne Marks</a></li>
                         <li><a href="pigmentation.php">Pigmentation</a></li>
                         <li><a href="lines_and_wrinkles.php">Lines and Wrinkles</a></li>
                         <li><a href="dehydration.php">Dehydration</a></li>
-                        <li><a href="eczema.php">Eczema</a></li>
+                        <li><a href="eczema.php">Eczema</a></li> -->
                     
 
 </ul>
