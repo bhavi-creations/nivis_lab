@@ -1,8 +1,5 @@
 <?php include 'navbar.php'; ?>
 
-
-
-
 </head>
 
 <body>
