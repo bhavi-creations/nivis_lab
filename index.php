@@ -502,7 +502,7 @@
 
 <div class="container py-5 img_section_container dermat-routine-section">
     <div class="img_section text-center">
-        <h2 class="fw-bold mb-4" style="letter-spacing: 1px; color:white">Build Your Perfect Skin Routine</h2>
+        <h2 class="fw-bold mb-4" style="letter-spacing: 1px; color:black">Build Your Perfect Skin Routine</h2>
 
 
         <div class="d-flex flex-nowrap justify-content-start overflow-auto pb-3 no-scrollbar dermat-concern-row" id="dermatConcernRow">
