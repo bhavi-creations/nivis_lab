@@ -1,7 +1,7 @@
 <?php include 'navbar.php'; ?>
 
 
-<section class="index_straight-up_section" >
+<section class="index_straight-up_section">
     <div class="container">
         <h5 class="text-uppercase ls-2 text-white">/SKINTHESIS/</h5>
         <h2 class="fw-bold mb-4">Straight-up answers to your skincare questions</h2>
@@ -43,7 +43,7 @@
 
 
 
-<section class="skinthesis_section py-5" style="background-color: #ffa50026;">
+<section class="skinthesis_section pt-5 pb-2" style="background-color: #ffa50026;">
     <div class="container">
 
         <h2 class="text-center section-title mb-5">Dermatologist-Approved Answers to Your Everyday Questions</h2>
@@ -105,7 +105,22 @@
 
         </div>
 
-        <h2 class="text-center section-title mb-5 mt-5">Practical Guides for Different Skin Concerns</h2>
+    
+    </div>
+
+    <!-- <div class="skinthesis">
+        <button class="btn-btn-primary" href="integrety.php">More Articles on Ingredients</button>
+    </div> -->
+
+</section>
+
+
+<section class="skinthesis_section py-2" style="background-color: #0a2b4a;">
+    <div class="container">
+
+        
+
+        <h2 class="text-center section-title mb-5 mt-5 text-white">Practical Guides for Different Skin Concerns</h2>
         <div class="row g-4 justify-content-center mb-5">
 
             <div class="col-md-4">
@@ -163,6 +178,24 @@
             </div>
 
         </div>
+
+       
+
+    </div>
+
+    <!-- <div class="skinthesis">
+        <button class="btn-btn-primary" href="integrety.php">More Articles on Ingredients</button>
+    </div> -->
+
+</section>
+
+
+
+
+<section class="skinthesis_section pt-2 pb-5" style="background-color: #ffa50026;">
+    <div class="container">
+
+      
 
         <h2 class="text-center section-title mb-5 mt-5">Deep Dive into the Key Skincare Ingredients</h2>
         <div class="row g-4 justify-content-center">
@@ -224,13 +257,12 @@
         </div>
 
     </div>
- 
+
     <!-- <div class="skinthesis">
         <button class="btn-btn-primary" href="integrety.php">More Articles on Ingredients</button>
     </div> -->
 
 </section>
-
 
 
 <?php include 'footer.php'; ?>

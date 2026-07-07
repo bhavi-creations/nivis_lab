@@ -26,6 +26,41 @@
       </div>
     </div>
   </section>
+
+
+
+
+
+    <!-- ═══════════════════════════════════════
+     SECTION 4 — The Nivis Labs Promise
+═══════════════════════════════════════ -->
+  <section class="our_section_4">
+
+    <!-- Background -->
+    <div class="our_section_4__bg"></div>
+
+    <!-- Top-left label -->
+    <div class="our_section_4__label">The Nivis Labs Promise</div>
+
+    <!-- Centred card -->
+    <div class="our_section_4__card-wrap">
+      <div class="our_section_4__card">
+        <h2 class="our_section_4__card-title">
+          Skincare Made Clear, Consistent, and Reliable
+        </h2>
+        <p class="our_section_4__card-body">
+          Nivis Labs brings together practical formulations, focused product categories, and transparent information so
+          customers can choose skincare with confidence.
+        </p>
+      </div>
+    </div>
+
+    <!-- Scroll-up button -->
+    <!-- <a href="#" class="our_section_4__scroll-btn" aria-label="Scroll to top">
+    ↑
+  </a> -->
+
+  </section>
   <!-- sectionm 3 -->
 
   <section class="philosophy-section">
@@ -80,37 +115,29 @@
 
   </section>
 
+  <!-- section last  -->
 
-  <!-- ═══════════════════════════════════════
-     SECTION 4 — The Nivis Labs Promise
-═══════════════════════════════════════ -->
-  <section class="our_section_4">
+  <section class="last position-relative d-flex align-items-center justify-content-center text-center">
+    <div class="overlay-dark"></div>
+    <div class="container position-relative text-white py-5" style="z-index: 2;">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <p class="text-uppercase mb-3 fw-light" style="letter-spacing: 2px;">Discover Nivis Labs</p>
 
-    <!-- Background -->
-    <div class="our_section_4__bg"></div>
+          <h1 class="display-3 fw-bold mb-4">Skincare made simple.</h1>
 
-    <!-- Top-left label -->
-    <div class="our_section_4__label">The Nivis Labs Promise</div>
+          <p class="h5 fw-normal mb-5 opacity-75">Thoughtful formulas for everyday skin needs.</p>
 
-    <!-- Centred card -->
-    <div class="our_section_4__card-wrap">
-      <div class="our_section_4__card">
-        <h2 class="our_section_4__card-title">
-          Skincare Made Clear, Consistent, and Reliable
-        </h2>
-        <p class="our_section_4__card-body">
-          Nivis Labs brings together practical formulations, focused product categories, and transparent information so
-          customers can choose skincare with confidence.
-        </p>
+          <div class="mt-4">
+            <a href="products.php" class="btn btn-light px-5 py-3 fw-semibold rounded-0 text-dark">
+              Shop all
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-
-    <!-- Scroll-up button -->
-    <!-- <a href="#" class="our_section_4__scroll-btn" aria-label="Scroll to top">
-    ↑
-  </a> -->
-
   </section>
+
 
 
   <!-- ═══════════════════════════════════════
@@ -189,7 +216,7 @@
           We pay attention to ingredient purpose, texture, product experience, and routine compatibility so skincare
           feels both effective and easy to use.
         </p>
-        <a href="products.php" class="our_section_5__cta">Shop products</a>
+        <!-- <a href="products.php" class="our_section_5__cta">Shop products</a> -->
       </div>
 
     </div>
@@ -197,28 +224,7 @@
 
 
 
-  <!-- section last  -->
 
-  <section class="last position-relative d-flex align-items-center justify-content-center text-center">
-    <div class="overlay-dark"></div>
-    <div class="container position-relative text-white py-5" style="z-index: 2;">
-      <div class="row justify-content-center">
-        <div class="col-lg-8">
-          <p class="text-uppercase mb-3 fw-light" style="letter-spacing: 2px;">Discover Nivis Labs</p>
-
-          <h1 class="display-3 fw-bold mb-4">Skincare made simple.</h1>
-
-          <p class="h5 fw-normal mb-5 opacity-75">Thoughtful formulas for everyday skin needs.</p>
-
-          <div class="mt-4">
-            <a href="products.php" class="btn btn-light px-5 py-3 fw-semibold rounded-0 text-dark">
-              Shop all
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

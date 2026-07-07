@@ -1309,7 +1309,7 @@
 
 <section class="video_section_wrapper d-none d-lg-block">
     <div class="container">
-        <h2 class="video_section_title">NIVIS LABS FORMULAS IN FOCUS</h2>
+        <h2 class="video_section_title text-center fw-bold">NIVIS LABS FORMULAS IN FOCUS</h2>
         <div class="video_section_carousel ">
 
             <div class="px-2">
@@ -1966,7 +1966,12 @@
                             <div class="spotlight-card__meta small mb-2">${ratingHtml} (${escapeSpotlightHtml(product.reviewsCount || 120)} reviews)</div>
                             <div class="spotlight-card__price mb-3"><span class="badge-b1g1">${escapeSpotlightHtml(product.boughtTag || 'B1G1')}</span> <span class="ms-1">${priceLabel}</span></div>
                         </a>
-                        <button class="btn btn-dark spotlight-card__btn w-100 rounded-0">ADD TO CART</button>
+                        <div class="spotlight-card__popover">
+                            <div class="spotlight-card__popover-title">${escapeSpotlightHtml(product.name || 'Product')}</div>
+                            <p class="spotlight-card__popover-text">${escapeSpotlightHtml(subtitle)}</p>
+                            <div class="spotlight-card__popover-meta">${escapeSpotlightHtml(product.type || 'Product')} ${product.size ? `• ${escapeSpotlightHtml(product.size)}` : ''} • ${priceLabel}</div>
+                        </div>
+                        <button type="button" class="btn btn-dark spotlight-card__btn w-100 rounded-0">ADD TO CART</button>
                     </div>
                 </div>
             `;
@@ -2026,6 +2031,27 @@
         }
 
         loadSpotlightProducts();
+
+        spotlightCarousel.on('click', '.spotlight-card__btn', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const card = this.closest('[data-product-id]');
+            if (!card || !window.NivisCart) return;
+
+            const product = window.NivisCart.fromCard(card);
+            if (!product) return;
+
+            window.NivisCart.add(product, 1);
+        });
+
+        spotlightCarousel.on('mouseenter focusin', '.spotlight-card', function() {
+            this.classList.add('is-hovered');
+        });
+
+        spotlightCarousel.on('mouseleave focusout', '.spotlight-card', function() {
+            this.classList.remove('is-hovered');
+        });
 
         // 2. Countdown Timer Logic
         function startTimer(duration) {
