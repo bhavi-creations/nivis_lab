@@ -1390,7 +1390,7 @@
                         </div>
                     </div>
 
-                    <div class="swiper-slide " >
+                    <div class="swiper-slide ">
                         <div class="px-2">
                             <div class="video_section_card">
                                 <div class="video_section_container">
@@ -1712,7 +1712,7 @@
 
 
 
-    
+
 </section>
 <!-- skinthesis section  -->
 <!-- SECTION 1: STRAIGHT UP (FORMER SKINTHESIS) -->
@@ -1851,7 +1851,7 @@
             Trusted by customers looking for clear, practical skincare from Nivis Labs.
         </p>
 
-        <div class="row g-4 justify-content-center">
+         <div class="row g-4 justify-content-center">
 
             <div class="col-6 col-md-4 col-lg-2">
                 <div class="last_section">

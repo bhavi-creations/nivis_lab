@@ -122,7 +122,7 @@
         </aside>
 
         <!-- PRODUCT GRID -->
-        <div class="product-grid-wrap">
+        <div class="product-grid-wrap mb-5">
             <div class="product-count" id="productCount">7 products</div>
 
             <div class="products-grid" id="productsGrid">
