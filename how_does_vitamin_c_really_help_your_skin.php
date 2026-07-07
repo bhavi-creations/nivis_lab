@@ -242,7 +242,7 @@
 
 
 
-    <section class="Squalane_third_section">
+    <!-- <section class="Squalane_third_section">
         <div class="container text-center">
             <h2 class="section-title mb-5">Continue reading</h2>
             <div class="row justify-content-center">
@@ -306,7 +306,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
 
 

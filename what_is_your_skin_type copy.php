@@ -9,11 +9,11 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb small">
                     <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted">How To Make Skin Glow?</a></li>
+                    <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted">What Is Your Skin Type?</a></li>
                     <!-- <li class="breadcrumb-item active">Squalane</li> -->
                 </ol>
             </nav>
-            <h1>How To Make Skin Glow?
+            <h1>What Is Your Skin Type?
             </h1>
             <p>
                 Layering skincare correctly helps your products work better together and protects your skin’s natural barrier. This dermatologist-approved guide explains the right order to apply cleansers, serums, moisturizers, and sunscreen for healthier, more resilient skin — especially suited for Indian skin needs. </p>
@@ -309,7 +309,7 @@
 
 
 
-    <!-- <section class="Squalane_third_section">
+    <section class="Squalane_third_section">
         <div class="container text-center">
             <h2 class="section-title mb-5">Continue reading</h2>
             <div class="row justify-content-center">
@@ -373,7 +373,7 @@
                 </div>
             </div>
         </div>
-    </section> -->
+    </section>
 
 
 
