@@ -15,10 +15,10 @@
                 </div>
                 <div class="filter-body">
                     <div class="price-range-wrap">
-                        <input type="range" id="priceRange" min="0" max="1500" value="1500" oninput="updatePrice(this.value)" />
+                        <input type="range" id="priceRange" min="0" max="1500" value="1500" />
                         <div class="price-inputs">
-                            <input type="number" id="priceMin" value="0" readonly />
-                            <input type="number" id="priceMax" value="1500" readonly />
+                            <input type="number" id="priceMin" value="0" />
+                            <input type="number" id="priceMax" value="1500" />
                         </div>
                     </div>
                 </div>

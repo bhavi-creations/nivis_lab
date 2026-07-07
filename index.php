@@ -2042,7 +2042,17 @@
             const product = window.NivisCart.fromCard(card);
             if (!product) return;
 
+            if (typeof window.addProductToCart === 'function') {
+                window.addProductToCart(product);
+                return;
+            }
+
             window.NivisCart.add(product, 1);
+
+            const drawer = document.getElementById('cartDrawer');
+            if (drawer && window.bootstrap) {
+                bootstrap.Offcanvas.getOrCreateInstance(drawer).show();
+            }
         });
 
         spotlightCarousel.on('mouseenter focusin', '.spotlight-card', function() {

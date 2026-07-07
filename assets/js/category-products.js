@@ -159,8 +159,15 @@
         window.__dynamicProductFiltersPatched = true;
         window.applyFilters = function() {
             const priceRange = document.getElementById('priceRange');
+            const priceMinInput = document.getElementById('priceMin');
+            const priceMaxInput = document.getElementById('priceMax');
             const productCount = document.getElementById('productCount');
-            const maxPrice = parseInt(priceRange?.value || '999999', 10);
+            const minPrice = parseInt(priceMinInput?.value || '0', 10);
+            const maxPrice = parseInt(priceMaxInput?.value || priceRange?.value || '999999', 10);
+            const normalizedMin = Number.isFinite(minPrice) ? minPrice : 0;
+            const normalizedMax = Number.isFinite(maxPrice) ? maxPrice : 999999;
+            const lowerBound = Math.min(normalizedMin, normalizedMax);
+            const upperBound = Math.max(normalizedMin, normalizedMax);
             const checkedConcerns = checkedFilterValues('#filter-concern');
             const checkedIngredients = checkedFilterValues('#filter-ingredient');
             const checkedTypes = checkedFilterValues('#filter-type');
@@ -172,7 +179,7 @@
                 const concerns = datasetTokens(card, 'concern');
                 const ingredients = datasetTokens(card, 'ingredient');
                 const type = datasetTokens(card, 'type');
-                const priceOk = price <= maxPrice;
+                const priceOk = price >= lowerBound && price <= upperBound;
                 const concernOk = checkedConcerns.length === 0 || checkedConcerns.some(value => concerns.includes(value));
                 const ingredientOk = checkedIngredients.length === 0 || checkedIngredients.some(value => ingredients.includes(value));
                 const typeOk = checkedTypes.length === 0 || checkedTypes.some(value => type.includes(value));
@@ -197,10 +204,12 @@
     }
 
     function updatePrice(val) {
+        const priceMin = document.getElementById('priceMin');
         const priceMax = document.getElementById('priceMax');
         const priceRange = document.getElementById('priceRange');
 
         if (priceMax) priceMax.value = val;
+        if (priceMin && !priceMin.value) priceMin.value = '0';
         if (priceRange) {
             priceRange.value = val;
             updateRangeBackground(priceRange);
@@ -244,6 +253,42 @@
         if (priceMax) priceMax.value = rangeInput.value;
         if (priceMin && !priceMin.value) priceMin.value = '0';
         updateRangeBackground(rangeInput);
+    }
+
+    function bindPriceInputs() {
+        const priceMin = document.getElementById('priceMin');
+        const priceMax = document.getElementById('priceMax');
+        const priceRange = document.getElementById('priceRange');
+
+        if (priceMin && !priceMin.dataset.bound) {
+            priceMin.dataset.bound = 'true';
+            priceMin.addEventListener('input', () => {
+                if (priceRange) {
+                    updateRangeBackground(priceRange);
+                }
+                if (typeof window.applyFilters === 'function') {
+                    window.applyFilters();
+                }
+            });
+        }
+
+        if (priceMax && !priceMax.dataset.bound) {
+            priceMax.dataset.bound = 'true';
+            priceMax.addEventListener('input', () => {
+                if (priceRange) {
+                    priceRange.value = priceMax.value;
+                    updateRangeBackground(priceRange);
+                }
+                if (typeof window.applyFilters === 'function') {
+                    window.applyFilters();
+                }
+            });
+        }
+
+        if (priceRange && !priceRange.dataset.bound) {
+            priceRange.dataset.bound = 'true';
+            priceRange.addEventListener('input', () => updatePrice(priceRange.value));
+        }
     }
 
     function productPriceNumber(product) {
@@ -397,6 +442,7 @@
 
         populateDynamicFilters(products);
         syncPriceSliderForProducts(products);
+        bindPriceInputs();
         targetGrid.innerHTML = products.map(productCard).join('');
         if (targetCount) {
             targetCount.textContent = `${products.length} product${products.length !== 1 ? 's' : ''}`;
