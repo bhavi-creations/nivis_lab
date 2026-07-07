@@ -1648,6 +1648,71 @@
 
 
 
+
+<!-- skinthesis section  -->
+<!-- SECTION 1: STRAIGHT UP (FORMER SKINTHESIS) -->
+<section class="index_straight-up_section">
+    <div class="container">
+        <h5 class="text-uppercase ls-2 text-white">/NIVIS SKIN GUIDE/</h5>
+        <h2 class="fw-bold mb-4 text-white">Clear answers for everyday skincare decisions</h2>
+
+        <div class="search-box mx-auto nivis-inline-search">
+            <div class="input-group">
+                <span class="input-group-text bg-white border-0">
+                    <i class="fa fa-search text-muted"></i>
+                </span>
+                <input type="search" class="form-control border-0" id="indexGuideSearchInput" autocomplete="off" placeholder="Search products and categories">
+            </div>
+            <div class="nivis-search-results nivis-search-results--inline" id="indexGuideSearchResults"></div>
+        </div>
+
+        <div class="d-flex flex-wrap justify-content-center mt-4">
+            <!-- <a href="#" class="btn btn-outline-white text-white">Advice</a>
+            <a href="#" class="btn btn-outline-white text-white">Conditions</a>
+            <a href="#" class="btn btn-outline-white text-white">How-To</a>
+            <a href="#" class="btn btn-outline-white text-white">Ingredients</a>
+            <a href="#" class="btn btn-outline-white text-white">Index</a> -->
+            <!-- <span href="general_advice.php" class="index_img_section__badge mx-1">Advice</span>
+            <span href="skin_condition.php" class="index_img_section__badge  mx-1">Conditions</span>
+            <span href="how-tos.php" class="index_img_section__badge mx-1">How-To</span>
+            <span href="integrety.php" class="index_img_section__badge mx-1">Ingredients</span>
+            <span href="index.php" class="index_img_section__badge mx-1">Index</span> -->
+            <a href="general_advice.php" class="index_img_section__badge mx-1">Advice</a>
+            <a href="skin_condition.php" class="index_img_section__badge mx-1">Conditions</a>
+            <a href="how-tos.php" class="index_img_section__badge mx-1">How-To</a>
+            <a href="integrety.php" class="index_img_section__badge mx-1">Ingredients</a>
+            <a href="index.php" class="index_img_section__badge mx-1">Index</a>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- SECTION 2: ICONS -->
+<!-- <section class="index_last_second">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-6 col-md-3 mb-3 icon-box">
+                <img src="https://cdn-icons-png.flaticon.com/512/2833/2833315.png" style="width: 100px;">
+                <p>Quality-Focused Formulas</p>
+            </div>
+            <div class="col-6 col-md-3 mb-3 icon-box">
+                <img src="https://cdn-icons-png.flaticon.com/512/3063/3063822.png" style="width: 100px;">
+                <p>Skin-Friendly Approach</p>
+            </div>
+            <div class="col-6 col-md-3 mb-3 icon-box">
+                <img src="https://cdn-icons-png.flaticon.com/512/2913/2913564.png" style="width: 100px;">
+                <p>Thoughtful Ingredient Selection</p>
+            </div>
+            <div class="col-6 col-md-3 mb-3 icon-box">
+                <img src="https://cdn-icons-png.flaticon.com/512/802/802826.png" style="width: 100px;">
+                <p>Built for Daily Routines</p>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+
 <section class="explore_section_wrapper">
     <div class="container">
 
@@ -1714,68 +1779,21 @@
 
 
 </section>
-<!-- skinthesis section  -->
-<!-- SECTION 1: STRAIGHT UP (FORMER SKINTHESIS) -->
-<section class="index_straight-up_section">
-    <div class="container">
-        <h5 class="text-uppercase ls-2 text-black">/NIVIS SKIN GUIDE/</h5>
-        <h2 class="fw-bold mb-4">Clear answers for everyday skincare decisions</h2>
-
-        <div class="search-box mx-auto nivis-inline-search">
-            <div class="input-group">
-                <span class="input-group-text bg-white border-0">
-                    <i class="fa fa-search text-muted"></i>
-                </span>
-                <input type="search" class="form-control border-0" id="indexGuideSearchInput" autocomplete="off" placeholder="Search products and categories">
-            </div>
-            <div class="nivis-search-results nivis-search-results--inline" id="indexGuideSearchResults"></div>
-        </div>
-
-        <div class="d-flex flex-wrap justify-content-center mt-4">
-            <!-- <a href="#" class="btn btn-outline-white text-white">Advice</a>
-            <a href="#" class="btn btn-outline-white text-white">Conditions</a>
-            <a href="#" class="btn btn-outline-white text-white">How-To</a>
-            <a href="#" class="btn btn-outline-white text-white">Ingredients</a>
-            <a href="#" class="btn btn-outline-white text-white">Index</a> -->
-            <!-- <span href="general_advice.php" class="index_img_section__badge mx-1">Advice</span>
-            <span href="skin_condition.php" class="index_img_section__badge  mx-1">Conditions</span>
-            <span href="how-tos.php" class="index_img_section__badge mx-1">How-To</span>
-            <span href="integrety.php" class="index_img_section__badge mx-1">Ingredients</span>
-            <span href="index.php" class="index_img_section__badge mx-1">Index</span> -->
-            <a href="general_advice.php" class="index_img_section__badge mx-1">Advice</a>
-            <a href="skin_condition.php" class="index_img_section__badge mx-1">Conditions</a>
-            <a href="how-tos.php" class="index_img_section__badge mx-1">How-To</a>
-            <a href="integrety.php" class="index_img_section__badge mx-1">Ingredients</a>
-            <a href="index.php" class="index_img_section__badge mx-1">Index</a>
-
-        </div>
-    </div>
-</section>
 
 
-<!-- SECTION 2: ICONS -->
-<!-- <section class="index_last_second">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-6 col-md-3 mb-3 icon-box">
-                <img src="https://cdn-icons-png.flaticon.com/512/2833/2833315.png" style="width: 100px;">
-                <p>Quality-Focused Formulas</p>
-            </div>
-            <div class="col-6 col-md-3 mb-3 icon-box">
-                <img src="https://cdn-icons-png.flaticon.com/512/3063/3063822.png" style="width: 100px;">
-                <p>Skin-Friendly Approach</p>
-            </div>
-            <div class="col-6 col-md-3 mb-3 icon-box">
-                <img src="https://cdn-icons-png.flaticon.com/512/2913/2913564.png" style="width: 100px;">
-                <p>Thoughtful Ingredient Selection</p>
-            </div>
-            <div class="col-6 col-md-3 mb-3 icon-box">
-                <img src="https://cdn-icons-png.flaticon.com/512/802/802826.png" style="width: 100px;">
-                <p>Built for Daily Routines</p>
-            </div>
-        </div>
-    </div>
-</section> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <section>
@@ -1841,7 +1859,7 @@
 </section>
 
 
-<section class="featured-section">
+<!-- <section class="featured-section">
     <div class="container">
 
         <h2 class="featured-title">FEATURED IN</h2>
@@ -1892,7 +1910,15 @@
         </div>
 
     </div>
-</section>
+</section> -->
+
+
+
+
+
+
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -1927,7 +1953,7 @@
 
             return `
                 <div class="px-2">
-                    <div class="product-card"
+                    <div class="spotlight-card"
                         data-product-id="${escapeSpotlightHtml(productKey)}"
                         data-product-name="${escapeSpotlightHtml(product.name || 'Product')}"
                         data-product-price="${escapeSpotlightHtml(priceNumber)}"
@@ -1937,10 +1963,10 @@
                             <img src="${escapeSpotlightHtml(imageUrl)}" class="w-100 mb-3" alt="${escapeSpotlightHtml(product.name || 'Product')}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImage}';">
                             <h6 class="fw-bold">${escapeSpotlightHtml(product.name || 'Product')} ${size}</h6>
                             <p class="small text-muted mb-2">/ ${escapeSpotlightHtml(subtitle)} /</p>
-                            <div class="small mb-2">${ratingHtml} (${escapeSpotlightHtml(product.reviewsCount || 120)} reviews)</div>
-                            <div class="mb-3"><span class="badge-b1g1">${escapeSpotlightHtml(product.boughtTag || 'B1G1')}</span> <span class="ms-1">${priceLabel}</span></div>
+                            <div class="spotlight-card__meta small mb-2">${ratingHtml} (${escapeSpotlightHtml(product.reviewsCount || 120)} reviews)</div>
+                            <div class="spotlight-card__price mb-3"><span class="badge-b1g1">${escapeSpotlightHtml(product.boughtTag || 'B1G1')}</span> <span class="ms-1">${priceLabel}</span></div>
                         </a>
-                        <button class="btn btn-dark btn-cart w-100 rounded-0">ADD TO CART</button>
+                        <button class="btn btn-dark spotlight-card__btn w-100 rounded-0">ADD TO CART</button>
                     </div>
                 </div>
             `;

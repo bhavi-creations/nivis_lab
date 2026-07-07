@@ -221,7 +221,7 @@ a {
 
 .index_navbar_section__link {
     display: block;
-    padding: 0 1.1rem;
+    padding: 0 1rem;
     height: calc(var(--nav-h) - 2px);
     line-height: calc(var(--nav-h) - 2px);
     /* font-family: 'Barlow Condensed', sans-serif; */
@@ -296,6 +296,8 @@ a {
     color: #fff;
     background: rgba(255, 255, 255, 0.18);
     border-radius: 10px;
+    padding: 0 0.88rem;
+    font-size: calc(0.78rem + 2px);
 }
 
 .index_navbar_section__link.active,
@@ -1293,6 +1295,11 @@ a {
 
 .img-wrapper img {
     width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    object-fit: contain;
+    object-position: center center;
     background: #f4f4f4;
     border-radius: 4px;
 }
@@ -1404,9 +1411,10 @@ a {
 .explore_section_wrapper {
     padding: 72px 0;
     text-align: center;
-    background:
+    /* background:
         radial-gradient(circle at top left, rgba(194, 162, 97, 0.14), transparent 30%),
-        linear-gradient(180deg, #f7f3ec 0%, #fffaf5 100%);
+        linear-gradient(180deg, #f1eee8 0%, #dfddda 100%); */
+        background:rgba(234, 228, 228, 0.793) !important;
 }
 
 .explore_section_title {
@@ -1505,9 +1513,11 @@ a {
 /* skinthesis section stylings */
 /* SECTION 1 */
 .index_straight-up_section {
-    background:
+    /* background:
         radial-gradient(circle at top right, rgba(244, 162, 97, 0.2), transparent 32%),
-        linear-gradient(135deg, #dbeafe 0%, #eff6ff 42%, #f8fafc 100%);
+        linear-gradient(135deg, #dbeafe 0%, #eff6ff 42%, #f8fafc 100%); */
+        /* background: */
+    background: #0a2b4a;
     min-height: 50vh;
     display: flex;
     align-items: center;
@@ -1847,8 +1857,6 @@ input[type="range"]::-ms-thumb {
 }
 
 .product-img-wrap img {
-    position: absolute;
-    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -1971,6 +1979,79 @@ input[type="range"]::-ms-thumb {
 
 #spotlightProductCarousel .product-card button {
     margin-top: auto;
+}
+
+#spotlightProductCarousel .slick-prev:before,
+#spotlightProductCarousel .slick-next:before {
+    color: #ffffff !important;
+    font-size: 25px;
+}
+
+.spotlight-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
+    color: #111827;
+}
+
+.spotlight-card a {
+    color: #111827;
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    text-decoration: none;
+}
+
+.spotlight-card img {
+    aspect-ratio: 1 / 1;
+    background: #f8fafc;
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+.spotlight-card h6 {
+    color: #111827;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.spotlight-card p {
+    color: #4b5563;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.spotlight-card .badge-b1g1 {
+    background: #111827;
+    color: #ffffff;
+}
+
+.spotlight-card__btn {
+    margin-top: auto;
+    background: #111827;
+    color: #ffffff;
+    border: 0;
+    border-radius: 12px;
+}
+
+.spotlight-card__btn:hover {
+    background: #0f172a;
+    color: #ffffff;
+}
+
+.spotlight-card__meta,
+.spotlight-card__price {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .product-description,
@@ -6296,7 +6377,7 @@ button:hover {
     position: relative;
     border: 1px solid #e8e2e2;
     border-radius: 14px;
-    background: #fff;
+    background:  #0a2b4a;
     box-shadow: 0 10px 24px rgba(17, 24, 39, 0.08);
     overflow: hidden;
     display: flex;
@@ -6373,7 +6454,7 @@ button:hover {
 }
 
 .dermat-choice-grid .product-name {
-    color: #111;
+    color: #ffffff;
     font-size: 15px;
     font-weight: 800;
     min-height: 0;
@@ -6390,7 +6471,7 @@ button:hover {
 }
 
 .dermat-choice-grid .product-price {
-    color: #111;
+    color: #ffffff;
     font-size: 16px;
     font-weight: 900;
     letter-spacing: 0;
@@ -6412,8 +6493,8 @@ button:hover {
     min-height: 30px;
     padding: 6px 10px;
     border-radius: 999px;
-    background: #111;
-    color: #fff;
+    background: #ffffff;
+    color: #000000;
     font-size: 11px;
     font-weight: 800;
     text-transform: uppercase;
