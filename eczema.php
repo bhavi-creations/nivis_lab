@@ -1,6 +1,6 @@
 <?php include 'navbar.php'; ?>
 
-<img src="./assets/img/lines-and-wrinkles.webp" alt="" class="img-fluid">
+<!-- <img src="./assets/img/lines-and-wrinkles.webp" alt="" class="img-fluid"> -->
 
 <!-- <section class="salicylic_acid_first_section">
     <div class="container">

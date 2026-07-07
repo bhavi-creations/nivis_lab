@@ -1,6 +1,5 @@
 <?php include 'navbar.php'; ?>
 
-<img src="./assets/img/acne-marks.webp" alt="" class="img-fluid">
 
 <!-- <section class="salicylic_acid_first_section">
     <div class="container">

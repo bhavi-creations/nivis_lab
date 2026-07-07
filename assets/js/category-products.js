@@ -158,39 +158,10 @@
 
         window.__dynamicProductFiltersPatched = true;
         window.applyFilters = function() {
-            const priceRange = document.getElementById('priceRange');
-            const priceMinInput = document.getElementById('priceMin');
-            const priceMaxInput = document.getElementById('priceMax');
             const productCount = document.getElementById('productCount');
-            const minPrice = parseInt(priceMinInput?.value || '0', 10);
-            const maxPrice = parseInt(priceMaxInput?.value || priceRange?.value || '999999', 10);
-            const normalizedMin = Number.isFinite(minPrice) ? minPrice : 0;
-            const normalizedMax = Number.isFinite(maxPrice) ? maxPrice : 999999;
-            const lowerBound = Math.min(normalizedMin, normalizedMax);
-            const upperBound = Math.max(normalizedMin, normalizedMax);
-            const checkedConcerns = checkedFilterValues('#filter-concern');
-            const checkedIngredients = checkedFilterValues('#filter-ingredient');
-            const checkedTypes = checkedFilterValues('#filter-type');
-            const cards = document.querySelectorAll('.product-card');
-            let visible = 0;
-
-            cards.forEach(card => {
-                const price = parseInt(card.dataset.price || '0', 10);
-                const concerns = datasetTokens(card, 'concern');
-                const ingredients = datasetTokens(card, 'ingredient');
-                const type = datasetTokens(card, 'type');
-                const priceOk = price >= lowerBound && price <= upperBound;
-                const concernOk = checkedConcerns.length === 0 || checkedConcerns.some(value => concerns.includes(value));
-                const ingredientOk = checkedIngredients.length === 0 || checkedIngredients.some(value => ingredients.includes(value));
-                const typeOk = checkedTypes.length === 0 || checkedTypes.some(value => type.includes(value));
-                const show = priceOk && concernOk && ingredientOk && typeOk;
-
-                card.classList.toggle('hidden', !show);
-                if (show) visible++;
-            });
-
             if (productCount) {
-                productCount.textContent = `${visible} product${visible !== 1 ? 's' : ''}`;
+                const cards = document.querySelectorAll('.product-card:not(.hidden)');
+                productCount.textContent = `${cards.length} product${cards.length !== 1 ? 's' : ''}`;
             }
         };
     }
@@ -213,10 +184,6 @@
         if (priceRange) {
             priceRange.value = val;
             updateRangeBackground(priceRange);
-        }
-
-        if (typeof window.applyFilters === 'function') {
-            window.applyFilters();
         }
     }
 
@@ -266,9 +233,6 @@
                 if (priceRange) {
                     updateRangeBackground(priceRange);
                 }
-                if (typeof window.applyFilters === 'function') {
-                    window.applyFilters();
-                }
             });
         }
 
@@ -278,9 +242,6 @@
                 if (priceRange) {
                     priceRange.value = priceMax.value;
                     updateRangeBackground(priceRange);
-                }
-                if (typeof window.applyFilters === 'function') {
-                    window.applyFilters();
                 }
             });
         }
