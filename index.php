@@ -67,20 +67,18 @@
 
     </div>
 
-    <div class="index_img_section__dots" id="indexHeroDots" aria-label="Hero slider navigation"></div>
 </section>
 
 <script>
     (function() {
         const hero = document.getElementById('indexHero');
         const slidesWrap = document.getElementById('indexHeroSlides');
-        const dotsWrap = document.getElementById('indexHeroDots');
         const fallbackImage = './assets/img/product.webp';
         let slides = [];
         let current = 0;
         let timer = null;
 
-        if (!hero || !slidesWrap || !dotsWrap) return;
+        if (!hero || !slidesWrap) return;
 
         function escapeHtml(value) {
             return String(value ?? '').replace(/[&<>"']/g, match => ({
@@ -164,7 +162,6 @@
             if (!slides.length) return;
             current = (index + slides.length) % slides.length;
             slides.forEach((slide, slideIndex) => slide.classList.toggle('active', slideIndex === current));
-            dotsWrap.querySelectorAll('button').forEach((dot, dotIndex) => dot.classList.toggle('active', dotIndex === current));
         }
 
         function startSlider() {
@@ -176,14 +173,6 @@
 
         function initSlides() {
             slides = Array.from(slidesWrap.querySelectorAll('.index_img_section__slide'));
-            dotsWrap.innerHTML = slides.map((_, index) => `<button type="button" aria-label="Show slide ${index + 1}"></button>`).join('');
-            dotsWrap.querySelectorAll('button').forEach((dot, index) => {
-                dot.addEventListener('click', event => {
-                    event.preventDefault();
-                    setSlide(index);
-                    startSlider();
-                });
-            });
             setSlide(0);
             startSlider();
         }
@@ -1246,9 +1235,9 @@
 
 
 
-<section class="py-5 px-3 " style="background-color:rgb(197 206 215);">
+<section class="py-5 px-3 " style="background-color:#0a2b4a;">
     <div class="container px-lg-5">
-        <h2 class="fw-bold mb-4 px-3 text-center">SHOP OUR SPOTLIGHTS</h2>
+        <h2 class="fw-bold mb-4 px-3 text-center text-white">SHOP OUR SPOTLIGHTS</h2>
         <div class="product-carousel" id="spotlightProductCarousel">
             <div class="spotlight-loading text-center py-4 w-100">
                 <div class="spinner-border text-dark" role="status"></div>
