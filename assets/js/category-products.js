@@ -158,10 +158,40 @@
 
         window.__dynamicProductFiltersPatched = true;
         window.applyFilters = function() {
+            const priceRange = document.getElementById('priceRange');
+            const priceMin = document.getElementById('priceMin');
+            const priceMax = document.getElementById('priceMax');
             const productCount = document.getElementById('productCount');
+            const cards = document.querySelectorAll('.product-card');
+
+            if (!priceRange || !priceMin || !priceMax) return;
+
+            let minPrice = parseInt(priceMin.value, 10);
+            let maxPrice = parseInt(priceMax.value, 10);
+            const rangeMax = parseInt(priceRange.max, 10) || 0;
+
+            if (Number.isNaN(minPrice)) minPrice = 0;
+            if (Number.isNaN(maxPrice)) maxPrice = rangeMax;
+
+            minPrice = Math.max(0, minPrice);
+            maxPrice = Math.max(minPrice, maxPrice);
+
+            priceMin.value = minPrice;
+            priceMax.value = maxPrice;
+            priceRange.value = maxPrice;
+            updateRangeBackground(priceRange);
+
+            let visibleCount = 0;
+            cards.forEach(card => {
+                const cardPrice = Number(card.dataset.price || card.dataset.productPrice || 0) || 0;
+                const shouldShow = cardPrice >= minPrice && cardPrice <= maxPrice;
+                card.classList.toggle('hidden', !shouldShow);
+                card.style.display = shouldShow ? '' : 'none';
+                if (shouldShow) visibleCount++;
+            });
+
             if (productCount) {
-                const cards = document.querySelectorAll('.product-card:not(.hidden)');
-                productCount.textContent = `${cards.length} product${cards.length !== 1 ? 's' : ''}`;
+                productCount.textContent = `${visibleCount} product${visibleCount !== 1 ? 's' : ''}`;
             }
         };
     }
@@ -243,12 +273,20 @@
                     priceRange.value = priceMax.value;
                     updateRangeBackground(priceRange);
                 }
+                if (typeof window.applyFilters === 'function') {
+                    window.applyFilters();
+                }
             });
         }
 
         if (priceRange && !priceRange.dataset.bound) {
             priceRange.dataset.bound = 'true';
-            priceRange.addEventListener('input', () => updatePrice(priceRange.value));
+            priceRange.addEventListener('input', () => {
+                updatePrice(priceRange.value);
+                if (typeof window.applyFilters === 'function') {
+                    window.applyFilters();
+                }
+            });
         }
     }
 
