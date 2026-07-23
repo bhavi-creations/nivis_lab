@@ -33,6 +33,47 @@ function postJson(string $url, array $payload): array
     ];
 }
 
+function createRazorpayOrder(string $amount, string $currency, array $notes = []): array
+{
+    if (RAZORPAY_KEY_ID === '' || RAZORPAY_KEY_SECRET === '') {
+        return [
+            'response' => json_encode([
+                'error' => [
+                    'description' => 'Razorpay API credentials are not configured. Set RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET for test mode.'
+                ]
+            ]),
+            'http_code' => 401,
+            'error' => ''
+        ];
+    }
+
+    $ch = curl_init('https://api.razorpay.com/v1/orders');
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => json_encode([
+            'amount' => (int) $amount,
+            'currency' => $currency,
+            'receipt' => $notes['receipt'] ?? ('nivis_' . time()),
+            'notes' => $notes
+        ]),
+        CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
+        CURLOPT_USERPWD => RAZORPAY_KEY_ID . ':' . RAZORPAY_KEY_SECRET,
+        CURLOPT_TIMEOUT => 30
+    ]);
+
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $error = curl_error($ch);
+    curl_close($ch);
+
+    return [
+        'response' => $response,
+        'http_code' => $httpCode,
+        'error' => $error
+    ];
+}
+
 function normalizeLookupKey(string $value): string
 {
     $value = strtolower(trim($value));
@@ -322,6 +363,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $input = json_decode(file_get_contents('php://input'), true);
 $cartId = trim((string) ($input['cart_id'] ?? ''));
+$cartTotal = (float) ($input['cart_total'] ?? 0);
 $items = is_array($input['items'] ?? null) ? $input['items'] : [];
 $createCartPayload = null;
 
@@ -401,6 +443,14 @@ if (!addressIsComplete($shippingAddress)) {
     jsonResponse([
         'success' => false,
         'message' => 'Please fill in all required shipping address fields.'
+    ], 400);
+}
+
+$amountSubunits = (int) round($cartTotal * 100);
+if ($amountSubunits <= 0) {
+    jsonResponse([
+        'success' => false,
+        'message' => 'Cart total is empty.'
     ], 400);
 }
 
@@ -490,31 +540,35 @@ if ($shippingAddress !== []) {
     }
 }
 
-$orderResult = postJson($baseUrl . '/api/orders', [
+$evershopOrderResult = postJson($baseUrl . '/api/orders', [
     'cart_id' => $cartId
 ]);
-$orderDecoded = json_decode((string) $orderResult['response'], true);
+$evershopOrderDecoded = json_decode((string) $evershopOrderResult['response'], true);
 
-if ($orderResult['error']) {
+if ($evershopOrderResult['error']) {
     jsonResponse([
         'success' => false,
-        'message' => 'Unable to connect to Evershop order service: ' . $orderResult['error']
+        'message' => 'Unable to connect to Evershop order service: ' . $evershopOrderResult['error']
     ], 500);
 }
 
-$order = $orderDecoded['data'] ?? null;
-$orderId = is_array($order) ? ($order['uuid'] ?? null) : null;
+$evershopOrder = $evershopOrderDecoded['data'] ?? null;
+$evershopOrderId = is_array($evershopOrder) ? ($evershopOrder['uuid'] ?? null) : null;
 
-if ($orderResult['http_code'] < 200 || $orderResult['http_code'] >= 300 || !$orderId) {
+if ($evershopOrderResult['http_code'] < 200 || $evershopOrderResult['http_code'] >= 300 || !$evershopOrderId) {
     jsonResponse([
         'success' => false,
-        'message' => $orderDecoded['error']['message'] ?? 'Evershop order creation failed.',
-        'error' => $orderDecoded
+        'message' => $evershopOrderDecoded['error']['message'] ?? 'Evershop order creation failed.',
+        'error' => $evershopOrderDecoded
     ], 500);
 }
 
-$razorpayResult = postJson($baseUrl . '/api/razorpay/orders', [
-    'order_id' => $orderId
+$razorpayResult = createRazorpayOrder((string) $amountSubunits, RAZORPAY_CURRENCY, [
+    'receipt' => $evershopOrderId,
+    'evershop_order_id' => $evershopOrderId,
+    'cart_id' => $cartId,
+    'customer_full_name' => trim((string) ($input['customer_full_name'] ?? '')),
+    'customer_email' => trim((string) ($input['customer_email'] ?? ''))
 ]);
 $razorpayDecoded = json_decode((string) $razorpayResult['response'], true);
 
@@ -525,20 +579,26 @@ if ($razorpayResult['error']) {
     ], 500);
 }
 
-$gateway = $razorpayDecoded['data'] ?? null;
-if ($razorpayResult['http_code'] < 200 || $razorpayResult['http_code'] >= 300 || !is_array($gateway)) {
+$gateway = $razorpayDecoded['id'] ?? null;
+if ($razorpayResult['http_code'] < 200 || $razorpayResult['http_code'] >= 300 || !is_array($razorpayDecoded) || !$gateway) {
     jsonResponse([
         'success' => false,
-        'message' => $razorpayDecoded['error']['message'] ?? 'Razorpay order creation failed.',
+        'message' => $razorpayDecoded['error']['description'] ?? $razorpayDecoded['error']['message'] ?? 'Razorpay order creation failed.',
         'error' => $razorpayDecoded
     ], 500);
 }
 
 jsonResponse([
     'success' => true,
-    'order_id' => $orderId,
+    'order_id' => $evershopOrderId,
     'cart_id' => $cartId,
-    'gateway' => $gateway,
+    'gateway' => [
+        'razorpayOrderId' => $razorpayDecoded['id'],
+        'keyId' => RAZORPAY_KEY_ID,
+        'amount' => $razorpayDecoded['amount'],
+        'currency' => $razorpayDecoded['currency'] ?? RAZORPAY_CURRENCY,
+        'status' => $razorpayDecoded['status'] ?? null
+    ],
     'company' => RAZORPAY_COMPANY_NAME,
     'shipping_warning' => $shippingWarning
 ]);

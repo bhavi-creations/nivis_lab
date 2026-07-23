@@ -1,4 +1,7 @@
-<?php include 'navbar.php'; ?>
+<?php
+require_once __DIR__ . '/razorpay_config.php';
+include 'navbar.php';
+?>
 
 <div class="container py-5">
     <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
@@ -284,6 +287,7 @@
                 },
                 body: JSON.stringify({
                     cart_id: cartId,
+                    cart_total: cart.total,
                     items,
                     customer_full_name: formData.full_name,
                     customer_email: formData.email,
@@ -330,7 +334,7 @@
             const razorpay = new Razorpay({
                 key: orderResult.gateway.keyId,
                 amount: orderResult.gateway.amount,
-                currency: orderResult.gateway.currency || 'INR',
+                currency: <?= json_encode(RAZORPAY_CURRENCY) ?>,
                 name: orderResult.company || 'Nivis Labs',
                 description: `${cart.count} item${cart.count === 1 ? '' : 's'}`,
                 order_id: orderResult.gateway.razorpayOrderId,

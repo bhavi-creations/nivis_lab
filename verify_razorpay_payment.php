@@ -47,34 +47,26 @@ if (!$orderId || !$paymentId || !$gatewayOrderId || !$signature) {
     jsonResponse(['success' => false, 'message' => 'Missing payment verification fields.'], 400);
 }
 
-$baseUrl = rtrim(EVERSHOP_API_BASE_URL, '/');
-$verifyResult = postJson($baseUrl . '/api/razorpay/verify', [
-    'order_id' => $orderId,
-    'razorpay_payment_id' => $paymentId,
-    'razorpay_order_id' => $gatewayOrderId,
-    'razorpay_signature' => $signature
-]);
-$verifyDecoded = json_decode((string) $verifyResult['response'], true);
-
-if ($verifyResult['error']) {
+if (RAZORPAY_KEY_SECRET === '') {
     jsonResponse([
         'success' => false,
-        'message' => 'Unable to connect to Evershop verification service: ' . $verifyResult['error']
+        'message' => 'Missing Razorpay secret key.'
     ], 500);
 }
 
-if ($verifyResult['http_code'] < 200 || $verifyResult['http_code'] >= 300 || !empty($verifyDecoded['error'])) {
+$expectedSignature = hash_hmac('sha256', $gatewayOrderId . '|' . $paymentId, RAZORPAY_KEY_SECRET);
+if (!hash_equals($expectedSignature, $signature)) {
     jsonResponse([
         'success' => false,
-        'message' => $verifyDecoded['error']['message'] ?? 'Payment verification failed.',
-        'error' => $verifyDecoded
-    ], 500);
+        'message' => 'Payment signature verification failed.'
+    ], 400);
 }
 
 jsonResponse([
     'success' => true,
     'message' => 'Payment verified successfully.',
     'order_id' => $orderId,
+    'gateway_order_id' => $gatewayOrderId,
     'payment_id' => $paymentId
 ]);
 ?>
