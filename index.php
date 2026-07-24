@@ -1,4 +1,7 @@
-﻿<?php include 'navbar.php'; ?>
+﻿<?php 
+include 'navbar.php';
+include 'fetch_home_sliders.php';
+?>
 
 <!-- ╕
      3. HERO IMAGE SECTION
@@ -18,55 +21,68 @@
     </svg>
 
     <div class="index_img_section__slides" id="indexHeroSlides">
-        <a class="index_img_section__slide active" href="products.php" style="--hero-img: url('./assets/img/2.png');">
-            <img class="index_img_section__product" src="./assets/img/2.png" alt="Nivis Labs slide 1" onerror="this.src='./assets/img/2.png';" />
-            <!-- <div class="index_img_section__content">
-                <span class="index_img_section__new-tag">New Launch</span>
-                <h1 class="index_img_section__title">Panthenol<br />Hydrating Gel<br />Sunscreen</h1>
-                <div class="index_img_section__badges">
-                    <span class="index_img_section__badge">SPF 60 PA++++</span>
-                    <span class="index_img_section__badge">No Whitecast</span>
-                    <span class="index_img_section__badge">Shop Now</span>
-                </div>
-            </div> -->
-            <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
-        </a>
+        <?php if (!empty($homeSliders)): ?>
+            <?php foreach ($homeSliders as $index => $slider): 
+                $settings = $slider['settings'] ?? [];
+                $slides = $settings['slides'] ?? [];
+                $link = getSliderLink($slider);
+                $fallbackImage = './assets/img/product.webp';
+            ?>
+                <?php foreach ($slides as $imgIndex => $slide): 
+                    $image = $slide['image'] ?? '';
+                    $imageUrl = !empty($image) ? $image : $fallbackImage;
+                    $headline = $slide['headline'] ?? '';
+                    $subText = $slide['subText'] ?? '';
+                    $buttonLink = $slide['buttonLink'] ?? '';
+                    $buttonText = $slide['buttonText'] ?? 'Read More';
+                    $isActive = ($index === 0 && $imgIndex === 0) ? 'active' : '';
+                    $widgetName = $slider['name'] ?? 'Nivis Labs';
+                    $altText = !empty($headline) ? $headline : (!empty($subText) ? $subText : $widgetName . ' slide ' . ($imgIndex + 1));
+                ?>
+                    <a class="index_img_section__slide <?php echo $isActive; ?>" 
+                       href="<?php echo htmlspecialchars($buttonLink ?: $link ?: 'products.php'); ?>" 
+                       style="--hero-img: url('<?php echo htmlspecialchars($imageUrl); ?>');">
+                        <img class="index_img_section__product" 
+                             src="<?php echo htmlspecialchars($imageUrl); ?>" 
+                             alt="<?php echo htmlspecialchars($altText); ?>" 
+                             onerror="this.src='<?php echo $fallbackImage; ?>';" />
+                        <?php if (!empty($headline) || !empty($subText)): ?>
+                        <div class="index_img_section__content">
+                            <?php if (!empty($subText)): ?>
+                                <span class="index_img_section__new-tag"><?php echo htmlspecialchars($subText); ?></span>
+                            <?php endif; ?>
+                            <?php if (!empty($headline)): ?>
+                                <h1 class="index_img_section__title"><?php echo nl2br(htmlspecialchars($headline)); ?></h1>
+                            <?php endif; ?>
+                        </div>
+                        <?php endif; ?>
+                        <div class="index_img_section__cta"><span><?php echo htmlspecialchars($buttonText); ?></span><i class="bi bi-arrow-right-circle"></i></div>
+                    </a>
+                <?php endforeach; ?>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <!-- Fallback static slides -->
+            <a class="index_img_section__slide active" href="products.php" style="--hero-img: url('./assets/img/2.png');">
+                <img class="index_img_section__product" src="./assets/img/2.png" alt="Nivis Labs slide 1" onerror="this.src='./assets/img/2.png';" />
+                <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
+            </a>
 
-        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/3.png');">
-            <img class="index_img_section__product" src="./assets/img/3.png" alt="Nivis Labs slide 2" onerror="this.src='./assets/img/3.png';" />
-            <!-- <div class="index_img_section__content">
-                <span class="index_img_section__new-tag">Daily Protection</span>
-                <h1 class="index_img_section__title">Sun Care<br />That Feels<br />Light</h1>
-                <div class="index_img_section__badges">
-                    <span class="index_img_section__badge">Broad Spectrum</span>
-                    <span class="index_img_section__badge">Everyday Routine</span>
-                    <span class="index_img_section__badge">View Sunscreens</span>
-                </div>
-            </div> -->
-            <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
-        </a>
+            <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/3.png');">
+                <img class="index_img_section__product" src="./assets/img/3.png" alt="Nivis Labs slide 2" onerror="this.src='./assets/img/3.png';" />
+                <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
+            </a>
 
-        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/4.png');">
-            <img class="index_img_section__product" src="./assets/img/4.png" alt="Nivis Labs slide 3" onerror="this.src='./assets/img/4.png';" />
-            <!-- <div class="index_img_section__content">
-                <span class="index_img_section__new-tag">Barrier Care</span>
-                <h1 class="index_img_section__title">Comforting<br />Moisture<br />Support</h1>
-                <div class="index_img_section__badges">
-                    <span class="index_img_section__badge">Hydration</span>
-                    <span class="index_img_section__badge">Skin Barrier</span>
-                    <span class="index_img_section__badge">View Moisturizers</span>
-                </div>
-            </div> -->
-            <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
-        </a>
+            <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/4.png');">
+                <img class="index_img_section__product" src="./assets/img/4.png" alt="Nivis Labs slide 3" onerror="this.src='./assets/img/4.png';" />
+                <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
+            </a>
 
-        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/5.png');">
-            <img class="index_img_section__product" src="./assets/img/5.png" alt="Nivis Labs slide 4" onerror="this.src='./assets/img/5.png';" />
-            <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
-        </a>
-
+            <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/5.png');">
+                <img class="index_img_section__product" src="./assets/img/5.png" alt="Nivis Labs slide 4" onerror="this.src='./assets/img/5.png';" />
+                <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
+            </a>
+        <?php endif; ?>
     </div>
-
 </section>
 
 <script>
@@ -177,6 +193,14 @@
             startSlider();
         }
 
+        // Use GraphQL sliders from backend (already rendered by PHP)
+        function loadGraphQLSlides() {
+            // Sliders are already rendered by PHP from fetch_home_sliders.php
+            // Just initialize the slider
+            initSlides();
+        }
+
+        // Fallback to product-based slides if GraphQL fails
         async function loadBackendSlides() {
             try {
                 const response = await fetch('fetch_category_products.php?category=all');
@@ -204,8 +228,9 @@
             }
         }
 
-        initSlides();
-        loadBackendSlides();
+        // Initialize with GraphQL sliders first, fallback to products
+        loadGraphQLSlides();
+        // loadBackendSlides(); // Uncomment if you want fallback
     })();
 </script>
 
