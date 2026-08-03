@@ -1,4 +1,4 @@
-﻿<?php 
+﻿<?php
 include 'navbar.php';
 include 'fetch_home_sliders.php';
 ?>
@@ -20,15 +20,22 @@ include 'fetch_home_sliders.php';
         <line class="ray ray-3" x1="820" y1="380" x2="600" y2="800" />
     </svg>
 
+    <button type="button" class="index_img_section__nav index_img_section__nav--prev" id="indexHeroPrev" aria-label="Previous slide">
+        <i class="bi bi-chevron-left"></i>
+    </button>
+    <button type="button" class="index_img_section__nav index_img_section__nav--next" id="indexHeroNext" aria-label="Next slide">
+        <i class="bi bi-chevron-right"></i>
+    </button>
+
     <div class="index_img_section__slides" id="indexHeroSlides">
         <?php if (!empty($homeSliders)): ?>
-            <?php foreach ($homeSliders as $index => $slider): 
+            <?php foreach ($homeSliders as $index => $slider):
                 $settings = $slider['settings'] ?? [];
                 $slides = $settings['slides'] ?? [];
                 $link = getSliderLink($slider);
                 $fallbackImage = './assets/img/product.webp';
             ?>
-                <?php foreach ($slides as $imgIndex => $slide): 
+                <?php foreach ($slides as $imgIndex => $slide):
                     $image = $slide['image'] ?? '';
                     $imageUrl = !empty($image) ? $image : $fallbackImage;
                     $headline = $slide['headline'] ?? '';
@@ -39,22 +46,22 @@ include 'fetch_home_sliders.php';
                     $widgetName = $slider['name'] ?? 'Nivis Labs';
                     $altText = !empty($headline) ? $headline : (!empty($subText) ? $subText : $widgetName . ' slide ' . ($imgIndex + 1));
                 ?>
-                    <a class="index_img_section__slide <?php echo $isActive; ?>" 
-                       href="<?php echo htmlspecialchars($buttonLink ?: $link ?: 'products.php'); ?>" 
-                       style="--hero-img: url('<?php echo htmlspecialchars($imageUrl); ?>');">
-                        <img class="index_img_section__product" 
-                             src="<?php echo htmlspecialchars($imageUrl); ?>" 
-                             alt="<?php echo htmlspecialchars($altText); ?>" 
-                             onerror="this.src='<?php echo $fallbackImage; ?>';" />
+                    <a class="index_img_section__slide <?php echo $isActive; ?>"
+                        href="<?php echo htmlspecialchars($buttonLink ?: $link ?: 'products.php'); ?>"
+                        style="--hero-img: url('<?php echo htmlspecialchars($imageUrl); ?>');">
+                        <img class="index_img_section__product"
+                            src="<?php echo htmlspecialchars($imageUrl); ?>"
+                            alt="<?php echo htmlspecialchars($altText); ?>"
+                            onerror="this.src='<?php echo $fallbackImage; ?>';" />
                         <?php if (!empty($headline) || !empty($subText)): ?>
-                        <div class="index_img_section__content">
-                            <?php if (!empty($subText)): ?>
-                                <span class="index_img_section__new-tag"><?php echo htmlspecialchars($subText); ?></span>
-                            <?php endif; ?>
-                            <?php if (!empty($headline)): ?>
-                                <h1 class="index_img_section__title"><?php echo nl2br(htmlspecialchars($headline)); ?></h1>
-                            <?php endif; ?>
-                        </div>
+                            <div class="index_img_section__content">
+                                <?php if (!empty($subText)): ?>
+                                    <span class="index_img_section__new-tag"><?php echo htmlspecialchars($subText); ?></span>
+                                <?php endif; ?>
+                                <?php if (!empty($headline)): ?>
+                                    <h1 class="index_img_section__title"><?php echo nl2br(htmlspecialchars($headline)); ?></h1>
+                                <?php endif; ?>
+                            </div>
                         <?php endif; ?>
                         <div class="index_img_section__cta"><span><?php echo htmlspecialchars($buttonText); ?></span><i class="bi bi-arrow-right-circle"></i></div>
                     </a>
@@ -180,6 +187,14 @@ include 'fetch_home_sliders.php';
             slides.forEach((slide, slideIndex) => slide.classList.toggle('active', slideIndex === current));
         }
 
+        function goToPreviousSlide() {
+            setSlide(current - 1);
+        }
+
+        function goToNextSlide() {
+            setSlide(current + 1);
+        }
+
         function startSlider() {
             clearInterval(timer);
             if (slides.length > 1) {
@@ -193,6 +208,13 @@ include 'fetch_home_sliders.php';
             startSlider();
         }
 
+
+
+        const prevButton = document.getElementById('indexHeroPrev');
+        const nextButton = document.getElementById('indexHeroNext');
+
+        if (prevButton) prevButton.addEventListener('click', goToPreviousSlide);
+        if (nextButton) nextButton.addEventListener('click', goToNextSlide);
         // Use GraphQL sliders from backend (already rendered by PHP)
         function loadGraphQLSlides() {
             // Sliders are already rendered by PHP from fetch_home_sliders.php

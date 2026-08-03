@@ -23,8 +23,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
 
-<!-- image slider   -->
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <!-- image slider   -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
 </head>
@@ -120,7 +120,9 @@
 
             <a href="/" class="index_navbar_section__logo">
 
-                <img src="./assets/img/logo_1 (1).png" alt="" style="width: 100px;">
+                <!-- <img src="./assets/img/logo_1 (1).png" alt="" style="width: 100px;"> -->
+                <img src="./assets/img/logo_12.png" alt="" style="width: 100px;">
+
             </a>
 
 
@@ -160,9 +162,9 @@
                         <li><a href="lines_and_wrinkles.php">Lines and Wrinkles</a></li>
                         <li><a href="dehydration.php">Dehydration</a></li>
                         <li><a href="eczema.php">Eczema</a></li>
-                    
 
-</ul>
+
+                    </ul>
                 </li>
 
                 <li class="index_navbar_section__item">
@@ -408,6 +410,7 @@
         }
 
         loadNavbarCategories();
+
         function loadNavbarIngredients() {
             const desktopMenu = document.getElementById('navbarIngredientDesktop');
             const mobileMenu = document.getElementById('navbarIngredientMobile');
