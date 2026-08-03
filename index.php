@@ -202,6 +202,10 @@ include 'fetch_home_sliders.php';
             }
         }
 
+        function resetSlider() {
+            startSlider();
+        }
+
         function initSlides() {
             slides = Array.from(slidesWrap.querySelectorAll('.index_img_section__slide'));
             setSlide(0);
@@ -213,8 +217,18 @@ include 'fetch_home_sliders.php';
         const prevButton = document.getElementById('indexHeroPrev');
         const nextButton = document.getElementById('indexHeroNext');
 
-        if (prevButton) prevButton.addEventListener('click', goToPreviousSlide);
-        if (nextButton) nextButton.addEventListener('click', goToNextSlide);
+        if (prevButton) prevButton.addEventListener('click', function() {
+            goToPreviousSlide();
+            resetSlider();
+        });
+        if (nextButton) nextButton.addEventListener('click', function() {
+            goToNextSlide();
+            resetSlider();
+        });
+        hero.addEventListener('mouseenter', () => clearInterval(timer));
+        hero.addEventListener('mouseleave', startSlider);
+        hero.addEventListener('focusin', () => clearInterval(timer));
+        hero.addEventListener('focusout', startSlider);
         // Use GraphQL sliders from backend (already rendered by PHP)
         function loadGraphQLSlides() {
             // Sliders are already rendered by PHP from fetch_home_sliders.php
