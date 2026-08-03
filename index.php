@@ -3,9 +3,7 @@ include 'navbar.php';
 include 'fetch_home_sliders.php';
 ?>
 
-<!-- ╕
-     3. HERO IMAGE SECTION
-╕ -->
+
 <section class="index_img_section" id="indexHero" aria-label="Nivis Labs featured products">
     <div class="index_img_section__bg"></div>
     <div class="index_img_section__stripes"></div>
