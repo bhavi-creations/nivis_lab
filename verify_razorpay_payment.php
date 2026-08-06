@@ -47,31 +47,13 @@ if (!$orderId || !$paymentId || !$gatewayOrderId || !$signature) {
     jsonResponse(['success' => false, 'message' => 'Missing payment verification fields.'], 400);
 }
 
-if (RAZORPAY_KEY_SECRET === '') {
-    jsonResponse([
-        'success' => false,
-        'message' => 'Missing Razorpay secret key.'
-    ], 500);
-}
-
-// Step 1: Verify Razorpay signature locally
-$expectedSignature = hash_hmac('sha256', $gatewayOrderId . '|' . $paymentId, RAZORPAY_KEY_SECRET);
-if (!hash_equals($expectedSignature, $signature)) {
-    jsonResponse([
-        'success' => false,
-        'message' => 'Payment signature verification failed.'
-    ], 400);
-}
-
-// Step 2: Try to update via Evershop API first
+// Verify through Evershop so the backend uses the Razorpay settings record.
 $evershopApiBaseUrl = rtrim(getenv('EVERSHOP_API_BASE_URL') ?: EVERSHOP_API_BASE_URL, '/');
 $verifyResult = postJson($evershopApiBaseUrl . '/razorpay/verify', [
     'order_id' => $orderId,
     'razorpay_payment_id' => $paymentId,
     'razorpay_order_id' => $gatewayOrderId,
     'razorpay_signature' => $signature
-], [
-    'X-Razorpay-Sync-Token: ' . RAZORPAY_SYNC_TOKEN
 ]);
 
 $apiSuccess = false;
