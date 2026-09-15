@@ -31,9 +31,9 @@ $safePhone = htmlspecialchars($phone, ENT_QUOTES, 'UTF-8');
 $safeSubject = htmlspecialchars($subject, ENT_QUOTES, 'UTF-8');
 $safeMessage = nl2br(htmlspecialchars($message, ENT_QUOTES, 'UTF-8'));
 
-$smtpUser = getenv('NIVIS_SMTP_USER') ?: 'manimalladi05@gmail.com';
-$smtpPass = getenv('NIVIS_SMTP_PASS') ?: 'cvarqcchfjpawxvo';
-$toEmail = getenv('NIVIS_CONTACT_TO') ?: 'manimalladi05@gmail.com';
+$smtpUser = getenv('NIVIS_SMTP_USER') ?: 'nivislabs@gmail.com';
+$smtpPass = getenv('NIVIS_SMTP_PASS') ?: 'vkdkmluomshwgatj';
+$toEmail = getenv('NIVIS_CONTACT_TO') ?: 'nivislabs@gmail.com';
 
 $mail = new PHPMailer(true);
 

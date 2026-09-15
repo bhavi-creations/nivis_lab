@@ -1,0 +1,428 @@
+/* Shared navy and gold palette for the remaining storefront pages.
+   Keep component rules scoped so product photography retains its light canvas. */
+:root {
+    --nivis-bg: #021a2d;
+    --nivis-surface: #082f49;
+    --nivis-surface-deep: #032238;
+    --nivis-text: #f5f8fb;
+    --nivis-muted: #bbccd8;
+    --nivis-gold: #edc58e;
+    --nivis-ink: #06243a;
+    --nivis-border: rgba(162, 215, 239, .3);
+    --nivis-shadow: 0 18px 35px rgba(0, 8, 18, .23);
+    --nivis-button: linear-gradient(105deg, #f4dbb6, #d99f59);
+    --nivis-panel: linear-gradient(145deg, rgba(255, 255, 255, .065), transparent), var(--nivis-surface-deep);
+    --nivis-page: radial-gradient(ellipse at 17% 0%, rgba(54, 157, 211, .2), transparent 35%),
+        radial-gradient(ellipse at 75% 100%, rgba(54, 145, 190, .14), transparent 37%),
+        linear-gradient(90deg, #032641, #042e4b 48%, #02233b);
+}
+
+body.nivis-theme {
+    background: var(--nivis-page);
+    color: var(--nivis-text);
+}
+
+/* Breadcrumbs sit on the page background, including older policy templates. */
+.nivis-theme .breadcrumb {
+    --bs-breadcrumb-divider-color: var(--nivis-muted);
+    --bs-breadcrumb-item-active-color: var(--nivis-muted);
+}
+
+.nivis-theme .breadcrumb :is(a, .text-muted, .text-secondary),
+.nivis-theme :is(.breadcrumb-row, .breadcrumb-row a, .tracking, .contact_sub_heading) {
+    color: var(--nivis-muted) !important;
+}
+
+.nivis-theme .breadcrumb a:hover,
+.nivis-theme .breadcrumb-row a:hover {
+    color: var(--nivis-gold) !important;
+}
+
+/* Catalog cards and filters. */
+.nivis-theme .shop-layout {
+    --clr-primary: var(--nivis-gold);
+    --clr-border: var(--nivis-border);
+}
+
+.nivis-theme .product-grid-wrap {
+    min-width: 0;
+    color: var(--nivis-text);
+}
+
+.nivis-theme .products-grid .product-card {
+    background: var(--nivis-panel);
+    border-color: var(--nivis-border);
+    box-shadow: var(--nivis-shadow);
+}
+
+.nivis-theme .products-grid .product-card:hover {
+    border-color: var(--nivis-gold);
+}
+
+.nivis-theme :is(.product-hover-popover, .spotlight-card__popover) {
+    background: var(--nivis-surface-deep);
+    color: var(--nivis-text);
+    border-color: var(--nivis-border);
+    box-shadow: var(--nivis-shadow);
+}
+
+.nivis-theme :is(.product-hover-popover__title, .spotlight-card__popover-title) {
+    color: var(--nivis-text);
+}
+
+.nivis-theme :is(.product-hover-popover__text, .product-hover-popover__meta,
+    .spotlight-card__popover-text, .spotlight-card__popover-meta) {
+    color: var(--nivis-muted) !important;
+}
+
+.nivis-theme .products-grid :is(.product-name, .product-price) {
+    color: var(--nivis-text);
+}
+
+.nivis-theme .products-grid :is(.product-size, .product-type-badge) {
+    color: var(--nivis-gold);
+    border-color: var(--nivis-border);
+}
+
+.nivis-theme :is(.product-count, .filter-empty),
+.nivis-theme .products-grid :is(.product-sub, .bought-tag, .text-muted),
+.nivis-theme .filter-body label .count {
+    color: var(--nivis-muted) !important;
+}
+
+.nivis-theme .product-grid-wrap .spinner-border {
+    color: var(--nivis-gold) !important;
+}
+
+.nivis-theme .price-inputs input {
+    background: var(--nivis-surface-deep);
+    color: var(--nivis-text);
+    border-color: var(--nivis-border);
+}
+
+.nivis-theme .price-range-wrap input[type="range"] {
+    background: var(--nivis-border);
+    accent-color: var(--nivis-gold);
+}
+
+/* Contact, tracking, checkout and cart surfaces. */
+.nivis-theme :is(.contact-cards .card, .contact-form-box, .track_your_order-container),
+.nivis-theme .checkout-page :is(#checkoutForm, #checkoutLayout > .col-lg-5 > div, #checkoutEmptyState),
+.nivis-theme :is(#cartDrawer, .modal-content) {
+    background: var(--nivis-panel) !important;
+    color: var(--nivis-text);
+    border: 1px solid var(--nivis-border) !important;
+    box-shadow: var(--nivis-shadow);
+}
+
+.nivis-theme :is(.contact-cards .card, .track_your_order-container),
+.nivis-theme .checkout-page :is(#checkoutForm, #checkoutLayout > .col-lg-5 > div, #checkoutEmptyState) {
+    border-radius: 18px;
+}
+
+.nivis-theme .contact-cards .card {
+    width: min(100%, 290px);
+}
+
+.nivis-theme .contact-cards .card:hover {
+    border-color: var(--nivis-gold) !important;
+}
+
+.nivis-theme :is(.timing, .contact-cards .card p, .gst p, .form-heading p),
+.nivis-theme :is(.track_your_order-container, .checkout-page, #cartDrawer, .modal-content) .text-muted {
+    color: var(--nivis-muted) !important;
+}
+
+.nivis-theme .alert-banner {
+    background: var(--nivis-surface-deep);
+    border-block: 1px solid var(--nivis-border);
+}
+
+.nivis-theme .track_your_order-tab-item {
+    color: var(--nivis-muted);
+}
+
+.nivis-theme .track_your_order-tab-item.active {
+    color: var(--nivis-gold);
+}
+
+.nivis-theme .track_your_order-tabs {
+    border-color: var(--nivis-border);
+}
+
+.nivis-theme .track_your_order-underline {
+    background: var(--nivis-gold);
+}
+
+.nivis-theme :is(.checkout-page, #cartDrawer, .modal-content) {
+    --bs-border-color: var(--nivis-border);
+}
+
+.nivis-theme :is(#cartDrawer, .modal-content) .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* Inputs stay light for legibility; focus uses the same gold as the navigation. */
+.nivis-theme :is(.contact-form-box, .track_your_order-container, .checkout-page, .Squalane_fourth_section, .modal-content)
+    :is(.form-control, .form-select) {
+    background-color: #f5f8fb;
+    color: var(--nivis-ink);
+    border-color: var(--nivis-border);
+    border-radius: 10px !important;
+}
+
+.nivis-theme :is(input, textarea)::placeholder {
+    color: #596b79;
+    opacity: 1;
+}
+
+.nivis-theme :is(.form-control, .form-select):focus {
+    border-color: var(--nivis-gold);
+    box-shadow: 0 0 0 3px rgba(237, 197, 142, .25) !important;
+}
+
+/* Shared action colors, including the old red tracking button. */
+.nivis-theme :is(.products-grid .btn-cart, .contact-cards button, .contact-btn,
+    .track_your_order-submit-btn, .checkout-page .btn-dark, #cartDrawer .btn-dark,
+    .Squalane_fourth_section .submit-btn, .toc-button, .Rewards-btn,
+    .rewards_btn_dark, .refer_earn_signup_btn) {
+    background: var(--nivis-button);
+    color: var(--nivis-ink);
+    border: 1px solid var(--nivis-gold);
+    font-weight: 600;
+    box-shadow: 0 6px 18px rgba(0, 8, 18, .18);
+}
+
+.nivis-theme :is(.products-grid .btn-cart, .contact-cards button, .contact-btn,
+    .track_your_order-submit-btn, .checkout-page .btn-dark, #cartDrawer .btn-dark,
+    .Squalane_fourth_section .submit-btn, .toc-button, .Rewards-btn,
+    .rewards_btn_dark, .refer_earn_signup_btn):hover {
+    background: linear-gradient(105deg, #fae7cc, #edc58e);
+    color: var(--nivis-ink);
+    border-color: #fae7cc;
+}
+
+.nivis-theme :is(.checkout-page, #cartDrawer) .btn-outline-dark {
+    --bs-btn-color: var(--nivis-gold);
+    --bs-btn-border-color: var(--nivis-gold);
+    --bs-btn-hover-color: var(--nivis-ink);
+    --bs-btn-hover-bg: var(--nivis-gold);
+    --bs-btn-hover-border-color: var(--nivis-gold);
+    --bs-btn-active-color: var(--nivis-ink);
+    --bs-btn-active-bg: var(--nivis-gold);
+    --bs-btn-active-border-color: var(--nivis-gold);
+}
+
+.nivis-theme :is(a, button, input, select, textarea):focus-visible {
+    outline: 2px solid var(--nivis-gold);
+    outline-offset: 3px;
+}
+
+/* Ingredient and advice articles share these section classes. */
+.nivis-theme :is(.Squalane_first_section, .Squalane_third_section) {
+    background: var(--nivis-panel);
+    color: var(--nivis-text);
+    border-block: 1px solid var(--nivis-border);
+}
+
+.nivis-theme :is(.Squalane_second_section, .Squalane_fourth_section) {
+    color: var(--nivis-text);
+}
+
+.nivis-theme .Squalane_second_section :is(.main-content p, .author-info p),
+.nivis-theme :is(.Squalane_first_section, .Squalane_second_section, .Squalane_third_section, .Squalane_fourth_section) .text-muted {
+    color: var(--nivis-muted) !important;
+}
+
+.nivis-theme .Squalane_second_section .tag-link,
+.nivis-theme .Squalane_second_section .doctors-note li::before {
+    color: var(--nivis-gold);
+}
+
+.nivis-theme .doctors-note {
+    background: var(--nivis-panel);
+    color: var(--nivis-text);
+    border-color: var(--nivis-border);
+}
+
+.nivis-theme .chemical-structure {
+    background: #f5f8fb;
+    border-radius: 12px;
+    padding: 12px;
+    opacity: 1;
+}
+
+/* Article directories, ingredient index and team page. */
+.nivis-theme :is(.skin_condition_card, .How_Tos_card, .ing-card, .skinthesis-card) {
+    background: var(--nivis-panel);
+    color: var(--nivis-text);
+    border: 1px solid var(--nivis-border);
+    box-shadow: var(--nivis-shadow);
+}
+
+.nivis-theme :is(.skin_condition_card_title, .How_Tos_card_title, .How_Tos_header h1, .ing-card__name) {
+    color: var(--nivis-text);
+}
+
+.nivis-theme :is(.skin_condition_card_text, .How_Tos_card_text, .ing-card__desc, .skin_condition_nav a, .How_Tos_nav a) {
+    color: var(--nivis-muted);
+}
+
+.nivis-theme .skinthesis-card .card-text.text-muted {
+    color: var(--nivis-muted) !important;
+}
+
+.nivis-theme .skinthesis-card .read-more-link {
+    color: var(--nivis-gold);
+}
+
+.nivis-theme :is(.skin_condition_read_more, .How_Tos_read_more, .ing-card__link,
+    .skin_condition_nav a.active, .How_Tos_nav a.active) {
+    color: var(--nivis-gold);
+}
+
+.nivis-theme :is(.skin_condition_nav, .How_Tos_nav, #filterBar) {
+    border-color: var(--nivis-border);
+}
+
+.nivis-theme :is(.skin_condition_nav, .How_Tos_nav) a.active::after {
+    background: var(--nivis-gold);
+}
+
+.nivis-theme :is(.skin_condition_page_item, #filterBar .filter-btn, .pagination-wrap .pg-btn) {
+    background: var(--nivis-surface-deep);
+    color: var(--nivis-muted);
+    border-color: var(--nivis-border);
+}
+
+.nivis-theme :is(.skin_condition_page_item, #filterBar .filter-btn, .pagination-wrap .pg-btn):is(.active, :hover):not(:disabled) {
+    background: var(--nivis-button);
+    color: var(--nivis-ink);
+    border-color: var(--nivis-gold);
+}
+
+.nivis-theme .our_stafff_section {
+    background: var(--nivis-panel) !important;
+}
+
+.nivis-theme .our_stafff_section :is(h4, h5) {
+    color: var(--nivis-text);
+}
+
+.nivis-theme .our_stafff_section .text-muted {
+    color: var(--nivis-muted) !important;
+}
+
+.nivis-theme .ingredients-grid .empty-state {
+    color: var(--nivis-muted);
+}
+
+/* Rewards are included by the navigation on every storefront page. */
+.nivis-theme .rewards-card {
+    background: var(--nivis-surface-deep);
+    color: var(--nivis-text);
+    border-color: var(--nivis-border);
+    box-shadow: var(--nivis-shadow);
+    max-width: calc(100vw - 32px);
+    max-height: calc(100dvh - 110px);
+}
+
+.nivis-theme :is(.rewards-header, #loginOverlay) {
+    background: var(--nivis-page);
+}
+
+.nivis-theme :is(.rewards-btn, .rewards-card .promo-section, .rewards-card .list-item,
+    .rewards-card .referral-box, .rewards-card .referral-item) {
+    border-color: var(--nivis-border);
+}
+
+.nivis-theme .rewards-card .list-item:hover {
+    background: var(--nivis-surface);
+}
+
+.nivis-theme .rewards-card :is(.text-muted, .referral-item i) {
+    color: var(--nivis-muted) !important;
+}
+
+.nivis-theme .rewards-card .btn-signup {
+    background: var(--nivis-button);
+    color: var(--nivis-ink) !important;
+}
+
+.nivis-theme .rewards-card .login-card {
+    background: var(--nivis-surface);
+    color: var(--nivis-text);
+}
+
+.nivis-theme :is(.rewards_bg_white, .rewards_bg_light, .refer_earn_leaderboard_section) {
+    background: var(--nivis-page);
+    color: var(--nivis-text);
+}
+
+.nivis-theme :is(.rewards_earn_card, .rewards_ref_box, .rewards_table_container,
+    .refer_earn_reward_card, .refer_earn_filter_group, .refer_earn_table_container,
+    .refer_earn_modal_left, .refer_earn_modal_right) {
+    background: var(--nivis-panel);
+    color: var(--nivis-text);
+    border-color: var(--nivis-border);
+}
+
+.nivis-theme :is(.rewards_section_padding, .refer_earn_container, .refer_earn_leaderboard_section, .refer_earn_modal_content) .text-muted,
+.nivis-theme :is(.refer_earn_card_label, .refer_earn_checkbox_text) {
+    color: var(--nivis-muted) !important;
+}
+
+.nivis-theme :is(.refer_earn_container, .rewards_modal_content, .refer_earn_modal_content) a.text-dark {
+    color: var(--nivis-gold) !important;
+}
+
+.nivis-theme .rewards_section_padding .btn-group.bg-white {
+    background: var(--nivis-surface-deep) !important;
+    border-color: var(--nivis-border) !important;
+}
+
+.nivis-theme .rewards_filter_btn {
+    color: var(--nivis-muted);
+}
+
+.nivis-theme :is(.Rewards-hero h2 span, .rewards_step_circle, .refer_earn_filter_btn.active, .rewards_filter_btn.active) {
+    background: var(--nivis-button) !important;
+    color: var(--nivis-ink) !important;
+}
+
+.nivis-theme :is(.rewards_table_container .table, .refer_earn_table) {
+    --bs-table-color: var(--nivis-text);
+    --bs-table-bg: transparent;
+    --bs-table-border-color: var(--nivis-border);
+    --bs-table-hover-color: var(--nivis-text);
+    --bs-table-hover-bg: var(--nivis-surface);
+    color: var(--nivis-text);
+}
+
+.nivis-theme .refer_earn_table th {
+    background: var(--nivis-surface);
+    color: var(--nivis-muted);
+}
+
+.nivis-theme .refer_earn_table :is(th, td) {
+    border-color: var(--nivis-border);
+}
+
+@media (max-width: 575px) {
+    .nivis-theme .track_your_order-container {
+        width: calc(100% - 32px);
+        padding: 28px 20px;
+    }
+
+    .nivis-theme .contact_sub_heading {
+        margin-left: 20px !important;
+    }
+
+    .nivis-theme .refer_earn_card_row {
+        flex-wrap: wrap;
+    }
+
+    .nivis-theme .rewards-card {
+        left: 16px;
+    }
+}

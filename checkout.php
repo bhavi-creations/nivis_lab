@@ -3,7 +3,7 @@ require_once __DIR__ . '/razorpay_config.php';
 include 'navbar.php';
 ?>
 
-<div class="container py-5">
+<div class="container py-5 checkout-page">
     <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
         <div>
             <h1 class="mb-1">Checkout</h1>

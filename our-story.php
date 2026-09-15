@@ -65,7 +65,23 @@
 
   <section class="philosophy-section">
 
-    <h1 class="phd-heading">The Nivis Labs Philosophy</h1>
+    <!-- <h1 class="phd-heading">The Nivis Labs Philosophy</h1> -->
+      <div class="nivis_index_third_section__heading_wrap">
+
+            <div class="nivis_index_third_section__heading_line">
+                <span></span>
+
+                <h2>
+                    The Nivis Labs Philosophy
+                </h2>
+
+                <span></span>
+            </div>
+
+
+            
+
+        </div>
 
     <div class="track-wrap" id="trackWrap">
 

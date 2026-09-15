@@ -1,6 +1,6 @@
 <?php include 'navbar.php'; ?>
 
-<div class="breadcrumb-bar">
+<div class="breadcrumb-bar product-detail-breadcrumb">
   <a href="index.php">Home</a> /
   <a href="products.php">Products</a> /
   <a id="breadcrumbProduct" href="#">Product</a>
@@ -14,7 +14,7 @@
   }
 
   .product-detail-page .info-tab.active {
-    border-bottom-color: #1a1a1a;
+    border-bottom-color: #e2b373;
   }
 
   .product-detail-page .arrow-zone.is-hidden {
@@ -86,7 +86,7 @@
   </section>
 </main>
 
-<section class="container my-5" id="relatedProductsSection"></section>
+<section class="container my-5 product-detail-related" id="relatedProductsSection"></section>
 
 <script>
   let currentProduct = null;
@@ -340,18 +340,17 @@
 
           return `
             <div class="col-6 col-md-4 col-lg-3 mb-4">
-              <div class="product-card"
+              <div class="product-card product-detail-related__card"
                 data-product-id="${escapeHtml(key)}"
                 data-product-name="${escapeHtml(product.name || 'Product')}"
                 data-product-price="${escapeHtml(priceValue)}"
                 data-product-image="${escapeHtml(image)}"
-                data-price="${escapeHtml(priceValue)}"
-                style="border:1px solid #eee;border-radius:8px;padding:12px;text-align:center;height:100%;">
-                <a href="product-detail.php?product=${encodeURIComponent(key)}" style="text-decoration:none;color:inherit;">
-                  <img src="${escapeHtml(image)}" alt="${escapeHtml(product.name || 'Product')}" style="width:100%;height:180px;object-fit:contain;border-radius:6px;margin-bottom:10px;">
-                  <div class="product-name" style="font-weight:600;font-size:13px;color:#333;margin-bottom:6px;">${escapeHtml(product.name || 'Product')}</div>
-                  <div style="color:#999;font-size:11px;margin-bottom:8px;">${escapeHtml(product.type || product.category || 'Product')}</div>
-                  <div class="product-price" style="color:#1a73e8;font-weight:600;font-size:14px;">${escapeHtml(priceLabel(product.priceNumber || product.price))}</div>
+                data-price="${escapeHtml(priceValue)}">
+                <a href="product-detail.php?product=${encodeURIComponent(key)}" class="product-detail-related__link">
+                  <img class="product-detail-related__image" src="${escapeHtml(image)}" alt="${escapeHtml(product.name || 'Product')}">
+                  <div class="product-name product-detail-related__name">${escapeHtml(product.name || 'Product')}</div>
+                  <div class="product-detail-related__meta">${escapeHtml(product.type || product.category || 'Product')}</div>
+                  <div class="product-price product-detail-related__price">${escapeHtml(priceLabel(product.priceNumber || product.price))}</div>
                 </a>
                 <button class="btn-cart mt-3" type="button">Add to Cart</button>
               </div>

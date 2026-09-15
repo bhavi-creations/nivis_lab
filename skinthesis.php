@@ -1,7 +1,8 @@
 <?php include 'navbar.php'; ?>
 
+<main class="skinthesis-page">
 
-<section class="index_straight-up_section">
+<section class="index_straight-up_section skinthesis-hero">
     <div class="container">
         <h5 class="text-uppercase ls-2 text-white">/SKINTHESIS/</h5>
         <h2 class="fw-bold mb-4">Straight-up answers to your skincare questions</h2>
@@ -15,7 +16,7 @@
             </div>
         </div>
 
-        <div class="d-flex flex-wrap justify-content-center mt-4">
+        <div class="d-flex flex-wrap justify-content-center mt-4 index-guide-categories skinthesis-hero__topics">
             <!-- <a href="#" class="btn btn-outline-white text-white">Advice</a>
             <a href="#" class="btn btn-outline-white text-white">Conditions</a>
             <a href="#" class="btn btn-outline-white text-white">How-To</a>
@@ -43,7 +44,7 @@
 
 
 
-<section class="skinthesis_section pt-5 pb-2" style="background-color: #ffa50026;">
+<section class="skinthesis_section skinthesis-article-section skinthesis-article-section--answers">
     <div class="container">
 
         <h2 class="text-center section-title mb-5">Dermatologist-Approved Answers to Your Everyday Questions</h2>
@@ -115,7 +116,7 @@
 </section>
 
 
-<section class="skinthesis_section py-2" style="background-color: #0a2b4a;">
+<section class="skinthesis_section skinthesis-article-section skinthesis-article-section--concerns">
     <div class="container">
 
         
@@ -192,7 +193,7 @@
 
 
 
-<section class="skinthesis_section pt-2 pb-5" style="background-color: #ffa50026;">
+<section class="skinthesis_section skinthesis-article-section skinthesis-article-section--ingredients">
     <div class="container">
 
       
@@ -264,5 +265,7 @@
 
 </section>
 
+
+</main>
 
 <?php include 'footer.php'; ?>

@@ -550,7 +550,7 @@ include 'fetch_home_sliders.php';
 
 <div class="container py-5 img_section_container dermat-routine-section">
     <div class="img_section text-center">
-        <h2 class="fw-bold mb-4" style="letter-spacing: 1px; color:black">Build Your Perfect Skin Routine</h2>
+        <h2 class="fw-bold mb-4" style="letter-spacing: 1px; color:white">Build Your Perfect Skin Routine</h2>
 
 
         <div class="d-flex flex-nowrap justify-content-start overflow-auto pb-3 no-scrollbar dermat-concern-row" id="dermatConcernRow">
@@ -1294,7 +1294,7 @@ include 'fetch_home_sliders.php';
 
 
 
-<section class="py-5 px-3 " style="background-color:#0a2b4a;">
+<!-- <section class="py-5 px-3 " style="background-color:#0a2b4a;">
     <div class="container px-lg-5">
         <h2 class="fw-bold mb-4 px-3 text-center text-white">SHOP OUR SPOTLIGHTS</h2>
         <div class="product-carousel" id="spotlightProductCarousel">
@@ -1304,10 +1304,91 @@ include 'fetch_home_sliders.php';
             </div>
         </div>
     </div>
+</section> -->
+
+
+<!-- =========================================================
+     NIVIS INDEX THIRD SECTION
+     SHOP OUR SPOTLIGHTS
+========================================================= -->
+
+<section class="nivis_index_third_section">
+
+    <!-- LEFT DECORATIVE TEXT -->
+    <div class="nivis_index_third_section__left_text">
+
+        <strong>NIVIS LABS</strong>
+
+        <span>TRUSTED</span>
+        <span>SKINCARE</span>
+        <span>FOR BRIGHTER</span>
+        <span>TOMORROWS</span>
+
+        <i></i>
+
+    </div>
+
+
+    <!-- RIGHT DECORATIVE TEXT -->
+    <div class="nivis_index_third_section__right_text">
+
+        <span>SCIENCE</span>
+        <span>FOR A BRIGHTER</span>
+        <span>YOU</span>
+
+        <i></i>
+
+    </div>
+
+
+    <div class="container nivis_index_third_section__container">
+
+        <!-- TOP HEADING -->
+        <div class="nivis_index_third_section__heading_wrap">
+
+            <div class="nivis_index_third_section__heading_line">
+                <span></span>
+
+                <h2>
+                    SHOP OUR SPOTLIGHTS
+                </h2>
+
+                <span></span>
+            </div>
+
+
+            <p class="nivis_index_third_section__subtitle">
+                SKINCARE THAT CARES A LITTLE DEEPER
+            </p>
+
+        </div>
+
+
+        <!-- PRODUCT CAROUSEL -->
+        <div
+            class="product-carousel nivis_index_third_section__carousel"
+            id="spotlightProductCarousel"
+        >
+
+            <!-- EXISTING LOADER - SAME FUNCTIONALITY -->
+            <div class="spotlight-loading text-center py-4 w-100">
+
+                <div
+                    class="spinner-border"
+                    role="status">
+                </div>
+
+                <p class="mt-2 mb-0">
+                    Loading products...
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </section>
-
-
-
 
 <!-- formulated sesction   -->
 <!-- explore  section stylings  -->
@@ -1366,7 +1447,7 @@ include 'fetch_home_sliders.php';
 </section> -->
 
 
-<section class="video_section_wrapper d-none d-lg-block">
+<!-- <section class="video_section_wrapper d-none d-lg-block">
     <div class="container">
         <h2 class="video_section_title text-center fw-bold">NIVIS LABS FORMULAS IN FOCUS</h2>
         <div class="video_section_carousel ">
@@ -1506,7 +1587,271 @@ include 'fetch_home_sliders.php';
 
 
     </div>
+</section> -->
+
+
+<!-- new new new -->
+<section class="nivis_labs_section ">
+
+    <!-- LEFT MICRO TEXT -->
+    <!-- <div class="nivis_labs_section__side_text
+                nivis_labs_section__side_text--left">
+
+        <span>SCIENCE</span>
+        <span>BACKED</span>
+        <span>SKINCARE</span>
+
+        <i></i>
+
+    </div> -->
+
+
+    <!-- RIGHT MICRO TEXT -->
+    <div class="nivis_labs_section__side_text
+                nivis_labs_section__side_text--right">
+
+        <span>CLEARER</span>
+        <span>HEALTHIER</span>
+        <span>BRIGHTER</span>
+        <span>YOU</span>
+
+        <i></i>
+
+    </div>
+
+
+    <!-- TOP LEFT DROPPER DECORATION -->
+    <!-- <div class="nivis_labs_section__dropper">
+
+        <span class="nivis_labs_section__drop"></span>
+
+    </div> -->
+
+
+    <!-- RIGHT MOLECULE DECORATION -->
+    <div class="nivis_labs_section__molecule">
+
+        <span class="nivis_labs_section__molecule_ball
+                     nivis_labs_section__molecule_ball--1"></span>
+
+        <span class="nivis_labs_section__molecule_ball
+                     nivis_labs_section__molecule_ball--2"></span>
+
+        <span class="nivis_labs_section__molecule_ball
+                     nivis_labs_section__molecule_ball--3"></span>
+
+    </div>
+
+
+    <div class="container-fluid
+                nivis_labs_section__container">
+
+
+        <!-- =====================================================
+             SECTION HEADING
+        ====================================================== -->
+
+        <div class="nivis_labs_section__heading">
+
+            <div class="nivis_labs_section__title_row">
+
+                <span class="nivis_labs_section__title_line"></span>
+
+
+                <h2 class="nivis_labs_section__title">
+
+                    NIVIS LABS FORMULAS
+                    <span>IN FOCUS</span>
+
+                </h2>
+
+
+                <span class="nivis_labs_section__title_line
+                             nivis_labs_section__title_line--right">
+                </span>
+
+            </div>
+
+
+            <!-- <p class="nivis_labs_section__subtitle">
+
+                SCIENCE. CARE. VISIBLE RESULTS.
+
+            </p> -->
+
+        </div>
+
+
+
+        <!-- =====================================================
+             VIDEO CAROUSEL
+        ====================================================== -->
+
+        <div class="video_section_carousel
+                    nivis_labs_section__carousel  row">
+
+
+            <!-- =================================================
+                 VIDEO 01
+            ================================================== -->
+
+            <div class="nivis_labs_section__slide col-12  col-md-6 col-lg-3">
+
+                <div class="nivis_labs_section__card">
+
+                    <div class="nivis_labs_section__video_wrap">
+
+                        <video
+                            autoplay
+                            controls
+                            muted
+                            loop
+                            playsinline
+                            poster="./assets/img/reel_1.mp4">
+
+                            <source
+                                src="./assets/img/reel_1.mp4"
+                                type="video/mp4">
+
+                            Your browser does not support the video tag.
+
+                        </video>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 VIDEO 02
+            ================================================== -->
+
+            <div class="nivis_labs_section__slide  col-12  col-md-6 col-lg-3">
+
+                <div class="nivis_labs_section__card">
+
+                    <div class="nivis_labs_section__video_wrap">
+
+                        <video
+                            autoplay
+                            muted
+                            loop
+                            playsinline
+                            controls
+                            poster="./assets/img/reel_2.mp4">
+
+                            <source
+                                src="./assets/img/new_video_1.mp4"
+                                type="video/mp4">
+
+                        </video>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 VIDEO 03
+            ================================================== -->
+
+            <div class="nivis_labs_section__slide  col-12  col-md-6 col-lg-3">
+
+                <div class="nivis_labs_section__card">
+
+                    <div class="nivis_labs_section__video_wrap">
+
+                        <video
+                            autoplay
+                            muted
+                            loop
+                            playsinline
+                            controls>
+
+                            <source
+                                src="./assets/img/UV Aqua.mp4"
+                                type="video/mp4">
+
+                        </video>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 VIDEO 04
+            ================================================== -->
+
+            <div class="nivis_labs_section__slide  col-12  col-md-6 col-lg-3">
+
+                <div class="nivis_labs_section__card">
+
+                    <div class="nivis_labs_section__video_wrap">
+
+                        <video
+                            autoplay
+                            muted
+                            loop
+                            playsinline
+                            controls>
+
+                            <source
+                                src="./assets/img/nivis glow.mp4"
+                                type="video/mp4">
+
+                        </video>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- BOTTOM LEFT GLASS DISH -->
+    <!-- <div class="nivis_labs_section__dish
+                nivis_labs_section__dish--left">
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+    </div> -->
+
+
+    <!-- BOTTOM RIGHT CREAM DISH -->
+    <!-- <div class="nivis_labs_section__dish
+                nivis_labs_section__dish--right">
+
+        <span class="nivis_labs_section__cream"></span>
+
+    </div> -->
+
 </section>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1542,7 +1887,7 @@ include 'fetch_home_sliders.php';
         }
     });
 </script>
-<hr>
+<!-- <hr> -->
 
 <!-- <section class="explore_section_wrapper">
     <div class="container ">
@@ -1710,7 +2055,7 @@ include 'fetch_home_sliders.php';
 
 <!-- skinthesis section  -->
 <!-- SECTION 1: STRAIGHT UP (FORMER SKINTHESIS) -->
-<section class="index_straight-up_section">
+<!-- <section class="index_straight-up_section">
     <div class="container">
         <h5 class="text-uppercase ls-2 text-white">/NIVIS SKIN GUIDE/</h5>
         <h2 class="fw-bold mb-4 text-white">Clear answers for everyday skincare decisions</h2>
@@ -1726,16 +2071,7 @@ include 'fetch_home_sliders.php';
         </div>
 
         <div class="d-flex flex-wrap justify-content-center mt-4">
-            <!-- <a href="#" class="btn btn-outline-white text-white">Advice</a>
-            <a href="#" class="btn btn-outline-white text-white">Conditions</a>
-            <a href="#" class="btn btn-outline-white text-white">How-To</a>
-            <a href="#" class="btn btn-outline-white text-white">Ingredients</a>
-            <a href="#" class="btn btn-outline-white text-white">Index</a> -->
-            <!-- <span href="general_advice.php" class="index_img_section__badge mx-1">Advice</span>
-            <span href="skin_condition.php" class="index_img_section__badge  mx-1">Conditions</span>
-            <span href="how-tos.php" class="index_img_section__badge mx-1">How-To</span>
-            <span href="integrety.php" class="index_img_section__badge mx-1">Ingredients</span>
-            <span href="index.php" class="index_img_section__badge mx-1">Index</span> -->
+         
             <a href="general_advice.php" class="index_img_section__badge mx-1">Advice</a>
             <a href="skin_condition.php" class="index_img_section__badge mx-1">Conditions</a>
             <a href="how-tos.php" class="index_img_section__badge mx-1">How-To</a>
@@ -1744,9 +2080,69 @@ include 'fetch_home_sliders.php';
 
         </div>
     </div>
+</section> -->
+
+<section class="index_straight-up_section">
+    <div class="container">
+
+        <h5 class="text-uppercase ls-2">NIVIS SKIN GUIDE</h5>
+
+        <h2 class="fw-bold mb-4">
+            Clear answers for everyday
+            <span>skincare decisions</span>
+        </h2>
+
+        <div class="search-box mx-auto nivis-inline-search">
+            <div class="input-group">
+                <span class="input-group-text bg-white border-0">
+                    <i class="fa fa-search"></i>
+                </span>
+
+                <input type="search"
+                    class="form-control border-0"
+                    id="indexGuideSearchInput"
+                    autocomplete="off"
+                    placeholder="Search products and categories">
+
+            </div>
+
+            <div class="nivis-search-results nivis-search-results--inline"
+                id="indexGuideSearchResults">
+            </div>
+        </div>
+
+
+        <div class="d-flex flex-wrap justify-content-center mt-4 index-guide-categories">
+
+            <a href="general_advice.php"
+                class="index_img_section__badge mx-1">
+                Advice
+            </a>
+
+            <a href="skin_condition.php"
+                class="index_img_section__badge mx-1">
+                Conditions
+            </a>
+
+            <a href="how-tos.php"
+                class="index_img_section__badge mx-1">
+                How-To
+            </a>
+
+            <a href="integrety.php"
+                class="index_img_section__badge mx-1">
+                Ingredients
+            </a>
+
+            <a href="index.php"
+                class="index_img_section__badge mx-1">
+                Index
+            </a>
+
+        </div>
+
+    </div>
 </section>
-
-
 <!-- SECTION 2: ICONS -->
 <!-- <section class="index_last_second">
     <div class="container">
@@ -1772,7 +2168,7 @@ include 'fetch_home_sliders.php';
 </section> -->
 
 
-<section class="explore_section_wrapper">
+<!-- <section class="explore_section_wrapper">
     <div class="container">
 
         <h2 class="explore_section_title">EXPLORE OUR CATEGORIES</h2>
@@ -1842,19 +2238,6 @@ include 'fetch_home_sliders.php';
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <section>
     <div class="faq-section">
 
@@ -1865,7 +2248,7 @@ include 'fetch_home_sliders.php';
 
         <div class="accordion" id="faqAccordion">
 
-            <!-- Item 1 -->
+            
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
@@ -1880,7 +2263,7 @@ include 'fetch_home_sliders.php';
                 </div>
             </div>
 
-            <!-- Item 2 -->
+           
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -1896,7 +2279,7 @@ include 'fetch_home_sliders.php';
                 </div>
             </div>
 
-            <!-- Item 3 -->
+          
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -1915,7 +2298,7 @@ include 'fetch_home_sliders.php';
         </div>
 
     </div>
-</section>
+</section> -->
 
 
 <!-- <section class="featured-section">
@@ -1970,6 +2353,457 @@ include 'fetch_home_sliders.php';
 
     </div>
 </section> -->
+
+
+
+
+<!-- =========================================================
+     NIVIS INDEX FIFTH SECTION
+     EXPLORE OUR CATEGORIES
+========================================================= -->
+
+<section class="nivis_index_fifth_section">
+
+    <!-- Decorative side text -->
+    <!-- <div class="nivis_index_fifth_section__side_text
+                nivis_index_fifth_section__side_text--left">
+        <span>SCIENCE</span>
+        <span>FOR</span>
+        <span>HEALTHIER</span>
+        <span>SKIN</span>
+        <i></i>
+    </div> -->
+
+    <!-- <div class="nivis_index_fifth_section__side_text
+                nivis_index_fifth_section__side_text--right">
+        <span>SIMPLE</span>
+        <span>SKINCARE</span>
+        <span>REAL</span>
+        <span>RESULTS</span>
+        <i></i>
+    </div> -->
+
+
+    <div class="container ">
+
+        <!-- Kicker -->
+        <div class="nivis_index_fifth_section__kicker">
+            <span></span>
+            DISCOVER SOLUTIONS
+            <span></span>
+        </div>
+
+        <!-- Main heading -->
+        <h2 class="nivis_index_fifth_section__title">
+            Explore Our <strong>Categories</strong>
+        </h2>
+
+        <!-- Subtitle -->
+        <p class="nivis_index_fifth_section__subtitle">
+            Science-backed skincare for every unique need
+        </p>
+
+
+        <!-- Categories -->
+        <div class="row g-3
+                    nivis_index_fifth_section__cards">
+
+            <!-- CARD 01 -->
+            <div class="col-md-6 col-xl-3">
+
+                <a href="category.php?category=face-serum"
+                   class="nivis_index_fifth_section__card">
+
+                    <span class="nivis_index_fifth_section__number">
+                        01
+                    </span>
+
+                    <div class="nivis_index_fifth_section__content">
+
+                        <h4>Face Serum</h4>
+
+                        <p>
+                            Targeted actives for glow, acne marks,
+                            and uneven tone.
+                        </p>
+
+                    </div>
+
+                    <div class="nivis_index_fifth_section__product">
+
+                        <img src="./assets/img/FACE SERUM.jpeg"
+                             alt="Face Serum">
+
+                    </div>
+
+                    <span class="nivis_index_fifth_section__shop">
+
+                        <span>SHOP NOW</span>
+
+                        <b>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </b>
+
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <!-- CARD 02 -->
+            <div class="col-md-6 col-xl-3">
+
+                <a href="category.php?category=moisturizers"
+                   class="nivis_index_fifth_section__card">
+
+                    <span class="nivis_index_fifth_section__number">
+                        02
+                    </span>
+
+                    <div class="nivis_index_fifth_section__content">
+
+                        <h4>Moisturizers</h4>
+
+                        <p>
+                            Hydration and barrier repair for daily
+                            skin comfort.
+                        </p>
+
+                    </div>
+
+                    <div class="nivis_index_fifth_section__product">
+
+                        <img src="./assets/img/foot cream.jpeg"
+                             alt="Moisturizers">
+
+                    </div>
+
+                    <span class="nivis_index_fifth_section__shop">
+
+                        <span>SHOP NOW</span>
+
+                        <b>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </b>
+
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <!-- CARD 03 -->
+            <div class="col-md-6 col-xl-3">
+
+                <a href="category.php?category=sunscreen"
+                   class="nivis_index_fifth_section__card">
+
+                    <span class="nivis_index_fifth_section__number">
+                        03
+                    </span>
+
+                    <div class="nivis_index_fifth_section__content">
+
+                        <h4>Sunscreen</h4>
+
+                        <p>
+                            Advanced UV protection for everyday
+                            outdoor care.
+                        </p>
+
+                    </div>
+
+                    <div class="nivis_index_fifth_section__product">
+
+                        <img src="./assets/img/face spray.jpeg"
+                             alt="Sunscreen">
+
+                    </div>
+
+                    <span class="nivis_index_fifth_section__shop">
+
+                        <span>SHOP NOW</span>
+
+                        <b>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </b>
+
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <!-- CARD 04 -->
+            <div class="col-md-6 col-xl-3">
+
+                <a href="category.php?category=face-cleanser"
+                   class="nivis_index_fifth_section__card">
+
+                    <span class="nivis_index_fifth_section__number">
+                        04
+                    </span>
+
+                    <div class="nivis_index_fifth_section__content">
+
+                        <h4>Face Cleanser</h4>
+
+                        <p>
+                            Gentle daily cleansing for fresh,
+                            balanced skin.
+                        </p>
+
+                    </div>
+
+                    <div class="nivis_index_fifth_section__product">
+
+                        <img src="./assets/img/SUNSCFREEN.jpeg"
+                             alt="Face Cleanser">
+
+                    </div>
+
+                    <span class="nivis_index_fifth_section__shop">
+
+                        <span>SHOP NOW</span>
+
+                        <b>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </b>
+
+                    </span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     NIVIS INDEX SIXTH SECTION
+     FREQUENTLY ASKED QUESTIONS
+========================================================= -->
+
+<section class="nivis_index_sixth_section">
+
+    <!-- LEFT SIDE DETAILS -->
+    <div class="nivis_index_sixth_section__side
+                nivis_index_sixth_section__side--left">
+
+        <span>FORMULAS</span>
+        <span>FOR A</span>
+        <span>BRIGHTER</span>
+        <span>YOU</span>
+
+        <i></i>
+
+    </div>
+
+
+    <!-- RIGHT SIDE FEATURES -->
+    <div class="nivis_index_sixth_section__features">
+
+        <div class="nivis_index_sixth_section__feature">
+
+            <i class="fa-solid fa-flask"></i>
+
+            <!-- <span>
+                SCIENCE<br>
+                BACKED
+            </span> -->
+
+        </div>
+
+        <b></b>
+
+        <div class="nivis_index_sixth_section__feature">
+
+            <i class="fa-regular fa-shield"></i>
+
+            <span>
+                DERMATOLOGIST<br>
+                INSPIRED
+            </span>
+
+        </div>
+
+        <b></b>
+
+        <div class="nivis_index_sixth_section__feature">
+
+            <i class="fa-regular fa-leaf"></i>
+
+            <span>
+                REAL<br>
+                RESULTS
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="nivis_index_sixth_section__panel">
+
+            <!-- Kicker -->
+            <div class="nivis_index_sixth_section__kicker">
+
+                ANSWERS YOU CAN TRUST
+
+                <span></span>
+
+            </div>
+
+
+            <!-- Heading -->
+            <h2 class="nivis_index_sixth_section__title">
+                Frequently Asked
+                <strong>Questions</strong>
+            </h2>
+
+
+            <!-- Subtitle -->
+            <p class="nivis_index_sixth_section__subtitle">
+
+                Quick answers about Nivis Labs, our product approach,
+                and how to choose the right formula for your routine.
+
+            </p>
+
+
+            <!-- FAQ ACCORDION -->
+            <div class="accordion
+                        nivis_index_sixth_section__accordion"
+                 id="faqAccordion">
+
+
+                <!-- ITEM 01 -->
+                <div class="accordion-item">
+
+                    <h2 class="accordion-header">
+
+                        <button class="accordion-button"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#faq1"
+                                aria-expanded="true"
+                                aria-controls="faq1">
+
+                            What is Nivis Labs?
+
+                        </button>
+
+                    </h2>
+
+
+                    <div id="faq1"
+                         class="accordion-collapse collapse show"
+                         data-bs-parent="#faqAccordion">
+
+                        <div class="accordion-body">
+
+                            Nivis Labs is a skincare brand focused on
+                            practical, science-aware formulas for everyday
+                            skin needs like hydration, cleansing,
+                            sun protection, brightening, and barrier support.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ITEM 02 -->
+                <div class="accordion-item">
+
+                    <h2 class="accordion-header">
+
+                        <button class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#faq2"
+                                aria-expanded="false"
+                                aria-controls="faq2">
+
+                            How does Nivis Labs choose products?
+
+                        </button>
+
+                    </h2>
+
+
+                    <div id="faq2"
+                         class="accordion-collapse collapse"
+                         data-bs-parent="#faqAccordion">
+
+                        <div class="accordion-body">
+
+                            We build around real use cases first, then choose
+                            ingredients, textures, and product formats that
+                            make the formula easy to understand and easy to
+                            use consistently.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ITEM 03 -->
+                <div class="accordion-item">
+
+                    <h2 class="accordion-header">
+
+                        <button class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#faq3"
+                                aria-expanded="false"
+                                aria-controls="faq3">
+
+                            Why choose Nivis Labs?
+
+                        </button>
+
+                    </h2>
+
+
+                    <div id="faq3"
+                         class="accordion-collapse collapse"
+                         data-bs-parent="#faqAccordion">
+
+                        <div class="accordion-body">
+
+                            Nivis Labs keeps skincare simple: clear categories,
+                            focused formulas, transparent product information,
+                            and routines that support healthy-looking skin
+                            without unnecessary confusion.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
 
 
@@ -2147,7 +2981,7 @@ include 'fetch_home_sliders.php';
 <!-- explore stylings  -->
 <script>
     $(document).ready(function() {
-        $('.video_section_carousel').slick({
+        $('.nivis_labs_section__carousel').slick({
             slidesToShow: 4,
             slidesToScroll: 1,
             autoplay: true,
@@ -2155,24 +2989,18 @@ include 'fetch_home_sliders.php';
             arrows: true,
             dots: false,
             responsive: [{
-                    breakpoint: 1024,
-                    settings: {
-                        slidesToShow: 3
-                    }
-                },
-                {
-                    breakpoint: 768,
+                    breakpoint: 1200,
                     settings: {
                         slidesToShow: 2
                     }
                 },
                 {
-                    breakpoint: 480,
+                    breakpoint: 768,
                     settings: {
-                        slidesToShow: 1.2,
+                        slidesToShow: 1,
                         arrows: false
                     }
-                } // Mobile lo 1.2 isthe next card tease chestunnattu untundi
+                }
             ]
         });
 

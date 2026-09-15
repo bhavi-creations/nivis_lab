@@ -26,20 +26,77 @@
     <!-- image slider   -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="./assets/css/new_style.css?v=3">
+    <link rel="stylesheet" href="./assets/css/theme.css?v=1">
 
 </head>
 
-<body>
+<body class="nivis-theme">
 
 
     <!-- ════════════════════════════════════════════
      1. MARQUEE SECTION
 ════════════════════════════════════════════ -->
-    <div class="index_marquee_section">
+<div class="new_navbr_section__offer_bar">
+        <marquee behavior="" direction="">
+
+        <div class="new_navbr_section__offer_track">
+
+            <div class="new_navbr_section__offer_item">
+                <strong>10%</strong>
+                <span>OFF ON 1 ITEM</span>
+            </div>
+
+            <span class="new_navbr_section__offer_sep"></span>
+
+
+            <div class="new_navbr_section__offer_item">
+                <strong>20%</strong>
+                <span>OFF ON 2 ITEMS</span>
+            </div>
+
+            <span class="new_navbr_section__offer_sep"></span>
+
+
+            <div class="new_navbr_section__offer_item">
+                <strong>32%</strong>
+                <span>OFF ON 3+ ITEMS</span>
+            </div>
+
+            <span class="new_navbr_section__offer_sep"></span>
+
+
+            <div class="new_navbr_section__offer_item
+                        new_navbr_section__offer_item--main">
+
+                <span>DERMATOLOGIST TESTED &amp; APPROVED</span>
+
+            </div>
+
+            <span class="new_navbr_section__offer_sep"></span>
+
+
+            <div class="new_navbr_section__offer_item">
+                <strong>10%</strong>
+                <span>OFF ON 1 ITEM</span>
+            </div>
+
+
+
+            
+
+        </div>
+
+
+        
+</marquee>
+    </div>
+
+
+    <!-- <div class="index_marquee_section">
         <div class="index_marquee_section__track" id="marqueeTrack">
 
-            <!-- Repeated twice for seamless loop -->
-            <!-- Set A -->
+            
             <span class="index_marquee_section__item">
                 <span class="index_marquee_section__num">10%</span> Off on 1 item
             </span>
@@ -73,7 +130,6 @@
             </span>
             <span class="index_marquee_section__sep"></span>
 
-            <!-- Set B (duplicate for infinite scroll) -->
             <span class="index_marquee_section__item">
                 <span class="index_marquee_section__num">10%</span> Off on 1 item
             </span>
@@ -108,119 +164,13 @@
             <span class="index_marquee_section__sep"></span>
 
         </div>
-    </div>
+    </div> -->
 
 
     <!-- ════════════════════════════════════════════
      2. NAVBAR SECTION
 ════════════════════════════════════════════ -->
-    <header class="  index_navbar_section" id="indexNavbar">
-        <div class="  container  index_navbar_section__inner">
-
-
-            <a href="/" class="index_navbar_section__logo">
-
-                <!-- <img src="./assets/img/logo_1 (1).png" alt="" style="width: 100px;"> -->
-                <img src="./assets/img/logo_12.png" alt="" style="width: 100px;">
-
-            </a>
-
-
-            <ul class="index_navbar_section__links">
-
-
-                <li class="index_navbar_section__item">
-                    <a class="index_navbar_section__link" href="products.php">Category</a>
-                    <ul class="index_navbar_section__dropdown" id="navbarCategoryDesktop">
-                        <li>Loading categories...</li>
-                    </ul>
-                </li>
-
-
-                <li class="index_navbar_section__item">
-                    <a class="index_navbar_section__link" href="#">Ingredients</a>
-                    <ul class="index_navbar_section__dropdown" id="navbarIngredientDesktop">
-                        <li><a href="salicylic_acid.php">Salicylic Acid</a></li>
-                        <li><a href="niacinamide.php">Niacinamide</a></li>
-                        <li><a href="alpha_arbutin.php">Alpha Arbutin</a></li>
-                        <li><a href="vitamin_c.php">Vitamin C</a></li>
-                        <li><a href="retinol.php">Retinol</a></li>
-                        <li><a href="hyaluronic_acid.php">Hyaluronic Acid</a></li>
-                        <li><a href="ceramides.php">Ceramides</a></li>
-                        <li><a href="products.php">Explore all products</a></li>
-                    </ul>
-                </li>
-
-                <li class="index_navbar_section__item">
-                    <a class="index_navbar_section__link" href="#">Concern</a>
-                    <ul class="index_navbar_section__dropdown" id="navbarConcernDesktop">
-                        <!-- Manual concern dropdown: edit these items directly when needed. -->
-                        <li><a href="brigthening.php">Brightening</a></li>
-                        <li><a href="acne.php">Acne</a></li>
-                        <li><a href="acne_marks.php">Acne Marks</a></li>
-                        <li><a href="pigmentation.php">Pigmentation</a></li>
-                        <li><a href="lines_and_wrinkles.php">Lines and Wrinkles</a></li>
-                        <li><a href="dehydration.php">Dehydration</a></li>
-                        <li><a href="eczema.php">Eczema</a></li>
-
-
-                    </ul>
-                </li>
-
-                <li class="index_navbar_section__item">
-                    <a class="index_navbar_section__link" href="our-story.php">The /Nivis/ Story</a>
-                </li>
-
-                <li class="index_navbar_section__item">
-                    <a class="index_navbar_section__link" href="skinthesis.php">Skinthesis</a>
-                </li>
-
-                <li class="index_navbar_section__item">
-                    <a class="index_navbar_section__link" href="#" onclick="toggleRewards(event)">Rewards</a>
-                </li>
-
-                <li class="index_navbar_section__item">
-                    <a class="index_navbar_section__link" href="contact.php">Contact Us</a>
-                </li>
-
-            </ul>
-
-
-            <div class="index_navbar_section__icons">
-                <button class="index_navbar_section__icon-btn" id="navbarSearchButton" type="button" title="Search" aria-label="Search products and categories">
-                    <i class="bi bi-search"></i>
-                </button>
-                <button class="index_navbar_section__icon-btn" title="Account">
-                    <i class="bi bi-person"></i>
-                </button>
-                <button class="index_navbar_section__icon-btn" title="Cart" style="position:relative" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">
-                    <i class="bi bi-bag"></i>
-                    <span class="index_navbar_section__cart-badge" id="cartBadge">0</span>
-                </button>
-            </div>
-
-
-            <button class="index_navbar_section__burger" id="navBurger" aria-label="Open menu">
-                <i class="bi bi-list"></i>
-            </button>
-
-        </div>
-    </header>
-
-    <div class="nivis-search-panel" id="navbarSearchPanel" aria-hidden="true">
-        <div class="nivis-search-panel__box">
-            <button class="nivis-search-panel__close" id="navbarSearchClose" type="button" aria-label="Close search">
-                <i class="bi bi-x-lg"></i>
-            </button>
-            <label class="nivis-search-panel__label" for="navbarSearchInput">Search products and categories</label>
-            <div class="nivis-search-field">
-                <i class="bi bi-search"></i>
-                <input id="navbarSearchInput" type="search" autocomplete="off" placeholder="Type product or category name">
-            </div>
-            <div class="nivis-search-results" id="navbarSearchResults"></div>
-        </div>
-    </div>
-
+   
 
 
     <!-- Fixed Rewards pill -->
@@ -316,7 +266,658 @@
     </div>
 
 
+<!-- new section header  -->
 
+<!-- =========================================================
+     NEW NIVIS PREMIUM NAVBAR
+========================================================= -->
+
+<div class="new_navbr_section">
+
+    <!-- =====================================================
+         TOP OFFER / MARQUEE BAR
+    ====================================================== -->
+
+
+
+
+
+    <!-- =====================================================
+         MAIN NAVBAR
+    ====================================================== -->
+
+    <header class="new_navbr_section__navbar"
+            id="indexNavbar">
+
+        <div class="container-fluid
+                    new_navbr_section__container">
+
+            <!-- LOGO -->
+            <a href="/"
+               class="new_navbr_section__logo">
+
+                <img src="./assets/img/logo_new_white.png"
+                     alt="Nivis Labs">
+
+            </a>
+
+
+
+            <!-- =================================================
+                 DESKTOP MENU
+            ================================================== -->
+
+            <nav class="new_navbr_section__navigation">
+
+                <ul class="new_navbr_section__links">
+
+
+                    <!-- CATEGORY -->
+                    <li class="new_navbr_section__item">
+
+                        <a href="products.php"
+                           class="new_navbr_section__link">
+
+                            CATEGORY
+
+                        </a>
+
+
+                        <ul class="new_navbr_section__dropdown"
+                            id="navbarCategoryDesktop">
+
+                            <li>Loading categories...</li>
+
+                        </ul>
+
+                    </li>
+
+
+
+                    <!-- INGREDIENTS -->
+                    <li class="new_navbr_section__item">
+
+                        <a href="#"
+                           class="new_navbr_section__link">
+
+                            INGREDIENTS
+
+                        </a>
+
+
+                        <ul class="new_navbr_section__dropdown"
+                            id="navbarIngredientDesktop">
+
+                            <li>
+                                <a href="salicylic_acid.php">
+                                    Salicylic Acid
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="niacinamide.php">
+                                    Niacinamide
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="alpha_arbutin.php">
+                                    Alpha Arbutin
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="vitamin_c.php">
+                                    Vitamin C
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="retinol.php">
+                                    Retinol
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="hyaluronic_acid.php">
+                                    Hyaluronic Acid
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="ceramides.php">
+                                    Ceramides
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="products.php">
+                                    Explore all products
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+
+
+                    <!-- CONCERN -->
+                    <li class="new_navbr_section__item">
+
+                        <a href="#"
+                           class="new_navbr_section__link">
+
+                            CONCERN
+
+                        </a>
+
+
+                        <ul class="new_navbr_section__dropdown"
+                            id="navbarConcernDesktop">
+
+                            <li>
+                                <a href="brigthening.php">
+                                    Brightening
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="acne.php">
+                                    Acne
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="acne_marks.php">
+                                    Acne Marks
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="pigmentation.php">
+                                    Pigmentation
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="lines_and_wrinkles.php">
+                                    Lines and Wrinkles
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="dehydration.php">
+                                    Dehydration
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="eczema.php">
+                                    Eczema
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+
+
+                    <!-- STORY -->
+                    <li class="new_navbr_section__item">
+
+                        <a href="our-story.php"
+                           class="new_navbr_section__link">
+
+                            THE /NIVIS/ STORY
+
+                        </a>
+
+                    </li>
+
+
+
+                    <!-- SKINTHESIS -->
+                    <li class="new_navbr_section__item">
+
+                        <a href="skinthesis.php"
+                           class="new_navbr_section__link">
+
+                            SKINTHESIS
+
+                        </a>
+
+                    </li>
+
+
+
+                    <!-- REWARDS -->
+                    <li class="new_navbr_section__item">
+
+                        <a href="#"
+                           onclick="toggleRewards(event)"
+                           class="new_navbr_section__link">
+
+                            REWARDS
+
+                        </a>
+
+                    </li>
+
+
+
+                    <!-- CONTACT -->
+                    <li class="new_navbr_section__item">
+
+                        <a href="contact.php"
+                           class="new_navbr_section__link">
+
+                            CONTACT US
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </nav>
+
+
+
+            <!-- =================================================
+                 RIGHT ICONS
+            ================================================== -->
+
+            <div class="new_navbr_section__icons">
+
+                <!-- SEARCH -->
+                <button type="button"
+                        class="new_navbr_section__icon"
+                        id="navbarSearchButton"
+                        title="Search"
+                        aria-label="Search products and categories">
+
+                    <i class="bi bi-search"></i>
+
+                </button>
+
+
+                <!-- ACCOUNT -->
+                <button type="button"
+                        class="new_navbr_section__icon"
+                        title="Account"
+                        aria-label="Account">
+
+                    <i class="bi bi-person"></i>
+
+                </button>
+
+
+                <!-- CART -->
+                <button type="button"
+                        class="new_navbr_section__icon
+                               new_navbr_section__cart"
+                        title="Cart"
+                        aria-label="Cart"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#cartDrawer"
+                        aria-controls="cartDrawer">
+
+                    <i class="bi bi-bag"></i>
+
+                    <span class="new_navbr_section__cart_badge"
+                          id="cartBadge">
+
+                        0
+
+                    </span>
+
+                </button>
+
+            </div>
+
+
+
+            <!-- MOBILE BURGER -->
+            <button class="new_navbr_section__burger"
+                    id="navBurger"
+                    type="button"
+                    aria-label="Open menu">
+
+                <i class="bi bi-list"></i>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         SEARCH PANEL
+         IDs ARE PRESERVED
+    ====================================================== -->
+
+    <div class="nivis-search-panel"
+         id="navbarSearchPanel"
+         aria-hidden="true">
+
+        <div class="nivis-search-panel__box">
+
+            <button class="nivis-search-panel__close"
+                    id="navbarSearchClose"
+                    type="button"
+                    aria-label="Close search">
+
+                <i class="bi bi-x-lg"></i>
+
+            </button>
+
+
+            <label class="nivis-search-panel__label"
+                   for="navbarSearchInput">
+
+                Search products and categories
+
+            </label>
+
+
+            <div class="nivis-search-field">
+
+                <i class="bi bi-search"></i>
+
+                <input id="navbarSearchInput"
+                       type="search"
+                       autocomplete="off"
+                       placeholder="Type product or category name">
+
+            </div>
+
+
+            <div class="nivis-search-results"
+                 id="navbarSearchResults">
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <?php include 'reward.php'; ?>
+
+
+
+    <!-- =====================================================
+         MOBILE BACKDROP
+    ====================================================== -->
+
+    <div class="new_navbr_section__backdrop"
+         id="navBackdrop">
+    </div>
+
+
+
+    <!-- =====================================================
+         MOBILE OFFCANVAS
+    ====================================================== -->
+
+    <div class="new_navbr_section__offcanvas"
+         id="navOffcanvas">
+
+        <div class="new_navbr_section__offcanvas_head">
+
+            <a href="/"
+               class="new_navbr_section__mobile_logo">
+
+                <img src="./assets/img/logo_new_white.png"
+                     alt="Nivis Labs">
+
+            </a>
+
+
+            <button class="new_navbr_section__offcanvas_close"
+                    id="navClose"
+                    type="button"
+                    aria-label="Close menu">
+
+                <i class="bi bi-x-lg"></i>
+
+            </button>
+
+        </div>
+
+
+
+        <ul class="new_navbr_section__mobile_list">
+
+
+            <!-- CATEGORY -->
+            <li class="new_navbr_section__mobile_item"
+                data-has-sub="true">
+
+                <div class="new_navbr_section__mobile_row">
+
+                    <span class="new_navbr_section__mobile_label">
+                        Category
+                    </span>
+
+                    <span class="new_navbr_section__mobile_plus">
+                        <i class="bi bi-plus"></i>
+                    </span>
+
+                </div>
+
+
+                <ul class="new_navbr_section__mobile_sub"
+                    id="navbarCategoryMobile">
+
+                    <li>Loading categories...</li>
+
+                </ul>
+
+            </li>
+
+
+
+            <!-- INGREDIENTS -->
+            <li class="new_navbr_section__mobile_item"
+                data-has-sub="true">
+
+                <div class="new_navbr_section__mobile_row">
+
+                    <span class="new_navbr_section__mobile_label">
+                        Ingredients
+                    </span>
+
+                    <span class="new_navbr_section__mobile_plus">
+                        <i class="bi bi-plus"></i>
+                    </span>
+
+                </div>
+
+
+                <ul class="new_navbr_section__mobile_sub"
+                    id="navbarIngredientMobile">
+
+                    <li>
+                        <a href="salicylic_acid.php">
+                            Salicylic Acid
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="niacinamide.php">
+                            Niacinamide
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="alpha_arbutin.php">
+                            Alpha Arbutin
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="vitamin_c.php">
+                            Vitamin C
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="retinol.php">
+                            Retinol
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="hyaluronic_acid.php">
+                            Hyaluronic Acid
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="ceramides.php">
+                            Ceramides
+                        </a>
+                    </li>
+
+                </ul>
+
+            </li>
+
+
+
+            <!-- CONCERN -->
+            <li class="new_navbr_section__mobile_item"
+                data-has-sub="true">
+
+                <div class="new_navbr_section__mobile_row">
+
+                    <span class="new_navbr_section__mobile_label">
+                        Concern
+                    </span>
+
+                    <span class="new_navbr_section__mobile_plus">
+                        <i class="bi bi-plus"></i>
+                    </span>
+
+                </div>
+
+
+                <ul class="new_navbr_section__mobile_sub">
+
+                    <li>
+                        <a href="brigthening.php">
+                            Brightening
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="acne.php">
+                            Acne
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="acne_marks.php">
+                            Acne Marks
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="pigmentation.php">
+                            Pigmentation
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="lines_and_wrinkles.php">
+                            Lines and Wrinkles
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="dehydration.php">
+                            Dehydration
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="eczema.php">
+                            Eczema
+                        </a>
+                    </li>
+
+                </ul>
+
+            </li>
+
+
+
+            <!-- STORY -->
+            <li class="new_navbr_section__mobile_item">
+
+                <a href="our-story.php"
+                   class="new_navbr_section__mobile_plain">
+
+                    The /Nivis/ Story
+
+                </a>
+
+            </li>
+
+
+
+            <!-- SKINTHESIS -->
+            <li class="new_navbr_section__mobile_item">
+
+                <a href="skinthesis.php"
+                   class="new_navbr_section__mobile_plain">
+
+                    Skinthesis
+
+                </a>
+
+            </li>
+
+
+
+            <!-- REWARDS -->
+            <li class="new_navbr_section__mobile_item">
+
+                <a href="#"
+                   onclick="toggleRewards(event)"
+                   class="new_navbr_section__mobile_plain">
+
+                    Rewards
+
+                </a>
+
+            </li>
+
+
+
+            <!-- CONTACT -->
+            <li class="new_navbr_section__mobile_item">
+
+                <a href="contact.php"
+                   class="new_navbr_section__mobile_plain">
+
+                    Contact Us
+
+                </a>
+
+            </li>
+
+        </ul>
+
+    </div>
+
+</div>
 
 
     <!-- Bootstrap JS -->
@@ -339,20 +940,24 @@
         });
 
         /* ─── Mobile menu open/close ─── */
-        const burger = document.getElementById('navBurger');
-        const offcanvas = document.getElementById('navOffcanvas');
-        const backdrop = document.getElementById('navBackdrop');
-        const closeBtn = document.getElementById('navClose');
+        // Scope all menu controls to the visible, new navbar. There are legacy
+        // menu elements above it with the same IDs, so document.getElementById()
+        // would otherwise open the hidden legacy drawer instead.
+        const navbarRoot = document.querySelector('.new_navbr_section');
+        const burger = navbarRoot?.querySelector('#navBurger');
+        const offcanvas = navbarRoot?.querySelector('#navOffcanvas');
+        const backdrop = navbarRoot?.querySelector('#navBackdrop');
+        const closeBtn = navbarRoot?.querySelector('#navClose');
 
         function openMenu() {
-            offcanvas.classList.add('open');
-            backdrop.classList.add('open');
+            offcanvas.classList.add('active');
+            backdrop.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
         function closeMenu() {
-            offcanvas.classList.remove('open');
-            backdrop.classList.remove('open');
+            offcanvas.classList.remove('active');
+            backdrop.classList.remove('active');
             document.body.style.overflow = '';
         }
 
@@ -375,8 +980,8 @@
         });
 
         async function loadNavbarCategories() {
-            const desktopMenu = document.getElementById('navbarCategoryDesktop');
-            const mobileMenu = document.getElementById('navbarCategoryMobile');
+            const desktopMenu = navbarRoot?.querySelector('#navbarCategoryDesktop');
+            const mobileMenu = navbarRoot?.querySelector('#navbarCategoryMobile');
             const placeholder = '<li>No categories found</li>';
 
             if (desktopMenu) desktopMenu.innerHTML = '<li>Loading categories...</li>';
@@ -412,8 +1017,8 @@
         loadNavbarCategories();
 
         function loadNavbarIngredients() {
-            const desktopMenu = document.getElementById('navbarIngredientDesktop');
-            const mobileMenu = document.getElementById('navbarIngredientMobile');
+            const desktopMenu = navbarRoot?.querySelector('#navbarIngredientDesktop');
+            const mobileMenu = navbarRoot?.querySelector('#navbarIngredientMobile');
             const ingredients = [
                 ['Salicylic Acid', 'salicylic_acid.php'],
                 ['Niacinamide', 'niacinamide.php'],
@@ -494,4 +1099,40 @@
         // Update cart badge on page load
         updateCartBadge();
         window.addEventListener('nivis-cart:updated', updateCartBadge);
+    </script>
+
+    <script>
+        document.querySelectorAll(
+    '.new_navbr_section__mobile_item[data-has-sub="true"]'
+).forEach(function (item) {
+
+    const row = item.querySelector(
+        '.new_navbr_section__mobile_row'
+    );
+
+    if (!row) return;
+
+    row.addEventListener('click', function () {
+
+        item.classList.toggle('is-open');
+
+        const icon = item.querySelector(
+            '.new_navbr_section__mobile_plus i'
+        );
+
+        if (icon) {
+
+            if (item.classList.contains('is-open')) {
+                icon.classList.remove('bi-plus');
+                icon.classList.add('bi-dash');
+            } else {
+                icon.classList.remove('bi-dash');
+                icon.classList.add('bi-plus');
+            }
+
+        }
+
+    });
+
+});
     </script>

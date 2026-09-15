@@ -1,4 +1,4 @@
-<footer class="footer_section">
+<!-- <footer class="footer_section">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-6 mb-4 text-center">
@@ -6,7 +6,6 @@
                 <ul>
                     <li><a href="tracking.php">Track Your Order</a></li>
                     <li><a href="our-story.php">The Nivis Labs Story</a></li>
-                    <!-- <li><a href="our_team.php">The Nivis Labs Council</a></li> -->
                     <li><a href="skinthesis.php">Skinthesis</a></li>
                     <li><a href="reward.php">Rewards</a></li>
                 </ul>
@@ -14,12 +13,10 @@
             <div class="col-lg-4 col-6 mb-4 text-center">
                 <h6>Important Links</h6>
                 <ul>
-                    <!-- <li><a href="shipping_returns.php">Shipping & Returns</a></li> -->
                     <li><a href="terms_condition.php">Terms & Conditions</a></li>
                     <li><a href="privacy_policy.php">Privacy Policy</a></li>
                     <li><a href="refund.php">Refund Policy</a></li>
                     <li><a href="contact.php">Contact Us</a></li>
-                    <!-- <li><a href="build_phd.php">Let's Build Nivis Labs</a></li> -->
                 </ul>
             </div>
             <div class="col-lg-4 col-6 mb-4 text-center d-none d-lg-block">
@@ -38,7 +35,422 @@
             </div>
         </div>
     </div>
+</footer> -->
+
+
+<!-- =========================================================
+     NIVIS LABS NEW PREMIUM FOOTER
+========================================================= -->
+
+<footer class="nivis_footer_new_section">
+
+    <!-- LEFT DECORATIVE COPY -->
+    <div class="nivis_footer_new_section__left_copy">
+        <span>SCIENCE</span>
+        <span>FOR</span>
+        <span>HEALTHIER</span>
+        <span>SKIN</span>
+        <i></i>
+    </div>
+
+
+    <!-- RIGHT DECORATIVE COPY -->
+    <div class="nivis_footer_new_section__right_copy">
+        <span>REAL</span>
+        <span>CARE</span>
+        <span>REAL</span>
+        <span>RESULTS</span>
+        <i></i>
+    </div>
+
+
+    <!-- DECORATIVE GLASS ELEMENTS -->
+    <div class="nivis_footer_new_section__glass
+                nivis_footer_new_section__glass--left">
+
+        <!-- <span class="nivis_footer_new_section__drop
+                     nivis_footer_new_section__drop--one"></span>
+
+        <span class="nivis_footer_new_section__drop
+                     nivis_footer_new_section__drop--two"></span> -->
+
+        <span class="nivis_footer_new_section__drop
+                     nivis_footer_new_section__drop--three"></span>
+
+    </div>
+
+
+    <!-- <div class="nivis_footer_new_section__glass
+                nivis_footer_new_section__glass--right">
+               
+                
+
+        <span class="nivis_footer_new_section__cream"></span>
+
+    </div> -->
+
+
+    <!-- =====================================================
+         MAIN FOOTER
+    ====================================================== -->
+
+    <div class="container nivis_footer_new_section__container">
+
+        <div class="row g-0 nivis_footer_new_section__top">
+
+
+            <!-- =================================================
+                 SHOP
+            ================================================== -->
+
+            <div class="col-6 col-lg-3
+                        nivis_footer_new_section__column">
+
+
+
+   <h6>STAY CONNECTED</h6>
+
+                <div class="nivis_footer_new_section__small_line"></div>
+
+
+                <!-- <p class="nivis_footer_new_section__connect_text">
+
+                    Skincare insights, new launches
+                    <br>
+                    and exclusive offers — straight to you.
+
+                </p> -->
+
+                 <img src="./assets/img/logo_new_white.png"
+                     alt="Nivis Labs" style="width: 150px; height:200px;">
+
+
+                <!-- EMAIL FIELD -->
+
+                <!-- <div class="nivis_footer_new_section__newsletter">
+
+                    <input
+                        type="email"
+                        placeholder="Enter your email address"
+                        aria-label="Email address"
+                    >
+
+                    <button type="button"
+                            aria-label="Subscribe">
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </button>
+
+                </div> -->
+
+
+                <!-- SOCIAL ICONS -->
+
+                <div class="nivis_footer_new_section__social">
+
+                    <a href="https://www.facebook.com/nivislabs.co/" target="_blank"
+                       aria-label="Facebook">
+
+                        <i class="fab fa-facebook-f"></i>
+
+                    </a>
+
+
+                    <a href="https://www.instagram.com/nivislabs/" target="_blank"
+                       aria-label="Instagram">
+
+                        <i class="fab fa-instagram"></i>
+
+                    </a>
+
+
+                    <a href="https://www.youtube.com/@NivisLabs" target="_blank"
+                       aria-label="YouTube">
+
+                        <i class="fab fa-youtube"></i>
+
+                    </a>
+
+
+                    <a href="#"
+                       aria-label="WhatsApp">
+
+                        <i class="fab fa-whatsapp"></i>
+
+                    </a>
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+               
+
+            </div>
+
+
+
+            <!-- =================================================
+                 INFORMATION
+            ================================================== -->
+
+            <div class="col-6 col-lg-3
+                        nivis_footer_new_section__column
+                        nivis_footer_new_section__column--border">
+
+                <h6>INFORMATION</h6>
+
+                <div class="nivis_footer_new_section__small_line"></div>
+
+                <ul>
+
+                    <li>
+                        <a href="our-story.php">
+                            About Nivis Labs
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="skinthesis.php">
+                            Our Science
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="integrety.php">
+                            Ingredients
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="http://localhost/nivis_lab/category.php?category=Face%20Serum">
+                            Face Serum
+                        </a>
+                    </li>
+
+                    <!-- <li>
+                        <a href="#">
+                            FAQs
+                        </a>
+                    </li> -->
+
+                    <li>
+                        <a href="contact.php">
+                            Contact Us
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CUSTOMER CARE
+            ================================================== -->
+
+            <div class="col-6 col-lg-3
+                        nivis_footer_new_section__column
+                        nivis_footer_new_section__column--border">
+
+                <h6>CUSTOMER CARE</h6>
+
+                <div class="nivis_footer_new_section__small_line"></div>
+
+                <ul>
+
+                    <!-- <li>
+                        <a href="#">
+                            Shipping Policy
+                        </a>
+                    </li> -->
+
+                    <li>
+                        <a href="refund.php">
+                            Returns &amp; Refunds
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="privacy_policy.php">
+                            Privacy Policy
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="terms_condition.php">
+                            Terms of Service
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="tracking.php">
+                            Track Your Order
+                        </a>
+                    </li>
+
+                    <!-- <li>
+                        <a href="contact.php">
+                            Help Center
+                        </a>
+                    </li> -->
+
+                </ul>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 STAY CONNECTED
+            ================================================== -->
+
+            <div class="col-6 col-lg-2
+                        nivis_footer_new_section__column
+                        nivis_footer_new_section__column--border
+                        nivis_footer_new_section__connect">
+
+              <h6>SHOP</h6>
+
+                <div class="nivis_footer_new_section__small_line"></div>
+
+                <ul>
+
+                    <li>
+                        <a href="#">
+                            All Products
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="http://localhost/nivis_lab/category.php?category=Foot%20Moisturizer">
+                           Foot Moisturizer
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="http://localhost/nivis_lab/category.php?category=Sunscreen%20Spray">
+                           Sunscreen Spray
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="http://localhost/nivis_lab/salicylic_acid.php">
+                           Salicylic Acid
+                        </a>
+                    </li>
+
+                    <!-- <li>
+                        <a href="#">
+                            Kits &amp; Combos
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            New Arrivals
+                        </a>
+                    </li> -->
+
+                </ul>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             CENTER BRAND AREA
+        ====================================================== -->
+
+        <div class="nivis_footer_new_section__brand_wrap">
+
+            <div class="nivis_footer_new_section__brand_line"></div>
+
+
+            <div class="nivis_footer_new_section__brand">
+
+                <!-- WATER DROP -->
+                <div class="nivis_footer_new_section__brand_drop">
+
+                    <i class="fa-solid fa-droplet"></i>
+
+                </div>
+
+
+                <div class="nivis_footer_new_section__logo">
+
+                    NIVIS LABS
+
+                </div>
+
+
+                <p>
+                    SCIENCE BACKED SKINCARE
+                </p>
+
+            </div>
+
+
+            <div class="nivis_footer_new_section__brand_line"></div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         BOTTOM COPYRIGHT BAR
+    ====================================================== -->
+
+    <div class="nivis_footer_new_section__bottom">
+
+        <div class="container">
+
+            <div class="nivis_footer_new_section__bottom_inner">
+
+                <p>
+                    © 2024 Nivis Labs. All rights reserved.
+                </p>
+
+                <p>
+                    SKIN TODAY. BRIGHTER TOMORROW.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </footer>
+
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="cartDrawer">
     <div class="offcanvas-header border-bottom">

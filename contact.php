@@ -37,23 +37,28 @@
         <div class="card">
             <div class="icon">📞</div>
             <h3>Phone</h3>
-            <p>+91 99876543210</p>
-            <button>CALL US</button>
+            <p>+91 9666690910</p>
+            <a href="tel:9666690910"
+     target="_blank">
+            <button>CALL US</button></a>
         </div>
 
         <!-- WhatsApp -->
         <div class="card">
             <div class="icon">💬</div>
             <h3>Whatsapp</h3>
-            <p>+91 99876543210</p>
-            <button>WHATSAPP US</button>
+            <p>+91 9666690910</p>
+             <a href="https://wa.me/9666690910" 
+    
+     target="_blank">
+            <button>WHATSAPP US</button></a>
         </div>
 
         <!-- Email -->
         <div class="card">
             <div class="icon">✉️</div>
             <h3>Email</h3>
-            <p>nivis@e-commerce.com</p>
+            <p>nivislabs@gmail.com</p>
             <button>EMAIL US</button>
         </div>
 
@@ -62,8 +67,7 @@
     <div class="gst">
         <h3>GST Address</h3>
         <p>
-            Plot no 28, RTO Office Rd, behind lazza icecream shop, Ranga Rao Nagar, Kakinada, Vakalapudi, Andhra Pradesh 533003
-        </p>
+ 2-21/632/SF-08-08, Rushikonda, Visakhapatnam, AP-530045        </p>
     </div>
 </div>
 
