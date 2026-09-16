@@ -12,7 +12,7 @@
     /* Floating Button */
     .rewards-btn {
       position: fixed;
-      bottom: 20px;
+      bottom: 70px;
       left: 20px;
       background-color: #0a2b4a;
       border: 2px solid white;

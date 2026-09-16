@@ -1315,7 +1315,7 @@ include 'fetch_home_sliders.php';
 <section class="nivis_index_third_section">
 
     <!-- LEFT DECORATIVE TEXT -->
-    <div class="nivis_index_third_section__left_text">
+    <!-- <div class="nivis_index_third_section__left_text">
 
         <strong>NIVIS LABS</strong>
 
@@ -1326,7 +1326,7 @@ include 'fetch_home_sliders.php';
 
         <i></i>
 
-    </div>
+    </div> -->
 
 
     <!-- RIGHT DECORATIVE TEXT -->
@@ -2609,16 +2609,16 @@ include 'fetch_home_sliders.php';
 
 
     <!-- RIGHT SIDE FEATURES -->
-    <div class="nivis_index_sixth_section__features">
+    <!-- <div class="nivis_index_sixth_section__features">
 
         <div class="nivis_index_sixth_section__feature">
 
             <i class="fa-solid fa-flask"></i>
 
-            <!-- <span>
+            <span>
                 SCIENCE<br>
                 BACKED
-            </span> -->
+            </span>
 
         </div>
 
@@ -2648,7 +2648,7 @@ include 'fetch_home_sliders.php';
 
         </div>
 
-    </div>
+    </div> -->
 
 
     <div class="container">

@@ -159,7 +159,7 @@
   <!-- ═══════════════════════════════════════
      SECTION 5 — The experts behind every formula
 ═══════════════════════════════════════ -->
-  <section class="our_section_5">
+  <section class="our_section_5  ">
     <div class="our_section_5__inner row">
 
       <!-- Left: brand pillars -->
