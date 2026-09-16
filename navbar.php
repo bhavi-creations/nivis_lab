@@ -297,10 +297,10 @@
                     new_navbr_section__container">
 
             <!-- LOGO -->
-            <a href="/"
-               class="new_navbr_section__logo">
+            <a href="index.php"
+               class="new_navbr_section__logo " style="padding: 10px 0px;">
 
-                <img src="./assets/img/logo_new_white.png"
+                <img src="./assets/img/logo_1.png"
                      alt="Nivis Labs">
 
             </a>
