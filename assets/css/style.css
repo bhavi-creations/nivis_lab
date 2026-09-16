@@ -1588,7 +1588,7 @@ a {
     text-align: center;
 
     background:
-        /*     
+            
         radial-gradient(
             circle at 24% 69%,
             rgba(255,255,255,.13) 0 1px,
@@ -1599,15 +1599,15 @@ a {
             circle at 76% 28%,
             rgba(255,255,255,.07) 0 1px,
             transparent 1.5px
-        ), */
+        ),
 
-        /* bottom left illumination */
+        
         radial-gradient(ellipse at 7% 100%,
             rgba(60, 147, 192, .18) 0%,
             rgba(13, 81, 119, .13) 17%,
             transparent 37%),
 
-        /* right illumination */
+      
         radial-gradient(ellipse at 96% 65%,
             rgba(28, 113, 157, .18) 0%,
             rgba(7, 63, 98, .09) 22%,
@@ -1637,7 +1637,7 @@ a {
 ========================================================= */
 
 .index_straight-up_section::before {
-    content: "";
+    content: none;
 
     position: absolute;
 
@@ -1789,7 +1789,7 @@ a {
     bottom: -54px;
 
     border-radius: 50%;
-
+/* 
     background:
 
         radial-gradient(ellipse at 47% 52%,
@@ -1802,12 +1802,12 @@ a {
         radial-gradient(ellipse at center,
             rgba(39, 94, 123, .28) 0%,
             rgba(5, 37, 56, .25) 63%,
-            transparent 66%);
+            transparent 66%); */
 
-    border:
-        3px solid rgba(177, 217, 236, .26);
+    /* border:
+        3px solid rgba(177, 217, 236, .26); */
 
-    box-shadow:
+    /* box-shadow:
 
         0 0 0 8px rgba(5, 31, 48, .72),
 
@@ -1815,7 +1815,7 @@ a {
 
         inset 0 0 33px rgba(132, 202, 233, .12),
 
-        0 0 46px rgba(58, 142, 180, .15);
+        0 0 46px rgba(58, 142, 180, .15); */
 
     transform: rotate(-5deg);
 

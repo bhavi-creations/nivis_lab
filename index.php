@@ -2365,7 +2365,7 @@ include 'fetch_home_sliders.php';
      EXPLORE OUR CATEGORIES
 ========================================================= -->
 
-<section class="nivis_index_fifth_section">
+<section class=" py-5">
 
     <!-- Decorative side text -->
     <!-- <div class="nivis_index_fifth_section__side_text
