@@ -20,6 +20,87 @@
 body.nivis-theme {
     background: var(--nivis-page);
     color: var(--nivis-text);
+    --red: var(--nivis-gold);
+    --doctor-red: var(--nivis-gold);
+    --clr-primary: var(--nivis-gold);
+    --clr-accent: var(--nivis-gold);
+    --bg: var(--nivis-surface-deep);
+    --card-bg: var(--nivis-surface);
+    --text: var(--nivis-text);
+    --muted: var(--nivis-muted);
+    --border: var(--nivis-border);
+    --faq-primary: var(--nivis-gold);
+    --faq-text: var(--nivis-text);
+    --faq-muted: var(--nivis-muted);
+    --faq-border: var(--nivis-border);
+    --bs-body-color: var(--nivis-text);
+    --bs-body-bg: var(--nivis-surface-deep);
+    --bs-secondary-color: var(--nivis-muted);
+    --bs-border-color: var(--nivis-border);
+    --bs-link-color: var(--nivis-gold);
+    --bs-link-hover-color: #fae7cc;
+}
+
+/* Legacy brand accents use the same gold palette as Add to Cart. */
+.nivis-theme :is(.our_section_2 .text-danger, .read-more-link,
+    .breadcrumb-bar a:hover, .spf-badge, .benefit-icon,
+    .dermat-selected-kicker, .dermat-routine-tag, .dermat-routine-step-label) {
+    color: var(--nivis-gold) !important;
+}
+
+.nivis-theme :is(.badge-stamp, .btn-buy, .consumer-study, .routine-card-header,
+    .step-check, .step-this-btn, .routine-cta, .card-back, .ing-bg-4,
+    .skin-label_index, .dermat-brand-mark, .dermat-routine-check,
+    .dermat-routine-saving span, .dermat-complete-cart,
+    .dermat-choice-card.active .dermat-select-pill, .doctor_bio_add_btn) {
+    background: var(--nivis-button);
+    color: var(--nivis-ink);
+    border-color: var(--nivis-gold);
+}
+
+.nivis-theme :is(.btn-buy, .routine-cta, .step-this-btn, .dermat-complete-cart, .doctor_bio_add_btn):hover,
+.nivis-theme .arrow-zone:hover .arrow-btn {
+    background: linear-gradient(105deg, #fae7cc, #edc58e);
+    color: var(--nivis-ink);
+}
+
+.nivis-theme :is(.thumb-item.active, .skin-section_index, .active-dermat,
+    .dermat-selected-product, .dermat-routine-card .dermat-avatar,
+    .dermat-routine-tag, .dermat-products-grid .product-card:hover) {
+    border-color: var(--nivis-gold);
+}
+
+.nivis-theme :is(.active-dermat, .dermat-choice-grid .product-card.active) {
+    border-color: var(--nivis-gold);
+    box-shadow: 0 0 0 1px var(--nivis-gold);
+}
+
+.nivis-theme .dermat-selected-product-card {
+    border-color: var(--nivis-border);
+    background: var(--nivis-panel);
+    color: var(--nivis-text);
+}
+
+.nivis-theme :is(.spf-badge, .benefit-icon, .feature-icon_index) {
+    background: var(--nivis-surface);
+    color: var(--nivis-gold);
+}
+
+.nivis-theme .dermat-routine-step.inactive .dermat-routine-check {
+    background: transparent;
+    border-color: var(--nivis-gold);
+    color: transparent;
+}
+
+.nivis-theme .ai_powered_skin_analysis :is(.text-danger, .option-btn.active) {
+    color: var(--nivis-gold) !important;
+    border-color: var(--nivis-gold);
+}
+
+.nivis-theme .ai_powered_skin_analysis :is(.bg-danger, .btn-danger, .btn-secondary.enabled-next) {
+    background: var(--nivis-button) !important;
+    border-color: var(--nivis-gold) !important;
+    color: var(--nivis-ink) !important;
 }
 
 /* Breadcrumbs sit on the page background, including older policy templates. */
@@ -406,6 +487,147 @@ body.nivis-theme {
 
 .nivis-theme .refer_earn_table :is(th, td) {
     border-color: var(--nivis-border);
+}
+
+/* Shared surfaces for legacy templates, search, reviews and standalone forms. */
+.nivis-theme :is(.our_section_2, .skinthesis_section, .doctor_bio_section,
+    .skin-section_index, .feature-box_index, .dermat-box, .routine-footer,
+    .dermat-routine-card, .dermat-selected-product, .dermat-products-grid .product-card,
+    .qa-section, .review-card, .question-header, .login-box, .card-front,
+    .right_side_product, .routine-card,
+    .build-phd-table-container, .build-phd-modal-left, .build-phd-modal-right,
+    .nivis-search-panel__box, .nivis-search-results, .nivis-search-result) {
+    background: var(--nivis-panel);
+    color: var(--nivis-text);
+    border-color: var(--nivis-border);
+}
+
+.nivis-theme :is(.dermat-routine-step:hover, .nivis-search-result:hover,
+    .nivis-search-result:focus, .nivis-search-panel__close) {
+    background: var(--nivis-surface);
+    color: var(--nivis-text);
+}
+
+.nivis-theme :is(.product-title, .price-main, .sec-title, .page-title,
+    .dermat-selected-product-copy h3, .dermat-selected-actions strong,
+    .dermat-selected-product .product-name, .dermat-selected-product .product-price,
+    .dermat-routine-doctor, .dermat-routine-step-name, .dermat-routine-step-price,
+    .dermat-routine-summary, .doctor_bio_name, .doctor_bio_prod_name,
+    .doctor_bio_prod_price, .our_section_5__doc-name, .nivis-search-result__title,
+    .our_section_2 h2, .our_section_2 h6) {
+    color: var(--nivis-text);
+}
+
+.nivis-theme :is(.dermat-selected-product-copy p, .dermat-routine-old,
+    .dermat-routine-individual, .dermat-routine-summary span:first-child,
+    .doctor_bio_credentials, .doctor_bio_description, .doctor_bio_quote_text,
+    .our_section_5__doc-role, .our_section_5__doc-cred, .faq_sidebar_link,
+    .build-phd-form-label, .nivis-search-result__meta, .our_section_2 .description-text p) {
+    color: var(--nivis-muted);
+}
+
+.nivis-theme :is(.faq_sidebar_link:hover, .nivis-search-result__type,
+    .doctor_bio_recommends_label) {
+    color: var(--nivis-gold);
+}
+
+.nivis-theme :is(.doctor_bio_quote_card, .must-pick-note) {
+    background: var(--nivis-surface) !important;
+    color: var(--nivis-text);
+    border-color: var(--nivis-border);
+}
+
+.nivis-theme .accordion {
+    --bs-accordion-color: var(--nivis-text);
+    --bs-accordion-bg: var(--nivis-surface-deep);
+    --bs-accordion-border-color: var(--nivis-border);
+    --bs-accordion-btn-color: var(--nivis-text);
+    --bs-accordion-btn-bg: var(--nivis-surface-deep);
+    --bs-accordion-active-color: var(--nivis-gold);
+    --bs-accordion-active-bg: var(--nivis-surface);
+}
+
+.nivis-theme .accordion-button:not(.collapsed) {
+    background: var(--nivis-surface);
+    color: var(--nivis-gold);
+}
+
+.nivis-theme .accordion-button::after {
+    filter: brightness(0) invert(1);
+}
+
+.nivis-theme :is(.form-control, .form-select, .ask-form input, .ask-form textarea,
+    .login-box input, .nivis-search-field, .sort-select) {
+    background: #f5f8fb;
+    color: var(--nivis-ink);
+    border-color: var(--nivis-border);
+}
+
+.nivis-theme .nivis-search-field input {
+    background: transparent;
+    color: var(--nivis-ink);
+}
+
+.nivis-theme :is(.btn-primary, .btn-dark, .btn-buy, .btn-cart, .btn-ask,
+    .dermat-direct-cart, .dermat-select-pill, .build-phd-submit-btn,
+    .login-box button, .our_section_5__cta, .last .btn-light) {
+    background: var(--nivis-button) !important;
+    color: var(--nivis-ink) !important;
+    border-color: var(--nivis-gold) !important;
+}
+
+.nivis-theme :is(.btn-primary, .btn-dark, .btn-buy, .btn-cart, .btn-ask,
+    .dermat-direct-cart, .build-phd-submit-btn, .login-box button,
+    .our_section_5__cta, .last .btn-light):hover {
+    background: linear-gradient(105deg, #fae7cc, #edc58e) !important;
+    color: var(--nivis-ink) !important;
+}
+
+/* Gold panels must not inherit white headings or muted light text. */
+.nivis-theme :is(.consumer-study, .routine-card-header, .card-back, .badge-stamp,
+    .skin-label_index, .q-avatar, .rewards_step_circle, .ing-bg-4) {
+    background: var(--nivis-button);
+    color: var(--nivis-ink) !important;
+}
+
+.nivis-theme :is(.consumer-study, .routine-card-header, .card-back, .badge-stamp,
+    .skin-label_index, .ing-bg-4) :is(h1, h2, h3, h4, h5, h6, p, span, a, strong, i, li),
+.nivis-theme :is(.btn-buy, .btn-cart, .btn-primary, .btn-dark, .dermat-complete-cart,
+    .doctor_bio_add_btn, .toc-button) :is(span, i, strong) {
+    color: var(--nivis-ink) !important;
+}
+
+.nivis-theme .login-box {
+    box-sizing: border-box;
+    width: min(350px, calc(100vw - 32px));
+    border: 1px solid var(--nivis-border);
+}
+
+.nivis-theme .login-box input {
+    box-sizing: border-box;
+}
+
+.nivis-theme .login-box .error {
+    color: #ffb4ab;
+}
+
+.nivis-theme :is(.build-phd-section-padding, .build-phd-modal-right,
+    .dermat-routine-card, .qa-section, .review-card) .text-muted {
+    color: var(--nivis-muted) !important;
+}
+
+.nivis-theme .build-phd-table-container .table {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--nivis-text);
+    --bs-table-border-color: var(--nivis-border);
+}
+
+.nivis-theme .consumer-study .stat-circle {
+    border-color: rgba(6, 36, 58, .45);
+}
+
+.nivis-theme .consumer-study .study-footnote {
+    opacity: 1;
 }
 
 @media (max-width: 575px) {

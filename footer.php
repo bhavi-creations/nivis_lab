@@ -104,7 +104,7 @@
             ================================================== -->
 
             <div class="col-6 col-lg-3
-                        nivis_footer_new_section__column">
+                        nivis_footer_new_section__column text-center">
 
 
 
@@ -146,7 +146,7 @@
 
             <!-- SOCIAL ICONS -->
 
-            <div class="nivis_footer_new_section__social">
+            <div class="nivis_footer_new_section__social ">
 
                 <a href="https://www.facebook.com/nivislabs.co/" target="_blank"
                     aria-label="Facebook">
@@ -172,12 +172,12 @@
                 </a>
 
 
-                <a href="#"
+                <!-- <a href="#"
                     aria-label="WhatsApp">
 
                     <i class="fab fa-whatsapp"></i>
 
-                </a>
+                </a> -->
 
             </div>
 
@@ -218,7 +218,7 @@
 
         <div class="col-6 col-lg-3
                         nivis_footer_new_section__column
-                        nivis_footer_new_section__column--border">
+                        nivis_footer_new_section__column--border text-center">
 
             <h6>INFORMATION</h6>
 
@@ -274,7 +274,7 @@
 
         <div class="col-6 col-lg-3
                         nivis_footer_new_section__column
-                        nivis_footer_new_section__column--border">
+                        nivis_footer_new_section__column--border text-center">
 
             <h6>CUSTOMER CARE</h6>
 
@@ -331,7 +331,7 @@
         <div class="col-6 col-lg-2
                         nivis_footer_new_section__column
                         nivis_footer_new_section__column--border
-                        nivis_footer_new_section__connect">
+                        nivis_footer_new_section__connect text-center">
 
             <h6>SHOP</h6>
 

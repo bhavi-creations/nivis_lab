@@ -67,13 +67,13 @@ include 'fetch_home_sliders.php';
             <?php endforeach; ?>
         <?php else: ?>
             <!-- Fallback static slides -->
-            <a class="index_img_section__slide active" href="products.php" style="--hero-img: url('./assets/img/2.png');">
-                <img class="index_img_section__product" src="./assets/img/2.png" alt="Nivis Labs slide 1" onerror="this.src='./assets/img/2.png';" />
+            <a class="index_img_section__slide active" href="products.php" style="--hero-img: url('./assets/img/3.png');">
+                <img class="index_img_section__product" src="./assets/img/3.png" alt="Nivis Labs slide 1" onerror="this.src='./assets/img/2.png';" />
                 <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
             </a>
 
-            <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/3.png');">
-                <img class="index_img_section__product" src="./assets/img/3.png" alt="Nivis Labs slide 2" onerror="this.src='./assets/img/3.png';" />
+            <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/2.png');">
+                <img class="index_img_section__product" src="./assets/img/2.png" alt="Nivis Labs slide 2" onerror="this.src='./assets/img/3.png';" />
                 <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
             </a>
 
@@ -206,6 +206,9 @@ include 'fetch_home_sliders.php';
 
         function initSlides() {
             slides = Array.from(slidesWrap.querySelectorAll('.index_img_section__slide'));
+            // Show slide 3 first, keeping the remaining order as 2, 4, 1.
+            const slideOrder = [2, 1, 3, 0];
+            slides = slideOrder.map(index => slides[index]).filter(Boolean).concat(slides.slice(4));
             setSlide(0);
             startSlider();
         }

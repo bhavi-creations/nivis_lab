@@ -2903,12 +2903,12 @@
     max-width: 1030px;
 }
 
-@media (min-width:1300px){
+@media (min-width:1300px) {
     .nivis_footer_new_section__container {
-   
 
-    max-width: 1330px;
-}
+
+        max-width: 1330px;
+    }
 }
 
 
@@ -2989,17 +2989,36 @@
    SMALL GOLD LINE
 ========================================================= */
 
-.nivis_footer_new_section__small_line {
+/* .nivis_footer_new_section__small_line {
     width: 39px;
     height: 1px;
 
     margin: 14px 0 20px;
+    text-align: center !important;
 
     background:
         linear-gradient(90deg,
             #e3b472,
             rgba(227, 180, 114, .40));
+        
+
+
+            display :flex;
+            justify-content:center !important;
+            align-item:center;
+} */
+
+.nivis_footer_new_section__small_line {
+    width: 39px;
+    height: 1px;
+
+    margin: 14px auto 20px;
+
+    background: linear-gradient(90deg,
+            #e3b472,
+            rgba(227, 180, 114, .40));
 }
+
 
 
 /* =========================================================
@@ -3253,7 +3272,7 @@
 /* =========================================================
    SOCIAL ICONS
 ========================================================= */
-
+/* 
 .nivis_footer_new_section__social {
     display: flex;
 
@@ -3312,7 +3331,61 @@
 
     background:
         rgba(255, 255, 255, .055);
+} */
+
+
+.nivis_footer_new_section__social {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 15px;
 }
+
+
+.nivis_footer_new_section__social a {
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(196, 222, 235, .52);
+
+    background: rgba(255, 255, 255, .015);
+
+    color: rgba(255, 255, 255, .90);
+
+    font-size: 17px;
+
+    text-decoration: none;
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    transition:
+        color .25s ease,
+        border-color .25s ease,
+        background .25s ease,
+        transform .25s ease;
+}
+
+
+.nivis_footer_new_section__social a:hover {
+    transform: translateY(-3px);
+
+    color: #e4b472;
+
+    border-color: rgba(227, 180, 114, .82);
+
+    background: rgba(255, 255, 255, .055);
+}
+
 
 
 /* =========================================================
@@ -3978,6 +4051,7 @@
 
         margin:
             11px 0 17px;
+
     }
 
 
@@ -6792,19 +6866,21 @@
    NAVBAR + HOMEPAGE RESPONSIVE SAFEGUARDS
 ========================================================= */
 
-/* Keep the desktop header compact without reducing the touch targets. */
+/* Give the desktop header comfortable proportions without stretching the menu. */
 .new_navbr_section__navbar .new_navbr_section__container {
     min-height: 96px;
-    gap: 30px;
+    max-width: 1520px;
+    padding-inline: 24px;
+    gap: 24px;
 }
 
 .new_navbr_section__navbar .new_navbr_section__logo {
-    width: 82px;
-    flex-basis: 82px;
+    width: 94px;
+    flex-basis: 94px;
 }
 
 .new_navbr_section__navbar .new_navbr_section__logo img {
-    width: 72px !important;
+    width: 84px !important;
     height: auto;
     filter: drop-shadow(0 3px 10px rgba(0, 0, 0, .13));
 }
@@ -6813,10 +6889,26 @@
     min-height: 96px;
 }
 
+.new_navbr_section__navbar .new_navbr_section__links {
+    justify-content: center;
+    gap: clamp(14px, 1.5vw, 24px);
+}
+
+.new_navbr_section__navbar .new_navbr_section__link {
+    font-size: clamp(12px, 1vw, 14px);
+    letter-spacing: 1.4px;
+    line-height: 1.4;
+}
+
+.new_navbr_section__mobile_plain,
+.new_navbr_section__mobile_label {
+    letter-spacing: 1px;
+}
+
 .new_navbr_section__navbar .new_navbr_section__icon {
-    width: 44px;
-    height: 44px;
-    font-size: 19px;
+    width: 46px;
+    height: 46px;
+    font-size: 20px;
 }
 
 /*

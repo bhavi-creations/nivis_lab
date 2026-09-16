@@ -26,8 +26,8 @@
     <!-- image slider   -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <link rel="stylesheet" href="./assets/css/new_style.css?v=3">
-    <link rel="stylesheet" href="./assets/css/theme.css?v=1">
+    <link rel="stylesheet" href="./assets/css/new_style.css?v=6">
+    <link rel="stylesheet" href="./assets/css/theme.css?v=3">
 
 </head>
 
@@ -240,6 +240,10 @@
                     <li><a href="pigmentation.php">Pigmentation</a></li>
                     <li><a href="dehydration.php">Dehydration</a></li>
                 </ul>
+            </li>
+
+            <li class="index_navbar_section__mob-item">
+                <a href="category.php?category=our-partner" class="index_navbar_section__mob-plain">Our Partner</a>
             </li>
 
             <!-- THE /PHD/ STORY -->
@@ -463,6 +467,10 @@
                     </li>
 
 
+
+                    <li class="new_navbr_section__item">
+                        <a href="category.php?category=our-partner" class="new_navbr_section__link">Our Partner</a>
+                    </li>
 
                     <!-- STORY -->
                     <li class="new_navbr_section__item">
@@ -858,6 +866,10 @@
 
 
 
+            <li class="new_navbr_section__mobile_item">
+                <a href="category.php?category=our-partner" class="new_navbr_section__mobile_plain">Our Partner</a>
+            </li>
+
             <!-- STORY -->
             <li class="new_navbr_section__mobile_item">
 
@@ -990,7 +1002,12 @@
             try {
                 const response = await fetch('fetch_categories.php');
                 const result = await response.json();
-                const categories = result.data?.categories?.items || [];
+                const categoryItems = result.data?.categories?.items || [];
+                // Our Partner has its own top-level link on desktop and mobile.
+                const normalizeCategory = value => String(value || '').trim().toLowerCase().replace(/[\s_]+/g, '-');
+                const categories = Array.isArray(categoryItems) ? categoryItems.filter(category =>
+                    ![category.url_key, category.urlKey, category.name].some(value => normalizeCategory(value) === 'our-partner')
+                ) : [];
 
                 if (!Array.isArray(categories) || categories.length === 0) {
                     if (desktopMenu) desktopMenu.innerHTML = placeholder;

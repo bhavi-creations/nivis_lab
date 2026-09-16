@@ -71,9 +71,10 @@
       padding: 40px;
     }
   </style>
+  <link rel="stylesheet" href="./assets/css/theme.css?v=3">
 </head>
 
-<body>
+<body class="nivis-theme">
 
 
 

@@ -66,8 +66,10 @@ if(isset($_SESSION['logged_in']))
 
     </style>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/theme.css?v=3">
 </head>
-<body>
+<body class="nivis-theme">
 
 <div class="login-box">
 
