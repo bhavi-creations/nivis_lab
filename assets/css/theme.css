@@ -531,6 +531,14 @@ body.nivis-theme {
     color: var(--nivis-gold);
 }
 
+/* Keep the original Our Story section and apply the existing site palette. */
+.nivis-theme .our_section_2 .content-box {
+    color: var(--nivis-text);
+    background: var(--nivis-panel);
+    border: 1px solid var(--nivis-border);
+    box-shadow: var(--nivis-shadow);
+}
+
 .nivis-theme :is(.doctor_bio_quote_card, .must-pick-note) {
     background: var(--nivis-surface) !important;
     color: var(--nivis-text);

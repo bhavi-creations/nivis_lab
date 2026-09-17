@@ -340,25 +340,25 @@
             <ul>
 
                 <li>
-                    <a href="#">
+                    <a href="products.php">
                         All Products
                     </a>
                 </li>
 
                 <li>
-                    <a href="http://localhost/nivis_lab/category.php?category=Foot%20Moisturizer">
+                    <a href="https://nivislabs.in/category?category=Foot%20Moisturizer">
                         Foot Moisturizer
                     </a>
                 </li>
 
                 <li>
-                    <a href="http://localhost/nivis_lab/category.php?category=Sunscreen%20Spray">
+                    <a href="https://nivislabs.in/category?category=Sunscreen%20Spray">
                         Sunscreen Spray
                     </a>
                 </li>
 
                 <li>
-                    <a href="http://localhost/nivis_lab/salicylic_acid.php">
+                    <a href="salicylic_acid.php">
                         Salicylic Acid
                     </a>
                 </li>

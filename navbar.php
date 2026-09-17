@@ -26,8 +26,8 @@
     <!-- image slider   -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <link rel="stylesheet" href="./assets/css/new_style.css?v=6">
-    <link rel="stylesheet" href="./assets/css/theme.css?v=3">
+    <link rel="stylesheet" href="./assets/css/new_style.css?v=9">
+    <link rel="stylesheet" href="./assets/css/theme.css?v=5">
 
 </head>
 
@@ -552,14 +552,14 @@
 
 
                 <!-- ACCOUNT -->
-                <button type="button"
+                <!-- <button type="button"
                         class="new_navbr_section__icon"
                         title="Account"
                         aria-label="Account">
 
                     <i class="bi bi-person"></i>
 
-                </button>
+                </button> -->
 
 
                 <!-- CART -->
@@ -935,7 +935,7 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/js/graphql-client.js?v=5"></script>
-    <script src="./assets/js/search-suggestions.js?v=1"></script>
+    <script src="./assets/js/search-suggestions.js?v=3"></script>
 
     <script>
         /* ─── Navbar scroll behaviour ─── */

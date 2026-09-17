@@ -1,6 +1,47 @@
 <?php include 'navbar.php' ; ?>
   <!-- section 2 -->
-  <section class="our_section_2 py-5">
+
+  <section class="salicylic_acid_first_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-text">
+                    Home / About Nivis Labs
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-4">
+            <div class="col-lg-10">
+              <p>About Nivis Labs</p>
+                <h1 data-aos="fade-up">Science-led Skin-first Care</h1>
+                <p data-aos="fade-up" data-aos-delay="200">
+                   Nivis Labs creates modern skincare essentials designed around real skin concerns, thoughtful ingredient selection, and formulas that fit comfortably into everyday routines.
+                   
+                                   Our approach is simple: clear products, transparent communication, and dependable care for healthy-looking skin.
+
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- <section class="our_section_2 py-5">
     <div class="container py-lg-5">
       <div class="row justify-content-center align-items-center">
         <div class="col-12 col-md-10 col-lg-8">
@@ -25,7 +66,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
 
 
 

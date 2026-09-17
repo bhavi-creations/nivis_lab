@@ -7,12 +7,32 @@
         <h5 class="text-uppercase ls-2 text-white">/SKINTHESIS/</h5>
         <h2 class="fw-bold mb-4">Straight-up answers to your skincare questions</h2>
 
-        <div class="search-box mx-auto">
+        <!-- <div class="search-box mx-auto">
             <div class="input-group">
                 <span class="input-group-text bg-white border-0">
                     <i class="fa fa-search text-muted"></i>
                 </span>
                 <input type="text" class="form-control border-0" placeholder="Search Skincare Tips">
+            </div>
+        </div> -->
+
+
+         <div class="search-box mx-auto nivis-inline-search">
+            <div class="input-group">
+                <span class="input-group-text bg-white border-0">
+                    <i class="fa fa-search"></i>
+                </span>
+
+                <input type="search"
+                    class="form-control border-0"
+                    id="indexGuideSearchInput"
+                    autocomplete="off"
+                    placeholder="Search products and categories">
+
+            </div>
+
+            <div class="nivis-search-results nivis-search-results--inline"
+                id="indexGuideSearchResults">
             </div>
         </div>
 

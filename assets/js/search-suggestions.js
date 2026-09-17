@@ -158,8 +158,96 @@
         );
     }
 
+    function initSkinthesisSearch() {
+        const input = document.querySelector('.skinthesis-page .skinthesis-hero .search-box input');
+
+        if (!input || input.dataset.searchReady === 'true') return;
+
+        const sections = Array.from(document.querySelectorAll('.skinthesis-article-section'));
+        const articles = Array.from(document.querySelectorAll('.skinthesis-page .skinthesis-card')).map(card => {
+            const link = card.querySelector('.read-more-link');
+            const title = card.querySelector('.card-title')?.textContent.trim() || 'Skincare article';
+            const subtitle = card.querySelector('.card-text')?.textContent.replace(/\s+/g, ' ').trim() || '';
+
+            return {
+                column: card.closest('[class*="col-"]'),
+                url: link?.getAttribute('href') || '#',
+                searchText: `${title} ${subtitle}`.toLowerCase()
+            };
+        });
+
+        if (!articles.length) return;
+        input.dataset.searchReady = 'true';
+
+        function filterArticles() {
+            const query = input.value.trim().toLowerCase();
+
+            articles.forEach(article => {
+                const matches = !query || article.searchText.includes(query);
+                if (article.column) article.column.hidden = !matches;
+            });
+
+            sections.forEach(section => {
+                const hasVisibleArticle = Array.from(section.querySelectorAll('.skinthesis-card'))
+                    .some(card => !card.closest('[class*="col-"]')?.hidden);
+                section.hidden = Boolean(query) && !hasVisibleArticle;
+            });
+
+            return articles.filter(article => !article.column?.hidden);
+        }
+
+        input.addEventListener('input', filterArticles);
+        input.addEventListener('keydown', event => {
+            if (event.key === 'Enter' && input.value.trim()) {
+                const firstMatch = filterArticles()[0];
+                if (firstMatch?.url && firstMatch.url !== '#') {
+                    event.preventDefault();
+                    window.location.href = firstMatch.url;
+                }
+            }
+
+            if (event.key === 'Escape') {
+                input.value = '';
+                filterArticles();
+                input.blur();
+            }
+        });
+    }
+
+    function initContactEmailLink() {
+        const emailCard = Array.from(document.querySelectorAll('.contact-cards .card')).find(card =>
+            card.querySelector('h3')?.textContent.trim().toLowerCase() === 'email'
+        );
+
+        if (!emailCard) return;
+
+        const emailText = emailCard.querySelector('p');
+        const emailButton = emailCard.querySelector('button');
+        const openEmail = () => {
+            window.location.href = 'mailto:nivislabs@gmail.com';
+        };
+
+        emailButton?.addEventListener('click', openEmail);
+
+        if (emailText) {
+            emailText.tabIndex = 0;
+            emailText.setAttribute('role', 'link');
+            emailText.setAttribute('aria-label', 'Email Nivis Labs');
+            emailText.style.cursor = 'pointer';
+            emailText.addEventListener('click', openEmail);
+            emailText.addEventListener('keydown', event => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    openEmail();
+                }
+            });
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         initNavbarSearch();
         initIndexSearch();
+        initSkinthesisSearch();
+        initContactEmailLink();
     });
 })();
