@@ -461,7 +461,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<script src="assets/js/category-products.js?v=12"></script>
+<script src="assets/js/category-products.js?v=13"></script>
 
 <script>
     const cartDrawerEl = document.getElementById('cartDrawer');

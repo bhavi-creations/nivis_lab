@@ -239,11 +239,15 @@
 
     setText('breadcrumbProduct', product.name || 'Product');
     setText('productTitle', product.name || 'Product');
-    setText('productSubtitle', product.subtitle || product.concern ? `/${product.subtitle || product.concern}/` : '');
+    const description = product.whatIs || product.description || product.subtitle || '';
+    const subtitle = product.subtitle || product.description || product.concern || '';
+    setText('productSubtitle', subtitle);
+    document.getElementById('productSubtitle').style.display = subtitle ? '' : 'none';
     setRatingStars();
     setText('productReviews', `${product.reviewsCount || 120} reviews`);
     setText('productPrice', priceLabel(product.priceNumber || product.price));
-    setText('productDesc', product.description || product.subtitle || '');
+    // Show the summary once beneath the product name, without a second copy here.
+    setText('productDesc', '');
     setText('boughtNote', product.boughtTag || '');
 
     const typeBadge = document.getElementById('typeBadge');
@@ -254,7 +258,7 @@
       typeBadge.style.display = 'none';
     }
 
-    document.getElementById('tab-desc').textContent = product.whatIs || product.description || product.subtitle || '';
+    document.getElementById('tab-desc').textContent = description;
     document.getElementById('tab-how').textContent = product.howToUse || 'Use as directed on the product label.';
 
     renderGallery(product);

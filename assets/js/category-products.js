@@ -552,7 +552,7 @@
         const secondaryImage = (product.images && product.images.length > 1) ? product.images[1] : (product.secondaryImageUrl || primaryImage);
         const productKey = product.urlKey || product.url_key || product.sku || product.id || product.name || '';
         const detailHref = `product-detail.php?product=${encodeURIComponent(productKey)}`;
-        const productSize = product.size ? `Quantity: ${product.size}` : '';
+        const productSize = product.size || '';
         const priceNumber = productPriceNumber(product);
         const priceLabel = productPriceLabel(product);
 
@@ -575,16 +575,13 @@
                     </div>
 
                     <div class="product-info">
-                        <div class="product-type-badge">${escapeHtml(product.type || 'Product')}</div>
-                        <div class="product-name">${escapeHtml(product.name)}</div>
+                        <div class="product-name">${escapeHtml(product.name)}${productSize ? ` <span class="spotlight-product-size">${escapeHtml(productSize)}</span>` : ''}</div>
                         <div class="product-sub">/ ${escapeHtml(product.subtitle || product.concern || 'Skincare')} /</div>
-                        ${productSize ? `<div class="product-size">${escapeHtml(productSize)}</div>` : ''}
                         <div>
                             <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
                             <span class="review-count">(${escapeHtml(product.reviewsCount || 120)} reviews)</span>
                         </div>
-                        <div class="product-price">${escapeHtml(priceLabel)}</div>
-                        <span class="bought-tag">${escapeHtml(product.boughtTag || '')}</span>
+                        <div class="product-price">${product.boughtTag ? `<span class="badge-b1g1">${escapeHtml(product.boughtTag)}</span> ` : ''}${escapeHtml(priceLabel)}</div>
                     </div>
 
                     <div class="product-hover-popover">

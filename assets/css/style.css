@@ -2646,6 +2646,7 @@ input[type="range"]::-ms-thumb {
 /* ── PRODUCT GRID ── */
 .product-grid-wrap {
     flex: 1;
+    min-width: 0;
 }
 
 .product-count {
@@ -2656,7 +2657,7 @@ input[type="range"]::-ms-thumb {
 
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 20px 16px;
     align-items: stretch;
 }
@@ -2708,6 +2709,59 @@ input[type="range"]::-ms-thumb {
     height: 100%;
     object-fit: cover;
     transition: transform .45s ease, opacity .45s ease;
+}
+
+/* Match the spotlight image proportions and keep category cards uniform. */
+.products-grid .product-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 16px;
+    border-radius: 18px;
+}
+
+.products-grid .product-card > a {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.products-grid .product-img-wrap {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 14px;
+}
+
+.products-grid .product-img-wrap img {
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+
+.products-grid .img-secondary {
+    opacity: 0;
+}
+
+.products-grid .product-img-wrap:hover .img-secondary {
+    opacity: 1;
+}
+
+.products-grid .product-info {
+    flex: 1;
+}
+
+.products-grid .product-name,
+.products-grid .product-sub {
+    display: block;
+    min-height: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.products-grid .btn-cart {
+    margin-top: auto;
 }
 
 .product-img-wrap:hover img {
@@ -3038,7 +3092,7 @@ input[type="range"]::-ms-thumb {
 /* ── RESPONSIVE ── */
 @media (max-width: 992px) {
     .products-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
@@ -3054,7 +3108,13 @@ input[type="range"]::-ms-thumb {
     }
 
     .products-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 479px) {
+    .products-grid {
+        grid-template-columns: minmax(0, 1fr);
     }
 }
 
