@@ -89,11 +89,15 @@ function normalizeImageUrl($url)
         return $url;
     }
 
+    if (strpos(ltrim($url, './'), 'assets/catalog/') === 0) {
+        return EVERSHOP_ASSET_BASE_URL . '/' . ltrim($url, './');
+    }
+
     if (str_starts_with($url, "./") || str_starts_with($url, "assets/")) {
         return $url;
     }
 
-    return EVERSHOP_ASSET_BASE_URL . $url;
+    return EVERSHOP_ASSET_BASE_URL . '/' . ltrim($url, '/');
 }
 
 function attributeValue($attributes, $keywords, $fallback)
@@ -341,38 +345,30 @@ function productMatches($product, $productKey)
 
 function findProductInCache($productKey)
 {
-    $bestProduct = null;
-    $bestImageCount = 0;
+    $files = glob(__DIR__ . "/cache/category-products-v9-*.json") ?: [];
+    usort($files, function ($left, $right) {
+        return filemtime($right) <=> filemtime($left);
+    });
 
-    foreach (glob(__DIR__ . "/cache/category-products-v*.json") ?: [] as $file) {
+    foreach ($files as $file) {
         $payload = json_decode(file_get_contents($file), true);
         $products = $payload["products"] ?? [];
 
         foreach ($products as $product) {
             if (productMatches($product, $productKey)) {
-                $normalizedProduct = normalizeProduct($product);
-                $imageCount = count($normalizedProduct["images"] ?? []);
-
-                if ($imageCount > $bestImageCount) {
-                    $bestProduct = $normalizedProduct;
-                    $bestImageCount = $imageCount;
-                }
+                return normalizeProduct($product);
             }
         }
     }
 
-    return $bestProduct;
+    return null;
 }
 
 if ($productKey === "") {
     jsonExit(["error" => "Missing product"]);
 }
 
-$cachedProduct = findProductInCache($productKey);
-if ($cachedProduct) {
-    jsonExit(["product" => $cachedProduct]);
-}
-
+// Read the current gallery first; category caches may predate image uploads.
 $query = '{
     products(filters: []) {
         items {
@@ -400,6 +396,14 @@ $products = $result["data"]["products"]["items"] ?? [];
 foreach ($products as $product) {
     if (productMatches($product, $productKey)) {
         jsonExit(["product" => normalizeProduct($product)]);
+    }
+}
+
+// Keep details available during a backend outage using the newest cache.
+if (!empty($result["error"]) || !empty($result["errors"]) || !isset($result["data"]["products"]["items"])) {
+    $cachedProduct = findProductInCache($productKey);
+    if ($cachedProduct) {
+        jsonExit(["product" => $cachedProduct]);
     }
 }
 
