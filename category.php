@@ -30,7 +30,7 @@
                     Skin Concern <span class="toggle-icon">+</span>
                 </div>
                 <div class="filter-body" id="filter-concern">
-                    <p class="filter-empty">Loading filters...</p>
+                    <p class="filter-empty">No filters available</p>
                 </div>
             </div>
 
@@ -40,7 +40,7 @@
                     Ingredient <span class="toggle-icon">+</span>
                 </div>
                 <div class="filter-body" id="filter-ingredient">
-                    <p class="filter-empty">Loading filters...</p>
+                    <p class="filter-empty">No filters available</p>
                 </div>
             </div>
 
@@ -50,7 +50,7 @@
                     Product Type <span class="toggle-icon">+</span>
                 </div>
                 <div class="filter-body" id="filter-type">
-                    <p class="filter-empty">Loading filters...</p>
+                    <p class="filter-empty">No filters available</p>
                 </div>
             </div>
         </aside>
