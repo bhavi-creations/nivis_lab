@@ -8,7 +8,7 @@
     function start() {
         const grid = document.getElementById('productsGrid');
         const count = document.getElementById('productCount');
-        const footer = document.querySelector('.footer_section');
+        const footer = document.querySelector('.nivis_footer_new_section, .footer_section');
         const categoryKey = getCategoryKey();
 
         bindFilterHeaders();
@@ -41,6 +41,25 @@
 
         const file = window.location.pathname.split('/').pop() || '';
         return file.replace(/\.php$/i, '').replace(/_/g, '-').toLowerCase();
+    }
+
+    function supportsContentPageEmptyState(category) {
+        return new Set([
+            'bakuchiol',
+            'centella-asiatica',
+            'coenzyme-q10',
+            'ferulic-acid',
+            'n-acetyl-glucosamine',
+            'panthenol',
+            'pentavitin',
+            'peptazin',
+            'peptide',
+            'polyglutamic-acid',
+            'shea-butter',
+            'squalane',
+            'tasmanian-pepper',
+            'tyrobrigh'
+        ]).has(String(category || '').toLowerCase());
     }
 
     function escapeHtml(value) {
@@ -391,25 +410,56 @@
         document.head.appendChild(style);
     }
 
+    function emptyProductsCard(categoryName) {
+        const collectionName = String(categoryName || 'this collection')
+            .trim()
+            .replace(/[-_]+/g, ' ')
+            .replace(/\b[a-z]/g, letter => letter.toUpperCase());
+
+        return `
+            <div class="products-coming-soon" role="status" aria-live="polite">
+                <div class="products-coming-soon__glow" aria-hidden="true"></div>
+                <div class="products-coming-soon__icon" aria-hidden="true">
+                    <i class="bi bi-stars"></i>
+                </div>
+                <span class="products-coming-soon__eyebrow">Coming soon</span>
+                <h2>New products are coming soon</h2>
+                <p class="products-coming-soon__message">
+                    Products for <strong>${escapeHtml(collectionName)}</strong> will be updated soon.
+                    We are carefully preparing the collection, so please check back shortly.
+                </p>
+                <div class="products-coming-soon__question">
+                    <span>What would you love to see in this collection?</span>
+                    <a href="contact.php" class="products-coming-soon__cta">
+                        Tell us <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        `;
+    }
+
     async function loadProductsForContentPage(category, targetFooter) {
         if (!targetFooter) return;
 
         try {
             const result = await fetchCategoryProducts(category);
             const products = result.products || [];
+            const categoryName = result.category?.name || category;
 
-            if (products.length === 0) return;
+            if (products.length === 0 && !supportsContentPageEmptyState(category)) return;
 
             const section = document.createElement('section');
-            section.className = 'py-5';
+            section.className = 'products-availability-section py-5';
             section.innerHTML = `
                 <div class="container">
                     <div class="product-grid-wrap">
                         <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
-                            <h2 class="fw-bold mb-0">${escapeHtml(result.category?.name || category)}</h2>
+                            <h2 class="fw-bold mb-0">${escapeHtml(categoryName)}</h2>
                             <div class="product-count">${products.length} product${products.length !== 1 ? 's' : ''}</div>
                         </div>
-                        <div class="products-grid">${products.map(productCard).join('')}</div>
+                        <div class="products-grid">
+                            ${products.length ? products.map(productCard).join('') : emptyProductsCard(categoryName)}
+                        </div>
                     </div>
                 </div>
             `;
@@ -434,7 +484,8 @@
         }
 
         if (!products.length) {
-            targetGrid.innerHTML = `<p class="text-center w-100">No ${escapeHtml(categoryName)} products found.</p>`;
+            populateDynamicFilters([]);
+            targetGrid.innerHTML = emptyProductsCard(categoryName);
             if (targetCount) targetCount.textContent = '0 products';
             return;
         }

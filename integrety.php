@@ -84,24 +84,24 @@
           bg: "#f5c880",
           desc: "Retinol is a powerful Vitamin A derivative known for its ability to boost collagen, reduce wrinkles, clear acne, and improve skin texture. It works by speeding up skin renewal, unclogging pores, and evening out skin tone, making it a must-have"
         },
-        {
-          name: "Pentavitin®",
-          cat: "Acne",
-          link: "Pentavitin.php",
-           image:"./assets/img/retional.png",
-          emoji: "🌸",
-          bg: "#e0b0e8",
-          desc: "Pentavitin® is a powerful moisture magnet that keeps your skin hydrated for up to 72 hours, making it an essential ingredient for dry, sensitive, and dehydrated skin. Unlike regular moisturizers, Pentavitin® binds to the skin’s natural proteins,"
-        },
-        {
-          name: "Tyrobright™",
-          cat: "Acne",
-          link: "tyrobrigh.php",
-            image:"./assets/img/retional.png",
-          emoji: "🟢",
-          bg: "#b8e8c0",
-          desc: "Discover Tyrobright™, a proprietary creation from the Nivis Labs council. It acts like a gentle ‘melanin vacuum,’ targeting stubborn dark spots to deliver a brighter, more even complexion—"
-        },
+        // {
+        //   name: "Pentavitin®",
+        //   cat: "Acne",
+        //   link: "Pentavitin.php",
+        //    image:"./assets/img/retional.png",
+        //   emoji: "🌸",
+        //   bg: "#e0b0e8",
+        //   desc: "Pentavitin® is a powerful moisture magnet that keeps your skin hydrated for up to 72 hours, making it an essential ingredient for dry, sensitive, and dehydrated skin. Unlike regular moisturizers, Pentavitin® binds to the skin’s natural proteins,"
+        // },
+        // {
+        //   name: "Tyrobright™",
+        //   cat: "Acne",
+        //   link: "tyrobrigh.php",
+        //     image:"./assets/img/retional.png",
+        //   emoji: "🟢",
+        //   bg: "#b8e8c0",
+        //   desc: "Discover Tyrobright™, a proprietary creation from the Nivis Labs council. It acts like a gentle ‘melanin vacuum,’ targeting stubborn dark spots to deliver a brighter, more even complexion—"
+        // },
         {
           name: "Tasmanian Pepper",
           cat: "Acne",
@@ -219,16 +219,16 @@
           bg: "#c8f0c8",
           desc: "Vitamin C, also known as Ascorbic Acid, is a powerhouse ingredient in skincare, loved for its ability to brighten skin, fade dark spots, and protect against environmental damage. But how does it work, and what’s the best way to use it"
         },
-        {
-          name: "Alpha Arbutin",
-          cat: "Eczema",
-          link: "alpha_arbutin.php",
-            image:"./assets/img/N-Acetyl.png",
-          image: "./assets",
-          emoji: "🌼",
-          bg: "#f8f0c0",
-          desc: "Struggling with dark spots, uneven skin tone, or hyperpigmentation? Alpha Arbutin might be the solution you need! This powerful yet gentle skincare ingredient works to brighten your complexion by reducing melanin product"
-        },
+        // {
+        //   name: "Alpha Arbutin",
+        //   cat: "Eczema",
+        //   link: "alpha_arbutin.php",
+        //     image:"./assets/img/N-Acetyl.png",
+        //   image: "./assets",
+        //   emoji: "🌼",
+        //   bg: "#f8f0c0",
+        //   desc: "Struggling with dark spots, uneven skin tone, or hyperpigmentation? Alpha Arbutin might be the solution you need! This powerful yet gentle skincare ingredient works to brighten your complexion by reducing melanin product"
+        // },
       ];
 
       let activeCategory = "all";
@@ -355,7 +355,13 @@
       }
 
       document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById("filterBar").addEventListener("click", e => {
+        renderGrid();
+        renderPagination();
+
+        const filterBar = document.getElementById("filterBar");
+        if (!filterBar) return;
+
+        filterBar.addEventListener("click", e => {
           const btn = e.target.closest(".filter-btn");
           if (!btn) return;
           document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
