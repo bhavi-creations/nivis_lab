@@ -788,12 +788,28 @@ if (!empty($result["error"]) || !empty($result["errors"])) {
 
 $backendConnectionError = false;
 $allProducts = $result["data"]["products"]["items"] ?? [];
-$categoryKeys = $isAllProductsCategory ? [] : ($backendConnectionError ? categoryAliases($categorySlug) : resolveCategoryKeys($categorySlug));
-$products = $isAllProductsCategory ? array_values($allProducts) : array_values(array_filter($allProducts, function ($product) use ($categoryKeys) {
-    return productMatchesCategory($product, $categoryKeys);
-}));
+$exactCategorySlugs = [
+    "sunscreen", "sunscreens", "brightening", "acne", "hyper-pigmentation",
+    "pigmentation", "dark-spots", "anti-ageing", "anti-aging", "dehydration", "hydration"
+];
+$isExactCategory = !$isAllProductsCategory && in_array($categorySlug, $exactCategorySlugs, true);
+$exactCategoryProducts = $isExactCategory
+    ? fetchProductsByCategorySlug($categorySlug)
+    : [];
+$categoryKeys = [];
 
-if (!$isAllProductsCategory && count($products) === 0 && !$backendConnectionError) {
+if (count($exactCategoryProducts) > 0) {
+    $products = array_values($exactCategoryProducts);
+} elseif ($isExactCategory) {
+    $products = [];
+} else {
+    $categoryKeys = $backendConnectionError ? categoryAliases($categorySlug) : resolveCategoryKeys($categorySlug);
+    $products = $isAllProductsCategory ? array_values($allProducts) : array_values(array_filter($allProducts, function ($product) use ($categoryKeys) {
+        return productMatchesCategory($product, $categoryKeys);
+    }));
+}
+
+if (!$isAllProductsCategory && !$isExactCategory && count($products) === 0 && !$backendConnectionError) {
     $productsById = [];
 
     foreach ($categoryKeys as $key) {

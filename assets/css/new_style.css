@@ -7626,6 +7626,27 @@
     filter: saturate(.92) contrast(1.04);
 }
 
+.skinthesis-page .skincare-product-image {
+    display: block;
+    width: 100%;
+    height: 238px;
+    padding: 14px;
+    object-fit: contain;
+    background: #ffffff;
+}
+
+.skinthesis-page .skincare-product-image-link {
+    display: block;
+}
+
+.skinthesis-page .skincare-products-empty {
+    margin: 0;
+    padding: 32px;
+    border: 1px dashed rgba(162, 215, 239, .34);
+    color: rgba(255, 255, 255, .72);
+    text-align: center;
+}
+
 .skinthesis-page .skinthesis-card .card-body {
     display: flex;
     flex: 1;
