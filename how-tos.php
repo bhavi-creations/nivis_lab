@@ -48,7 +48,7 @@
             cat: "brightening",
             img: "./assets/img/Skin Glow.png",
             desc: "Healthy, glowing skin isn't about chasing trends or changing your natural color. For us Indians, true radiance comes from consistent, science-backed skincare...",
-            url: "how_to_make_skn_glow.php"
+            url: "how_to_make_skin_glow.php"
         },
         {
             title: "How To Treat Acne?",

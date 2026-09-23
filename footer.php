@@ -245,7 +245,7 @@
                 </li>
 
                 <li>
-                    <a href="http://localhost/nivis_lab/category.php?category=Face%20Serum">
+                    <a href="https://nivislabs.in/category?category=Face%20Serum">
                         Face Serum
                     </a>
                 </li>

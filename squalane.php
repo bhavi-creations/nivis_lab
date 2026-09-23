@@ -39,18 +39,11 @@
                         <p class="small"><i class="far fa-comment"></i> 0 comments</p>
 
                         <h6 class="fw-bold mt-4">Tags</h6>
-                        <a href="#" class="tag-link">Acne</a>
-                        <a href="#" class="tag-link">Eczema</a>
-                        <a href="#" class="tag-link">Hydration</a>
-                        <a href="#" class="tag-link">Lines and Wrinkles</a>
+                        <a href="acne.php" class="tag-link">Acne</a>
+                        <a href="eczema.php" class="tag-link">Eczema</a>
+                        <a href="dehydration.php" class="tag-link">Hydration</a>
+                        <a href="lines_and_wrinkles.php" class="tag-link">Lines and Wrinkles</a>
 
-                        <h6 class="fw-bold mt-4">Share</h6>
-                        <div class="social-icons">
-                            <i class="fab fa-facebook-f"></i>
-                            <i class="fab fa-pinterest-p"></i>
-                            <i class="fab fa-x-twitter"></i>
-                            <i class="far fa-paper-plane"></i>
-                        </div>
                     </div>
                 </div>
 

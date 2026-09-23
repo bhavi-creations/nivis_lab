@@ -14,7 +14,7 @@
 </div> -->
 
 
-<div class="alert-banner">
+<!-- <div class="alert-banner">
     <div class="alert-content container">
         <span class="icon">⚠️</span>
         <div>
@@ -22,10 +22,10 @@
             <p>
                 Our phone lines are currently unavailable. Please reach us via WhatsApp or email — we'll get back to you within a few hours.
             </p>
-            <!-- <small>Last updated at 10:10 PM, 23 April 2026</small> -->
+           
         </div>
     </div>
-</div>
+</div> -->
 
 <div class="contact-section">
     <h2>Need to contact us?</h2>

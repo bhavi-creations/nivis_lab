@@ -178,7 +178,7 @@
     <span class="our_section_5__rewards-icon">🎁</span>
     Rewards
   </a> -->
-    <?php include 'reward.php'; ?>
+ 
 
 
 
@@ -501,7 +501,7 @@
 
 
                     <!-- REWARDS -->
-                    <li class="new_navbr_section__item">
+                    <!-- <li class="new_navbr_section__item">
 
                         <a href="#"
                            onclick="toggleRewards(event)"
@@ -511,7 +511,7 @@
 
                         </a>
 
-                    </li>
+                    </li> -->
 
 
 
@@ -655,7 +655,7 @@
 
 
 
-    <?php include 'reward.php'; ?>
+   
 
 
 
