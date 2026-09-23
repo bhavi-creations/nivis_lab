@@ -37,7 +37,7 @@
     display: none;
   }
 
-  @media (min-width: 768px) and (max-width: 1400px) {
+  @media (min-width: 768px) {
     .product-detail-page {
       min-height: 0;
     }
@@ -65,7 +65,7 @@
     }
   }
 
-  @media (min-width: 901px) and (max-width: 1400px) {
+  @media (min-width: 901px) {
     .product-detail-page .product_img_section,
     .product-detail-page .right_side_product {
       height: clamp(360px, 45vw, 560px);

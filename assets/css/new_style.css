@@ -7253,6 +7253,7 @@
 }
 
 .product-detail-page {
+    margin-top: 24px;
     overflow: hidden;
     border: 1px solid rgba(138, 204, 235, .26);
     border-radius: 22px;
@@ -7402,6 +7403,12 @@
     color: #ffffff;
 }
 
+/* Keep catalog cards clear of the footer on concern and product-list pages. */
+.shop-layout,
+.container > .product-grid-wrap {
+    padding-bottom: clamp(32px, 4vw, 56px);
+}
+
 .product-detail-related__card {
     height: 100%;
     padding: 14px;
@@ -7488,7 +7495,19 @@
 }
 
 .skinthesis-page .skinthesis-hero {
+    overflow: visible;
+    z-index: 1;
     border-bottom: 1px solid rgba(148, 210, 238, .28);
+}
+
+.skinthesis-page .skinthesis-hero .nivis-inline-search {
+    z-index: 3;
+}
+
+.skinthesis-page .skinthesis-hero .nivis-search-results {
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: min(390px, 60vh);
 }
 
 .skinthesis-page .skinthesis-hero__topics {

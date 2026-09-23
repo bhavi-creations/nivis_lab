@@ -234,7 +234,7 @@
 
                 <li>
                     <a href="skinthesis.php">
-                        Our Science
+                        Skinthesis
                     </a>
                 </li>
 

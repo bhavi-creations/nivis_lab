@@ -26,7 +26,7 @@
     <!-- image slider   -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <link rel="stylesheet" href="./assets/css/new_style.css?v=9">
+    <link rel="stylesheet" href="./assets/css/new_style.css?v=11">
     <link rel="stylesheet" href="./assets/css/theme.css?v=7">
 
 </head>
