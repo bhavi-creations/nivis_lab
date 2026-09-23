@@ -602,7 +602,6 @@ include 'fetch_home_sliders.php';
 
         </div>
 
-
         <div id="dermat-results" class="mt-4" style="display:none;">
             <!-- <p class="text-muted small mb-3" id="dermatResultHint">Choose a product to build your routine:</p> -->
 
@@ -625,8 +624,12 @@ include 'fetch_home_sliders.php';
         pigmentation: 'pigmentation',
         'acne-marks': 'acne-marks',
         'dark-spots': 'pigmentation',
-        'anti-ageing': 'lines-and-wrinkles',
+        'anti-ageing': 'anti-aging',
         dehydration: 'dehydration',
+        'grey-hair': 'grey-hair',
+        'thin-hair': 'thin-hair',
+        'hair-fall': 'hair-fall',
+        dandruff: 'dandruff',
         'sun-protection': 'sunscreen'
     };
 
@@ -855,6 +858,8 @@ include 'fetch_home_sliders.php';
         const imageUrl = dermatProductImage(product);
         const selectableAttrs = selectable ? `role="button" tabindex="0" data-dermat-select="${index}"` : '';
         const price = dermatPriceLabel(product);
+        const productKey = product.urlKey || product.url_key || product.sku || product.id || product.name || '';
+        const detailLink = `product-detail.php?product=${encodeURIComponent(productKey)}`;
 
         return `
             <div class="product-card dermat-choice-card${active ? ' active' : ''}" ${dermatCartAttrs(product)} ${selectableAttrs}>
@@ -870,6 +875,7 @@ include 'fetch_home_sliders.php';
                         </div>
                     </div>
                 </div>
+                <a class="dermat-product-details-link" href="${escapeDermatHtml(detailLink)}" onclick="event.stopPropagation()">View details</a>
             </div>
         `;
     }
@@ -1112,6 +1118,10 @@ include 'fetch_home_sliders.php';
             'anti-ageing': ['anti ageing', 'anti aging', 'wrinkle', 'retinol', 'bakuchiol', 'peptide'],
             dehydration: ['dehydration', 'hydrating', 'hyaluronic', 'ceramide', 'moisture'],
             'sun-protection': ['sunscreen', 'spf', 'sun protection']
+            , 'grey-hair': ['grey hair', 'gray hair', 'premature greying', 'hair color']
+            , 'thin-hair': ['thin hair', 'hair volume', 'hair growth', 'hair density']
+            , 'hair-fall': ['hair fall', 'hair loss', 'alopecia', 'scalp', 'anti hair fall']
+            , dandruff: ['dandruff', 'dry scalp', 'scalp']
         };
         const aliases = concernAliases[type] || [type.replace(/-/g, ' ')];
 
@@ -1306,7 +1316,112 @@ include 'fetch_home_sliders.php';
 
 
 
+<section class="mt-5 pt-5"> 
+    <style>
+        #hair-routine-content .product-card,
+        #hair-routine-content .product-card .product-info,
+        #hair-routine-content .product-card .product-name,
+        #hair-routine-content .product-card .product-price { color: #fff !important; }
+        #hair-routine-content .product-card { text-decoration: none; }
+        #hairConcernRow { justify-content: center !important; }
+        #hairConcernRow .concern-item { flex: 0 0 180px; }
+        #hair-routine-content { width: 100%; }
+        #hair-routine-content .dermat-products-grid { grid-template-columns: repeat(4, minmax(0, 220px)); gap: 16px; }
+        #hair-routine-content .dermat-products-grid .product-card a { display: block; }
+        #hair-routine-content .dermat-products-grid .product-img-wrap { width: auto; height: 150px; margin: 10px; }
+        @media (max-width: 900px) {
+            #hair-routine-content .dermat-products-grid { grid-template-columns: repeat(2, minmax(0, 260px)); }
+        }
+        @media (max-width: 576px) {
+            #hairConcernRow { justify-content: flex-start !important; }
+            #hair-routine-content .dermat-products-grid { grid-template-columns: minmax(0, 1fr); }
+        }
+    </style>
+    <div class="container ">
+        <div class="img_section text-center text-center">
+            <h2 class="fw-bold mb-4" style="letter-spacing: 1px; color:white">Hair Concern</h2>
 
+
+            <div class="d-flex flex-wrap justify-content-center overflow-auto pb-3 no-scrollbar dermat-concern-row" id="hairConcernRow">
+
+                <!-- <div class="concern-item" onclick="showDermatRoutine('acne', this, 1)">
+                    <div class="concern-card">
+                        <img src="./assets/img/acne.png" alt="Nivis Labs Acne">
+                        <div class="concern-overlay">Acne</div>
+                    </div>
+                </div> -->
+
+                <div class="concern-item" onclick="showHairConcern('grey-hair', this)">
+                    <div class="concern-card">
+                        <img src="./assets/img/grey-hair.png" alt="Grey hair care">
+                        <div class="concern-overlay">Grey Hair</div>
+                    </div>
+                </div>
+
+                <div class="concern-item" onclick="showHairConcern('thin-hair', this)">
+                    <div class="concern-card">
+                        <img src="./assets/img/thin-hair.png" alt="Thin hair care">
+                        <div class="concern-overlay">Thin Hair</div>
+                    </div>
+                </div>
+
+                <div class="concern-item" onclick="showHairConcern('hair-fall', this)">
+                    <div class="concern-card">
+                        <img src="./assets/img/hair_fall.png" alt="Hair fall care">
+                        <div class="concern-overlay">Hair Fall</div>
+                    </div>
+                </div>
+
+                <div class="concern-item" onclick="showHairConcern('dandruff', this)">
+                    <div class="concern-card">
+                        <img src="./assets/img/dandruff.png" alt="Nivis Labs Anti-Aging">
+                        <div class="concern-overlay">Dandruff </div>
+                    </div>
+                </div>
+
+                <!-- <div class="concern-item" onclick="showDermatRoutine('dehydration', this, 6)">
+                    <div class="concern-card">
+                        <img src="./assets/img/Dehydration.png" alt="Nivis Labs Dehydration">
+                        <div class="concern-overlay">Dehydration</div>
+                    </div>
+                </div> -->
+
+            </div>
+
+
+            <div id="hair-results" class="mt-4" style="display:none;">
+                <!-- <p class="text-muted small mb-3" id="dermatResultHint">Choose a product to build your routine:</p> -->
+
+
+                <div id="hair-routine-content" class="mx-auto" style="max-width: 1100px;"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+async function showHairConcern(category, element) {
+    const results = document.getElementById('hair-results');
+    const content = document.getElementById('hair-routine-content');
+    if (!results || !content) return;
+    document.querySelectorAll('#hairConcernRow .concern-card').forEach(card => card.classList.remove('active-dermat'));
+    element?.querySelector('.concern-card')?.classList.add('active-dermat');
+    results.style.display = '';
+    content.innerHTML = '<div class="text-center py-4"><div class="spinner-border text-dark"></div><p>Loading products...</p></div>';
+    try {
+        const response = await fetch(`fetch_category_products.php?category=${encodeURIComponent(category)}&refresh=1`, { cache: 'no-store' });
+        const payload = await response.json();
+        const products = Array.isArray(payload.products) ? payload.products : [];
+        if (!products.length) { content.innerHTML = '<p class="text-center">No products available for this concern.</p>'; return; }
+        content.innerHTML = `<div class="dermat-products-grid text-start">${products.slice(0, 6).map(product => {
+            const key = product.urlKey || product.url_key || product.sku || product.id || product.name || '';
+            const image = product.imageUrl || './assets/img/product.webp';
+            return `<a class="product-card" href="product-detail.php?product=${encodeURIComponent(key)}"><div class="product-img-wrap"><img class="img-primary" src="${image}" alt="${product.name || 'Hair care product'}"></div><div class="product-info"><div class="product-name">${product.name || 'Hair care product'}</div><div class="product-price">${product.price || ''}</div></div></a>`;
+        }).join('')}</div>`;
+    } catch (error) { content.innerHTML = '<p class="text-center">Unable to load products right now.</p>'; }
+    results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+</script>
 
 
 
@@ -1388,8 +1503,7 @@ include 'fetch_home_sliders.php';
         <!-- PRODUCT CAROUSEL -->
         <div
             class="product-carousel nivis_index_third_section__carousel"
-            id="spotlightProductCarousel"
-        >
+            id="spotlightProductCarousel">
 
             <!-- EXISTING LOADER - SAME FUNCTIONALITY -->
             <div class="spotlight-loading text-center py-4 w-100">
@@ -2433,7 +2547,7 @@ include 'fetch_home_sliders.php';
             <div class="col-md-6 col-xl-3">
 
                 <a href="category.php?category=face-serum"
-                   class="nivis_index_fifth_section__card">
+                    class="nivis_index_fifth_section__card">
 
                     <span class="nivis_index_fifth_section__number">
                         01
@@ -2453,7 +2567,7 @@ include 'fetch_home_sliders.php';
                     <div class="nivis_index_fifth_section__product">
 
                         <img src="./assets/img/FACE SERUM.jpeg"
-                             alt="Face Serum">
+                            alt="Face Serum">
 
                     </div>
 
@@ -2476,7 +2590,7 @@ include 'fetch_home_sliders.php';
             <div class="col-md-6 col-xl-3">
 
                 <a href="category.php?category=moisturizers"
-                   class="nivis_index_fifth_section__card">
+                    class="nivis_index_fifth_section__card">
 
                     <span class="nivis_index_fifth_section__number">
                         02
@@ -2496,7 +2610,7 @@ include 'fetch_home_sliders.php';
                     <div class="nivis_index_fifth_section__product">
 
                         <img src="./assets/img/foot cream.jpeg"
-                             alt="Moisturizers">
+                            alt="Moisturizers">
 
                     </div>
 
@@ -2519,7 +2633,7 @@ include 'fetch_home_sliders.php';
             <div class="col-md-6 col-xl-3">
 
                 <a href="category.php?category=sunscreen"
-                   class="nivis_index_fifth_section__card">
+                    class="nivis_index_fifth_section__card">
 
                     <span class="nivis_index_fifth_section__number">
                         03
@@ -2539,7 +2653,7 @@ include 'fetch_home_sliders.php';
                     <div class="nivis_index_fifth_section__product">
 
                         <img src="./assets/img/face spray.jpeg"
-                             alt="Sunscreen">
+                            alt="Sunscreen">
 
                     </div>
 
@@ -2562,7 +2676,7 @@ include 'fetch_home_sliders.php';
             <div class="col-md-6 col-xl-3">
 
                 <a href="category.php?category=face-cleanser"
-                   class="nivis_index_fifth_section__card">
+                    class="nivis_index_fifth_section__card">
 
                     <span class="nivis_index_fifth_section__number">
                         04
@@ -2582,7 +2696,7 @@ include 'fetch_home_sliders.php';
                     <div class="nivis_index_fifth_section__product">
 
                         <img src="./assets/img/SUNSCFREEN.jpeg"
-                             alt="Face Cleanser">
+                            alt="Face Cleanser">
 
                     </div>
 
@@ -2705,7 +2819,7 @@ include 'fetch_home_sliders.php';
             <!-- FAQ ACCORDION -->
             <div class="accordion
                         nivis_index_sixth_section__accordion"
-                 id="faqAccordion">
+                id="faqAccordion">
 
 
                 <!-- ITEM 01 -->
@@ -2714,11 +2828,11 @@ include 'fetch_home_sliders.php';
                     <h2 class="accordion-header">
 
                         <button class="accordion-button"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#faq1"
-                                aria-expanded="true"
-                                aria-controls="faq1">
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#faq1"
+                            aria-expanded="true"
+                            aria-controls="faq1">
 
                             What is Nivis Labs?
 
@@ -2728,8 +2842,8 @@ include 'fetch_home_sliders.php';
 
 
                     <div id="faq1"
-                         class="accordion-collapse collapse show"
-                         data-bs-parent="#faqAccordion">
+                        class="accordion-collapse collapse show"
+                        data-bs-parent="#faqAccordion">
 
                         <div class="accordion-body">
 
@@ -2751,11 +2865,11 @@ include 'fetch_home_sliders.php';
                     <h2 class="accordion-header">
 
                         <button class="accordion-button collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#faq2"
-                                aria-expanded="false"
-                                aria-controls="faq2">
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#faq2"
+                            aria-expanded="false"
+                            aria-controls="faq2">
 
                             How does Nivis Labs choose products?
 
@@ -2765,8 +2879,8 @@ include 'fetch_home_sliders.php';
 
 
                     <div id="faq2"
-                         class="accordion-collapse collapse"
-                         data-bs-parent="#faqAccordion">
+                        class="accordion-collapse collapse"
+                        data-bs-parent="#faqAccordion">
 
                         <div class="accordion-body">
 
@@ -2788,11 +2902,11 @@ include 'fetch_home_sliders.php';
                     <h2 class="accordion-header">
 
                         <button class="accordion-button collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#faq3"
-                                aria-expanded="false"
-                                aria-controls="faq3">
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#faq3"
+                            aria-expanded="false"
+                            aria-controls="faq3">
 
                             Why choose Nivis Labs?
 
@@ -2802,8 +2916,8 @@ include 'fetch_home_sliders.php';
 
 
                     <div id="faq3"
-                         class="accordion-collapse collapse"
-                         data-bs-parent="#faqAccordion">
+                        class="accordion-collapse collapse"
+                        data-bs-parent="#faqAccordion">
 
                         <div class="accordion-body">
 

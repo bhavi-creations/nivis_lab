@@ -11,6 +11,7 @@ require_once __DIR__ . '/backend_config.php';
 $graphqlUrl = EVERSHOP_GRAPHQL_URL;
 $category = trim($_GET["category"] ?? "");
 $cacheTtl = 60;
+$forceRefresh = isset($_GET["refresh"]) && $_GET["refresh"] === "1";
 
 function slugifyValue($value)
 {
@@ -525,6 +526,9 @@ function categoryAliases($slug)
         "anti-ageing" => ["anti-ageing", "anti-aging", "ageing", "aging", "wrinkles", "fine-lines"],
         "anti-aging" => ["anti-ageing", "anti-aging", "ageing", "aging", "wrinkles", "fine-lines"],
         "lines-and-wrinkles" => ["anti-ageing", "anti-aging", "wrinkles", "fine-lines"],
+        "pigmentation" => ["pigmentation", "hyperpigmentation", "hyper-pigmentation", "hyper pigmentation", "brightening", "dark-spots", "dark-spots-and-pigmentation"],
+        "hyperpigmentation" => ["pigmentation", "hyperpigmentation", "hyper-pigmentation", "hyper pigmentation", "brightening", "dark-spots"],
+        "hyper-pigmentation" => ["pigmentation", "hyperpigmentation", "hyper-pigmentation", "hyper pigmentation", "brightening", "dark-spots"],
         "brigthening" => ["brightening"]
     ];
 
@@ -750,7 +754,7 @@ $cacheDir = __DIR__ . "/cache";
 $cacheVersion = in_array($categorySlug, ["skin-care", "hair-care", "foot-care", "baby-care", "grey-hair", "thin-hair", "hair-fall"], true) ? "v11" : "v9";
 $cacheFile = $cacheDir . "/category-products-" . $cacheVersion . "-" . $categorySlug . ".json";
 
-if (is_file($cacheFile) && time() - filemtime($cacheFile) < $cacheTtl) {
+if (!$forceRefresh && is_file($cacheFile) && time() - filemtime($cacheFile) < $cacheTtl) {
     jsonExit(file_get_contents($cacheFile));
 }
 
@@ -789,8 +793,7 @@ if (!empty($result["error"]) || !empty($result["errors"])) {
 $backendConnectionError = false;
 $allProducts = $result["data"]["products"]["items"] ?? [];
 $exactCategorySlugs = [
-    "sunscreen", "sunscreens", "brightening", "acne", "hyper-pigmentation",
-    "pigmentation", "dark-spots", "anti-ageing", "anti-aging", "dehydration", "hydration",
+    "sunscreen", "sunscreens", "brightening", "acne", "dark-spots", "anti-ageing", "anti-aging", "dehydration", "hydration",
     "grey-hair", "thin-hair", "hair-fall"
 ];
 $isExactCategory = !$isAllProductsCategory && in_array($categorySlug, $exactCategorySlugs, true);
