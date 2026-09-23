@@ -227,25 +227,6 @@
                 </ul>
             </li>
 
-            <!-- CONCERN -->
-            <li class="index_navbar_section__mob-item" data-has-sub="true">
-                <div class="index_navbar_section__mob-row">
-                    <span class="index_navbar_section__mob-label">Concern</span>
-                    <span class="index_navbar_section__mob-plus"><i class="bi bi-plus"></i></span>
-                </div>
-                <ul class="index_navbar_section__mob-sub">
-                    <!-- Manual concern dropdown: keep this list same as desktop. -->
-                    <li><a href="acne.php">Acne</a></li>
-                    <li><a href="acne_marks.php">Acne Marks</a></li>
-                    <li><a href="pigmentation.php">Pigmentation</a></li>
-                    <li><a href="dehydration.php">Dehydration</a></li>
-                </ul>
-            </li>
-
-            <li class="index_navbar_section__mob-item">
-                <a href="category.php?category=our-partner" class="index_navbar_section__mob-plain">Our Partner</a>
-            </li>
-
             <!-- THE /PHD/ STORY -->
             <li class="index_navbar_section__mob-item">
                 <a href="our-story.php" class="index_navbar_section__mob-plain">The /Nivis/ Story</a>
@@ -253,7 +234,7 @@
 
             <!-- SKINTHESIS -->
             <li class="index_navbar_section__mob-item">
-                <a href="skinthesis.php" class="index_navbar_section__mob-plain">Skinthesis</a>
+                <a href="skinthesis.php" class="index_navbar_section__mob-plain">Thesis</a>
             </li>
 
             <!-- REWARDS -->
@@ -406,72 +387,6 @@
 
 
 
-                    <!-- CONCERN -->
-                    <li class="new_navbr_section__item">
-
-                        <a href="#"
-                           class="new_navbr_section__link">
-
-                            CONCERN
-
-                        </a>
-
-
-                        <ul class="new_navbr_section__dropdown"
-                            id="navbarConcernDesktop">
-
-                            <li>
-                                <a href="brigthening.php">
-                                    Brightening
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="acne.php">
-                                    Acne
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="acne_marks.php">
-                                    Acne Marks
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="pigmentation.php">
-                                    Pigmentation
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="lines_and_wrinkles.php">
-                                    Lines and Wrinkles
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="dehydration.php">
-                                    Dehydration
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="eczema.php">
-                                    Eczema
-                                </a>
-                            </li>
-
-                        </ul>
-
-                    </li>
-
-
-
-                    <li class="new_navbr_section__item">
-                        <a href="category.php?category=our-partner" class="new_navbr_section__link">Our Partner</a>
-                    </li>
-
                     <!-- STORY -->
                     <li class="new_navbr_section__item">
 
@@ -492,7 +407,7 @@
                         <a href="skinthesis.php"
                            class="new_navbr_section__link">
 
-                            SKINTHESIS
+                            THESIS
 
                         </a>
 
@@ -797,79 +712,6 @@
 
             </li>
 
-
-
-            <!-- CONCERN -->
-            <li class="new_navbr_section__mobile_item"
-                data-has-sub="true">
-
-                <div class="new_navbr_section__mobile_row">
-
-                    <span class="new_navbr_section__mobile_label">
-                        Concern
-                    </span>
-
-                    <span class="new_navbr_section__mobile_plus">
-                        <i class="bi bi-plus"></i>
-                    </span>
-
-                </div>
-
-
-                <ul class="new_navbr_section__mobile_sub">
-
-                    <li>
-                        <a href="brigthening.php">
-                            Brightening
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="acne.php">
-                            Acne
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="acne_marks.php">
-                            Acne Marks
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="pigmentation.php">
-                            Pigmentation
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="lines_and_wrinkles.php">
-                            Lines and Wrinkles
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="dehydration.php">
-                            Dehydration
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="eczema.php">
-                            Eczema
-                        </a>
-                    </li>
-
-                </ul>
-
-            </li>
-
-
-
-            <li class="new_navbr_section__mobile_item">
-                <a href="category.php?category=our-partner" class="new_navbr_section__mobile_plain">Our Partner</a>
-            </li>
-
             <!-- STORY -->
             <li class="new_navbr_section__mobile_item">
 
@@ -890,7 +732,8 @@
                 <a href="skinthesis.php"
                    class="new_navbr_section__mobile_plain">
 
-                    Skinthesis
+                    <!-- Skinthesis -->
+                Thesis
 
                 </a>
 
@@ -994,41 +837,18 @@
         async function loadNavbarCategories() {
             const desktopMenu = navbarRoot?.querySelector('#navbarCategoryDesktop');
             const mobileMenu = navbarRoot?.querySelector('#navbarCategoryMobile');
-            const placeholder = '<li>No categories found</li>';
+            const categories = [
+                ['Skin Care', 'skin-care'],
+                ['Hair Care', 'hair-care'],
+                ['Foot Care', 'foot-care'],
+                ['Baby Care', 'baby-care']
+            ];
+            const itemsHtml = categories.map(([label, slug]) =>
+                `<li><a href="category.php?category=${slug}">${label}</a></li>`
+            ).join('');
 
-            if (desktopMenu) desktopMenu.innerHTML = '<li>Loading categories...</li>';
-            if (mobileMenu) mobileMenu.innerHTML = '<li>Loading categories...</li>';
-
-            try {
-                const response = await fetch('fetch_categories.php');
-                const result = await response.json();
-                const categoryItems = result.data?.categories?.items || [];
-                // Our Partner has its own top-level link on desktop and mobile.
-                const normalizeCategory = value => String(value || '').trim().toLowerCase().replace(/[\s_]+/g, '-');
-                const categories = Array.isArray(categoryItems) ? categoryItems.filter(category =>
-                    ![category.url_key, category.urlKey, category.name].some(value => normalizeCategory(value) === 'our-partner')
-                ) : [];
-
-                if (!Array.isArray(categories) || categories.length === 0) {
-                    if (desktopMenu) desktopMenu.innerHTML = placeholder;
-                    if (mobileMenu) mobileMenu.innerHTML = placeholder;
-                    return;
-                }
-
-                const itemsHtml = categories.map(category => {
-                    const slug = encodeURIComponent(category.url_key || category.urlKey || category.name || '');
-                    const label = category.name || 'Category';
-                    const url = slug ? `category.php?category=${slug}` : '#';
-                    return `<li><a href="${url}">${label}</a></li>`;
-                }).join('');
-
-                if (desktopMenu) desktopMenu.innerHTML = itemsHtml;
-                if (mobileMenu) mobileMenu.innerHTML = itemsHtml;
-            } catch (error) {
-                console.error('Unable to load navbar categories:', error);
-                if (desktopMenu) desktopMenu.innerHTML = placeholder;
-                if (mobileMenu) mobileMenu.innerHTML = placeholder;
-            }
+            if (desktopMenu) desktopMenu.innerHTML = itemsHtml;
+            if (mobileMenu) mobileMenu.innerHTML = itemsHtml;
         }
 
         loadNavbarCategories();

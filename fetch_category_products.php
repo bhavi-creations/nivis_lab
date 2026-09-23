@@ -505,6 +505,10 @@ function normalizeCategory($category)
 function categoryAliases($slug)
 {
     $map = [
+        "skin-care" => ["skin-care", "skincare", "skin", "face-care", "facial-care"],
+        "hair-care" => ["hair-care", "haircare", "hair", "scalp-care", "scalp"],
+        "foot-care" => ["foot-care", "footcare", "feet-care", "feet", "foot"],
+        "baby-care" => ["baby-care", "babycare", "baby", "infant-care", "kids-care"],
         "moisturizers" => ["moisturizer", "moisturisers", "moisturiser", "moisture"],
         "moisturizer" => ["moisturizers", "moisturisers", "moisturiser", "moisture"],
         "moisturisers" => ["moisturizers", "moisturizer", "moisturiser", "moisture"],
