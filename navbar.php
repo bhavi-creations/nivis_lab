@@ -198,6 +198,13 @@
 
         <ul class="index_navbar_section__mob-list">
 
+
+
+         <!-- THE /PHD/ STORY -->
+            <li class="index_navbar_section__mob-item">
+                <a href="our-story.php" class="index_navbar_section__mob-plain">The /Nivis/ Story</a>
+            </li>
+
             <!-- CATEGORY -->
             <li class="index_navbar_section__mob-item" data-has-sub="true">
                 <div class="index_navbar_section__mob-row">
@@ -227,10 +234,7 @@
                 </ul>
             </li>
 
-            <!-- THE /PHD/ STORY -->
-            <li class="index_navbar_section__mob-item">
-                <a href="our-story.php" class="index_navbar_section__mob-plain">The /Nivis/ Story</a>
-            </li>
+           
 
             <!-- SKINTHESIS -->
             <li class="index_navbar_section__mob-item">
@@ -295,6 +299,20 @@
             <nav class="new_navbr_section__navigation">
 
                 <ul class="new_navbr_section__links">
+
+
+
+                 <!-- STORY -->
+                    <li class="new_navbr_section__item">
+
+                        <a href="our-story.php"
+                           class="new_navbr_section__link">
+
+                            THE /NIVIS/ STORY
+
+                        </a>
+
+                    </li>
 
 
                     <!-- CATEGORY -->
@@ -387,17 +405,7 @@
 
 
 
-                    <!-- STORY -->
-                    <li class="new_navbr_section__item">
-
-                        <a href="our-story.php"
-                           class="new_navbr_section__link">
-
-                            THE /NIVIS/ STORY
-
-                        </a>
-
-                    </li>
+                   
 
 
 
@@ -617,6 +625,17 @@
 
         <ul class="new_navbr_section__mobile_list">
 
+          <li class="new_navbr_section__mobile_item">
+
+                <a href="our-story.php"
+                   class="new_navbr_section__mobile_plain">
+
+                    The /Nivis/ Story
+
+                </a>
+
+            </li>
+
 
             <!-- CATEGORY -->
             <li class="new_navbr_section__mobile_item"
@@ -713,7 +732,7 @@
             </li>
 
             <!-- STORY -->
-            <li class="new_navbr_section__mobile_item">
+            <!-- <li class="new_navbr_section__mobile_item">
 
                 <a href="our-story.php"
                    class="new_navbr_section__mobile_plain">
@@ -722,7 +741,7 @@
 
                 </a>
 
-            </li>
+            </li> -->
 
 
 
