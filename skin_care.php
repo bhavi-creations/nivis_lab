@@ -84,7 +84,7 @@
                             confusion around when to use it, how it works, and what to expect is common. In this
                             dermatologist-approved guide, we...
                         </p>
-                        <a href="how_does_vitamin_c_really_help_your_skin.php" class="read-more-link">READ MORE →</a>
+                        <a href="how_does_vitamin_c_really_help_your_skin.php" class="read-more-link">Enter Product →</a>
                     </div>
                 </div>
             </div>
@@ -102,7 +102,7 @@
                             skin's natural barrier. This dermatologist-approved guide explains the right order to
                             apply cleansers, serums,...
                         </p>
-                        <a href="how_to_layer_skincare.php" class="read-more-link">READ MORE →</a>
+                        <a href="how_to_layer_skincare.php" class="read-more-link">Enter Product →</a>
                     </div>
                 </div>
             </div>
@@ -120,7 +120,7 @@
                             actually works. Whether you have oily, dry, combination, sensitive, or normal skin,
                             knowing how your skin behaves helps...
                         </p>
-                        <a href="what_is_your_skin_type.php" class="read-more-link">READ MORE →</a>
+                        <a href="what_is_your_skin_type.php" class="read-more-link">Enter Product →</a>
                     </div>
                 </div>
             </div>
@@ -158,7 +158,7 @@
                             Indians, true radiance comes from consistent, science-backed skincare — focusing on
                             hydration, barrier strength,...
                         </p>
-                        <a href="how_to_make_skin_glow.php" class="read-more-link">READ MORE →</a>
+                        <a href="how_to_make_skin_glow.php" class="read-more-link">Enter Product →</a>
                     </div>
                 </div>
             </div>
@@ -176,7 +176,7 @@
                             a consistent, evidence-based routine with ingredients like Salicylic Acid and
                             Niacinamide. This guide offers...
                         </p>
-                        <a href="how_to_treat_acne.php" class="read-more-link">READ MORE →</a>
+                        <a href="how_to_treat_acne.php" class="read-more-link">Enter Product →</a>
                     </div>
                 </div>
             </div>
@@ -194,7 +194,7 @@
                             breakouts fade, especially in busy Indian cities where pollution and stress slow
                             healing. But with the right skincare...
                         </p>
-                        <a href="how_to_get_rid_of_acne_scars.php" class="read-more-link">READ MORE →</a>
+                        <a href="how_to_get_rid_of_acne_scars.php" class="read-more-link">Enter Product →</a>
                     </div>
                 </div>
             </div>
@@ -235,7 +235,7 @@
                             moisture, protecting the skin barrier, and keeping your complexion hydrated and
                             balanced. Derived from...
                         </p>
-                        <a href="squalane.php" class="read-more-link">READ MORE →</a>
+                        <a href="squalane.php" class="read-more-link">Enter Product →</a>
                     </div>
                 </div>
             </div>
@@ -253,7 +253,7 @@
                             soothe dryness, and protect the skin barrier. Derived from the nuts of the African Shea
                             tree, this rich butter...
                         </p>
-                        <a href="shea_butter.php" class="read-more-link">READ MORE →</a>
+                        <a href="shea_butter.php" class="read-more-link">Enter Product →</a>
                     </div>
                 </div>
             </div>
@@ -271,7 +271,7 @@
                             calmer, clearer skin as it helps fight blemishes, reduce irritation, and repair the look
                             of past spots—without harsh side...
                         </p>
-                        <a href="Peptazin.php" class="read-more-link">READ MORE →</a>
+                        <a href="Peptazin.php" class="read-more-link">Enter Product →</a>
                     </div>
                 </div>
             </div>
