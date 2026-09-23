@@ -857,13 +857,13 @@
             const desktopMenu = navbarRoot?.querySelector('#navbarCategoryDesktop');
             const mobileMenu = navbarRoot?.querySelector('#navbarCategoryMobile');
             const categories = [
-                ['Skin Care', 'skin-care'],
-                ['Hair Care', 'hair-care'],
-                ['Foot Care', 'foot-care'],
-                ['Baby Care', 'baby-care']
+                ['Skin Care', 'skin-care', 'skin_care.php'],
+                ['Hair Care', 'hair-care', 'category.php?category=hair-care'],
+                ['Foot Care', 'foot-care', 'category.php?category=foot-care'],
+                ['Baby Care', 'baby-care', 'category.php?category=baby-care']
             ];
-            const itemsHtml = categories.map(([label, slug]) =>
-                `<li><a href="category.php?category=${slug}">${label}</a></li>`
+            const itemsHtml = categories.map(([label, slug, href]) =>
+                `<li><a href="${href}">${label}</a></li>`
             ).join('');
 
             if (desktopMenu) desktopMenu.innerHTML = itemsHtml;
