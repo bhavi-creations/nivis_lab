@@ -518,6 +518,12 @@ body.nivis-theme {
     color: var(--nivis-gold);
 }
 
+.nivis-theme .skinthesis-page .read-more-link:hover,
+.nivis-theme .skinthesis-page .read-more-link:focus-visible {
+    color: var(--nivis-ink) !important;
+    background: var(--nivis-button);
+}
+
 .nivis-theme :is(.skin_condition_read_more, .How_Tos_read_more, .ing-card__link,
     .skin_condition_nav a.active, .How_Tos_nav a.active) {
     color: var(--nivis-gold);

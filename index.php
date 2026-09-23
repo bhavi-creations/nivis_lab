@@ -45,7 +45,7 @@ include 'fetch_home_sliders.php';
                     $altText = !empty($headline) ? $headline : (!empty($subText) ? $subText : $widgetName . ' slide ' . ($imgIndex + 1));
                 ?>
                     <a class="index_img_section__slide <?php echo $isActive; ?>"
-                        href="<?php echo htmlspecialchars($buttonLink ?: $link ?: 'products.php'); ?>"
+                        href="products.php"
                         style="--hero-img: url('<?php echo htmlspecialchars($imageUrl); ?>');">
                         <img class="index_img_section__product"
                             src="<?php echo htmlspecialchars($imageUrl); ?>"
@@ -167,7 +167,7 @@ include 'fetch_home_sliders.php';
             )).join('');
 
             return `
-                <a class="index_img_section__slide" href="${escapeHtml(slide.href)}" style="--hero-img: url('${escapeHtml(slide.image)}');">
+                <a class="index_img_section__slide" href="products.php" style="--hero-img: url('${escapeHtml(slide.image)}');">
                     <img class="index_img_section__product" src="${escapeHtml(slide.image)}" alt="${escapeHtml(slide.title)}" onerror="this.src='${fallbackImage}';" />
                     <div class="index_img_section__content">
                         <span class="index_img_section__new-tag">${escapeHtml(slide.tag || 'Nivis Labs')}</span>
@@ -635,6 +635,7 @@ include 'fetch_home_sliders.php';
     let dermatVisibleProducts = [];
     let dermatAllProducts = [];
     let dermatCurrentRoutine = [];
+    let dermatRequestId = 0;
 
     function escapeDermatHtml(value) {
         return String(value ?? '').replace(/[&<>"']/g, function(char) {
@@ -1139,6 +1140,7 @@ include 'fetch_home_sliders.php';
     }
 
     async function loadDermatProducts(type) {
+        const requestId = ++dermatRequestId;
         const contentArea = document.getElementById('routine-content');
         if (!contentArea) return;
 
@@ -1155,23 +1157,39 @@ include 'fetch_home_sliders.php';
                 fetch(`fetch_category_products.php?category=${encodeURIComponent(category)}`).then(response => response.json()),
                 fetch('fetch_category_products.php?category=all').then(response => response.json())
             ]);
+            if (requestId !== dermatRequestId) return;
             const categoryProducts = categoryResult.data?.products || categoryResult.products || [];
             const allProducts = allResult.data?.products || allResult.products || [];
             dermatAllProducts = mergeDermatProducts('all', allProducts.length ? allProducts : categoryProducts);
             const matchedProducts = dermatConcernProductsFromAll(type, dermatAllProducts);
             renderDermatProducts(type, categoryProducts.length ? categoryProducts.concat(matchedProducts) : matchedProducts);
         } catch (error) {
+            if (requestId !== dermatRequestId) return;
             renderDermatProducts(type, []);
         }
     }
 
     function showDermatRoutine(type, element, index = 1) {
-        dermatSelectedIndex = index;
         const results = document.getElementById('dermat-results');
-        if (results) results.style.display = '';
+        const shouldClose = dermatCurrentType === type && results && results.style.display !== 'none';
         document.querySelectorAll('.dermat-routine-section .concern-card').forEach(card => {
             card.classList.remove('active-dermat');
         });
+
+        if (shouldClose) {
+            ++dermatRequestId;
+            results.style.display = 'none';
+            dermatCurrentType = '';
+            dermatVisibleProducts = [];
+            dermatCurrentRoutine = [];
+            const contentArea = document.getElementById('routine-content');
+            if (contentArea) contentArea.innerHTML = '';
+            return;
+        }
+
+        dermatSelectedIndex = index;
+        dermatCurrentType = type;
+        if (results) results.style.display = '';
 
         if (element) {
             element.querySelector('.concern-card')?.classList.add('active-dermat');

@@ -20,6 +20,22 @@
   .product-detail-page .arrow-zone.is-hidden {
     display: none;
   }
+
+  .product-detail-page .main-img-wrap {
+    min-height: 300px;
+  }
+
+  .product-detail-page .image-status {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: #06243a;
+  }
+
+  .product-detail-page .image-status[hidden] {
+    display: none;
+  }
 </style>
 
 <main class="container">
@@ -32,7 +48,8 @@
           <div class="arrow-btn"><i class="fa fa-chevron-left"></i></div>
         </div>
 
-        <img class="main-img" id="mainImg" src="./assets/img/product.webp" alt="Product" />
+        <span class="image-status" id="imageStatus" role="status">Loading image...</span>
+        <img class="main-img" id="mainImg" style="visibility: hidden" alt="Product" />
 
         <div class="arrow-zone right" id="arrowRight">
           <div class="arrow-btn"><i class="fa fa-chevron-right"></i></div>
@@ -142,6 +159,19 @@
     currentImageIndex = (index + galleryImages.length) % galleryImages.length;
     const image = galleryImages[currentImageIndex];
     const mainImg = document.getElementById('mainImg');
+    const imageStatus = document.getElementById('imageStatus');
+    mainImg.style.visibility = 'hidden';
+    imageStatus.textContent = 'Loading image...';
+    imageStatus.hidden = false;
+    mainImg.onload = () => {
+      mainImg.style.visibility = 'visible';
+      imageStatus.hidden = true;
+    };
+    mainImg.onerror = () => {
+      mainImg.style.visibility = 'hidden';
+      imageStatus.textContent = 'Image unavailable';
+      imageStatus.hidden = false;
+    };
     mainImg.src = image;
     mainImg.alt = currentProduct?.name || 'Product';
 
@@ -299,6 +329,7 @@
       const result = await response.json();
 
       if (result.error || !result.product) {
+        document.getElementById('imageStatus').textContent = 'Image unavailable';
         document.getElementById('productTitle').textContent = 'Product not found';
         document.getElementById('productDesc').textContent = 'Please go back to products and choose another item.';
         return;
@@ -308,6 +339,7 @@
       loadRelatedProducts(result.product.category || result.product.type || 'products');
     } catch (error) {
       console.error('Error loading product data:', error);
+      document.getElementById('imageStatus').textContent = 'Image unavailable';
       document.getElementById('productTitle').textContent = 'Unable to load product';
       document.getElementById('productDesc').textContent = 'Please refresh the page or try again later.';
     }
