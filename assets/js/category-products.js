@@ -148,20 +148,12 @@
     }
 
     function productTokens(value) {
-        const text = String(value ?? '').toLowerCase();
-        const slug = slugify(text);
-        const words = text
-            .replace(/[^a-z0-9]+/g, ' ')
-            .trim()
-            .split(/\s+/)
-            .filter(Boolean);
-
-        return Array.from(new Set([slug, ...words])).join(' ');
+        return Array.from(new Set(splitFilterLabels(value).map(slugify).filter(Boolean))).join(' ');
     }
 
     function checkedFilterValues(selector) {
         return [...document.querySelectorAll(`${selector} input:checked`)]
-            .flatMap(input => productTokens(input.value).split(/\s+/))
+            .map(input => slugify(input.value))
             .filter(Boolean);
     }
 
@@ -181,7 +173,11 @@
             const priceMin = document.getElementById('priceMin');
             const priceMax = document.getElementById('priceMax');
             const productCount = document.getElementById('productCount');
-            const cards = document.querySelectorAll('.product-card');
+            const cards = document.querySelectorAll('#productsGrid .product-card');
+            const selectedGroups = ['concern', 'ingredient', 'type'].map(key => ({
+                key,
+                values: checkedFilterValues(`#filter-${key}`)
+            }));
 
             if (!priceRange || !priceMin || !priceMax) return;
 
@@ -203,7 +199,11 @@
             let visibleCount = 0;
             cards.forEach(card => {
                 const cardPrice = Number(card.dataset.price || card.dataset.productPrice || 0) || 0;
-                const shouldShow = cardPrice >= minPrice && cardPrice <= maxPrice;
+                const matchesGroups = selectedGroups.every(({ key, values }) => {
+                    const tokens = datasetTokens(card, key);
+                    return values.length === 0 || values.some(value => tokens.includes(value));
+                });
+                const shouldShow = cardPrice >= minPrice && cardPrice <= maxPrice && matchesGroups;
                 card.classList.toggle('hidden', !shouldShow);
                 card.style.display = shouldShow ? '' : 'none';
                 if (shouldShow) visibleCount++;
@@ -281,6 +281,9 @@
             priceMin.addEventListener('input', () => {
                 if (priceRange) {
                     updateRangeBackground(priceRange);
+                }
+                if (typeof window.applyFilters === 'function') {
+                    window.applyFilters();
                 }
             });
         }
@@ -594,9 +597,9 @@
     }
 
     function productCard(product) {
-        const concernTokens = productTokens(product.concern);
-        const ingredientTokens = productTokens(product.ingredient);
-        const typeTokens = productTokens(product.type);
+        const concernTokens = productTokens(labelFromProduct(product, 'concern'));
+        const ingredientTokens = productTokens(labelFromProduct(product, 'ingredient'));
+        const typeTokens = productTokens(labelFromProduct(product, 'type'));
         const popupText = product.subtitle || product.concern || product.category || 'Skincare';
         const fallbackImage = './assets/img/product.webp';
         const primaryImage = (product.images && product.images.length > 0) ? product.images[0] : (product.imageUrl || fallbackImage);
