@@ -747,7 +747,7 @@ if ($category === "") {
 $categorySlug = slugifyValue($category);
 $isAllProductsCategory = in_array($categorySlug, ["all", "products", "all-products"], true);
 $cacheDir = __DIR__ . "/cache";
-$cacheVersion = in_array($categorySlug, ["skin-care", "hair-care", "foot-care", "baby-care"], true) ? "v10" : "v9";
+$cacheVersion = in_array($categorySlug, ["skin-care", "hair-care", "foot-care", "baby-care", "grey-hair", "thin-hair", "hair-fall"], true) ? "v11" : "v9";
 $cacheFile = $cacheDir . "/category-products-" . $cacheVersion . "-" . $categorySlug . ".json";
 
 if (is_file($cacheFile) && time() - filemtime($cacheFile) < $cacheTtl) {
@@ -790,11 +790,14 @@ $backendConnectionError = false;
 $allProducts = $result["data"]["products"]["items"] ?? [];
 $exactCategorySlugs = [
     "sunscreen", "sunscreens", "brightening", "acne", "hyper-pigmentation",
-    "pigmentation", "dark-spots", "anti-ageing", "anti-aging", "dehydration", "hydration"
+    "pigmentation", "dark-spots", "anti-ageing", "anti-aging", "dehydration", "hydration",
+    "grey-hair", "thin-hair", "hair-fall"
 ];
 $isExactCategory = !$isAllProductsCategory && in_array($categorySlug, $exactCategorySlugs, true);
 $exactCategoryProducts = $isExactCategory
-    ? fetchProductsByCategorySlug($categorySlug)
+    ? array_values(array_filter($allProducts, function ($product) use ($categorySlug) {
+        return productCategorySlug($product) === $categorySlug;
+    }))
     : [];
 $categoryKeys = [];
 

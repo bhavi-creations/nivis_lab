@@ -858,9 +858,9 @@
             const mobileMenu = navbarRoot?.querySelector('#navbarCategoryMobile');
             const categories = [
                 ['Skin Care', 'skin-care', 'skin_care.php'],
-                ['Hair Care', 'hair-care', 'category.php?category=hair-care'],
+                ['Hair Care', 'hair-care', 'hair_care.php'],
                 ['Foot Care', 'foot-care', 'category.php?category=foot-care'],
-                ['Baby Care', 'baby-care', 'category.php?category=baby-care']
+                ['Baby Care', 'baby-care', 'baby_care.php']
             ];
             const itemsHtml = categories.map(([label, slug, href]) =>
                 `<li><a href="${href}">${label}</a></li>`

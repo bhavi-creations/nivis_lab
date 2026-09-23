@@ -47,12 +47,12 @@
             <span href="how-tos.php" class="index_img_section__badge mx-1">How-To</span>
             <span href="#" class="index_img_section__badge mx-1">Ingredients</span>
             <span href="#" class="index_img_section__badge mx-1">Index</span> -->
-                <a href="#sunscreen" class="index_img_section__badge mx-1" data-concern="sunscreen">Sunscreen</a>
-                <a href="#brightening" class="index_img_section__badge mx-1" data-concern="brightening">Brightening</a>
-                <a href="#acne" class="index_img_section__badge mx-1" data-concern="acne">Acne</a>
-                <a href="#hyper-pigmentation" class="index_img_section__badge mx-1" data-concern="hyper-pigmentation">Hyper pigmentation</a>
-                <a href="#anti-ageing" class="index_img_section__badge mx-1" data-concern="anti-ageing">Anti-Aging</a>
-                <a href="#dehydration" class="index_img_section__badge mx-1" data-concern="dehydration">Dehydration</a>
+                <a href="category.php?category=sunscreen" class="index_img_section__badge mx-1" data-concern="sunscreen">Sunscreen</a>
+                <a href="category.php?category=brightening" class="index_img_section__badge mx-1" data-concern="brightening">Brightening</a>
+                <a href="category.php?category=acne" class="index_img_section__badge mx-1" data-concern="acne">Acne</a>
+                <a href="category.php?category=pigmentation" class="index_img_section__badge mx-1" data-concern="hyper-pigmentation">Hyper pigmentation</a>
+                <a href="category.php?category=anti-ageing" class="index_img_section__badge mx-1" data-concern="anti-ageing">Anti-Aging</a>
+                <a href="category.php?category=dehydration" class="index_img_section__badge mx-1" data-concern="dehydration">Dehydration</a>
                 <!-- <span class="index_img_section__badge">No Whitecast</span> -->
             </div>
         </div>
@@ -84,7 +84,7 @@
                             <p class="card-text text-muted small">
                                 Nivis Labs UV Aqua Sunscreen Spray SPF 50 is a lightweight sunscreen spray that helps protect your skin from harmful UVA & UVB rays. It’s easy to apply, non-sticky, and suitable for daily use.
                             </p>
-                            <a href="how_does_vitamin_c_really_help_your_skin.php" class="read-more-link">Enter Product →</a>
+                            <a href="category.php?category=sunscreen" class="read-more-link">View Products →</a>
                         </div>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                             <p class="card-text text-muted small">
                                 Nivis Labs UV Best Sunscreen Gel SPF 50 PA++++ provides strong UVA & UVB protection for everyday use. Its lightweight gel texture absorbs easily and feels non-sticky on the skin.
                             </p>
-                            <a href="how_to_layer_skincare.php" class="read-more-link">Enter Product →</a>
+                            <a href="category.php?category=sunscreen" class="read-more-link">View Products →</a>
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                             actually works. Whether you have oily, dry, combination, sensitive, or normal skin,
                             knowing how your skin behaves helps...
                         </p>
-                        <a href="what_is_your_skin_type.php" class="read-more-link">Enter Product →</a>
+                        <a href="category.php?category=sunscreen" class="read-more-link">View Products →</a>
                     </div>
                 </div>
             </div> -->
@@ -154,7 +154,7 @@
                             <p class="card-text text-muted small">
                                 Nivis Bright Glutathione + Vit C Face Wash helps cleanse the skin while supporting a brighter, more refreshed-looking complexion. It’s a gentle daily face wash suitable for removing dirt, oil, and impurities.
                             </p>
-                            <a href="how_to_make_skin_glow.php" class="read-more-link">Enter Product →</a>
+                            <a href="category.php?category=brightening" class="read-more-link">View Products →</a>
                         </div>
                     </div>
                 </div>
@@ -170,7 +170,7 @@
                             <p class="card-text text-muted small">
                                 BioWallice SKARSTAT Face Serum helps improve the appearance of acne marks, scars, and uneven skin tone. With regular use, it can support smoother and more even-looking skin.
                             </p>
-                            <a href="how_to_treat_acne.php" class="read-more-link">Enter Product →</a>
+                            <a href="category.php?category=brightening" class="read-more-link">View Products →</a>
                         </div>
                     </div>
                 </div>
@@ -188,7 +188,7 @@
                                 breakouts fade, especially in busy Indian cities where pollution and stress slow
                                 healing. But with the right skincare...
                             </p>
-                            <a href="how_to_get_rid_of_acne_scars.php" class="read-more-link">Enter Product →</a>
+                            <a href="category.php?category=brightening" class="read-more-link">View Products →</a>
                         </div>
                     </div>
                 </div>
@@ -229,7 +229,7 @@
                                 moisture, protecting the skin barrier, and keeping your complexion hydrated and
                                 balanced. Derived from...
                             </p>
-                            <a href="squalane.php" class="read-more-link">Enter Product →</a>
+                            <a href="category.php?category=acne" class="read-more-link">View Products →</a>
                         </div>
                     </div>
                 </div>
@@ -247,7 +247,7 @@
                                 soothe dryness, and protect the skin barrier. Derived from the nuts of the African Shea
                                 tree, this rich butter...
                             </p>
-                            <a href="shea_butter.php" class="read-more-link">Enter Product →</a>
+                            <a href="category.php?category=acne" class="read-more-link">View Products →</a>
                         </div>
                     </div>
                 </div>
@@ -265,7 +265,7 @@
                                 calmer, clearer skin as it helps fight blemishes, reduce irritation, and repair the look
                                 of past spots—without harsh side...
                             </p>
-                            <a href="Peptazin.php" class="read-more-link">Enter Product →</a>
+                            <a href="category.php?category=acne" class="read-more-link">View Products →</a>
                         </div>
                     </div>
                 </div>
@@ -306,7 +306,7 @@
                                 confusion around when to use it, how it works, and what to expect is common. In this
                                 dermatologist-approved guide, we...
                             </p>
-                            <a href="how_does_vitamin_c_really_help_your_skin.php" class="read-more-link">Enter Product →</a>
+                            <a href="category.php?category=pigmentation" class="read-more-link">View Products →</a>
                         </div>
                     </div>
                 </div>
@@ -324,7 +324,7 @@
                                 skin's natural barrier. This dermatologist-approved guide explains the right order to
                                 apply cleansers, serums,...
                             </p>
-                            <a href="how_to_layer_skincare.php" class="read-more-link">Enter Product →</a>
+                            <a href="category.php?category=pigmentation" class="read-more-link">View Products →</a>
                         </div>
                     </div>
                 </div>
@@ -342,7 +342,7 @@
                                 actually works. Whether you have oily, dry, combination, sensitive, or normal skin,
                                 knowing how your skin behaves helps...
                             </p>
-                            <a href="what_is_your_skin_type.php" class="read-more-link">Enter Product →</a>
+                            <a href="category.php?category=pigmentation" class="read-more-link">View Products →</a>
                         </div>
                     </div>
                 </div>
@@ -380,7 +380,7 @@
                                 Indians, true radiance comes from consistent, science-backed skincare — focusing on
                                 hydration, barrier strength,...
                             </p>
-                            <a href="how_to_make_skin_glow.php" class="read-more-link">Enter Product →</a>
+                            <a href="category.php?category=anti-ageing" class="read-more-link">View Products →</a>
                         </div>
                     </div>
                 </div>
@@ -398,7 +398,7 @@
                                 a consistent, evidence-based routine with ingredients like Salicylic Acid and
                                 Niacinamide. This guide offers...
                             </p>
-                            <a href="how_to_treat_acne.php" class="read-more-link">Enter Product →</a>
+                            <a href="category.php?category=anti-ageing" class="read-more-link">View Products →</a>
                         </div>
                     </div>
                 </div>
@@ -416,7 +416,7 @@
                                 breakouts fade, especially in busy Indian cities where pollution and stress slow
                                 healing. But with the right skincare...
                             </p>
-                            <a href="how_to_get_rid_of_acne_scars.php" class="read-more-link">Enter Product →</a>
+                            <a href="category.php?category=anti-ageing" class="read-more-link">View Products →</a>
                         </div>
                     </div>
                 </div>
@@ -457,7 +457,7 @@
                                 moisture, protecting the skin barrier, and keeping your complexion hydrated and
                                 balanced. Derived from...
                             </p>
-                            <a href="squalane.php" class="read-more-link">Enter Product →</a>
+                            <a href="category.php?category=dehydration" class="read-more-link">View Products →</a>
                         </div>
                     </div>
                 </div>
@@ -475,7 +475,7 @@
                                 soothe dryness, and protect the skin barrier. Derived from the nuts of the African Shea
                                 tree, this rich butter...
                             </p>
-                            <a href="shea_butter.php" class="read-more-link">Enter Product →</a>
+                            <a href="category.php?category=dehydration" class="read-more-link">View Products →</a>
                         </div>
                     </div>
                 </div>
@@ -493,7 +493,7 @@
                                 calmer, clearer skin as it helps fight blemishes, reduce irritation, and repair the look
                                 of past spots—without harsh side...
                             </p>
-                            <a href="Peptazin.php" class="read-more-link">Enter Product →</a>
+                            <a href="category.php?category=dehydration" class="read-more-link">View Products →</a>
                         </div>
                     </div>
                 </div>
