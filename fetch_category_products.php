@@ -747,7 +747,8 @@ if ($category === "") {
 $categorySlug = slugifyValue($category);
 $isAllProductsCategory = in_array($categorySlug, ["all", "products", "all-products"], true);
 $cacheDir = __DIR__ . "/cache";
-$cacheFile = $cacheDir . "/category-products-v9-" . $categorySlug . ".json";
+$cacheVersion = in_array($categorySlug, ["skin-care", "hair-care", "foot-care", "baby-care"], true) ? "v10" : "v9";
+$cacheFile = $cacheDir . "/category-products-" . $cacheVersion . "-" . $categorySlug . ".json";
 
 if (is_file($cacheFile) && time() - filemtime($cacheFile) < $cacheTtl) {
     jsonExit(file_get_contents($cacheFile));
@@ -805,11 +806,15 @@ if (!$isAllProductsCategory && count($products) === 0 && !$backendConnectionErro
     $products = array_values($productsById);
 }
 
-$categoryName = $isAllProductsCategory ? ($categorySlug === "products" ? "Our Products" : "All Products") : $category;
-
-if (!$isAllProductsCategory && count($products) > 0) {
-    $categoryName = normalizeText($products[0]["category"] ?? "") ?: $category;
-}
+$categoryLabels = [
+    "skin-care" => "Skin Care",
+    "hair-care" => "Hair Care",
+    "foot-care" => "Foot Care",
+    "baby-care" => "Baby Care"
+];
+$categoryName = $isAllProductsCategory
+    ? ($categorySlug === "products" ? "Our Products" : "All Products")
+    : ($categoryLabels[$categorySlug] ?? $category);
 
 foreach ($products as &$product) {
     $product["_requestedCategory"] = $categorySlug;
