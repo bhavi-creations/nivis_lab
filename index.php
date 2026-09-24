@@ -632,6 +632,7 @@ include 'fetch_home_sliders.php';
         dandruff: 'dandruff',
         'sun-protection': 'sunscreen'
     };
+    const dermatAssignedTopics = new Set(['acne', 'pigmentation', 'anti-ageing', 'dehydration']);
 
     let dermatSelectedIndex = 1;
     let dermatCurrentType = '';
@@ -1163,6 +1164,24 @@ include 'fetch_home_sliders.php';
 
         try {
             const category = dermatCategoryMap[type] || type;
+            if (dermatAssignedTopics.has(type)) {
+                const response = await fetch(`fetch_category_products.php?category=${encodeURIComponent(category)}`);
+                if (!response.ok) throw new Error('Product request failed');
+                const result = await response.json();
+                if (result.error || !Array.isArray(result.products)) throw new Error(result.error || 'Invalid product response');
+                if (requestId !== dermatRequestId) return;
+
+                dermatAllProducts = result.products;
+                dermatCurrentType = type;
+                dermatVisibleProducts = result.products;
+                dermatCurrentRoutine = [];
+                contentArea.innerHTML = result.products.length
+                    ? ''
+                    : '<p class="text-center">No products in this category yet.</p>';
+                if (result.products.length) renderDermatProductChoices(type, result.products);
+                return;
+            }
+
             const [categoryResult, allResult] = await Promise.all([
                 fetch(`fetch_category_products.php?category=${encodeURIComponent(category)}`).then(response => response.json()),
                 fetch('fetch_category_products.php?category=all').then(response => response.json())
@@ -1175,6 +1194,10 @@ include 'fetch_home_sliders.php';
             renderDermatProducts(type, categoryProducts.length ? categoryProducts.concat(matchedProducts) : matchedProducts);
         } catch (error) {
             if (requestId !== dermatRequestId) return;
+            if (dermatAssignedTopics.has(type)) {
+                contentArea.innerHTML = '<p class="text-center">Unable to load products right now.</p>';
+                return;
+            }
             renderDermatProducts(type, []);
         }
     }
@@ -1400,25 +1423,40 @@ include 'fetch_home_sliders.php';
 </section>
 
 <script>
+let hairConcernRequestId = 0;
+
+function escapeHairHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, character => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+    }[character]));
+}
+
 async function showHairConcern(category, element) {
     const results = document.getElementById('hair-results');
     const content = document.getElementById('hair-routine-content');
     if (!results || !content) return;
+    const requestId = ++hairConcernRequestId;
     document.querySelectorAll('#hairConcernRow .concern-card').forEach(card => card.classList.remove('active-dermat'));
     element?.querySelector('.concern-card')?.classList.add('active-dermat');
     results.style.display = '';
     content.innerHTML = '<div class="text-center py-4"><div class="spinner-border text-dark"></div><p>Loading products...</p></div>';
     try {
-        const response = await fetch(`fetch_category_products.php?category=${encodeURIComponent(category)}&refresh=1`, { cache: 'no-store' });
+        const response = await fetch(`fetch_category_products.php?category=${encodeURIComponent(category)}`);
+        if (!response.ok) throw new Error('Product request failed');
         const payload = await response.json();
-        const products = Array.isArray(payload.products) ? payload.products : [];
+        if (payload.error || !Array.isArray(payload.products)) throw new Error(payload.error || 'Invalid product response');
+        if (requestId !== hairConcernRequestId) return;
+        const products = payload.products;
         if (!products.length) { content.innerHTML = '<p class="text-center">No products available for this concern.</p>'; return; }
-        content.innerHTML = `<div class="dermat-products-grid text-start">${products.slice(0, 6).map(product => {
+        content.innerHTML = `<div class="dermat-products-grid text-start">${products.map(product => {
             const key = product.urlKey || product.url_key || product.sku || product.id || product.name || '';
             const image = product.imageUrl || './assets/img/product.webp';
-            return `<a class="product-card" href="product-detail.php?product=${encodeURIComponent(key)}"><div class="product-img-wrap"><img class="img-primary" src="${image}" alt="${product.name || 'Hair care product'}"></div><div class="product-info"><div class="product-name">${product.name || 'Hair care product'}</div><div class="product-price">${product.price || ''}</div></div></a>`;
+            return `<a class="product-card" href="product-detail.php?product=${encodeURIComponent(key)}"><div class="product-img-wrap"><img class="img-primary" src="${escapeHairHtml(image)}" alt="${escapeHairHtml(product.name || 'Hair care product')}"></div><div class="product-info"><div class="product-name">${escapeHairHtml(product.name || 'Hair care product')}</div><div class="product-price">${escapeHairHtml(product.price || '')}</div></div></a>`;
         }).join('')}</div>`;
-    } catch (error) { content.innerHTML = '<p class="text-center">Unable to load products right now.</p>'; }
+    } catch (error) {
+        if (requestId !== hairConcernRequestId) return;
+        content.innerHTML = '<p class="text-center">Unable to load products right now.</p>';
+    }
     results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 </script>

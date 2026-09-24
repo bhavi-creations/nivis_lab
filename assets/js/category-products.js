@@ -6,6 +6,8 @@
     start();
 
     function start() {
+        if (document.querySelector('[data-backend-category]')) return;
+
         const grid = document.getElementById('productsGrid');
         const count = document.getElementById('productCount');
         const footer = document.querySelector('.nivis_footer_new_section, .footer_section');
@@ -79,7 +81,7 @@
     }
 
     async function fetchCategoryProducts(category) {
-        const cacheKey = `category-products:v10:${category}`;
+        const cacheKey = `category-products:v12:${category}`;
         const cacheTtl = 10000;
         const cached = sessionStorage.getItem(cacheKey);
 

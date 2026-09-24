@@ -7,6 +7,7 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
 require_once __DIR__ . '/backend_config.php';
+require_once __DIR__ . '/care_category_matching.php';
 
 $graphqlUrl = EVERSHOP_GRAPHQL_URL;
 $category = trim($_GET["category"] ?? "");
@@ -749,13 +750,19 @@ if ($category === "") {
 }
 
 $categorySlug = slugifyValue($category);
+$careCategory = canonicalCareCategory($categorySlug);
+$categorySlug = $careCategory ?: $categorySlug;
 $isAllProductsCategory = in_array($categorySlug, ["all", "products", "all-products"], true);
 $cacheDir = __DIR__ . "/cache";
-$cacheVersion = in_array($categorySlug, ["skin-care", "hair-care", "foot-care", "baby-care", "grey-hair", "thin-hair", "hair-fall"], true) ? "v11" : "v9";
+$cacheVersion = $careCategory ? "v12" : (in_array($categorySlug, ["skin-care", "hair-care", "foot-care", "baby-care"], true) ? "v11" : "v9");
 $cacheFile = $cacheDir . "/category-products-" . $cacheVersion . "-" . $categorySlug . ".json";
 
 if (!$forceRefresh && is_file($cacheFile) && time() - filemtime($cacheFile) < $cacheTtl) {
-    jsonExit(file_get_contents($cacheFile));
+    $cached = file_get_contents($cacheFile);
+    $decoded = json_decode($cached, true);
+    if (is_array($decoded) && isset($decoded['products']) && is_array($decoded['products'])) {
+        jsonExit($cached);
+    }
 }
 
 $query = '{
@@ -783,7 +790,11 @@ $result = graphqlRequest($query);
 
 if (!empty($result["error"]) || !empty($result["errors"])) {
     if (is_file($cacheFile)) {
-        jsonExit(file_get_contents($cacheFile));
+        $cached = file_get_contents($cacheFile);
+        $decoded = json_decode($cached, true);
+        if (is_array($decoded) && isset($decoded['products']) && is_array($decoded['products'])) {
+            jsonExit($cached);
+        }
     }
 
     $errorMessage = !empty($result["error"]) ? $result["error"] : json_encode($result["errors"]);
@@ -792,30 +803,19 @@ if (!empty($result["error"]) || !empty($result["errors"])) {
 
 $backendConnectionError = false;
 $allProducts = $result["data"]["products"]["items"] ?? [];
-$exactCategorySlugs = [
-    "sunscreen", "sunscreens", "brightening", "acne", "dark-spots", "anti-ageing", "anti-aging", "dehydration", "hydration",
-    "grey-hair", "thin-hair", "hair-fall"
-];
-$isExactCategory = !$isAllProductsCategory && in_array($categorySlug, $exactCategorySlugs, true);
-$exactCategoryProducts = $isExactCategory
-    ? array_values(array_filter($allProducts, function ($product) use ($categorySlug) {
-        return productCategorySlug($product) === $categorySlug;
-    }))
-    : [];
 $categoryKeys = [];
 
-if (count($exactCategoryProducts) > 0) {
-    $products = array_values($exactCategoryProducts);
-} elseif ($isExactCategory) {
-    $products = [];
+if ($careCategory) {
+    $categoryKeys = careCategoryAliases()[$careCategory];
+    $products = productsInCareCategory($allProducts, $careCategory);
 } else {
-    $categoryKeys = $backendConnectionError ? categoryAliases($categorySlug) : resolveCategoryKeys($categorySlug);
+    $categoryKeys = $isAllProductsCategory ? [] : resolveCategoryKeys($categorySlug);
     $products = $isAllProductsCategory ? array_values($allProducts) : array_values(array_filter($allProducts, function ($product) use ($categoryKeys) {
         return productMatchesCategory($product, $categoryKeys);
     }));
 }
 
-if (!$isAllProductsCategory && !$isExactCategory && count($products) === 0 && !$backendConnectionError) {
+if (!$isAllProductsCategory && !$careCategory && count($products) === 0 && !$backendConnectionError) {
     $productsById = [];
 
     foreach ($categoryKeys as $key) {
@@ -832,7 +832,16 @@ $categoryLabels = [
     "skin-care" => "Skin Care",
     "hair-care" => "Hair Care",
     "foot-care" => "Foot Care",
-    "baby-care" => "Baby Care"
+    "baby-care" => "Baby Care",
+    "sunscreen" => "Sunscreen",
+    "brightening" => "Brightening",
+    "acne" => "Acne",
+    "hyper-pigmentation" => "Hyper pigmentation",
+    "anti-ageing" => "Anti-Aging",
+    "dehydration" => "Dehydration",
+    "grey-hair" => "Grey Hair",
+    "thin-hair" => "Thin Hair",
+    "hair-fall" => "Hair Fall"
 ];
 $categoryName = $isAllProductsCategory
     ? ($categorySlug === "products" ? "Our Products" : "All Products")
@@ -858,7 +867,7 @@ if (!$backendConnectionError && count($products) > 0) {
         mkdir($cacheDir, 0755, true);
     }
 
-    file_put_contents($cacheFile, $payload);
+    file_put_contents($cacheFile, $payload, LOCK_EX);
 }
 
 jsonExit($payload);
