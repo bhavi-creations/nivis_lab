@@ -263,8 +263,10 @@
         const highestPrice = productPrices.length ? Math.max(...productPrices) : Number(rangeInput.max || 1500);
         const newMax = Math.max(1500, Math.ceil(highestPrice + 100));
 
+        const previousMax = Number(rangeInput.max || 1500);
+        const currentValue = Number(rangeInput.value);
         rangeInput.max = newMax;
-        if (Number(rangeInput.value) > newMax || Number(rangeInput.value) <= 0) {
+        if (currentValue >= previousMax || currentValue <= 0 || currentValue > newMax) {
             rangeInput.value = newMax;
         }
 

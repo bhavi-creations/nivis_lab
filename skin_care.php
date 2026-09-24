@@ -1,6 +1,6 @@
 <?php include 'navbar.php'; ?>
 
-<main class="skinthesis-page skin-care-page">
+<main class="skinthesis-page care-products-page">
     <section class="index_straight-up_section skinthesis-hero">
         <div class="container">
             <h5 class="text-uppercase ls-2 text-white">/Skin Care/</h5>
@@ -51,5 +51,5 @@
     <?php endforeach; ?>
 </main>
 
-<script src="assets/js/care-category-sections.js?v=3" defer></script>
+<script src="assets/js/care-category-sections.js?v=4" defer></script>
 <?php include 'footer.php'; ?>

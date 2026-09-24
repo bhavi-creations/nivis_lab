@@ -7695,7 +7695,7 @@
     transform: none;
 }
 
-.skin-care-page .spotlight-card {
+.care-products-page .spotlight-card {
     width: 100%;
     height: 100%;
     padding: 16px;
@@ -7708,17 +7708,17 @@
     transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
 }
 
-.skin-care-page .spotlight-card:hover {
+.care-products-page .spotlight-card:hover {
     transform: translateY(-4px);
     border-color: rgba(237, 197, 142, .72);
     box-shadow: 0 18px 34px rgba(0, 8, 18, .32);
 }
 
-.skin-care-page .spotlight-card > a {
+.care-products-page .spotlight-card > a {
     color: #f5f8fb;
 }
 
-.skin-care-page .spotlight-card > a > img {
+.care-products-page .spotlight-card > a > img {
     width: 100%;
     aspect-ratio: 1 / 1;
     border: 1px solid rgba(162, 215, 239, .16);
@@ -7728,21 +7728,21 @@
     object-position: center;
 }
 
-.skin-care-page .spotlight-card h6 {
+.care-products-page .spotlight-card h6 {
     color: #f5f8fb;
 }
 
-.skin-care-page .spotlight-card > a > p,
-.skin-care-page .spotlight-card__meta {
+.care-products-page .spotlight-card > a > p,
+.care-products-page .spotlight-card__meta {
     color: #bbccd8 !important;
 }
 
-.skin-care-page .spotlight-card__meta .text-warning {
+.care-products-page .spotlight-card__meta .text-warning {
     color: #cf9315 !important;
     letter-spacing: .3px;
 }
 
-.skin-care-page .spotlight-card__price {
+.care-products-page .spotlight-card__price {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -7750,7 +7750,7 @@
     font-weight: 700;
 }
 
-.skin-care-page .spotlight-card .badge-b1g1 {
+.care-products-page .spotlight-card .badge-b1g1 {
     padding: 4px 7px;
     border: 1px solid rgba(237, 197, 142, .42);
     border-radius: 6px;
@@ -7760,7 +7760,7 @@
     font-weight: 600;
 }
 
-.skin-care-page .spotlight-card__btn {
+.care-products-page .spotlight-card__btn {
     min-height: 40px;
     margin-top: auto;
     border: 1px solid rgba(237, 197, 142, .78) !important;

@@ -1,6 +1,6 @@
 <?php include 'navbar.php'; ?>
 
-<main class="skinthesis-page">
+<main class="skinthesis-page care-products-page">
     <section class="index_straight-up_section skinthesis-hero">
         <div class="container">
             <h5 class="text-uppercase ls-2 text-white">/Baby Care/</h5>
@@ -14,37 +14,16 @@
     <section id="baby-products" data-backend-category="baby-care" class="skinthesis_section skinthesis-article-section skinthesis-article-section--answers">
         <div class="container">
             <h2 class="text-center section-title mb-5">Baby Care</h2>
-            <div class="row g-4 justify-content-center">
-                <div class="col-md-4"><article class="skinthesis-card h-100"><div class="card-img-wrapper"><img src="./assets/img/products.png" class="card-img-top" alt="Baby care products"></div><div class="card-body p-4"><h4 class="card-title">Baby Care Products</h4><p class="card-text text-muted small">Gentle products selected for your baby care routine.</p><a href="category.php?category=baby-care" class="read-more-link">View Products &rarr;</a></div></article></div>
+            <div class="row g-4 justify-content-center mb-5" data-category-products aria-live="polite">
+                <p class="text-center">Loading products...</p>
+            </div>
+            <div class="text-center">
+                <a href="category.php?category=baby-care" class="read-more-link">View all Baby Care products &rarr;</a>
             </div>
         </div>
     </section>
 </main>
 
-<script>
-(function () {
-    const section = document.querySelector('[data-backend-category]');
-    if (!section) return;
-
-    function escapeHtml(value) {
-        return String(value ?? '').replace(/[&<>"']/g, character => ({
-            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
-        }[character]));
-    }
-
-    fetch(`fetch_category_products.php?category=${encodeURIComponent(section.dataset.backendCategory)}`)
-        .then(response => response.json())
-        .then(result => {
-            if (!Array.isArray(result.products) || !result.products.length) return;
-            section.querySelector('.row').innerHTML = result.products.slice(0, 3).map(product => {
-                const image = product.imageUrl || './assets/img/product.webp';
-                const key = product.urlKey || product.url_key || product.sku || product.id;
-                const link = key ? `product-detail.php?product=${encodeURIComponent(key)}` : 'category.php?category=baby-care';
-                return `<div class="col-md-4"><article class="skinthesis-card h-100"><a class="skincare-product-image-link" href="${escapeHtml(link)}"><div class="card-img-wrapper"><img src="${escapeHtml(image)}" class="card-img-top skincare-product-image" alt="${escapeHtml(product.name || 'Baby care product')}" loading="lazy" onerror="this.onerror=null;this.src='./assets/img/product.webp';"></div></a><div class="card-body p-4"><h4 class="card-title"><a class="text-reset text-decoration-none" href="${escapeHtml(link)}">${escapeHtml(product.name || 'Baby care product')}</a></h4><p class="card-text text-muted small">${escapeHtml(product.subtitle || product.description || 'Baby care product for your routine.')}</p><a href="${escapeHtml(link)}" class="read-more-link">View Product &rarr;</a></div></article></div>`;
-            }).join('');
-        })
-        .catch(() => {});
-}());
-</script>
+<script src="assets/js/care-category-sections.js?v=4" defer></script>
 
 <?php include 'footer.php'; ?>

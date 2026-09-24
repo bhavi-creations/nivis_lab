@@ -8,34 +8,6 @@
         }[character]));
     }
 
-    function productCard(product) {
-        const name = product.name || 'Product';
-        const image = product.imageUrl || './assets/img/product.webp';
-        const key = product.urlKey || product.url_key || product.sku || product.id;
-        const link = key ? `product-detail.php?product=${encodeURIComponent(key)}` : '#';
-        const description = product.subtitle || product.description || '';
-        const price = product.price ? `<div class="product-price">${escapeHtml(product.price)}</div>` : '';
-
-        return `
-            <div class="col-md-4">
-                <article class="skinthesis-card h-100">
-                    <a class="skincare-product-image-link" href="${escapeHtml(link)}">
-                        <div class="card-img-wrapper">
-                            <img src="${escapeHtml(image)}" class="card-img-top skincare-product-image"
-                                alt="${escapeHtml(name)}" loading="lazy"
-                                onerror="this.onerror=null;this.src='./assets/img/product.webp';">
-                        </div>
-                    </a>
-                    <div class="card-body p-4">
-                        <h4 class="card-title">${escapeHtml(name)}</h4>
-                        <p class="card-text text-muted small">${escapeHtml(description)}</p>
-                        ${price}
-                        <a href="${escapeHtml(link)}" class="read-more-link">View Product &rarr;</a>
-                    </div>
-                </article>
-            </div>`;
-    }
-
     function spotlightProductCard(product) {
         const name = product.name || 'Product';
         const image = product.imageUrl || './assets/img/product.webp';
@@ -89,17 +61,16 @@
                 throw new Error(result.error || 'Invalid product response');
             }
 
-            const renderCard = section.closest('.skin-care-page') ? spotlightProductCard : productCard;
             grid.innerHTML = result.products.length
-                ? result.products.map(renderCard).join('')
+                ? result.products.map(spotlightProductCard).join('')
                 : '<p class="text-center">No products in this category yet.</p>';
         } catch (error) {
             grid.innerHTML = '<p class="text-center">Unable to load products right now. Please try again later.</p>';
         }
     }
 
-    const skinCarePage = document.querySelector('.skin-care-page');
-    skinCarePage?.addEventListener('click', event => {
+    const careProductsPage = document.querySelector('.care-products-page');
+    careProductsPage?.addEventListener('click', event => {
         const button = event.target.closest('.spotlight-card__btn');
         if (!button || !window.NivisCart) return;
 
