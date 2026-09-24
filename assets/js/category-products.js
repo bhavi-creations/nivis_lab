@@ -500,7 +500,13 @@
         populateDynamicFilters(products);
         syncPriceSliderForProducts(products);
         bindPriceInputs();
-        targetGrid.innerHTML = products.map(productCard).join('');
+        targetGrid.innerHTML = products.map(productCard).join('') + `
+            <div class="product-coming-soon-card" role="status">
+                <div>
+                    <span class="product-coming-soon-card__icon" aria-hidden="true">+</span>
+                    <h2>More Products Coming Soon</h2>
+                </div>
+            </div>`;
         if (targetCount) {
             targetCount.textContent = `${products.length} product${products.length !== 1 ? 's' : ''}`;
         }

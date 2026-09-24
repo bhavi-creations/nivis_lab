@@ -26,7 +26,7 @@
     <!-- image slider   -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <link rel="stylesheet" href="./assets/css/new_style.css?v=14">
+    <link rel="stylesheet" href="./assets/css/new_style.css?v=17">
     <link rel="stylesheet" href="./assets/css/theme.css?v=7">
 
 </head>
@@ -859,7 +859,7 @@
             const categories = [
                 ['Skin Care', 'skin-care', 'skin_care.php'],
                 ['Hair Care', 'hair-care', 'hair_care.php'],
-                ['Foot Care', 'foot-care', 'category.php?category=foot-care'],
+                ['Foot Care', 'foot-care', 'foot_care.php'],
                 ['Baby Care', 'baby-care', 'baby_care.php']
             ];
             const itemsHtml = categories.map(([label, slug, href]) =>

@@ -7770,6 +7770,96 @@
     font-weight: 700;
 }
 
+.care-products-page .care-products-coming-soon {
+    display: grid;
+    min-height: 400px;
+    place-items: center;
+    border-style: dashed;
+    text-align: center;
+}
+
+.care-products-page .care-products-coming-soon__icon {
+    display: grid;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    place-items: center;
+    border: 1px solid rgba(237, 197, 142, .55);
+    border-radius: 50%;
+    color: #edc58e;
+    font-size: 36px;
+    line-height: 1;
+}
+
+.care-products-page .care-products-coming-soon h3 {
+    max-width: 180px;
+    margin: 0 auto;
+    color: #f5f8fb;
+    font-size: 1.3rem;
+    line-height: 1.4;
+}
+
+.products-grid .product-coming-soon-card {
+    display: grid;
+    min-height: 400px;
+    padding: 24px;
+    place-items: center;
+    border: 1px dashed rgba(162, 215, 239, .3);
+    border-radius: 18px;
+    background: #032238;
+    color: #f5f8fb;
+    box-shadow: 0 14px 28px rgba(0, 8, 18, .24);
+    text-align: center;
+}
+
+.products-grid .product-coming-soon-card__icon {
+    display: grid;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    place-items: center;
+    border: 1px solid rgba(237, 197, 142, .55);
+    border-radius: 50%;
+    color: #edc58e;
+    font-size: 36px;
+    line-height: 1;
+}
+
+.products-grid .product-coming-soon-card h2 {
+    max-width: 180px;
+    margin: 0 auto;
+    color: #f5f8fb;
+    font-size: 1.3rem;
+    line-height: 1.4;
+}
+
+.care-products-page [data-backend-category] {
+    scroll-margin-top: 96px;
+}
+
+.care-products-page .care-compact-hero {
+    min-height: 0;
+    padding: 42px 0 62px;
+}
+
+@media (max-width: 768px) {
+    .care-products-page .care-compact-hero {
+        padding: 32px 15px 68px;
+    }
+}
+
+@media (max-width: 576px) {
+    .care-products-page .skinthesis-hero__topics {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .care-products-page .skinthesis-hero__topics .index_img_section__badge {
+        width: min(100%, 300px);
+        margin: 0 !important;
+    }
+}
+
 .products-grid .product-img-wrap img {
     object-fit: contain;
     padding: 12px;

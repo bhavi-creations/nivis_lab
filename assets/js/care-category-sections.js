@@ -19,7 +19,7 @@
         const priceLabel = product.price || `₹${priceNumber.toLocaleString('en-IN')}`;
 
         return `
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+            <div class="col-12 col-sm-6 col-lg-3">
                 <div class="spotlight-card"
                     data-product-id="${escapeHtml(key)}"
                     data-product-name="${escapeHtml(name)}"
@@ -44,6 +44,18 @@
             </div>`;
     }
 
+    function comingSoonCard() {
+        return `
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="spotlight-card care-products-coming-soon">
+                    <div class="care-products-coming-soon__content">
+                        <span class="care-products-coming-soon__icon" aria-hidden="true">+</span>
+                        <h3>More Products Coming Soon</h3>
+                    </div>
+                </div>
+            </div>`;
+    }
+
     async function loadSection(section) {
         const grid = section.querySelector('[data-category-products]');
         const category = section.dataset.backendCategory;
@@ -61,9 +73,7 @@
                 throw new Error(result.error || 'Invalid product response');
             }
 
-            grid.innerHTML = result.products.length
-                ? result.products.map(spotlightProductCard).join('')
-                : '<p class="text-center">No products in this category yet.</p>';
+            grid.innerHTML = result.products.map(spotlightProductCard).join('') + comingSoonCard();
         } catch (error) {
             grid.innerHTML = '<p class="text-center">Unable to load products right now. Please try again later.</p>';
         }

@@ -1,14 +1,22 @@
 <?php include 'navbar.php'; ?>
 
 <main class="skinthesis-page care-products-page">
-    <section class="index_straight-up_section skinthesis-hero">
+    <section class="index_straight-up_section skinthesis-hero care-compact-hero">
         <div class="container">
             <h5 class="text-uppercase ls-2 text-white">/Hair Care/</h5>
             <h2 class="fw-bold mb-4">Care made for your hair goals.</h2>
+             <div class="search-box mx-auto nivis-inline-search">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-0"><i class="fa fa-search"></i></span>
+                    <input type="search" class="form-control border-0" id="indexGuideSearchInput"
+                        autocomplete="off" placeholder="Search products and categories">
+                </div>
+                <div class="nivis-search-results nivis-search-results--inline" id="indexGuideSearchResults"></div>
+            </div>
             <nav class="d-flex flex-wrap justify-content-center mt-4 index-guide-categories skinthesis-hero__topics" aria-label="Hair care categories">
-                <a href="category.php?category=grey-hair" class="index_img_section__badge mx-1">Grey Hair</a>
-                <a href="category.php?category=thin-hair" class="index_img_section__badge mx-1">Thin Hair</a>
-                <a href="category.php?category=hair-fall" class="index_img_section__badge mx-1">Hair Fall</a>
+                <a href="#grey-hair" class="index_img_section__badge mx-1">Grey Hair</a>
+                <a href="#thin-hair" class="index_img_section__badge mx-1">Thin Hair</a>
+                <a href="#hair-fall" class="index_img_section__badge mx-1">Hair Fall</a>
             </nav>
         </div>
     </section>
@@ -26,7 +34,7 @@
         class="skinthesis_section skinthesis-article-section skinthesis-article-section--<?= htmlspecialchars($style, ENT_QUOTES, 'UTF-8') ?>">
         <div class="container">
             <h2 class="text-center section-title mb-5<?= $style === 'concerns' ? ' text-white' : '' ?>"><?= htmlspecialchars($title, ENT_QUOTES, 'UTF-8') ?></h2>
-            <div class="row g-4 justify-content-center mb-5" data-category-products aria-live="polite">
+            <div class="row g-4 justify-content-start mb-5" data-category-products aria-live="polite">
                 <p class="text-center">Loading products...</p>
             </div>
             <div class="text-center">
@@ -37,5 +45,5 @@
     <?php endforeach; ?>
 </main>
 
-<script src="assets/js/care-category-sections.js?v=4" defer></script>
+<script src="assets/js/care-category-sections.js?v=5" defer></script>
 <?php include 'footer.php'; ?>

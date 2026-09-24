@@ -14,12 +14,12 @@
                 <div class="nivis-search-results nivis-search-results--inline" id="indexGuideSearchResults"></div>
             </div>
             <nav class="d-flex flex-wrap justify-content-center mt-4 index-guide-categories skinthesis-hero__topics" aria-label="Skin care categories">
-                <a href="category.php?category=sunscreen" class="index_img_section__badge mx-1">Sunscreen</a>
-                <a href="category.php?category=brightening" class="index_img_section__badge mx-1">Brightening</a>
-                <a href="category.php?category=acne" class="index_img_section__badge mx-1">Acne</a>
-                <a href="category.php?category=hyper-pigmentation" class="index_img_section__badge mx-1">Hyper pigmentation</a>
-                <a href="category.php?category=anti-ageing" class="index_img_section__badge mx-1">Anti-Aging</a>
-                <a href="category.php?category=dehydration" class="index_img_section__badge mx-1">Dehydration</a>
+                <a href="#sunscreen" class="index_img_section__badge mx-1">Sunscreen</a>
+                <a href="#brightening" class="index_img_section__badge mx-1">Brightening</a>
+                <a href="#acne" class="index_img_section__badge mx-1">Acne</a>
+                <a href="#hyper-pigmentation" class="index_img_section__badge mx-1">Hyper pigmentation</a>
+                <a href="#anti-ageing" class="index_img_section__badge mx-1">Anti-Aging</a>
+                <a href="#dehydration" class="index_img_section__badge mx-1">Dehydration</a>
             </nav>
         </div>
     </section>
@@ -40,7 +40,7 @@
         class="skinthesis_section skinthesis-article-section skinthesis-article-section--<?= htmlspecialchars($style, ENT_QUOTES, 'UTF-8') ?>">
         <div class="container">
             <h2 class="text-center section-title mb-5<?= $style === 'concerns' ? ' text-white' : '' ?>"><?= htmlspecialchars($title, ENT_QUOTES, 'UTF-8') ?></h2>
-            <div class="row g-4 justify-content-center mb-5" data-category-products aria-live="polite">
+            <div class="row g-4 justify-content-start mb-5" data-category-products aria-live="polite">
                 <p class="text-center">Loading products...</p>
             </div>
             <div class="text-center">
@@ -51,5 +51,5 @@
     <?php endforeach; ?>
 </main>
 
-<script src="assets/js/care-category-sections.js?v=4" defer></script>
+<script src="assets/js/care-category-sections.js?v=5" defer></script>
 <?php include 'footer.php'; ?>
