@@ -38,8 +38,9 @@
             if (!Array.isArray(result.products) || !result.products.length) return;
             section.querySelector('.row').innerHTML = result.products.slice(0, 3).map(product => {
                 const image = product.imageUrl || './assets/img/product.webp';
-                const link = product.link && product.link !== '#' ? product.link : '#';
-                return `<div class="col-md-4"><article class="skinthesis-card h-100"><a class="skincare-product-image-link" href="${escapeHtml(link)}"><div class="card-img-wrapper"><img src="${escapeHtml(image)}" class="card-img-top skincare-product-image" alt="${escapeHtml(product.name || 'Baby care product')}" loading="lazy" onerror="this.onerror=null;this.src='./assets/img/product.webp';"></div></a><div class="card-body p-4"><h4 class="card-title">${escapeHtml(product.name || 'Baby care product')}</h4><p class="card-text text-muted small">${escapeHtml(product.subtitle || product.description || 'Baby care product for your routine.')}</p><a href="${escapeHtml(link)}" class="read-more-link">View Product &rarr;</a></div></article></div>`;
+                const key = product.urlKey || product.url_key || product.sku || product.id;
+                const link = key ? `product-detail.php?product=${encodeURIComponent(key)}` : 'category.php?category=baby-care';
+                return `<div class="col-md-4"><article class="skinthesis-card h-100"><a class="skincare-product-image-link" href="${escapeHtml(link)}"><div class="card-img-wrapper"><img src="${escapeHtml(image)}" class="card-img-top skincare-product-image" alt="${escapeHtml(product.name || 'Baby care product')}" loading="lazy" onerror="this.onerror=null;this.src='./assets/img/product.webp';"></div></a><div class="card-body p-4"><h4 class="card-title"><a class="text-reset text-decoration-none" href="${escapeHtml(link)}">${escapeHtml(product.name || 'Baby care product')}</a></h4><p class="card-text text-muted small">${escapeHtml(product.subtitle || product.description || 'Baby care product for your routine.')}</p><a href="${escapeHtml(link)}" class="read-more-link">View Product &rarr;</a></div></article></div>`;
             }).join('');
         })
         .catch(() => {});

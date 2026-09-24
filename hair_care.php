@@ -6,9 +6,9 @@
             <h5 class="text-uppercase ls-2 text-white">/Hair Care/</h5>
             <h2 class="fw-bold mb-4">Care made for your hair goals.</h2>
             <nav class="d-flex flex-wrap justify-content-center mt-4 index-guide-categories skinthesis-hero__topics" aria-label="Hair care categories">
-                <a href="#grey-hair" class="index_img_section__badge mx-1">Grey Hair</a>
-                <a href="#thin-hair" class="index_img_section__badge mx-1">Thin Hair</a>
-                <a href="#hair-fall" class="index_img_section__badge mx-1">Hair Fall</a>
+                <a href="category.php?category=grey-hair" class="index_img_section__badge mx-1">Grey Hair</a>
+                <a href="category.php?category=thin-hair" class="index_img_section__badge mx-1">Thin Hair</a>
+                <a href="category.php?category=hair-fall" class="index_img_section__badge mx-1">Hair Fall</a>
             </nav>
         </div>
     </section>

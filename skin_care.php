@@ -1,6 +1,6 @@
 <?php include 'navbar.php'; ?>
 
-<main class="skinthesis-page">
+<main class="skinthesis-page skin-care-page">
     <section class="index_straight-up_section skinthesis-hero">
         <div class="container">
             <h5 class="text-uppercase ls-2 text-white">/Skin Care/</h5>
@@ -14,12 +14,12 @@
                 <div class="nivis-search-results nivis-search-results--inline" id="indexGuideSearchResults"></div>
             </div>
             <nav class="d-flex flex-wrap justify-content-center mt-4 index-guide-categories skinthesis-hero__topics" aria-label="Skin care categories">
-                <a href="#sunscreen" class="index_img_section__badge mx-1">Sunscreen</a>
-                <a href="#brightening" class="index_img_section__badge mx-1">Brightening</a>
-                <a href="#acne" class="index_img_section__badge mx-1">Acne</a>
-                <a href="#hyper-pigmentation" class="index_img_section__badge mx-1">Hyper pigmentation</a>
-                <a href="#anti-ageing" class="index_img_section__badge mx-1">Anti-Aging</a>
-                <a href="#dehydration" class="index_img_section__badge mx-1">Dehydration</a>
+                <a href="category.php?category=sunscreen" class="index_img_section__badge mx-1">Sunscreen</a>
+                <a href="category.php?category=brightening" class="index_img_section__badge mx-1">Brightening</a>
+                <a href="category.php?category=acne" class="index_img_section__badge mx-1">Acne</a>
+                <a href="category.php?category=hyper-pigmentation" class="index_img_section__badge mx-1">Hyper pigmentation</a>
+                <a href="category.php?category=anti-ageing" class="index_img_section__badge mx-1">Anti-Aging</a>
+                <a href="category.php?category=dehydration" class="index_img_section__badge mx-1">Dehydration</a>
             </nav>
         </div>
     </section>
@@ -51,5 +51,5 @@
     <?php endforeach; ?>
 </main>
 
-<script src="assets/js/care-category-sections.js?v=2" defer></script>
+<script src="assets/js/care-category-sections.js?v=3" defer></script>
 <?php include 'footer.php'; ?>
