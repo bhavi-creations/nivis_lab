@@ -4,7 +4,7 @@
 
 <section class="index_straight-up_section skinthesis-hero">
     <div class="container">
-        <h5 class="text-uppercase ls-2 text-white">/Skin Care/</h5>
+        <h5 class="text-uppercase ls-2 text-white">/THESIS/</h5>
         <h2 class="fw-bold mb-4">Straight-up answers to your skincare questions</h2>
 
         <!-- <div class="search-box mx-auto">
@@ -47,12 +47,11 @@
             <span href="how-tos.php" class="index_img_section__badge mx-1">How-To</span>
             <span href="#" class="index_img_section__badge mx-1">Ingredients</span>
             <span href="#" class="index_img_section__badge mx-1">Index</span> -->
-                <a href="" class="index_img_section__badge mx-1" data-concern="sunscreen">Sunscreen</a>
-            <a href="" class="index_img_section__badge mx-1" data-concern="brightening">Brightening</a>
-            <a href="" class="index_img_section__badge mx-1" data-concern="acne">Acne</a>
-            <a href="" class="index_img_section__badge mx-1"  data-concern="hyper-pigmentation" >hyper pigmentation</a>
-            <a href="" class="index_img_section__badge mx-1" data-concern="anti-ageing">Anti-Aging</a>
-            <a href="" class="index_img_section__badge mx-1" data-concern="dehydration">Dehydration</a>
+                <a href="general_advice.php" class="index_img_section__badge mx-1">Advice</a>
+            <a href="skin_condition.php" class="index_img_section__badge mx-1">Conditions</a>
+            <a href="how-tos.php" class="index_img_section__badge mx-1">How-To</a>
+            <a href="integrety.php" class="index_img_section__badge mx-1">Ingredients</a>
+            <a href="index.php" class="index_img_section__badge mx-1">Index</a>
             <!-- <span class="index_img_section__badge">No Whitecast</span> -->
         </div>
     </div>

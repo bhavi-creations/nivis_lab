@@ -1341,23 +1341,56 @@ include 'fetch_home_sliders.php';
 
 <section class="mt-5 pt-5"> 
     <style>
-        #hair-routine-content .product-card,
-        #hair-routine-content .product-card .product-info,
-        #hair-routine-content .product-card .product-name,
-        #hair-routine-content .product-card .product-price { color: #fff !important; }
-        #hair-routine-content .product-card { text-decoration: none; }
         #hairConcernRow { justify-content: center !important; }
         #hairConcernRow .concern-item { flex: 0 0 180px; }
         #hair-routine-content { width: 100%; }
-        #hair-routine-content .dermat-products-grid { grid-template-columns: repeat(4, minmax(0, 220px)); gap: 16px; }
-        #hair-routine-content .dermat-products-grid .product-card a { display: block; }
-        #hair-routine-content .dermat-products-grid .product-img-wrap { width: auto; height: 150px; margin: 10px; }
-        @media (max-width: 900px) {
-            #hair-routine-content .dermat-products-grid { grid-template-columns: repeat(2, minmax(0, 260px)); }
+        #hair-routine-content .dermat-products-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
         }
+        #hair-routine-content .hair-result-card {
+            display: flex;
+            flex-direction: column;
+            width: min(100%, 220px);
+            min-height: 245px;
+            margin: 0 auto;
+            padding: 12px;
+            border: 1px solid rgba(162, 215, 239, .3);
+            border-radius: 12px;
+            background: #032238;
+            color: #fff;
+            box-shadow: 0 14px 28px rgba(0, 8, 18, .24);
+            text-align: left;
+            text-decoration: none;
+        }
+        #hair-routine-content a.hair-result-card:hover {
+            border-color: rgba(237, 197, 142, .72);
+            color: #fff;
+        }
+        #hair-routine-content .hair-result-card img {
+            display: block;
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            border-radius: 8px;
+            background: #fff;
+        }
+        #hair-routine-content .hair-result-card--coming-soon img { object-fit: cover; background: transparent; }
+        #hair-routine-content .hair-result-card h3 { margin: 12px 0 4px; color: #fff; font-size: 1.1rem; }
+        #hair-routine-content .hair-result-card p { margin: auto 0 0; color: #edc58e; font-weight: 700; }
         @media (max-width: 576px) {
-            #hairConcernRow { justify-content: flex-start !important; }
-            #hair-routine-content .dermat-products-grid { grid-template-columns: minmax(0, 1fr); }
+            #hairConcernRow {
+                justify-content: flex-start !important;
+                gap: 8px;
+                padding-bottom: 0 !important;
+            }
+            #hairConcernRow .concern-item {
+                flex: 0 0 calc((100% - 8px) / 2);
+                min-width: 0;
+            }
+            #hairConcernRow .concern-card img { height: 145px; }
         }
     </style>
     <div class="container ">
@@ -1439,6 +1472,11 @@ async function showHairConcern(category, element) {
     document.querySelectorAll('#hairConcernRow .concern-card').forEach(card => card.classList.remove('active-dermat'));
     element?.querySelector('.concern-card')?.classList.add('active-dermat');
     results.style.display = '';
+    if (category === 'dandruff') {
+        content.innerHTML = '<div class="hair-result-card hair-result-card--coming-soon" role="status"><img src="./assets/img/dandruff.png" alt="Dandruff care"><h3>Dandruff</h3><p>Products Coming Soon</p></div>';
+        results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        return;
+    }
     content.innerHTML = '<div class="text-center py-4"><div class="spinner-border text-dark"></div><p>Loading products...</p></div>';
     try {
         const response = await fetch(`fetch_category_products.php?category=${encodeURIComponent(category)}`);
@@ -1447,12 +1485,16 @@ async function showHairConcern(category, element) {
         if (payload.error || !Array.isArray(payload.products)) throw new Error(payload.error || 'Invalid product response');
         if (requestId !== hairConcernRequestId) return;
         const products = payload.products;
-        if (!products.length) { content.innerHTML = '<p class="text-center">No products available for this concern.</p>'; return; }
-        content.innerHTML = `<div class="dermat-products-grid text-start">${products.map(product => {
-            const key = product.urlKey || product.url_key || product.sku || product.id || product.name || '';
-            const image = product.imageUrl || './assets/img/product.webp';
-            return `<a class="product-card" href="product-detail.php?product=${encodeURIComponent(key)}"><div class="product-img-wrap"><img class="img-primary" src="${escapeHairHtml(image)}" alt="${escapeHairHtml(product.name || 'Hair care product')}"></div><div class="product-info"><div class="product-name">${escapeHairHtml(product.name || 'Hair care product')}</div><div class="product-price">${escapeHairHtml(product.price || '')}</div></div></a>`;
-        }).join('')}</div>`;
+        if (!products.length) {
+            content.innerHTML = '<p class="text-center">No products available for this concern.</p>';
+        } else {
+            content.innerHTML = `<div class="dermat-products-grid text-start">${products.map(product => {
+                const key = product.urlKey || product.url_key || product.sku || product.id || product.name || '';
+                const image = product.imageUrl || './assets/img/product.webp';
+                const link = `product-detail.php?product=${encodeURIComponent(key)}`;
+                return `<a class="hair-result-card" href="${escapeHairHtml(link)}"><img src="${escapeHairHtml(image)}" alt="${escapeHairHtml(product.name || 'Hair care product')}" loading="lazy" onerror="this.onerror=null;this.src='./assets/img/product.webp';"><h3>${escapeHairHtml(product.name || 'Hair care product')}</h3><p>${escapeHairHtml(product.price || '')}</p></a>`;
+            }).join('')}</div>`;
+        }
     } catch (error) {
         if (requestId !== hairConcernRequestId) return;
         content.innerHTML = '<p class="text-center">Unable to load products right now.</p>';
