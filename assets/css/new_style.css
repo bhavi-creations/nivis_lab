@@ -7626,11 +7626,11 @@
     filter: saturate(.92) contrast(1.04);
 }
 
-.skinthesis-page .skincare-product-image {
+.skinthesis-page .skinthesis-card .skincare-product-image {
     display: block;
     width: 100%;
     height: 238px;
-    padding: 14px;
+    padding: 18px;
     object-fit: contain;
     background: #ffffff;
 }
@@ -7689,6 +7689,20 @@
 
 .skinthesis-page .skinthesis-card:hover .card-img-top {
     transform: scale(1.06);
+}
+
+.skinthesis-page .skinthesis-card:hover .skincare-product-image {
+    transform: none;
+}
+
+.products-grid .product-img-wrap img {
+    object-fit: contain;
+    padding: 12px;
+    background: #ffffff;
+}
+
+.products-grid .product-img-wrap:hover img {
+    transform: none;
 }
 
 .skinthesis-page .read-more-link:hover,

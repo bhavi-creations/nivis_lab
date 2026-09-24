@@ -81,7 +81,7 @@
     }
 
     async function fetchCategoryProducts(category) {
-        const cacheKey = `category-products:v12:${category}`;
+        const cacheKey = `category-products:v15:${category}`;
         const cacheTtl = 10000;
         const cached = sessionStorage.getItem(cacheKey);
 

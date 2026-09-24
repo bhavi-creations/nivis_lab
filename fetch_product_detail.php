@@ -5,6 +5,7 @@ ob_start();
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
+header("Cache-Control: no-store");
 
 require_once __DIR__ . '/backend_config.php';
 
@@ -323,88 +324,149 @@ function graphqlRequest($query)
     return is_array($decoded) ? $decoded : ["error" => "Invalid JSON from GraphQL server", "raw" => $response];
 }
 
-function productMatches($product, $productKey)
+function productMatchRank($product, $productKey)
 {
     $needle = slugifyValue($productKey);
-    $values = [
-        $product["id"] ?? "",
-        $product["sku"] ?? "",
-        $product["urlKey"] ?? "",
-        $product["url_key"] ?? "",
-        $product["name"] ?? ""
-    ];
+    if ($needle === '') {
+        return 0;
+    }
 
-    foreach ($values as $value) {
-        if (slugifyValue($value) === $needle) {
-            return true;
+    foreach ([$product['urlKey'] ?? '', $product['url_key'] ?? ''] as $value) {
+        if ($value !== '' && slugifyValue($value) === $needle) {
+            return 3;
         }
     }
 
-    return false;
+    foreach ([$product['id'] ?? '', $product['sku'] ?? ''] as $value) {
+        if ($value !== '' && slugifyValue($value) === $needle) {
+            return 2;
+        }
+    }
+
+    return slugifyValue($product['name'] ?? '') === $needle ? 1 : 0;
 }
 
-function findProductInCache($productKey)
+function findProductInCache($productKey, $maxAgeSeconds = null)
 {
-    $files = glob(__DIR__ . "/cache/category-products-v9-*.json") ?: [];
+    $files = glob(__DIR__ . "/cache/category-products-v*.json") ?: [];
+    $bestProduct = null;
+    $bestRank = 0;
     usort($files, function ($left, $right) {
         return filemtime($right) <=> filemtime($left);
     });
 
     foreach ($files as $file) {
+        if ($maxAgeSeconds !== null && time() - filemtime($file) > $maxAgeSeconds) {
+            continue;
+        }
+
         $payload = json_decode(file_get_contents($file), true);
         $products = $payload["products"] ?? [];
 
         foreach ($products as $product) {
-            if (productMatches($product, $productKey)) {
-                return normalizeProduct($product);
+            $rank = productMatchRank($product, $productKey);
+            if ($rank === 3) {
+                return ['product' => normalizeProduct($product), 'rank' => $rank];
+            }
+            if ($rank > $bestRank) {
+                $bestProduct = $product;
+                $bestRank = $rank;
             }
         }
     }
 
-    return null;
+    return $bestProduct ? ['product' => normalizeProduct($bestProduct), 'rank' => $bestRank] : null;
 }
 
 if ($productKey === "") {
     jsonExit(["error" => "Missing product"]);
 }
 
-// Read the current gallery first; category caches may predate image uploads.
-$query = '{
-    products(filters: []) {
-        items {
-            id
-            sku
-            name
-            description
-            urlKey
-            price { regular { text } }
-            image { url }
-            gallery { url }
-            attributeIndex {
-                attributeCode
-                attributeName
-                optionText
+// The category card was just loaded from this feed. Reuse its complete product
+// data for a fast click, then query the backend when no fresh exact match exists.
+$freshProduct = findProductInCache($productKey, 60);
+if ($freshProduct && $freshProduct['rank'] === 3) {
+    jsonExit(["product" => $freshProduct['product']]);
+}
+
+// Search every backend page; the default collection contains only 20 items.
+$pageSize = 20;
+$maxPages = 50;
+$seenPages = [];
+$backendFailed = false;
+$bestProduct = null;
+$bestRank = 0;
+
+for ($page = 1; $page <= $maxPages; $page++) {
+    $query = '{
+        products(filters: [
+            { key: "page", operation: eq, value: "' . $page . '" },
+            { key: "limit", operation: eq, value: "' . $pageSize . '" }
+        ]) {
+            items {
+                id
+                sku
+                name
+                description
+                urlKey
+                price { regular { text } }
+                image { url }
+                gallery { url }
+                attributeIndex {
+                    attributeCode
+                    attributeName
+                    optionText
+                }
+                category { name }
             }
-            category { name }
+        }
+    }';
+
+    $result = graphqlRequest($query);
+    if (!empty($result["error"]) || !empty($result["errors"])) {
+        $backendFailed = true;
+        break;
+    }
+
+    $products = $result["data"]["products"]["items"] ?? null;
+    if (!is_array($products)) {
+        $backendFailed = true;
+        break;
+    }
+
+    foreach ($products as $product) {
+        $rank = productMatchRank($product, $productKey);
+        if ($rank === 3) {
+            jsonExit(["product" => normalizeProduct($product)]);
+        }
+        if ($rank > $bestRank) {
+            $bestProduct = $product;
+            $bestRank = $rank;
         }
     }
-}';
 
-$result = graphqlRequest($query);
-$products = $result["data"]["products"]["items"] ?? [];
-
-foreach ($products as $product) {
-    if (productMatches($product, $productKey)) {
-        jsonExit(["product" => normalizeProduct($product)]);
+    if (count($products) < $pageSize) {
+        break;
     }
+
+    $signature = md5(json_encode($products));
+    if (isset($seenPages[$signature])) {
+        $backendFailed = true;
+        break;
+    }
+    $seenPages[$signature] = true;
 }
 
 // Keep details available during a backend outage using the newest cache.
-if (!empty($result["error"]) || !empty($result["errors"]) || !isset($result["data"]["products"]["items"])) {
+if ($backendFailed) {
     $cachedProduct = findProductInCache($productKey);
-    if ($cachedProduct) {
-        jsonExit(["product" => $cachedProduct]);
+    if ($cachedProduct && $cachedProduct['rank'] > $bestRank) {
+        jsonExit(["product" => $cachedProduct['product']]);
     }
+}
+
+if ($bestProduct) {
+    jsonExit(["product" => normalizeProduct($bestProduct)]);
 }
 
 jsonExit(["error" => "Product not found"]);

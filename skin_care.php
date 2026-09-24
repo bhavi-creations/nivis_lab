@@ -51,5 +51,5 @@
     <?php endforeach; ?>
 </main>
 
-<script src="assets/js/care-category-sections.js?v=1" defer></script>
+<script src="assets/js/care-category-sections.js?v=2" defer></script>
 <?php include 'footer.php'; ?>

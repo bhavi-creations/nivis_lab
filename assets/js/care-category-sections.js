@@ -43,7 +43,8 @@
 
         try {
             const response = await fetch(`fetch_category_products.php?category=${encodeURIComponent(category)}`, {
-                headers: { Accept: 'application/json' }
+                headers: { Accept: 'application/json' },
+                cache: 'no-store'
             });
             if (!response.ok) throw new Error('Product request failed');
 

@@ -5,6 +5,7 @@ ob_start();
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
+header("Cache-Control: no-store");
 
 require_once __DIR__ . '/backend_config.php';
 require_once __DIR__ . '/care_category_matching.php';
@@ -128,6 +129,73 @@ function graphqlRequest($query)
     }
 
     return $decoded;
+}
+
+function fetchAllCatalogProducts()
+{
+    $pageSize = 20;
+    $maxPages = 50;
+    $products = [];
+    $seenPages = [];
+    $seenProducts = [];
+
+    for ($page = 1; $page <= $maxPages; $page++) {
+        $query = '{
+            products(filters: [
+                { key: "page", operation: eq, value: "' . $page . '" },
+                { key: "limit", operation: eq, value: "' . $pageSize . '" }
+            ]) {
+                items {
+                    id
+                    sku
+                    name
+                    description
+                    urlKey
+                    price { regular { text } }
+                    image { url }
+                    gallery { url }
+                    attributeIndex {
+                        attributeCode
+                        attributeName
+                        optionText
+                    }
+                    category { name }
+                }
+            }
+        }';
+
+        $result = graphqlRequest($query);
+        if (!empty($result['error']) || !empty($result['errors'])) {
+            return $result;
+        }
+
+        $items = $result['data']['products']['items'] ?? null;
+        if (!is_array($items)) {
+            return ['error' => 'Invalid product list from backend'];
+        }
+
+        $signature = md5(json_encode($items));
+        if (isset($seenPages[$signature])) {
+            return ['error' => 'Backend product pagination repeated a page'];
+        }
+        $seenPages[$signature] = true;
+
+        foreach ($items as $product) {
+            $identity = normalizeText($product['id'] ?? $product['urlKey'] ?? $product['sku'] ?? '')
+                . '|' . productCategorySlug($product);
+            if ($identity === '|' || !empty($seenProducts[$identity])) {
+                continue;
+            }
+            $seenProducts[$identity] = true;
+            $products[] = $product;
+        }
+
+        if (count($items) < $pageSize) {
+            return ['data' => ['products' => ['items' => $products]]];
+        }
+    }
+
+    return ['error' => 'Backend product list exceeded the supported page count'];
 }
 
 function normalizeImageUrl($url)
@@ -657,6 +725,33 @@ function productCategorySlug($product)
     return slugifyValue(normalizeText($category));
 }
 
+function uniqueCategoryProducts($products, $preferredCategories = [])
+{
+    $unique = [];
+    $scores = [];
+
+    foreach ($products as $product) {
+        $name = slugifyValue(normalizeText($product['name'] ?? ''));
+        $fallback = normalizeText($product['urlKey'] ?? $product['sku'] ?? $product['id'] ?? '');
+        $key = $name !== '' ? 'name:' . $name : 'product:' . slugifyValue($fallback);
+        if ($key === 'product:') {
+            $key = 'row:' . md5(json_encode($product));
+        }
+
+        $category = productCategorySlug($product);
+        $score = ($category !== '' ? 1 : 0)
+            + (in_array($category, $preferredCategories, true) ? 10 : 0)
+            + (!empty($product['image']['url']) ? 1 : 0);
+
+        if (!isset($unique[$key]) || $score > $scores[$key]) {
+            $unique[$key] = $product;
+            $scores[$key] = $score;
+        }
+    }
+
+    return array_values($unique);
+}
+
 function productMatchValues($product)
 {
     $values = [
@@ -754,7 +849,7 @@ $careCategory = canonicalCareCategory($categorySlug);
 $categorySlug = $careCategory ?: $categorySlug;
 $isAllProductsCategory = in_array($categorySlug, ["all", "products", "all-products"], true);
 $cacheDir = __DIR__ . "/cache";
-$cacheVersion = $careCategory ? "v12" : (in_array($categorySlug, ["skin-care", "hair-care", "foot-care", "baby-care"], true) ? "v11" : "v9");
+$cacheVersion = "v15";
 $cacheFile = $cacheDir . "/category-products-" . $cacheVersion . "-" . $categorySlug . ".json";
 
 if (!$forceRefresh && is_file($cacheFile) && time() - filemtime($cacheFile) < $cacheTtl) {
@@ -765,28 +860,7 @@ if (!$forceRefresh && is_file($cacheFile) && time() - filemtime($cacheFile) < $c
     }
 }
 
-$query = '{
-    products(filters: []) {
-        items {
-            id
-            sku
-            name
-            description
-            urlKey
-            price { regular { text } }
-            image { url }
-            gallery { url }
-            attributeIndex {
-                attributeCode
-                attributeName
-                optionText
-            }
-            category { name }
-        }
-    }
-}';
-
-$result = graphqlRequest($query);
+$result = fetchAllCatalogProducts();
 
 if (!empty($result["error"]) || !empty($result["errors"])) {
     if (is_file($cacheFile)) {
@@ -827,6 +901,9 @@ if (!$isAllProductsCategory && !$careCategory && count($products) === 0 && !$bac
 
     $products = array_values($productsById);
 }
+
+$preferredCategories = $careCategory ? careCategoryAliases()[$careCategory] : [$categorySlug];
+$products = uniqueCategoryProducts($products, $preferredCategories);
 
 $categoryLabels = [
     "skin-care" => "Skin Care",
