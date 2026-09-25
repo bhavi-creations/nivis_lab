@@ -1618,10 +1618,16 @@ async function showHairConcern(category, element) {
             const image = product.imageUrl || './assets/img/product.webp';
             const link = `product-detail.php?product=${encodeURIComponent(key)}`;
             const price = product.price || '';
+            const priceNumber = Number(String(product.priceNumber || price).replace(/,/g, '').replace(/[^0-9.]/g, '')) || 0;
             const name = product.name || 'Hair care product';
             const reviews = product.reviewsCount || 120;
             return `
-                <div class="hair-result-card">
+                <div class="hair-result-card"
+                    data-product-id="${escapeHairHtml(key)}"
+                    data-product-name="${escapeHairHtml(name)}"
+                    data-product-price="${escapeHairHtml(priceNumber)}"
+                    data-product-image="${escapeHairHtml(image)}"
+                    data-price="${escapeHairHtml(priceNumber)}">
                     <span class="hair-result-number">${index + 1}</span>
                     <a href="${escapeHairHtml(link)}" aria-label="${escapeHairHtml(name)}">
                         <img src="${escapeHairHtml(image)}" alt="${escapeHairHtml(name)}" loading="lazy" onerror="this.onerror=null;this.src='./assets/img/product.webp';">
@@ -3282,6 +3288,29 @@ async function showHairConcern(category, element) {
         loadSpotlightProducts();
 
         spotlightCarousel.on('click', '.spotlight-card__btn', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const card = this.closest('[data-product-id]');
+            if (!card || !window.NivisCart) return;
+
+            const product = window.NivisCart.fromCard(card);
+            if (!product) return;
+
+            if (typeof window.addProductToCart === 'function') {
+                window.addProductToCart(product);
+                return;
+            }
+
+            window.NivisCart.add(product, 1);
+
+            const drawer = document.getElementById('cartDrawer');
+            if (drawer && window.bootstrap) {
+                bootstrap.Offcanvas.getOrCreateInstance(drawer).show();
+            }
+        });
+
+        $(document).on('click', '#hair-routine-content .hair-result-btn', function(e) {
             e.preventDefault();
             e.stopPropagation();
 
