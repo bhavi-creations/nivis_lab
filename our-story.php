@@ -13,12 +13,11 @@
 
         <div class="row justify-content-center mt-4">
             <div class="col-lg-10">
-              <p>About Nivis Labs</p>
-                <h1 data-aos="fade-up">Science-led Skin-first Care</h1>
+              <!-- <p>About Nivis Labs</p> -->
+                <h1 data-aos="fade-up">About Nivis Labs</h1>
+                <!-- <h1 data-aos="fade-up">Science-led Skin-first Care</h1> -->
                 <p data-aos="fade-up" data-aos-delay="200">
-                   Nivis Labs creates modern skincare essentials designed around real skin concerns, thoughtful ingredient selection, and formulas that fit comfortably into everyday routines.
-                   
-                                   Our approach is simple: clear products, transparent communication, and dependable care for healthy-looking skin.
+                  India is a land of weather extremes. From the intense, salt-laden humidity of coastal cities like Visakhapatnam, Goa, and Mumbai, to the blistering heatwaves of inland regions like Delhi, our skin battles drastically different climates every single day.
 
                 </p>
             </div>
@@ -86,12 +85,11 @@
     <!-- Centred card -->
     <div class="our_section_4__card-wrap">
       <div class="our_section_4__card">
-        <h2 class="our_section_4__card-title">
-          Skincare Made Clear, Consistent, and Reliable
-        </h2>
+        
         <p class="our_section_4__card-body">
-          Nivis Labs brings together practical formulations, focused product categories, and transparent information so
-          customers can choose skincare with confidence.
+          Yet, traditional skincare treats everyone the same. Heavy creams that protect skin in dry weather become a suffocating, oily blanket in coastal humidity. Light lotions evaporate instantly under extreme inland heat, leaving skin dull and unprotected.
+Nivis Labs was born to break this mold. Rooted in biotechnology, we know that your skin reacts directly to the weather around it. We engineer climate-adaptive, bio-scientific formulations designed to adapt dynamically to the diverse climates across India.
+
         </p>
       </div>
     </div>
@@ -113,7 +111,8 @@
                 <span></span>
 
                 <h2>
-                    The Nivis Labs Philosophy
+                    <!-- The Nivis Labs Philosophy -->
+                     Climate-Adaptive Innovation
                 </h2>
 
                 <span></span>
@@ -134,39 +133,36 @@
 
       <!-- Item 1 -->
       <div class="phd-item" id="item-0">
-        <div class="phd-item-title">Purpose before product.</div>
+        <div class="phd-item-title">Summer & High Humidity</div>
         <div class="phd-item-body">
-          Every Nivis Labs product starts with a clear skin need, whether it is hydration, sun protection, brightening,
-          barrier support, or daily cleansing.
+         Ultra-lightweight, fast-absorbing gel bases that hydrate without adding weight, keeping skin matte, fresh, and oil-free. 
         </div>
       </div>
 
       <!-- Item 2 -->
       <div class="phd-item" id="item-1">
-        <div class="phd-item-title">Ingredients chosen with intention.</div>
+        <div class="phd-item-title"> Winter & Low Humidity:</div>
         <div class="phd-item-body">
-          We focus on useful actives, skin-compatible textures, and balanced formulas that support consistency instead
-          of overwhelming the skin.
+        Nourishing, protective oil bases that lock in moisture and shield the skin barrier from dry, harsh conditions.
         </div>
       </div>
 
       <!-- Item 3 -->
       <div class="phd-item" id="item-2">
-        <div class="phd-item-title">No unnecessary confusion.</div>
+        <div class="phd-item-title"> Extreme High Temperatures: </div>
         <div class="phd-item-body">
-          Skincare should be easy to understand. We keep product communication practical, direct, and focused on what
-          the formula is made to do.
+         Resilient, heat-stable formulas that prevent moisture evaporation and soothe heat-induced irritation.
         </div>
       </div>
 
       <!-- Item 4 -->
-      <div class="phd-item" id="item-3">
+      <!-- <div class="phd-item" id="item-3">
         <div class="phd-item-title">Built for everyday use.</div>
         <div class="phd-item-body">
           Nivis Labs is designed for routines people can actually follow: comfortable textures, clear categories, and
           products that make daily skincare feel simpler.
         </div>
-      </div>
+      </div> -->
 
     </div><!-- /.track-wrap -->
 
@@ -183,8 +179,8 @@
 
           <h1 class="display-3 fw-bold mb-4">Skincare made simple.</h1>
 
-          <p class="h5 fw-normal mb-5 opacity-75">Thoughtful formulas for everyday skin needs.</p>
-
+          <p class="h5 fw-normal mb-5 opacity-75">Nivis Labs - The Science of Climate-Perfect Skin.</p>
+`
           <div class="mt-4">
             <a href="products.php" class="btn btn-light px-5 py-3 fw-semibold rounded-0 text-dark">
               Shop all
@@ -264,15 +260,15 @@
 
       <!-- Right: copy -->
       <div class="our_section_5__copy col-md-6">
-        <h2 class="our_section_5__title">The care behind every formula</h2>
+        <h2 class="our_section_5__title">Precision Prescriptions: Your Exact Ratio</h2>
         <p class="our_section_5__para">
-          Every Nivis Labs product is shaped around a real use case, from daily cleansing and moisturising to targeted
-          serums and sun protection.
+         Weather is only half the equation; your skin type is the other. Nivis Labs removes the guesswork. Our biotechnology experts suggest the precise product combinations and mixing ratios tailored strictly to your specific skin condition and your current local weather.
+
         </p>
-        <p class="our_section_5__para">
+        <!-- <p class="our_section_5__para">
           We pay attention to ingredient purpose, texture, product experience, and routine compatibility so skincare
           feels both effective and easy to use.
-        </p>
+        </p> -->
         <!-- <a href="products.php" class="our_section_5__cta">Shop products</a> -->
       </div>
 
