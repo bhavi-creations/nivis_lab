@@ -285,7 +285,7 @@
             <a href="index.php"
                class="new_navbr_section__logo " style="padding: 10px 0px;">
 
-                <img src="./assets/img/logo_1.png"
+                <img src="./assets/img/new_logo_head.png"
                      alt="Nivis Labs">
 
             </a>

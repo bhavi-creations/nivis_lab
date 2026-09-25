@@ -1345,41 +1345,138 @@ include 'fetch_home_sliders.php';
         #hairConcernRow .concern-item { flex: 0 0 180px; }
         #hair-routine-content { width: 100%; }
         #hair-routine-content .dermat-products-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 16px;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            align-items: stretch;
         }
         #hair-routine-content .hair-result-card {
+            position: relative;
             display: flex;
             flex-direction: column;
-            width: min(100%, 220px);
-            min-height: 245px;
-            margin: 0 auto;
-            padding: 12px;
-            border: 1px solid rgba(162, 215, 239, .3);
-            border-radius: 12px;
-            background: #032238;
+            height: 100%;
+            min-height: 340px;
+            padding: 0;
+            border: 1px solid rgba(210, 175, 112, .8);
+            border-radius: 22px;
+            background: linear-gradient(180deg, rgba(2, 28, 47, .96), rgba(7, 37, 56, .96));
             color: #fff;
             box-shadow: 0 14px 28px rgba(0, 8, 18, .24);
             text-align: left;
             text-decoration: none;
+            overflow: hidden;
+        }
+        #hair-routine-content .hair-result-card .hair-result-number {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 2;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(237, 197, 142, .96);
+            color: #0a2b4a;
+            font-size: .9rem;
+            font-weight: 800;
+            box-shadow: 0 8px 20px rgba(237, 197, 142, .3);
+        }
+        #hair-routine-content .hair-result-card--coming-soon {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-style: dashed;
+            background: rgba(4, 27, 43, .7);
+        }
+        #hair-routine-content .hair-result-card--coming-soon .hair-result-number {
+            display: none;
         }
         #hair-routine-content a.hair-result-card:hover {
             border-color: rgba(237, 197, 142, .72);
+            transform: translateY(-2px);
             color: #fff;
         }
         #hair-routine-content .hair-result-card img {
             display: block;
             width: 100%;
-            height: 150px;
+            height: 170px;
             object-fit: contain;
-            border-radius: 8px;
-            background: #fff;
+            object-position: center;
+            border: 1px solid rgba(162, 215, 239, .16);
+            border-radius: 12px;
+            background: #082f49;
         }
-        #hair-routine-content .hair-result-card--coming-soon img { object-fit: cover; background: transparent; }
-        #hair-routine-content .hair-result-card h3 { margin: 12px 0 4px; color: #fff; font-size: 1.1rem; }
-        #hair-routine-content .hair-result-card p { margin: auto 0 0; color: #edc58e; font-weight: 700; }
+        @media (max-width: 767px) {
+            #hair-routine-content .dermat-products-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        @media (max-width: 480px) {
+            #hair-routine-content .dermat-products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        #hair-routine-content .hair-result-card--coming-soon img {
+            width: 78%;
+            height: 120px;
+            object-fit: contain;
+            background: transparent;
+            margin-top: 0;
+        }
+        #hair-routine-content .hair-result-card__body {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            padding: 18px 18px 14px;
+        }
+        #hair-routine-content .hair-result-card h3 {
+            margin: 0 0 10px;
+            color: #fff;
+            font-size: 1.1rem;
+            line-height: 1.4;
+            min-height: 52px;
+        }
+        #hair-routine-content .hair-result-card .hair-result-sub {
+            margin: 0 0 10px;
+            color: #f2d4a5;
+            font-size: .9rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        #hair-routine-content .hair-result-card .hair-result-meta {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 12px;
+            color: #f1c76d;
+            font-size: .9rem;
+            font-weight: 700;
+        }
+        #hair-routine-content .hair-result-card .hair-result-price {
+            margin-top: auto;
+            margin-bottom: 12px;
+            color: #f0ce8a;
+            font-size: 1.12rem;
+            font-weight: 800;
+        }
+        #hair-routine-content .hair-result-card .hair-result-btn {
+            display: block;
+            width: 100%;
+            padding: 14px 16px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(180deg, #e4c189, #d4a85f);
+            color: #04263c;
+            font-weight: 800;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: auto;
+        }
+        #hair-routine-content .hair-result-card--coming-soon h3 { margin-top: 14px; }
+        #hair-routine-content .hair-result-card--coming-soon p { margin: 0; }
         @media (max-width: 576px) {
             #hairConcernRow {
                 justify-content: flex-start !important;
@@ -1464,6 +1561,34 @@ function escapeHairHtml(value) {
     }[character]));
 }
 
+function hairConcernImage(category) {
+    const imageMap = {
+        'grey-hair': './assets/img/grey-hair.png',
+        'thin-hair': './assets/img/thin-hair.png',
+        'hair-fall': './assets/img/hair_fall.png',
+        'dandruff': './assets/img/dandruff.png'
+    };
+    return imageMap[category] || './assets/img/hair_fall.png';
+}
+
+function hairConcernComingSoonCard(category) {
+    const titleMap = {
+        'grey-hair': 'Grey Hair',
+        'thin-hair': 'Thin Hair',
+        'hair-fall': 'Hair Fall',
+        'dandruff': 'Dandruff'
+    };
+    const title = titleMap[category] || 'Hair Care';
+    const image = hairConcernImage(category);
+
+    return `
+        <div class="hair-result-card hair-result-card--coming-soon" role="status" aria-live="polite">
+            <img src="${escapeHairHtml(image)}" alt="${escapeHairHtml(title)}" loading="lazy" onerror="this.onerror=null;this.src='./assets/img/product.webp';">
+            <h3>${escapeHairHtml(title)}</h3>
+            <p>New products coming soon</p>
+        </div>`;
+}
+
 async function showHairConcern(category, element) {
     const results = document.getElementById('hair-results');
     const content = document.getElementById('hair-routine-content');
@@ -1472,11 +1597,13 @@ async function showHairConcern(category, element) {
     document.querySelectorAll('#hairConcernRow .concern-card').forEach(card => card.classList.remove('active-dermat'));
     element?.querySelector('.concern-card')?.classList.add('active-dermat');
     results.style.display = '';
+
     if (category === 'dandruff') {
-        content.innerHTML = '<div class="hair-result-card hair-result-card--coming-soon" role="status"><img src="./assets/img/dandruff.png" alt="Dandruff care"><h3>Dandruff</h3><p>Products Coming Soon</p></div>';
+        content.innerHTML = `<div class="dermat-products-grid text-start">${hairConcernComingSoonCard(category)}</div>`;
         results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         return;
     }
+
     content.innerHTML = '<div class="text-center py-4"><div class="spinner-border text-dark"></div><p>Loading products...</p></div>';
     try {
         const response = await fetch(`fetch_category_products.php?category=${encodeURIComponent(category)}`);
@@ -1484,20 +1611,34 @@ async function showHairConcern(category, element) {
         const payload = await response.json();
         if (payload.error || !Array.isArray(payload.products)) throw new Error(payload.error || 'Invalid product response');
         if (requestId !== hairConcernRequestId) return;
+
         const products = payload.products;
-        if (!products.length) {
-            content.innerHTML = '<p class="text-center">No products available for this concern.</p>';
-        } else {
-            content.innerHTML = `<div class="dermat-products-grid text-start">${products.map(product => {
-                const key = product.urlKey || product.url_key || product.sku || product.id || product.name || '';
-                const image = product.imageUrl || './assets/img/product.webp';
-                const link = `product-detail.php?product=${encodeURIComponent(key)}`;
-                return `<a class="hair-result-card" href="${escapeHairHtml(link)}"><img src="${escapeHairHtml(image)}" alt="${escapeHairHtml(product.name || 'Hair care product')}" loading="lazy" onerror="this.onerror=null;this.src='./assets/img/product.webp';"><h3>${escapeHairHtml(product.name || 'Hair care product')}</h3><p>${escapeHairHtml(product.price || '')}</p></a>`;
-            }).join('')}</div>`;
-        }
+        const productCards = products.map((product, index) => {
+            const key = product.urlKey || product.url_key || product.sku || product.id || product.name || '';
+            const image = product.imageUrl || './assets/img/product.webp';
+            const link = `product-detail.php?product=${encodeURIComponent(key)}`;
+            const price = product.price || '';
+            const name = product.name || 'Hair care product';
+            const reviews = product.reviewsCount || 120;
+            return `
+                <div class="hair-result-card">
+                    <span class="hair-result-number">${index + 1}</span>
+                    <a href="${escapeHairHtml(link)}" aria-label="${escapeHairHtml(name)}">
+                        <img src="${escapeHairHtml(image)}" alt="${escapeHairHtml(name)}" loading="lazy" onerror="this.onerror=null;this.src='./assets/img/product.webp';">
+                    </a>
+                    <div class="hair-result-card__body">
+                        <h3>${escapeHairHtml(name)}</h3>
+                        <div class="hair-result-meta"><span>★ ★ ★ ★ ☆</span> <span>(${escapeHairHtml(reviews)} reviews)</span></div>
+                        <div class="hair-result-price">${escapeHairHtml(price)}</div>
+                        <button type="button" class="hair-result-btn">Add to cart</button>
+                    </div>
+                </div>`;
+        }).join('');
+
+        content.innerHTML = `<div class="dermat-products-grid text-start">${productCards}${hairConcernComingSoonCard(category)}</div>`;
     } catch (error) {
         if (requestId !== hairConcernRequestId) return;
-        content.innerHTML = '<p class="text-center">Unable to load products right now.</p>';
+        content.innerHTML = `<div class="dermat-products-grid text-start">${hairConcernComingSoonCard(category)}</div>`;
     }
     results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }

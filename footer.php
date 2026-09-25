@@ -121,7 +121,7 @@
 
                 </p> -->
 
-                <img src="./assets/img/logo_new_white.png"
+                <img src="./assets/img/new.png"
                     alt="Nivis Labs" style="width: 125px; height:200px; " ">
 
 
@@ -409,9 +409,13 @@
             </div>
 
 
-            <p>
-                SCIENCE BACKED SKINCARE
+             <p>
+                INTERNATIONAL
             </p>
+
+            <!-- <p>
+                SCIENCE BACKED SKINCARE
+            </p> -->
 
         </div>
 
@@ -435,7 +439,7 @@
             <div class="nivis_footer_new_section__bottom_inner">
 
                 <p>
-                    © 2024 Nivis Labs. All rights reserved.
+                    © 2026 Nivis Labs. All rights reserved.
                 </p>
 
                 <p>
