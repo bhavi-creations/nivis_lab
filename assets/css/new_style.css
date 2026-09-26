@@ -7145,19 +7145,6 @@
     z-index: 5;
 }
 
-/* The first dropdown needs a left edge anchor on smaller desktop screens. */
-@media (min-width: 1200px) and (max-width: 1400px) {
-    .new_navbr_section #navbarCategoryDesktop {
-        left: 0;
-        transform: translateY(10px);
-    }
-
-    .new_navbr_section__item:hover #navbarCategoryDesktop,
-    .new_navbr_section__item:focus-within #navbarCategoryDesktop {
-        transform: translateY(0);
-    }
-}
-
 @media (max-width: 1199px) {
     .new_navbr_section__navbar .new_navbr_section__container {
         min-height: 78px;

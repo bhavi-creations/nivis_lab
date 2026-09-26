@@ -179,7 +179,7 @@ Nivis Labs was born to break this mold. Rooted in biotechnology, we know that yo
           <h1 class="display-3 fw-bold mb-4">Skincare made simple.</h1>
 
           <p class="h5 fw-normal mb-5 opacity-75">Nivis Labs - The Science of Climate-Perfect Skin.</p>
-`
+
           <div class="mt-4">
             <a href="products.php" class="btn btn-light px-5 py-3 fw-semibold rounded-0 text-dark">
               Shop all

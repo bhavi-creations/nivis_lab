@@ -17,7 +17,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="./assets/css/style.css?v=19">
+    <link rel="stylesheet" href="./assets/css/style.css?v=20">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
@@ -26,7 +26,7 @@
     <!-- image slider   -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <link rel="stylesheet" href="./assets/css/new_style.css?v=17">
+    <link rel="stylesheet" href="./assets/css/new_style.css?v=19">
     <link rel="stylesheet" href="./assets/css/theme.css?v=7">
 
 </head>
