@@ -5077,7 +5077,7 @@ button:hover {
     --line: #b0aba3;
     --ball-idle: #e8e6e1;
     --ball-border: #888;
-    --ball-active: #1a1a1a;
+    --ball-active: #ffffff;
     --ball-size: 18px;
     --line-x: 28px;
     /* centre of the ball / line from left of the track col */
@@ -5142,7 +5142,7 @@ button:hover {
 .track-ball.active {
     background: var(--ball-active);
     border-color: var(--ball-active);
-    box-shadow: 0 0 0 5px rgba(26, 26, 26, 0.12);
+    box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.18);
 }
 
 /* ── Each philosophy item ── */
