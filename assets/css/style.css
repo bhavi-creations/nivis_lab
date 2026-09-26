@@ -824,8 +824,8 @@ a {
 .index_img_section {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 5;
-    min-height: 420px;
+    aspect-ratio: 3 / 1;
+    min-height: 0;
     margin: 0;
     overflow: hidden;
     cursor: pointer;
@@ -1138,7 +1138,7 @@ a {
     }
 
     .index_img_section {
-        aspect-ratio: 16 / 5;
+        aspect-ratio: 3 / 1;
         height: auto;
         min-height: 0;
     }
@@ -1174,10 +1174,19 @@ a {
 
 @media (max-width: 640px) {
     .index_img_section {
-        aspect-ratio: 16 / 5;
+        aspect-ratio: 3 / 1;
         height: auto;
         min-height: 0;
         margin-bottom: 0;
+    }
+
+    .index_img_section__nav {
+        width: 28px;
+        height: 28px;
+    }
+
+    .index_img_section__nav i {
+        font-size: 0.8rem;
     }
 
     .index_img_section__bg,

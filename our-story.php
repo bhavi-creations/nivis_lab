@@ -156,13 +156,12 @@ Nivis Labs was born to break this mold. Rooted in biotechnology, we know that yo
       </div>
 
       <!-- Item 4 -->
-      <!-- <div class="phd-item" id="item-3">
-        <div class="phd-item-title">Built for everyday use.</div>
+      <div class="phd-item" id="item-3">
+        <div class="phd-item-title">Precision Prescriptions: Your Exact Ratio</div>
         <div class="phd-item-body">
-          Nivis Labs is designed for routines people can actually follow: comfortable textures, clear categories, and
-          products that make daily skincare feel simpler.
+         Weather is only half the equation; your skin type is the other. Nivis Labs removes the guesswork. Our biotechnology experts suggest the precise product combinations and mixing ratios tailored strictly to your specific skin condition and your current local weather.
         </div>
-      </div> -->
+      </div>
 
     </div><!-- /.track-wrap -->
 
@@ -170,7 +169,7 @@ Nivis Labs was born to break this mold. Rooted in biotechnology, we know that yo
 
   <!-- section last  -->
 
-  <section class="last position-relative d-flex align-items-center justify-content-center text-center">
+  <section class= "last position-relative d-flex align-items-center justify-content-center text-center">
     <div class="overlay-dark"></div>
     <div class="container position-relative text-white py-5" style="z-index: 2;">
       <div class="row justify-content-center">
@@ -185,7 +184,7 @@ Nivis Labs was born to break this mold. Rooted in biotechnology, we know that yo
             <a href="products.php" class="btn btn-light px-5 py-3 fw-semibold rounded-0 text-dark">
               Shop all
             </a>
-          </div>
+          </div> 
         </div>
       </div>
     </div>
@@ -196,84 +195,30 @@ Nivis Labs was born to break this mold. Rooted in biotechnology, we know that yo
   <!-- ═══════════════════════════════════════
      SECTION 5 — The experts behind every formula
 ═══════════════════════════════════════ -->
-  <section class="our_section_5  ">
+  <!-- <section class="our_section_5  ">
     <div class="our_section_5__inner row">
 
-      <!-- Left: brand pillars -->
+     
       <div class="our_section_5__photos col-md-6">
       
       <img src="./assets/img/our-story.png" alt="product imag" class="img-fluid">
 
        
-        <!-- <div class="our_section_5__doc">
-          <div class="our_section_5__photo-wrap">
-            <div class="our_section_5__avatar">PR</div>
-            <div class="our_section_5__coat"></div>
-          </div>
-          <div class="our_section_5__doc-info">
-            <div class="our_section_5__doc-name">Product Research</div>
-            <div class="our_section_5__doc-role">Ingredient selection<br>and routine needs</div>
-            <div class="our_section_5__doc-cred">Nivis Labs</div>
-          </div>
-        </div>
+   
+      </div>
 
-       
-        <div class="our_section_5__doc">
-          <div class="our_section_5__photo-wrap">
-            <div class="our_section_5__avatar">FC</div>
-            <div class="our_section_5__coat"></div>
-          </div>
-          <div class="our_section_5__doc-info">
-            <div class="our_section_5__doc-name">Formulation Care</div>
-            <div class="our_section_5__doc-role">Texture, comfort<br>and daily usability</div>
-            <div class="our_section_5__doc-cred">Nivis Labs</div>
-          </div>
-        </div>
-
-        
-        <div class="our_section_5__doc">
-          <div class="our_section_5__photo-wrap">
-            <div class="our_section_5__avatar">QR</div>
-            <div class="our_section_5__coat"></div>
-          </div>
-          <div class="our_section_5__doc-info">
-            <div class="our_section_5__doc-name">Quality Review</div>
-            <div class="our_section_5__doc-role">Product consistency<br>and customer confidence</div>
-            <div class="our_section_5__doc-cred">Nivis Labs</div>
-          </div>
-        </div>
-
-        
-        <div class="our_section_5__doc">
-          <div class="our_section_5__photo-wrap">
-            <div class="our_section_5__avatar">CC</div>
-            <div class="our_section_5__coat"></div>
-          </div>
-          <div class="our_section_5__doc-info">
-            <div class="our_section_5__doc-name">Customer Care</div>
-            <div class="our_section_5__doc-role">Clear guidance<br>and routine support</div>
-            <div class="our_section_5__doc-cred">Nivis Labs</div>
-          </div>
-        </div> -->
-
-      </div><!-- /.our_section_5__photos -->
-
-      <!-- Right: copy -->
+      
       <div class="our_section_5__copy col-md-6">
         <h2 class="our_section_5__title">Precision Prescriptions: Your Exact Ratio</h2>
         <p class="our_section_5__para">
          Weather is only half the equation; your skin type is the other. Nivis Labs removes the guesswork. Our biotechnology experts suggest the precise product combinations and mixing ratios tailored strictly to your specific skin condition and your current local weather.
 
         </p>
-        <!-- <p class="our_section_5__para">
-          We pay attention to ingredient purpose, texture, product experience, and routine compatibility so skincare
-          feels both effective and easy to use.
-        </p> -->
-        <!-- <a href="products.php" class="our_section_5__cta">Shop products</a> -->
+      
       </div>
 
     </div>
-  </section>
+  </section> -->
 
 
 

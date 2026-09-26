@@ -1,6 +1,23 @@
 ﻿<?php
 include 'navbar.php';
 include 'fetch_home_sliders.php';
+
+$oldHeroSlides = [];
+foreach ($homeSliders as $slider) {
+    foreach (($slider['settings']['slides'] ?? []) as $slide) {
+        $oldHeroSlides[] = ['slide' => $slide, 'name' => $slider['name'] ?? 'Nivis Labs'];
+    }
+}
+// The previous slider displayed its third slide first.
+$firstHeroSlide = $oldHeroSlides[2] ?? $oldHeroSlides[0] ?? null;
+$newHeroImages = [
+    ['file' => 'foaming_face_washing-bg.png', 'alt' => 'Foaming Face Wash'],
+    ['file' => 'instant-glow-bg.png', 'alt' => 'Instant Glow'],
+    ['file' => 'folilock-cream-bg.png', 'alt' => 'Folilock Cream'],
+    ['file' => 'folilock-cream-pro-bg.png', 'alt' => 'Folilock Cream Pro'],
+    ['file' => 'skartstar-face-cream-bg.png', 'alt' => 'Skarstat Face Cream'],
+    ['file' => 'uv-aqua-bg.png', 'alt' => 'UV Aqua'],
+];
 ?>
 
 
@@ -26,67 +43,48 @@ include 'fetch_home_sliders.php';
     </button>
 
     <div class="index_img_section__slides" id="indexHeroSlides">
-        <?php if (!empty($homeSliders)): ?>
-            <?php foreach ($homeSliders as $index => $slider):
-                $settings = $slider['settings'] ?? [];
-                $slides = $settings['slides'] ?? [];
-                $link = getSliderLink($slider);
-                $fallbackImage = './assets/img/product.webp';
-            ?>
-                <?php foreach ($slides as $imgIndex => $slide):
-                    $image = $slide['image'] ?? '';
-                    $imageUrl = !empty($image) ? $image : $fallbackImage;
-                    $headline = $slide['headline'] ?? '';
-                    $subText = $slide['subText'] ?? '';
-                    $buttonLink = $slide['buttonLink'] ?? '';
-                    $buttonText = $slide['buttonText'] ?? 'Read More';
-                    $isActive = ($index === 0 && $imgIndex === 0) ? 'active' : '';
-                    $widgetName = $slider['name'] ?? 'Nivis Labs';
-                    $altText = !empty($headline) ? $headline : (!empty($subText) ? $subText : $widgetName . ' slide ' . ($imgIndex + 1));
-                ?>
-                    <a class="index_img_section__slide <?php echo $isActive; ?>"
-                        href="products.php"
-                        style="--hero-img: url('<?php echo htmlspecialchars($imageUrl); ?>');">
-                        <img class="index_img_section__product"
-                            src="<?php echo htmlspecialchars($imageUrl); ?>"
-                            alt="<?php echo htmlspecialchars($altText); ?>"
-                            onerror="this.src='<?php echo $fallbackImage; ?>';" />
-                        <?php if (!empty($headline) || !empty($subText)): ?>
-                            <div class="index_img_section__content">
-                                <?php if (!empty($subText)): ?>
-                                    <span class="index_img_section__new-tag"><?php echo htmlspecialchars($subText); ?></span>
-                                <?php endif; ?>
-                                <?php if (!empty($headline)): ?>
-                                    <h1 class="index_img_section__title"><?php echo nl2br(htmlspecialchars($headline)); ?></h1>
-                                <?php endif; ?>
-                            </div>
+        <?php if ($firstHeroSlide):
+            $slide = $firstHeroSlide['slide'];
+            $imageUrl = !empty($slide['image']) ? $slide['image'] : './assets/img/product.webp';
+            $headline = $slide['headline'] ?? '';
+            $subText = $slide['subText'] ?? '';
+            $buttonText = $slide['buttonText'] ?? 'Read More';
+            $altText = $headline ?: ($subText ?: $firstHeroSlide['name'] . ' slide');
+        ?>
+            <a class="index_img_section__slide active" href="products.php"
+                style="--hero-img: url('<?php echo htmlspecialchars($imageUrl); ?>');">
+                <img class="index_img_section__product" src="<?php echo htmlspecialchars($imageUrl); ?>"
+                    alt="<?php echo htmlspecialchars($altText); ?>"
+                    onerror="this.src='./assets/img/product.webp';" />
+                <?php if ($headline || $subText): ?>
+                    <div class="index_img_section__content">
+                        <?php if ($subText): ?>
+                            <span class="index_img_section__new-tag"><?php echo htmlspecialchars($subText); ?></span>
                         <?php endif; ?>
-                        <div class="index_img_section__cta"><span><?php echo htmlspecialchars($buttonText); ?></span><i class="bi bi-arrow-right-circle"></i></div>
-                    </a>
-                <?php endforeach; ?>
-            <?php endforeach; ?>
+                        <?php if ($headline): ?>
+                            <h1 class="index_img_section__title"><?php echo nl2br(htmlspecialchars($headline)); ?></h1>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+                <div class="index_img_section__cta"><span><?php echo htmlspecialchars($buttonText); ?></span><i class="bi bi-arrow-right-circle"></i></div>
+            </a>
         <?php else: ?>
-            <!-- Fallback static slides -->
-            <a class="index_img_section__slide active" href="products.php" style="--hero-img: url('./assets/img/3.png');">
-                <img class="index_img_section__product" src="./assets/img/3.png" alt="Nivis Labs slide 1" onerror="this.src='./assets/img/2.png';" />
-                <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
-            </a>
-
-            <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/2.png');">
-                <img class="index_img_section__product" src="./assets/img/2.png" alt="Nivis Labs slide 2" onerror="this.src='./assets/img/3.png';" />
-                <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
-            </a>
-
-            <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/4.png');">
-                <img class="index_img_section__product" src="./assets/img/4.png" alt="Nivis Labs slide 3" onerror="this.src='./assets/img/4.png';" />
-                <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
-            </a>
-
-            <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/5.png');">
-                <img class="index_img_section__product" src="./assets/img/5.png" alt="Nivis Labs slide 4" onerror="this.src='./assets/img/5.png';" />
+            <a class="index_img_section__slide active" href="products.php" style="--hero-img: url('./assets/img/4.png');">
+                <img class="index_img_section__product" src="./assets/img/4.png" alt="Nivis Labs featured slide" onerror="this.src='./assets/img/product.webp';" />
                 <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
             </a>
         <?php endif; ?>
+        <?php foreach ($newHeroImages as $heroImage):
+            $imagePath = './assets/img/' . $heroImage['file'];
+        ?>
+            <a class="index_img_section__slide" href="products.php"
+                style="--hero-img: url('<?php echo htmlspecialchars($imagePath); ?>');">
+                <img class="index_img_section__product" src="<?php echo htmlspecialchars($imagePath); ?>"
+                    alt="<?php echo htmlspecialchars($heroImage['alt']); ?>"
+                    onerror="this.src='./assets/img/product.webp';" />
+                <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
+            </a>
+        <?php endforeach; ?>
     </div>
 </section>
 
@@ -206,9 +204,6 @@ include 'fetch_home_sliders.php';
 
         function initSlides() {
             slides = Array.from(slidesWrap.querySelectorAll('.index_img_section__slide'));
-            // Show slide 3 first, keeping the remaining order as 2, 4, 1.
-            const slideOrder = [2, 1, 3, 0];
-            slides = slideOrder.map(index => slides[index]).filter(Boolean).concat(slides.slice(4));
             setSlide(0);
             startSlider();
         }
@@ -1339,7 +1334,7 @@ include 'fetch_home_sliders.php';
 
 
 
-<section class="mt-5 pt-5"> 
+<section class="my-5 "> 
     <style>
         #hairConcernRow { justify-content: center !important; }
         #hairConcernRow .concern-item { flex: 0 0 180px; }
@@ -1554,6 +1549,7 @@ include 'fetch_home_sliders.php';
 
 <script>
 let hairConcernRequestId = 0;
+let activeHairConcern = '';
 
 function escapeHairHtml(value) {
     return String(value ?? '').replace(/[&<>"']/g, character => ({
@@ -1593,8 +1589,18 @@ async function showHairConcern(category, element) {
     const results = document.getElementById('hair-results');
     const content = document.getElementById('hair-routine-content');
     if (!results || !content) return;
+    const shouldClose = activeHairConcern === category && results.style.display !== 'none';
     const requestId = ++hairConcernRequestId;
     document.querySelectorAll('#hairConcernRow .concern-card').forEach(card => card.classList.remove('active-dermat'));
+
+    if (shouldClose) {
+        activeHairConcern = '';
+        results.style.display = 'none';
+        content.innerHTML = '';
+        return;
+    }
+
+    activeHairConcern = category;
     element?.querySelector('.concern-card')?.classList.add('active-dermat');
     results.style.display = '';
 
