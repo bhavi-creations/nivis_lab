@@ -122,7 +122,7 @@
                 </p> -->
 
                 <img src="./assets/img/new.png"
-                    alt="Nivis Labs" style="width: 125px; height:200px; " ">
+                    alt="Nivis Labs" style="width: 125px; height:200px;">
 
 
                 <!-- EMAIL FIELD -->
@@ -272,7 +272,7 @@
                  CUSTOMER CARE
             ================================================== -->
 
-        <div class="col-6 col-lg-3
+        <div class="col-6 col-lg-3 d-none d-lg-block
                         nivis_footer_new_section__column
                         nivis_footer_new_section__column--border text-center">
 
@@ -328,7 +328,7 @@
                  STAY CONNECTED
             ================================================== -->
 
-        <div class="col-6 col-lg-2
+        <div class="col-6 col-lg-2 d-none d-lg-block
                         nivis_footer_new_section__column
                         nivis_footer_new_section__column--border
                         nivis_footer_new_section__connect text-center">
