@@ -503,34 +503,76 @@
         renderCart();
     }
 
+    let cartRelatedCatalog = null;
+    let cartRelatedRequest = null;
+
+    function relatedProductKey(value) {
+        return String(value || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    }
+
+    function sameRelatedProduct(product, item) {
+        const keys = [product.sku, product.id, product.urlKey, product.name].map(relatedProductKey).filter(Boolean);
+        return [item.sku, item.id, item.name].map(relatedProductKey).filter(Boolean).some(key => keys.includes(key));
+    }
+
     function getRelatedProducts() {
-        const allProducts = document.querySelectorAll('.product-card');
-        const relatedProducts = [];
-
-        allProducts.forEach(product => {
-            if (relatedProducts.length >= 4) return;
-            const productId = product.dataset.productId || product.querySelector('.product-name')?.textContent.trim().replace(/\s+/g, '_').toLowerCase();
-            const sku = product.dataset.sku || product.dataset.productSku || product.dataset.productCode || '';
-            if (!productId || cartItems.some(item => item.id === productId)) return;
-
-            const name = product.querySelector('.product-name')?.textContent.trim() || '';
-            const priceText = product.querySelector('.product-price')?.textContent.replace(/[^0-9.]/g, '').trim() || product.dataset.price || '0';
-            const image = product.querySelector('.product-img-wrap img, img')?.src || '';
-            const sub = product.querySelector('.product-sub')?.textContent.trim() || '';
-
-            if (name && image) {
-                relatedProducts.push({
-                    id: productId,
-                    sku,
-                    name,
-                    price: Number(priceText) || 0,
-                    image,
-                    sub
-                });
+        if (!cartItems.length) return [];
+        if (cartRelatedCatalog === null) {
+            if (!cartRelatedRequest) {
+                cartRelatedRequest = fetch(new URL('fetch_category_products.php?category=all', window.location.href))
+                    .then(response => {
+                        if (!response.ok) throw new Error('Unable to load related products');
+                        return response.json();
+                    })
+                    .then(result => {
+                        const products = result.data?.products || result.products;
+                        cartRelatedCatalog = Array.isArray(products) ? products : [];
+                        renderCart();
+                    })
+                    .catch(() => { cartRelatedRequest = null; });
             }
-        });
+            return [];
+        }
 
-        return relatedProducts;
+        const sources = cartItems.map(item => cartRelatedCatalog.find(product => sameRelatedProduct(product, item))).filter(Boolean);
+        const tokens = value => String(value || '').toLowerCase().split(/[,|;]+/).map(value => value.trim())
+            .filter(value => value && !['all', 'products', 'product', 'skincare', 'skin care'].includes(value));
+        const overlaps = (left, right) => tokens(left).some(value => tokens(right).includes(value));
+        const seen = new Set();
+
+        return cartRelatedCatalog
+            .filter(product => !cartItems.some(item => sameRelatedProduct(product, item)))
+            .map(product => ({
+                product,
+                score: sources.reduce((best, source) => Math.max(best,
+                    (overlaps(product.category, source.category) ? 4 : 0) +
+                    (overlaps(product.displayConcern || product.concern, source.displayConcern || source.concern) ? 3 : 0) +
+                    (overlaps(product.type, source.type) ? 2 : 0) +
+                    (overlaps(product.ingredient, source.ingredient) ? 1 : 0)), 0)
+            }))
+            .filter(entry => entry.score > 0)
+            .sort((left, right) => right.score - left.score)
+            .filter(({ product }) => {
+                const key = relatedProductKey(product.sku || product.id || product.name);
+                if (!key || seen.has(key)) return false;
+                seen.add(key);
+                return true;
+            })
+            .slice(0, 4)
+            .map(({ product }) => ({
+                id: relatedProductKey(product.sku || product.id || product.name),
+                sku: product.sku || '',
+                name: product.name || '',
+                price: Number(product.priceNumber ?? String(product.price || '0').replace(/[^0-9.]/g, '')) || 0,
+                image: product.imageUrl || product.images?.[0] || '',
+                sub: product.displayConcern || product.category || product.type || ''
+            }));
+    }
+
+    function escapeRelatedHtml(value) {
+        return String(value ?? '').replace(/[&<>"']/g, character => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        })[character]);
     }
 
     function addRelatedToCart(itemId, itemName, itemPrice, itemImage, sku = '', quantity = 1) {
@@ -586,13 +628,13 @@
                     <div class="border-bottom pb-3 mb-3">
                         <div style="display: flex; gap: 12px; align-items: flex-start;">
                             <div style="width: 70px; min-width: 70px;">
-                                <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 70px; object-fit: cover; border-radius: 4px;" />
+                                <img src="${escapeRelatedHtml(product.image)}" alt="${escapeRelatedHtml(product.name)}" style="width: 100%; height: 70px; object-fit: cover; border-radius: 4px;" />
                             </div>
                             <div style="flex: 1; font-size: 13px;">
-                                <div class="fw-bold" style="margin-bottom: 2px; font-size: 14px;">${product.name.substring(0, 35)}${product.name.length > 35 ? '...' : ''}</div>
-                                <div class="text-muted small" style="margin-bottom: 4px;">${product.sub.substring(0, 40)}${product.sub.length > 40 ? '...' : ''}</div>
+                                <div class="fw-bold" style="margin-bottom: 2px; font-size: 14px;">${escapeRelatedHtml(product.name.substring(0, 35))}${product.name.length > 35 ? '...' : ''}</div>
+                                <div class="text-muted small" style="margin-bottom: 4px;">${escapeRelatedHtml(product.sub.substring(0, 40))}${product.sub.length > 40 ? '...' : ''}</div>
                                 <div class="fw-bold" style="color: #d32f2f; margin-bottom: 6px;">${formatPrice(product.price)}</div>
-                                <button onclick="addRelatedToCart('${product.id}', '${product.name.replace(/'/g, "\\'")}', ${product.price}, '${product.image}', '${(product.sku || '').replace(/'/g, "\\'")}', 1)" class="btn btn-sm btn-dark" style="font-size: 12px;">Add</button>
+                                <button type="button" data-related-index="${idx}" class="btn btn-sm btn-dark" style="font-size: 12px;">Add</button>
                             </div>
                         </div>
                     </div>
@@ -616,6 +658,13 @@
             </div>
         `;
     }
+
+    cartContentEl?.addEventListener('click', event => {
+        const button = event.target.closest('[data-related-index]');
+        if (!button) return;
+        const product = getRelatedProducts()[Number(button.dataset.relatedIndex)];
+        if (product) addRelatedToCart(product.id, product.name, product.price, product.image, product.sku);
+    });
 
     function goToCheckoutPage() {
         if (!window.NivisCart) return;
