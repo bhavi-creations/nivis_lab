@@ -1,7 +1,5 @@
 <?php
 require_once __DIR__ . '/razorpay_config.php';
-require_once __DIR__ . '/shiprocket_service.php';
-session_start();
 
 header('Content-Type: application/json');
 
@@ -84,7 +82,6 @@ function provinceCandidates(array $address): array
         'CH' => 'Chandigarh',
         'DL' => 'Delhi',
         'GA' => 'Goa',
-        'GO' => 'Goa',
         'GJ' => 'Gujarat',
         'HR' => 'Haryana',
         'HP' => 'Himachal Pradesh',
@@ -348,15 +345,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $input = json_decode(file_get_contents('php://input'), true);
-// Check hosting storage before creating an EverShop order or starting payment.
-try {
-    shiprocketStorageDirectory();
-} catch (Throwable $e) {
-    jsonResponse(['success' => false, 'message' => $e->getMessage()], 503);
-}
-if (!is_array($input)) {
-    jsonResponse(['success' => false, 'message' => 'A JSON object is required.'], 400);
-}
 $cartId = trim((string) ($input['cart_id'] ?? ''));
 $cartTotal = (float) ($input['cart_total'] ?? 0);
 $items = is_array($input['items'] ?? null) ? $input['items'] : [];
@@ -421,15 +409,11 @@ if ($cartId === '') {
     }
 }
 
-$defaultAddress = [];
+$defaultAddress = defaultAddress();
 $billingAddressInput = is_array($input['billing_address'] ?? null) ? $input['billing_address'] : [];
 $shippingAddressInput = is_array($input['shipping_address'] ?? null) ? $input['shipping_address'] : [];
 $billingAddress = sanitizeAddress($billingAddressInput, $defaultAddress);
 $shippingAddress = sanitizeAddress($shippingAddressInput, $billingAddress ?: $defaultAddress);
-foreach (['billingAddress', 'shippingAddress'] as $addressVariable) {
-    ${$addressVariable}['email'] = ${$addressVariable}['email'] ?? trim((string) ($input['customer_email'] ?? ''));
-    ${$addressVariable}['telephone'] = ${$addressVariable}['telephone'] ?? trim((string) ($input['customer_phone'] ?? ''));
-}
 
 if (!addressIsComplete($billingAddress)) {
     jsonResponse([
@@ -539,10 +523,6 @@ if ($shippingAddress !== []) {
     }
 }
 
-if ($shippingWarning !== null) {
-    jsonResponse(['success' => false, 'message' => $shippingWarning], 422);
-}
-
 $evershopOrderResult = postJson($baseUrl . '/orders', [
     'cart_id' => $cartId
 ]);
@@ -564,26 +544,6 @@ if ($evershopOrderResult['http_code'] < 200 || $evershopOrderResult['http_code']
         'message' => $evershopOrderDecoded['error']['message'] ?? 'Evershop order creation failed.',
         'error' => $evershopOrderDecoded
     ], 500);
-}
-
-// Persist only the trusted backend order, never browser prices or product names.
-try {
-    $shiprocketBilling = $billingAddress;
-    $shiprocketShipping = $shippingAddress;
-    foreach (['shiprocketBilling', 'shiprocketShipping'] as $addressVariable) {
-        $candidates = provinceCandidates($$addressVariable);
-        if ($candidates !== []) {
-            ${$addressVariable}['province'] = end($candidates);
-        }
-    }
-    $shippingPayload = shiprocketPayload($evershopOrder, $shiprocketBilling, $shiprocketShipping);
-    shiprocketRecord($evershopOrderId, static function (array $record, callable $save) use ($shippingPayload): void {
-        if ($record === []) {
-            $save(['payload' => $shippingPayload, 'verified' => false, 'status' => 'awaiting_payment']);
-        }
-    });
-} catch (Throwable $e) {
-    jsonResponse(['success' => false, 'message' => $e->getMessage()], 422);
 }
 
 $razorpayCreateOrderResult = postJson($baseUrl . '/razorpay/orders', [
@@ -608,11 +568,6 @@ if ($razorpayCreateOrderResult['http_code'] < 200 || $razorpayCreateOrderResult[
 
 $razorpayData = $razorpayCreateOrderDecoded['data'] ?? [];
 $gateway = $razorpayData['razorpayOrderId'] ?? null;
-$amountSubunits = (int) round((float) $evershopOrder['grand_total'] * 100);
-if ((isset($razorpayData['amount']) && (int) $razorpayData['amount'] !== $amountSubunits)
-    || strtoupper($razorpayData['currency'] ?? RAZORPAY_CURRENCY) !== 'INR') {
-    jsonResponse(['success' => false, 'message' => 'Payment amount does not match the backend order.'], 502);
-}
 
 if (!$gateway) {
     jsonResponse([
@@ -620,16 +575,6 @@ if (!$gateway) {
         'message' => 'Razorpay order creation failed: missing order ID in response.',
         'error' => $razorpayCreateOrderDecoded
     ], 500);
-}
-
-try {
-    shiprocketRecord($evershopOrderId, static function (array $record, callable $save) use ($gateway): void {
-        $record['gateway_order_id'] = $gateway;
-        $save($record);
-    });
-    $_SESSION['shiprocket_orders'][$evershopOrderId] = $gateway;
-} catch (Throwable $e) {
-    jsonResponse(['success' => false, 'message' => 'Unable to save checkout. Please contact support.'], 500);
 }
 
 jsonResponse([
