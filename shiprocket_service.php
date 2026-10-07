@@ -1,14 +1,17 @@
 <?php
 require_once __DIR__ . '/shiprocket_config.php';
+require_once __DIR__ . '/shiprocket_storage.php';
 
 // Records exit when accessed over HTTP, and are locked across concurrent requests.
 function shiprocketRecord(string $id, callable $callback)
 {
-    if (!is_dir(SHIPROCKET_STORAGE_DIR) && !mkdir(SHIPROCKET_STORAGE_DIR, 0700, true) && !is_dir(SHIPROCKET_STORAGE_DIR)) {
-        throw new RuntimeException('Shipping storage is unavailable.');
+    $directory = shiprocketStorageDirectory();
+    $handle = @fopen($directory . '/' . hash('sha256', $id) . '.php', 'c+');
+    if (!$handle) {
+        throw shiprocketStorageError($directory);
     }
-    $handle = fopen(SHIPROCKET_STORAGE_DIR . '/' . hash('sha256', $id) . '.php', 'c+');
-    if (!$handle || !flock($handle, LOCK_EX)) {
+    if (!flock($handle, LOCK_EX)) {
+        fclose($handle);
         throw new RuntimeException('Shipping storage cannot be locked.');
     }
     try {

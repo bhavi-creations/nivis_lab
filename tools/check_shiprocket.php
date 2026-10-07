@@ -2,6 +2,13 @@
 // Read-only account check: does not create orders, labels or pickups.
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 require_once dirname(__DIR__) . '/shiprocket_config.php';
+require_once dirname(__DIR__) . '/shiprocket_storage.php';
+try {
+    echo 'Shipping storage: OK (' . shiprocketStorageDirectory() . ")\n";
+} catch (Throwable $e) {
+    fwrite(STDERR, $e->getMessage() . "\n");
+    exit(1);
+}
 $auth = shiprocketRequest('auth/login', ['email' => SHIPROCKET_API_EMAIL, 'password' => SHIPROCKET_API_PASSWORD]);
 $token = $auth['data']['token'] ?? null;
 if (!$token) {

@@ -348,6 +348,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $input = json_decode(file_get_contents('php://input'), true);
+// Check hosting storage before creating an EverShop order or starting payment.
+try {
+    shiprocketStorageDirectory();
+} catch (Throwable $e) {
+    jsonResponse(['success' => false, 'message' => $e->getMessage()], 503);
+}
 if (!is_array($input)) {
     jsonResponse(['success' => false, 'message' => 'A JSON object is required.'], 400);
 }

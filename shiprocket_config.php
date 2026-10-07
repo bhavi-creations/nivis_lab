@@ -21,7 +21,8 @@ if (getenv('SHIPROCKET_PICKUP_LOCATION')) {
     $shiprocketPickup = defined('SHIPROCKET_LOCAL_PICKUP_LOCATION') ? SHIPROCKET_LOCAL_PICKUP_LOCATION : 'Primary';
 }
 define('SHIPROCKET_PICKUP_LOCATION', $shiprocketPickup);
-define('SHIPROCKET_STORAGE_DIR', getenv('SHIPROCKET_STORAGE_DIR') ?: __DIR__ . '/storage/shiprocket');
+define('SHIPROCKET_STORAGE_DIR', getenv('SHIPROCKET_STORAGE_DIR')
+    ?: (defined('SHIPROCKET_LOCAL_STORAGE_DIR') ? SHIPROCKET_LOCAL_STORAGE_DIR : ''));
 foreach (['LENGTH' => 10, 'BREADTH' => 10, 'HEIGHT' => 5, 'WEIGHT' => 0.5] as $key => $default) {
     define('SHIPROCKET_PACKAGE_' . $key, (float) (getenv('SHIPROCKET_PACKAGE_' . $key) ?: $default));
 }

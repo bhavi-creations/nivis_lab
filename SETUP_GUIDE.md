@@ -216,3 +216,19 @@ A shipping failure does not turn a verified payment into a failed payment. Opera
 Scope: creates prepaid domestic shipping orders; courier/AWB assignment, pickup booking and tracking are handled in Shiprocket. Payment verification is still triggered by the browser callback. If the customer closes the browser before verification, backend Razorpay webhook recovery is needed; the remote EverShop application is not part of this workspace. This integration stores shipment IDs locally, not in EverShop's shipment tables. A full paid checkout and actual parcel booking were not performed during development.
 
 API references: https://apidocs.shiprocket.in/ and https://evershop.io/docs/api/order
+
+### Live hosting storage fix
+
+Upload `shiprocket_storage.php` together with the updated `shiprocket_config.php`, `shiprocket_service.php`, `create_razorpay_order.php`, and `tools/check_shiprocket.php`.
+
+Without an explicit storage setting, PHP reuses existing `storage/shiprocket` or `cache/shiprocket`. For a new installation it tries creating `storage/shiprocket` first, then `cache/shiprocket` if the first location cannot be created. An existing directory that is no longer writable causes a setup error instead of abandoning its order records. Do not purge `cache/shiprocket` with disposable cache files; it contains persistent order records. Temporary/session storage is not used.
+
+If the hosting account permits neither location, create a private persistent directory using the hosting file manager and grant the PHP runtime user write access. In `shiprocket_config.local.php`, add:
+
+```php
+define('SHIPROCKET_LOCAL_STORAGE_DIR', '/home/YOUR_ACCOUNT/private/shiprocket');
+```
+
+Use your hosting account's actual absolute path. `SHIPROCKET_STORAGE_DIR` in the environment takes precedence. When changing an existing storage location, migrate its records while checkout is stopped. Do not grant global 777 permissions. Run `php tools/check_shiprocket.php` on the live server to verify actual storage writes, API authentication and pickup configuration. Storage is checked before an EverShop order is created. Local tests cannot verify the live server's filesystem permissions.
+
+The storage resolver also tries a site-specific directory under the hosting account's `HOME/.nivis-shipping/` when neither web storage location can be created. This is persistent account storage, never a temporary directory. Upload the supplied `storage/.htaccess` and `storage/index.php` too, so the parent folder exists after deployment. Existing shipping records always take priority over a new location. An explicit storage override never silently falls back. If every candidate is blocked by permissions, quota, or open_basedir, the hosting administrator must provide one writable persistent directory; application code cannot bypass that restriction.
