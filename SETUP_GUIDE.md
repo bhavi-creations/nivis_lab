@@ -198,3 +198,21 @@ composer install --no-interaction
 3. PHP error log check करें
 
 Good luck! 🚀
+
+## Shiprocket checkout integration
+
+The PHP checkout creates an EverShop order and saves its authoritative item prices and totals. After EverShop verifies the Razorpay payment, PHP creates a prepaid Shiprocket order. Browser-supplied prices are not used for fulfillment. Shiprocket IDs are stored with the order UUID under `storage/shiprocket/` (ignored by Git).
+
+Deployment:
+- Upload the PHP changes and separately provision `shiprocket_config.local.php` using `shiprocket_config.local.example.php`, or set `SHIPROCKET_API_EMAIL` and `SHIPROCKET_API_PASSWORD` in the PHP server environment. The local credentials file is deliberately ignored by Git.
+- Set `SHIPROCKET_PICKUP_LOCATION` to the exact existing pickup name. The account checked during setup uses `Home`.
+- Set `SHIPROCKET_PACKAGE_LENGTH`, `SHIPROCKET_PACKAGE_BREADTH`, `SHIPROCKET_PACKAGE_HEIGHT` (cm), and `SHIPROCKET_PACKAGE_WEIGHT` (kg) to the actual packed parcel. Existing defaults are 10 x 10 x 5 cm and 0.5 kg; these are fixed per order, not a calculation from cart quantity.
+- Give PHP write access to the shipping storage directory. For production, set `SHIPROCKET_STORAGE_DIR` to durable private storage outside the web root. Multiple application servers must share this storage and its file locks. Back it up; it contains customer shipping information and fulfillment references.
+- Run `php tools/check_shiprocket.php` to check authentication and pickup configuration without creating an order.
+- Run `php tests/shiprocket_test.php` for local validation and duplicate protection tests.
+
+A shipping failure does not turn a verified payment into a failed payment. Operators can retry known failed submissions with `php tools/retry_shiprocket.php <EverShop order UUID>`. The HTTP retry endpoint accepts only an order ID owned by the checkout session and requires a persisted verified payment. An uncertain network response or interrupted submission returns `review_required`; reconcile that UUID in the Shiprocket dashboard before any resubmission. No automatic retry is made for uncertain submissions.
+
+Scope: creates prepaid domestic shipping orders; courier/AWB assignment, pickup booking and tracking are handled in Shiprocket. Payment verification is still triggered by the browser callback. If the customer closes the browser before verification, backend Razorpay webhook recovery is needed; the remote EverShop application is not part of this workspace. This integration stores shipment IDs locally, not in EverShop's shipment tables. A full paid checkout and actual parcel booking were not performed during development.
+
+API references: https://apidocs.shiprocket.in/ and https://evershop.io/docs/api/order

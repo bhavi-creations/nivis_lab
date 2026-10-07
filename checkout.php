@@ -347,17 +347,22 @@ include 'navbar.php';
                     color: '#0a2b4a'
                 },
                 handler: async function(response) {
-                    const verifyResult = await verifyPayment(orderResult.order_id, response);
+                    try {
+                        const verifyResult = await verifyPayment(orderResult.order_id, response);
 
-                    if (!verifyResult.success) {
-                        alert(verifyResult.message || 'Payment verification failed.');
-                        return;
+                        if (!verifyResult.success) {
+                            alert(verifyResult.message || 'Payment verification failed.');
+                            return;
+                        }
+
+                        window.NivisCart.clear();
+                        localStorage.removeItem(draftKey);
+                        renderSummary();
+                        alert((verifyResult.shipping_warning || 'Payment successful. Your shipping order has been created.')
+                            + '\nOrder ID: ' + orderResult.order_id);
+                    } catch (error) {
+                        alert('Payment confirmation could not be loaded. Please contact support before paying again. Order ID: ' + orderResult.order_id);
                     }
-
-                    window.NivisCart.clear();
-                    localStorage.removeItem(draftKey);
-                    renderSummary();
-                    alert('Payment successful. Thank you for your order.');
                 },
                 modal: {
                     ondismiss: function() {

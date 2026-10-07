@@ -614,7 +614,7 @@
                     <div class="text-muted small">${formatPrice(item.price)} x ${item.quantity}</div>
                 </div>
                 <div class="fw-bold me-3">${formatPrice(item.price * item.quantity)}</div>
-                <button onclick="removeFromCart('${item.id}')" class="btn btn-sm btn-outline-danger" title="Remove">
+                <button onclick="removeFromCart('${item.id}')" class="btn btn-sm btn-dark" title="Remove">
                     <i class="fas fa-trash"></i> Remove
                 </button>
             </div>
