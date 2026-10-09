@@ -33,4 +33,4 @@
         <div><a href="tel:+919666690910">Contact</a><a href="mailto:nivislabs@gmail.com">Email</a></div>
     </div>
 </section>
-<script src="assets/js/skin-support.js?v=1" defer></script>
+<script src="assets/js/skin-support.js?v=2" defer></script>
