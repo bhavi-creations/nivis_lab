@@ -451,6 +451,77 @@ $newHeroImages = [
 </div> -->
 
 
+<style>
+    #dermatConcernRow .concern-card {
+        overflow: visible;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    #dermatConcernRow .routine-concern-image {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1;
+    }
+
+    #dermatConcernRow .routine-concern-photo {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        border: 5px solid #eeeeee;
+        border-radius: 50%;
+    }
+
+    #dermatConcernRow .routine-concern-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: var(--concern-photo-position, center);
+        border-radius: 0;
+        filter: none;
+        transform: scale(var(--concern-photo-zoom, 1));
+        transform-origin: var(--concern-photo-origin, center);
+    }
+
+    #dermatConcernRow .routine-concern-arrow {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 22%;
+        min-width: 34px;
+        max-width: 58px;
+        aspect-ratio: 1;
+        border: 2px solid #eeeeee;
+        border-radius: 50%;
+        background: #ffffff;
+        color: #b02a37;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, .08);
+        transform: translateX(-50%);
+        pointer-events: none;
+    }
+
+    #dermatConcernRow .routine-concern-arrow svg {
+        width: 35%;
+        height: 35%;
+    }
+
+    #dermatConcernRow .concern-overlay {
+        position: static;
+        padding: 14px 8px 0;
+        background: none;
+        text-shadow: none;
+    }
+
+    #dermatConcernRow .concern-card.active-dermat .routine-concern-photo {
+        border-color: var(--nivis-gold, #b02a37);
+    }
+</style>
+
 <div class="container py-5 img_section_container dermat-routine-section">
     <div class="img_section text-center">
         <h2 class="fw-bold mb-4" style="letter-spacing: 1px; color:white">Build Your Perfect Skin Routine</h2>
@@ -460,42 +531,60 @@ $newHeroImages = [
 
             <div class="concern-item" onclick="showDermatRoutine('acne', this, 1)">
                 <div class="concern-card">
-                    <img src="./assets/img/acne.png" alt="Nivis Labs Acne">
+                    <div class="routine-concern-image" style="--concern-photo-zoom: 2; --concern-photo-position: 75% center;">
+                        <div class="routine-concern-photo"><img src="./assets/img/acne.png" alt="Nivis Labs Acne"></div>
+                        <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+                    </div>
                     <div class="concern-overlay">Acne</div>
                 </div>
             </div>
 
             <div class="concern-item" onclick="showDermatRoutine('pigmentation', this, 2)">
                 <div class="concern-card">
-                    <img src="./assets/img/Pigmentation.png" alt="Nivis Labs Pigmentation">
+                    <div class="routine-concern-image" style="--concern-photo-zoom: 2; --concern-photo-origin: 65% 25%;">
+                        <div class="routine-concern-photo"><img src="./assets/img/Pigmentation.png" alt="Nivis Labs Pigmentation"></div>
+                        <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+                    </div>
                     <div class="concern-overlay">Pigmentation</div>
                 </div>
             </div>
 
             <div class="concern-item" onclick="showDermatRoutine('acne-marks', this, 3)">
                 <div class="concern-card">
-                    <img src="./assets/img/Acne Marks.png" alt="Nivis Labs Acne Marks">
+                    <div class="routine-concern-image" style="--concern-photo-zoom: 1.3;">
+                        <div class="routine-concern-photo"><img src="./assets/img/Acne Marks.png" alt="Nivis Labs Acne Marks"></div>
+                        <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+                    </div>
                     <div class="concern-overlay">Acne Marks</div>
                 </div>
             </div>
 
             <div class="concern-item" onclick="showDermatRoutine('dark-spots', this, 4)">
                 <div class="concern-card">
-                    <img src="./assets/img/Dark Spots.png" alt="Nivis Labs Dark Spots">
+                    <div class="routine-concern-image" style="--concern-photo-zoom: 1.2;">
+                        <div class="routine-concern-photo"><img src="./assets/img/Dark Spots.png" alt="Nivis Labs Dark Spots"></div>
+                        <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+                    </div>
                     <div class="concern-overlay">Dark Spots</div>
                 </div>
             </div>
 
             <div class="concern-item" onclick="showDermatRoutine('anti-ageing', this, 5)">
                 <div class="concern-card">
-                    <img src="./assets/img/Anti-Aging.png" alt="Nivis Labs Anti-Aging">
+                    <div class="routine-concern-image">
+                        <div class="routine-concern-photo"><img src="./assets/img/Anti-Aging.png" alt="Nivis Labs Anti-Aging"></div>
+                        <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+                    </div>
                     <div class="concern-overlay">Anti-Aging</div>
                 </div>
             </div>
 
             <div class="concern-item" onclick="showDermatRoutine('dehydration', this, 6)">
                 <div class="concern-card">
-                    <img src="./assets/img/Dehydration.png" alt="Nivis Labs Dehydration">
+                    <div class="routine-concern-image" style="--concern-photo-zoom: 1.2;">
+                        <div class="routine-concern-photo"><img src="./assets/img/Dehydration.png" alt="Nivis Labs Dehydration"></div>
+                        <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+                    </div>
                     <div class="concern-overlay">Dehydration</div>
                 </div>
             </div>
