@@ -772,4 +772,5 @@
         bootFooterCart();
     }
 </script>
+<?php include __DIR__ . '/skin_support.php'; ?>
 </body>

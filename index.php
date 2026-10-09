@@ -282,7 +282,7 @@ $newHeroImages = [
 </div> -->
 
 
-<!-- <div class="container my-5 mb-5">
+ <!-- <div class="container my-5 mb-5">
 
     <div class="skin-wrapper_index">
 
@@ -356,104 +356,9 @@ $newHeroImages = [
 
 
 
-</div> -->
+</div>  -->
 
-<!-- <div class="container my-5 ai_powered_skin_analysis">
-    <div class="skin-wrapper_index border rounded-3 position-relative ">
 
-       
-        <div class="skin-label_index bg-danger text-white px-3 py-1 position-absolute top-0 start-0 translate-middle-y ms-4 fw-bold small">
-            SKIN ASSESSMENT
-        </div>
-
-      
-        <div id="step-landing" class="skin-section_index py-4">
-            <div class="row align-items-center">
-                <div class="col-md-7">
-                    <p class="text-danger fw-semibold mb-1">NIVIS LABS SKIN CHECK</p>
-                    <h2 class="skin-title_index fw-bold mb-3">BUILD A ROUTINE AROUND YOUR SKIN NEEDS</h2>
-                    <p class="text-muted">Answer a few quick questions and discover Nivis Labs products aligned with your skin type and concerns.</p>
-                    <button class="skin-btn_index btn btn-dark px-4 py-2" onclick="showStep(1)">
-                        START MY ROUTINE CHECK →
-                    </button>
-                </div>
-                <div class="col-md-5 mt-4 mt-md-0">
-                    <div class="feature-box_index d-flex align-items-start mb-3">
-                        <div class="feature-icon_index me-3"><i class="fa fa-user text-danger"></i></div>
-                        <div><strong>Know your skin</strong><br><small class="text-muted">Understand your skin type and routine needs</small></div>
-                    </div>
-                    <div class="feature-box_index d-flex align-items-start mb-3">
-                        <div class="feature-icon_index me-3"><i class="fa fa-heartbeat text-danger"></i></div>
-                        <div><strong>Target concerns</strong><br><small class="text-muted">Acne, pigmentation, dryness, sun care and more</small></div>
-                    </div>
-                    <div class="feature-box_index d-flex align-items-start">
-                        <div class="feature-icon_index me-3"><i class="fa fa-image text-danger"></i></div>
-                        <div><strong>Product guidance</strong><br><small class="text-muted">Find Nivis Labs formulas that fit your routine</small></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        
-        <div id="step-1" class="step-container d-none text-center py-4">
-            <div class="progress mb-3 mx-auto" style="height: 4px; width: 200px;">
-                <div class="progress-bar bg-danger" style="width: 33%"></div>
-            </div>
-            <p class="text-danger small fw-bold mb-1">STEP 1 OF 3</p>
-            <h3 class="fw-bold">What's your skin type?</h3>
-            <p class="text-muted small">Select all that apply</p>
-            <div class="row g-2 justify-content-center my-4 px-lg-5">
-                <div class="col-6 col-md-4"><button class="btn btn-outline-secondary w-100 py-3 option-btn" onclick="toggleSelection(this, 1)">Oily</button></div>
-                <div class="col-6 col-md-4"><button class="btn btn-outline-secondary w-100 py-3 option-btn" onclick="toggleSelection(this, 1)">Dry</button></div>
-                <div class="col-6 col-md-4"><button class="btn btn-outline-secondary w-100 py-3 option-btn" onclick="toggleSelection(this, 1)">Combination</button></div>
-                <div class="col-6 col-md-4"><button class="btn btn-outline-secondary w-100 py-3 option-btn" onclick="toggleSelection(this, 1)">Sensitive</button></div>
-                <div class="col-6 col-md-4"><button class="btn btn-outline-secondary w-100 py-3 option-btn" onclick="toggleSelection(this, 1)">Normal</button></div>
-                <div class="col-6 col-md-4"><button class="btn btn-outline-secondary w-100 py-3 option-btn" onclick="toggleSelection(this, 1)">Not sure</button></div>
-            </div>
-            <button id="next-1" class="btn btn-secondary w-100 py-3 fw-bold disabled" onclick="showStep(2)">NEXT →</button>
-        </div>
-
-        
-        <div id="step-2" class="step-container d-none text-center py-4">
-            <div class="progress mb-3 mx-auto" style="height: 4px; width: 200px;">
-                <div class="progress-bar bg-danger" style="width: 66%"></div>
-            </div>
-            <p class="text-danger small fw-bold mb-1">STEP 2 OF 3</p>
-            <h3 class="fw-bold">What are your skin concerns?</h3>
-            <p class="text-muted small">Select up to 3</p>
-            <div class="row g-2 justify-content-center my-4 px-lg-5">
-                <div class="col-6 col-md-6"><button class="btn btn-outline-secondary w-100 py-2 option-btn" onclick="toggleSelection(this, 2)">Acne & breakouts</button></div>
-                <div class="col-6 col-md-6"><button class="btn btn-outline-secondary w-100 py-2 option-btn" onclick="toggleSelection(this, 2)">Pigmentation</button></div>
-                <div class="col-6 col-md-6"><button class="btn btn-outline-secondary w-100 py-2 option-btn" onclick="toggleSelection(this, 2)">Fine lines & aging</button></div>
-                <div class="col-6 col-md-6"><button class="btn btn-outline-secondary w-100 py-2 option-btn" onclick="toggleSelection(this, 2)">Dark circles</button></div>
-                <div class="col-6 col-md-6"><button class="btn btn-outline-secondary w-100 py-2 option-btn" onclick="toggleSelection(this, 2)">Open pores</button></div>
-                <div class="col-6 col-md-6"><button class="btn btn-outline-secondary w-100 py-2 option-btn" onclick="toggleSelection(this, 2)">Sun damage</button></div>
-            </div>
-            <button id="next-2" class="btn btn-secondary w-100 py-3 fw-bold disabled" onclick="showStep(3)">NEXT →</button>
-        </div>
-
-        
-        <div id="step-3" class="step-container d-none text-center py-4">
-            <div class="progress mb-3 mx-auto" style="height: 4px; width: 200px;">
-                <div class="progress-bar bg-danger" style="width: 100%"></div>
-            </div>
-            <p class="text-danger small fw-bold mb-1">STEP 3 OF 3</p>
-            <h3 class="fw-bold">Share your preference</h3>
-            <p class="text-muted small">Add a photo if you want more context for your routine selection.</p>
-
-            <div class="upload-box border border-danger border-dashed rounded-3 p-5 my-4 mx-auto" style="max-width: 400px; border-style: dashed !important; cursor: pointer;" onclick="document.getElementById('fileInput').click()">
-                <i class="fa fa-image fs-1 text-danger mb-2"></i>
-                <p class="mb-0 fw-bold">Tap to upload a skin photo</p>
-                <small class="text-muted">JPG, PNG under 4MB</small>
-                <input type="file" id="fileInput" class="d-none" accept="image/*">
-            </div>
-
-            <button class="btn btn-danger w-100 py-3 fw-bold mb-2">GET MY NIVIS ROUTINE →</button>
-            <a href="#" class="text-muted small text-decoration-underline">Skip photo & continue</a>
-        </div>
-
-    </div>
-</div> -->
 
 
 <!-- <div class="container my-5">
@@ -2450,6 +2355,10 @@ async function showHairConcern(category, element) {
     </div>
 </section> -->
 
+
+
+<?php include __DIR__ . '/skin_assessment.php'; ?>
+
 <section class="index_straight-up_section">
     <div class="container">
 
@@ -3421,34 +3330,6 @@ async function showHairConcern(category, element) {
 
 
 
-<script>
-    function showStep(step) {
-        // Hide all steps
-        document.getElementById('step-landing').classList.add('d-none');
-        document.querySelectorAll('.step-container').forEach(el => el.classList.add('d-none'));
 
-        // Show target step
-        if (step === 1) document.getElementById('step-1').classList.remove('d-none');
-        if (step === 2) document.getElementById('step-2').classList.remove('d-none');
-        if (step === 3) document.getElementById('step-3').classList.remove('d-none');
-    }
-
-    function toggleSelection(btn, stepNum) {
-        btn.classList.toggle('active');
-
-        // Check if any button in this step is active
-        const parent = btn.closest('.step-container');
-        const anyActive = parent.querySelectorAll('.option-btn.active').length > 0;
-        const nextBtn = document.getElementById('next-' + stepNum);
-
-        if (anyActive) {
-            nextBtn.classList.remove('disabled', 'btn-secondary');
-            nextBtn.classList.add('enabled-next');
-        } else {
-            nextBtn.classList.add('disabled', 'btn-secondary');
-            nextBtn.classList.remove('enabled-next');
-        }
-    }
-</script>
 
 <?php include 'footer.php'; ?>
