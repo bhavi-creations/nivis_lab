@@ -470,7 +470,9 @@ $newHeroImages = [
         position: absolute;
         inset: 0;
         overflow: hidden;
-        border: 5px solid #eeeeee;
+        /* border: 5px solid #eeeeee; */
+        border: 5px solid   #edc58e;
+       
         border-radius: 50%;
     }
 
@@ -1332,6 +1334,8 @@ $newHeroImages = [
     <style>
         #hairConcernRow { justify-content: center !important; }
         #hairConcernRow .concern-item { flex: 0 0 180px; }
+        #hairConcernRow .hair-concern-image { display: contents; }
+        #hairConcernRow .hair-concern-arrow { display: none; }
         #hair-routine-content { width: 100%; }
         #hair-routine-content .dermat-products-grid {
             display: grid;
@@ -1478,6 +1482,65 @@ $newHeroImages = [
             }
             #hairConcernRow .concern-card img { height: 145px; }
         }
+        @media (max-width: 767px) {
+            #hairConcernRow .concern-card {
+                overflow: visible;
+                border: 0;
+                border-radius: 0;
+                background: transparent;
+                box-shadow: none;
+            }
+            #hairConcernRow .hair-concern-image {
+                position: relative;
+                display: block;
+                width: 100%;
+                aspect-ratio: 1;
+            }
+            #hairConcernRow .concern-card .hair-concern-image img {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border: 5px solid var(--nivis-gold, #edc58e);
+                border-radius: 50%;
+                filter: none;
+                transform: none;
+                transition: border-color .3s;
+            }
+            #hairConcernRow .hair-concern-arrow {
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 22%;
+                min-width: 34px;
+                max-width: 58px;
+                aspect-ratio: 1;
+                border: 2px solid #eeeeee;
+                border-radius: 50%;
+                background: #ffffff;
+                color: #b02a37;
+                box-shadow: 0 3px 8px rgba(0, 0, 0, .08);
+                transform: translateX(-50%);
+                pointer-events: none;
+            }
+            #hairConcernRow .hair-concern-arrow svg {
+                width: 35%;
+                height: 35%;
+            }
+            #hairConcernRow .concern-overlay {
+                position: static;
+                padding: 14px 8px 0;
+                background: none;
+                text-shadow: none;
+            }
+            #hairConcernRow .concern-card.active-dermat .hair-concern-image img {
+                border-color: var(--nivis-gold, #b02a37);
+            }
+        }
     </style>
     <div class="container ">
         <div class="img_section text-center text-center">
@@ -1495,28 +1558,40 @@ $newHeroImages = [
 
                 <div class="concern-item" onclick="showHairConcern('grey-hair', this)">
                     <div class="concern-card">
-                        <img src="./assets/img/grey-hair.png" alt="Grey hair care">
+                        <div class="hair-concern-image">
+                            <img src="./assets/img/grey-hair.png" alt="Grey hair care">
+                            <span class="hair-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+                        </div>
                         <div class="concern-overlay">Grey Hair</div>
                     </div>
                 </div>
 
                 <div class="concern-item" onclick="showHairConcern('thin-hair', this)">
                     <div class="concern-card">
-                        <img src="./assets/img/thin-hair.png" alt="Thin hair care">
+                        <div class="hair-concern-image">
+                            <img src="./assets/img/thin-hair.png" alt="Thin hair care">
+                            <span class="hair-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+                        </div>
                         <div class="concern-overlay">Thin Hair</div>
                     </div>
                 </div>
 
                 <div class="concern-item" onclick="showHairConcern('hair-fall', this)">
                     <div class="concern-card">
-                        <img src="./assets/img/hair_fall.png" alt="Hair fall care">
+                        <div class="hair-concern-image">
+                            <img src="./assets/img/hair_fall.png" alt="Hair fall care">
+                            <span class="hair-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+                        </div>
                         <div class="concern-overlay">Hair Fall</div>
                     </div>
                 </div>
 
                 <div class="concern-item" onclick="showHairConcern('dandruff', this)">
                     <div class="concern-card">
-                        <img src="./assets/img/dandruff.png" alt="Nivis Labs Anti-Aging">
+                        <div class="hair-concern-image">
+                            <img src="./assets/img/dandruff.png" alt="Nivis Labs Anti-Aging">
+                            <span class="hair-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+                        </div>
                         <div class="concern-overlay">Dandruff </div>
                     </div>
                 </div>

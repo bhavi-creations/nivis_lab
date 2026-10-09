@@ -103,9 +103,10 @@
     color: var(--nivis-ink, #06243a);
 }
 
-.skin-assessment-primary:hover {
-    background: #fae7cc;
+.skin-assessment-panel .skin-assessment-primary:not(:disabled):is(:hover, :focus-visible, :active) {
+    background: linear-gradient(105deg, #fae7cc, #edc58e);
     color: var(--nivis-ink, #06243a);
+    border-color: var(--nivis-gold, #edc58e);
 }
 
 .skin-assessment-primary:disabled {
@@ -170,6 +171,12 @@
     box-shadow: inset 0 0 0 1px var(--nivis-gold, #edc58e);
 }
 
+.skin-assessment-panel :is(.skin-assessment-option, .skin-assessment-secondary):is(:hover, :focus-visible, :active) {
+    background: rgba(237, 197, 142, .12);
+    border-color: var(--nivis-gold, #edc58e);
+    color: var(--nivis-gold, #edc58e);
+}
+
 .skin-assessment-feedback {
     min-height: 24px;
     margin: 12px 0;
@@ -218,6 +225,11 @@
     outline-offset: 4px;
 }
 
+.skin-assessment-upload:hover {
+    border-color: var(--nivis-gold, #edc58e);
+    background: rgba(237, 197, 142, .09);
+}
+
 .skin-assessment-skip {
     display: inline-block;
     padding: 12px 4px;
@@ -226,6 +238,11 @@
     color: var(--nivis-muted, #546676);
     font-size: 13px;
     text-decoration: underline;
+}
+
+.skin-assessment-panel .skin-assessment-skip:is(:hover, :focus-visible, :active) {
+    background: transparent;
+    color: var(--nivis-gold, #edc58e);
 }
 
 .skin-assessment-preview {
