@@ -1144,7 +1144,7 @@
     document.getElementById('productReviews').textContent = (product.stars || '★★★★★') + ' | ' + (product.reviewsCount || '120') + ' reviews';
     
     // Update price and other info
-    document.getElementById('productPrice').textContent = product.price || '₹0';
+    document.getElementById('productPrice').innerHTML = window.NivisPricing.html(product.priceNumber || product.price);
     document.getElementById('productDesc').textContent = product.subtitle || product.description || '';
     document.getElementById('productDescText').textContent = product.whatIs || product.description || '';
     document.getElementById('howToUseText').textContent = product.howToUse || 'Use as directed on the product label.';
@@ -1205,7 +1205,7 @@
             <img src="${p.imageUrl || (p.images && p.images.length > 0 ? p.images[0] : './assets/img/product.webp')}" alt="${p.name}" style="width: 100%; height: 180px; object-fit: cover; border-radius: 6px; margin-bottom: 10px;">
             <div style="font-weight: 600; font-size: 13px; color: #333; margin-bottom: 6px;">${p.name}</div>
             <div style="color: #999; font-size: 11px; margin-bottom: 8px;">${p.type || 'Product'}</div>
-            <div style="color: #1a73e8; font-weight: 600; font-size: 14px;">${p.price || '₹0'}</div>
+            <div class="nivis-product-price" style="color: #1a73e8; font-weight: 600; font-size: 14px;">${window.NivisPricing.html(p.priceNumber || p.price)}</div>
           </a>
         </div>
       </div>

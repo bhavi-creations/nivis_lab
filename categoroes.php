@@ -59,7 +59,7 @@
                     <img src="${imageUrl}" class="card-img-top rounded" alt="${productName}">
                     <div class="card-body text-center">
                         <h6 class="card-title text-truncate">${productName}</h6>
-                        <p class="text-primary fw-bold">${productPrice}</p>
+                        <p class="text-primary fw-bold">${window.NivisPricing.html(productPrice)}</p>
                         <div class="d-grid">
                             <button class="btn btn-sm btn-dark">View Details</button>
                         </div>

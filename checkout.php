@@ -186,15 +186,15 @@ include 'navbar.php';
         emptyState.classList.add('d-none');
 
         summaryItems.innerHTML = cart.items.map((item) => `
-            <div class="d-flex gap-3 pb-3 border-bottom">
-                <div style="width: 64px; min-width: 64px;">
+            <div class="nivis-checkout-item pb-3 border-bottom">
+                <div class="nivis-checkout-item__image" style="width: 64px; min-width: 64px;">
                     <img src="${item.image || ''}" alt="${item.name || 'Product'}" class="img-fluid" style="width: 64px; height: 64px; object-fit: cover;">
                 </div>
-                <div class="flex-grow-1">
+                <div class="nivis-checkout-item__copy">
                     <div class="fw-semibold">${item.name || 'Product'}</div>
-                    <div class="text-muted small">${formatPrice(item.price)} x ${item.quantity || 1}</div>
+                    <div class="text-muted small">${window.NivisPricing.html(item.price)} x ${item.quantity || 1}</div>
                 </div>
-                <div class="fw-semibold">${formatPrice((Number(item.price || 0) * Number(item.quantity || 1)))}</div>
+                <div class="nivis-checkout-item__total fw-semibold">${window.NivisPricing.html(Number(item.price || 0) * Number(item.quantity || 1))}</div>
             </div>
         `).join('');
 

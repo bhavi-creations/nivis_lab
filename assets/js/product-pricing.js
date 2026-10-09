@@ -9,7 +9,8 @@
         '.product-price', '.price-main', '.skin-product-price', '.hair-result-price',
         '.dermat-routine-step-price', '.dermat-selected-actions > strong',
         '.spotlight-card__price .ms-1', '.doctor_bio_prod_price', '.step-price',
-        '.product-card .card-text.fw-bold', '.nivis-product-price'
+        '.product-card .card-text.fw-bold', '.product-card .text-primary.fw-bold',
+        '.nivis-product-price'
     ].join(',');
 
     function decorate(element) {
@@ -32,7 +33,7 @@
     }
 
     function start() {
-        decorateWithin(document.body);
+        if (document.body) decorateWithin(document.body);
         const observer = new MutationObserver(records => {
             const containers = new Set();
             for (const record of records) {
@@ -41,10 +42,10 @@
             }
             containers.forEach(decorateWithin);
         });
-        observer.observe(document.body, { childList: true, characterData: true, subtree: true });
+        observer.observe(document.documentElement, { childList: true, characterData: true, subtree: true });
     }
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, { once: true });
-    else start();
+    // Watch the parser immediately so legacy prices are paired before the first paint.
+    start();
 }(typeof window === 'undefined' ? null : window, function () {
     function amount(value) {
         const clean = typeof value === 'string'

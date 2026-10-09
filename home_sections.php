@@ -98,7 +98,7 @@
                                                                 <span class="text-warning small">${escapeHtml(stars)}</span>
                                                                 <span class="text-muted small">(${escapeHtml(reviews)})</span>
                                                             </div>
-                                                            <p class="card-text fw-bold text-dark mb-0">${escapeHtml(productPrice)}</p>
+                                                            <p class="card-text fw-bold text-dark mb-0">${window.NivisPricing.html(productPrice)}</p>
                                                         </div>
                                                     </div>
                                                 </a>

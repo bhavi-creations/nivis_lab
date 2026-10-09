@@ -32,5 +32,5 @@
     </section>
 </main>
 
-<script src="assets/js/care-category-sections.js?v=6" defer></script>
+<script src="assets/js/care-category-sections.js?v=7" defer></script>
 <?php include 'footer.php'; ?>

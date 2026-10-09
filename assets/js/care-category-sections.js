@@ -16,7 +16,7 @@
         const subtitle = product.subtitle || product.displayConcern || product.concern || product.category || 'Skincare';
         const size = product.size ? `<span class="spotlight-product-size">${escapeHtml(product.size)}</span>` : '';
         const priceNumber = Number(product.priceNumber) || Number(String(product.price || '0').replace(/,/g, '').replace(/[^0-9.]/g, '')) || 0;
-        const priceLabel = product.price || `₹${priceNumber.toLocaleString('en-IN')}`;
+        const priceLabel = window.NivisPricing.html(priceNumber);
 
         return `
             <div class="col-12 col-sm-6 col-lg-3">
@@ -32,12 +32,12 @@
                         <h6 class="fw-bold">${escapeHtml(name)} ${size}</h6>
                         <p class="small text-muted mb-2">/ ${escapeHtml(subtitle)} /</p>
                         <div class="spotlight-card__meta small mb-2"><span class="text-warning">★★★★☆</span> (${escapeHtml(product.reviewsCount || 120)} reviews)</div>
-                        <div class="spotlight-card__price mb-3"><span class="badge-b1g1">${escapeHtml(product.boughtTag || 'B1G1')}</span> <span class="ms-1">${escapeHtml(priceLabel)}</span></div>
+                        <div class="spotlight-card__price mb-3"><span class="badge-b1g1">${escapeHtml(product.boughtTag || 'B1G1')}</span> <span class="ms-1">${priceLabel}</span></div>
                     </a>
                     <div class="spotlight-card__popover">
                         <div class="spotlight-card__popover-title">${escapeHtml(name)}</div>
                         <p class="spotlight-card__popover-text">${escapeHtml(subtitle)}</p>
-                        <div class="spotlight-card__popover-meta">${escapeHtml(product.type || 'Product')} ${product.size ? `• ${escapeHtml(product.size)}` : ''} • <span class="nivis-product-price">${escapeHtml(priceLabel)}</span></div>
+                        <div class="spotlight-card__popover-meta">${escapeHtml(product.type || 'Product')} ${product.size ? `• ${escapeHtml(product.size)}` : ''} • <span class="nivis-product-price">${priceLabel}</span></div>
                     </div>
                     <button type="button" class="btn btn-dark spotlight-card__btn w-100 rounded-0">ADD TO CART</button>
                 </div>

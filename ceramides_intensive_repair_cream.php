@@ -455,7 +455,7 @@
                                 ${related.map(item => `
                                     <div style="border:1px solid #ddd;padding:12px;border-radius:10px;background:#fff;">
                                         <div style="font-weight:700;margin-bottom:8px;">${item.name}</div>
-                                        <div style="font-size:13px;color:#555; margin-bottom:8px;">₹${item.price}</div>
+                                        <div class="nivis-product-price" style="font-size:13px;color:#555; margin-bottom:8px;">${window.NivisPricing.html(item.price)}</div>
                                         <a href="${item.detailPage}" style="color:#007bff;text-decoration:none;">View product</a>
                                     </div>
                                 `).join('')}

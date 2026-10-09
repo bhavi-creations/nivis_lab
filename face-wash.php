@@ -175,7 +175,7 @@
                 <span class="review-count">(120 reviews)</span>
               </div>
 
-              <div class="product-price">${productPrice}</div>
+              <div class="product-price">${window.NivisPricing.html(priceNumber)}</div>
 
               <span class="bought-tag">
                 196+ bought in past month

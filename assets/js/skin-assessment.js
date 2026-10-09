@@ -74,7 +74,7 @@
             '<a class="skin-product-image" href="product-detail.php?product=' + encodeURIComponent(key) + '"><img src="' + escapeHtml(image) + '" alt="' + escapeHtml(name) + '" loading="lazy"></a>' +
             '<div class="skin-product-content"><p class="skin-product-category">' + escapeHtml(product.type || 'Skin care') + '</p>' +
             '<h4>' + escapeHtml(name) + '</h4><div class="skin-product-tags">' + tags + '</div>' + skinNote +
-            (price > 0 ? '<p class="skin-product-price">&#8377;' + price.toLocaleString('en-IN') + '</p>' : '') +
+            (price > 0 ? '<p class="skin-product-price">' + window.NivisPricing.html(price) + '</p>' : '') +
             '<a class="skin-assessment-primary" href="product-detail.php?product=' + encodeURIComponent(key) + '">VIEW PRODUCT <span aria-hidden="true">&rarr;</span></a></div></article>';
     }
 

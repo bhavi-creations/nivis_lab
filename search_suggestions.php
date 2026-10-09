@@ -153,7 +153,8 @@ function productItem($product)
     return [
         "type" => "product",
         "title" => searchText($product["name"] ?? "Product"),
-        "subtitle" => trim(implode(" / ", array_filter([$category, searchText($price)]))),
+        "subtitle" => searchText($category),
+        "price" => searchText($price),
         "image" => productImage($product),
         "url" => "product-detail.php?product=" . rawurlencode($key)
     ];

@@ -25,3 +25,32 @@
     align-items: flex-end;
     gap: 0;
 }
+.nivis-search-result__price {
+    margin-top: 3px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--nivis-gold, #edc58e);
+}
+.nivis-cart-item {
+    display: grid;
+    grid-template-columns: 60px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 8px 12px;
+}
+.nivis-cart-item__image,
+.nivis-checkout-item__image { grid-row: span 2; }
+.nivis-cart-item__copy { grid-column: 2 / -1; }
+.nivis-cart-item__total,
+.nivis-checkout-item__total { grid-column: 2; }
+.nivis-cart-item__remove { grid-column: 3; }
+.nivis-checkout-item {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr);
+    align-items: start;
+    gap: 8px 16px;
+}
+.nivis-cart-item__copy,
+.nivis-checkout-item__copy {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}

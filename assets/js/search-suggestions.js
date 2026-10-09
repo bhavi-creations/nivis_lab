@@ -27,6 +27,7 @@
                     <span class="nivis-search-result__type">${escapeHtml(item.type)}</span>
                     <span class="nivis-search-result__title">${escapeHtml(item.title)}</span>
                     <span class="nivis-search-result__subtitle">${escapeHtml(item.subtitle || '')}</span>
+                    ${item.type === 'product' && item.price ? `<span class="nivis-search-result__price">${window.NivisPricing.html(item.price)}</span>` : ''}
                 </span>
             </a>
         `;

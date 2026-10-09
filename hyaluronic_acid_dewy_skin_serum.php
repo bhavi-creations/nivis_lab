@@ -1426,14 +1426,13 @@
             other.innerHTML = html || `
                 <strong>Category:</strong> ${escapeHtml(product.category || 'Skincare')}<br>
                 <strong>Product Type:</strong> ${escapeHtml(product.type || 'Product')}<br>
-                <strong>Price:</strong> ${escapeHtml(product.price || '₹0')}
+                <strong>Price:</strong> <span class="nivis-product-price">${window.NivisPricing.html(product.priceNumber || product.price)}</span>
             `;
         }
 
         function applyProduct(product) {
             const name = product.name || 'Product';
             const subtitle = product.subtitle || product.description || product.concern || 'Skincare';
-            const price = normalizePrice(product.price);
 
             document.title = 'Nivis Labs';
             text('.breadcrumb-bar a:last-child', name);
@@ -1441,7 +1440,7 @@
             text('.product-subtitle', `/ ${subtitle} /`);
             text('.product-desc', product.description || subtitle);
             text('.product-what-is', product.whatIs || `${name} is a ${product.type || 'skincare product'} for ${product.concern || 'your skincare routine'}.`);
-            text('.price-main', price);
+            document.querySelector('.price-main').innerHTML = window.NivisPricing.html(product.priceNumber || product.price);
             text('.size-tag', product.type || product.category || 'Product');
             text('.review-count', `${product.stars || '?????'} | ${product.reviewsCount || 120} reviews`);
             text('.bought-note', product.boughtTag || '#1 Bought in past month');

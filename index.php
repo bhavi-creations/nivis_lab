@@ -862,7 +862,7 @@ $newHeroImages = [
                     <div class="product-info">
                         <div class="product-name">${escapeDermatHtml(product.name || 'Product')}</div>
                         <div class="dermat-choice-footer">
-                            <span class="product-price">${escapeDermatHtml(price)}</span>
+                            <span class="product-price">${window.NivisPricing.html(price)}</span>
                             <span class="dermat-select-pill">Select</span>
                         </div>
                     </div>
@@ -884,7 +884,7 @@ $newHeroImages = [
                 <div class="dermat-routine-step-copy">
                     <div class="dermat-routine-step-label">STEP ${step}  ${escapeDermatHtml(label)}</div>
                     <div class="dermat-routine-step-name">${escapeDermatHtml(product.name || 'Product')}</div>
-                    <div class="dermat-routine-step-price">${escapeDermatHtml(price)}</div>
+                    <div class="dermat-routine-step-price">${window.NivisPricing.html(price)}</div>
                 </div>
                 <button class="dermat-direct-cart" type="button">ADD</button>
             </div>
@@ -1029,7 +1029,7 @@ $newHeroImages = [
                     <h3>${escapeDermatHtml(selectedProduct.name || 'Product')}</h3>
                     <p>${escapeDermatHtml(selectedSubtitle)}</p>
                     <div class="dermat-selected-actions">
-                        <strong>${escapeDermatHtml(dermatPriceLabel(selectedProduct))}</strong>
+                        <strong>${window.NivisPricing.html(dermatPriceNumber(selectedProduct))}</strong>
                         <button class="dermat-direct-cart" type="button">ADD</button>
                     </div>
                 </div>
@@ -1710,7 +1710,7 @@ async function showHairConcern(category, element) {
                     <div class="hair-result-card__body">
                         <h3>${escapeHairHtml(name)}</h3>
                         <div class="hair-result-meta"><span>★ ★ ★ ★ ☆</span> <span>(${escapeHairHtml(reviews)} reviews)</span></div>
-                        <div class="hair-result-price">${escapeHairHtml(price)}</div>
+                        <div class="hair-result-price">${window.NivisPricing.html(priceNumber)}</div>
                         <button type="button" class="hair-result-btn">Add to cart</button>
                     </div>
                 </div>`;
@@ -3282,7 +3282,7 @@ async function showHairConcern(category, element) {
             const subtitle = product.subtitle || product.displayConcern || product.concern || product.category || 'Skincare';
             const size = product.size ? `<span class="spotlight-product-size">${escapeSpotlightHtml(product.size)}</span>` : '';
             const priceNumber = Number(String(product.priceNumber || product.price || '0').replace(/,/g, '').replace(/[^0-9.]/g, '')) || 0;
-            const priceLabel = priceNumber ? `&#8377;${priceNumber.toLocaleString('en-IN')}` : '&#8377;0';
+            const priceLabel = window.NivisPricing.html(priceNumber);
             const ratingHtml = '<span class="text-warning">★★★★☆</span>';
 
             return `

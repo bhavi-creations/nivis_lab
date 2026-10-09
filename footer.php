@@ -465,7 +465,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<script src="assets/js/category-products.js?v=23"></script>
+<script src="assets/js/category-products.js?v=24"></script>
 
 <script>
     const cartDrawerEl = document.getElementById('cartDrawer');
@@ -607,16 +607,16 @@
         const totalAmount = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
         const productHtml = cartItems.map(item => `
-            <div class="d-flex align-items-center mb-3 pb-3 border-bottom" style="position: relative;">
-                <div class="me-3" style="width: 60px; min-width: 60px;">
+            <div class="nivis-cart-item mb-3 pb-3 border-bottom">
+                <div class="nivis-cart-item__image" style="width: 60px; min-width: 60px;">
                     <img src="${item.image}" alt="${item.name}" class="img-fluid rounded" />
                 </div>
-                <div class="flex-grow-1">
+                <div class="nivis-cart-item__copy">
                     <div class="fw-bold" style="font-size: 14px;">${item.name}</div>
-                    <div class="text-muted small">${formatPrice(item.price)} x ${item.quantity}</div>
+                    <div class="text-muted small">${window.NivisPricing.html(item.price)} x ${item.quantity}</div>
                 </div>
-                <div class="fw-bold me-3">${formatPrice(item.price * item.quantity)}</div>
-                <button onclick="removeFromCart('${item.id}')" class="btn btn-sm btn-dark" title="Remove">
+                <div class="nivis-cart-item__total fw-bold">${window.NivisPricing.html(item.price * item.quantity)}</div>
+                <button onclick="removeFromCart('${item.id}')" class="nivis-cart-item__remove btn btn-sm btn-dark" title="Remove">
                     <i class="fas fa-trash"></i> Remove
                 </button>
             </div>
@@ -635,7 +635,7 @@
                             <div style="flex: 1; font-size: 13px;">
                                 <div class="fw-bold" style="margin-bottom: 2px; font-size: 14px;">${escapeRelatedHtml(product.name.substring(0, 35))}${product.name.length > 35 ? '...' : ''}</div>
                                 <div class="text-muted small" style="margin-bottom: 4px;">${escapeRelatedHtml(product.sub.substring(0, 40))}${product.sub.length > 40 ? '...' : ''}</div>
-                                <div class="fw-bold nivis-product-price" style="color: #d32f2f; margin-bottom: 6px;">${formatPrice(product.price)}</div>
+                                <div class="fw-bold nivis-product-price" style="color: #d32f2f; margin-bottom: 6px;">${window.NivisPricing.html(product.price)}</div>
                                 <button type="button" data-related-index="${idx}" class="btn btn-sm btn-dark" style="font-size: 12px;">Add</button>
                             </div>
                         </div>

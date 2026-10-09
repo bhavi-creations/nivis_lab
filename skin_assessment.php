@@ -90,4 +90,4 @@
     </div>
 </section>
 <script src="assets/js/skin-product-matching.js?v=1" defer></script>
-<script src="assets/js/skin-assessment.js?v=1" defer></script>
+<script src="assets/js/skin-assessment.js?v=2" defer></script>

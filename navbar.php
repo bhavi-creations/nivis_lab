@@ -29,8 +29,8 @@
     <link rel="stylesheet" href="./assets/css/new_style.css?v=19">
     <link rel="stylesheet" href="./assets/css/theme.css?v=7">
     <link rel="stylesheet" href="./assets/css/skin-experience.css?v=3">
-    <link rel="stylesheet" href="./assets/css/product-pricing.css?v=1">
-    <script src="./assets/js/product-pricing.js?v=1"></script>
+    <link rel="stylesheet" href="./assets/css/product-pricing.css?v=2">
+    <script src="./assets/js/product-pricing.js?v=2"></script>
 
 </head>
 
@@ -800,7 +800,7 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/js/graphql-client.js?v=6"></script>
-    <script src="./assets/js/search-suggestions.js?v=3"></script>
+    <script src="./assets/js/search-suggestions.js?v=4"></script>
 
     <script>
         /* ─── Navbar scroll behaviour ─── */
@@ -929,7 +929,7 @@
                 cartItems.innerHTML = localCart.items.map(item => `
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <div><strong>${item.name}</strong> (x${item.quantity})</div>
-                        <div>Rs. ${Number(item.price || 0) * Number(item.quantity || 0)}</div>
+                        <div>${window.NivisPricing.html(Number(item.price || 0) * Number(item.quantity || 0))}</div>
                     </div>
                 `).join('');
 
@@ -948,7 +948,7 @@
                     <div>
                         <strong>${item.product.name}</strong> (x${item.quantity})
                     </div>
-                    <div>₹${item.product.price * item.quantity}</div>
+                    <div>${window.NivisPricing.html(item.product.price * item.quantity)}</div>
                 </div>
             `).join('');
 

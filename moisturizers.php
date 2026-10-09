@@ -274,7 +274,7 @@ async function loadMoisturizerProducts() {
                 <span class="review-count">( ${product.reviewsCount || 0} reviews)</span>
               </div>
 
-              <div class="product-price">₹${product.price}</div>
+              <div class="product-price">${window.NivisPricing.html(product.price)}</div>
 
               <span class="bought-tag">
                 ${product.boughtTag || ''}

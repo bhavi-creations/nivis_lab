@@ -1,5 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const vm = require('node:vm');
 const pricing = require('../assets/js/product-pricing.js');
 
 test('comparison price adds exactly 10 percent to the actual product price', () => {
@@ -25,4 +27,20 @@ test('markup strikes the comparison price and keeps a separate sale value for ca
     for (const price of [0, -100, null, undefined, Infinity, 'Unavailable', '<script>1000</script>']) {
         assert.equal(pricing.html(price), '');
     }
+});
+
+test('legacy price observation starts during parsing before the body exists', () => {
+    const document = { body: null, documentElement: {} };
+    let observed;
+    const window = { document };
+    vm.runInNewContext(fs.readFileSync(require.resolve('../assets/js/product-pricing.js'), 'utf8'), {
+        document, window,
+        MutationObserver: class {
+            observe(target, options) { observed = { target, options }; }
+        }
+    });
+    assert.equal(observed.target, document.documentElement);
+    assert.equal(observed.options.subtree, true);
+    assert.equal(observed.options.childList, true);
+    assert.equal(window.NivisPricing.reference(1000), 1100);
 });

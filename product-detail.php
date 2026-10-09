@@ -112,7 +112,7 @@
       <div class="product-desc" id="productDesc"></div>
 
       <div class="price-row">
-        <span class="price-mrp-label">MRP:</span>
+        <span class="price-mrp-label">Price:</span>
         <span class="price-main" id="productPrice">Rs. 0</span>
       </div>
 
@@ -315,7 +315,7 @@
     document.getElementById('productSubtitle').style.display = subtitle ? '' : 'none';
     setRatingStars();
     setText('productReviews', `${product.reviewsCount || 120} reviews`);
-    setText('productPrice', priceLabel(product.priceNumber || product.price));
+    document.getElementById('productPrice').innerHTML = window.NivisPricing.html(product.priceNumber || product.price);
     // Show the summary once beneath the product name, without a second copy here.
     setText('productDesc', '');
     setText('boughtNote', product.boughtTag || '');
@@ -426,7 +426,7 @@
                   <img class="product-detail-related__image" src="${escapeHtml(image)}" alt="${escapeHtml(product.name || 'Product')}">
                   <div class="product-name product-detail-related__name">${escapeHtml(product.name || 'Product')}</div>
                   <div class="product-detail-related__meta">${escapeHtml(product.type || product.category || 'Product')}</div>
-                  <div class="product-price product-detail-related__price">${escapeHtml(priceLabel(product.priceNumber || product.price))}</div>
+                  <div class="product-price product-detail-related__price">${window.NivisPricing.html(priceValue)}</div>
                 </a>
                 <button class="btn-cart mt-3" type="button">Add to Cart</button>
               </div>

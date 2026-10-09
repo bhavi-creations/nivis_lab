@@ -618,7 +618,6 @@
         const detailHref = `product-detail.php?product=${encodeURIComponent(productKey)}`;
         const productSize = product.size || '';
         const priceNumber = productPriceNumber(product);
-        const priceLabel = productPriceLabel(product);
 
         return `
             <div class="product-card"
@@ -645,7 +644,7 @@
                             <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
                             <span class="review-count">(${escapeHtml(product.reviewsCount || 120)} reviews)</span>
                         </div>
-                        <div class="product-price">${product.boughtTag ? `<span class="badge-b1g1">${escapeHtml(product.boughtTag)}</span> ` : ''}${escapeHtml(priceLabel)}</div>
+                        <div class="product-price">${product.boughtTag ? `<span class="badge-b1g1">${escapeHtml(product.boughtTag)}</span> ` : ''}${window.NivisPricing.html(priceNumber)}</div>
                     </div>
 
                     <div class="product-hover-popover">
@@ -654,7 +653,7 @@
                         <div class="product-hover-popover__meta">
                             <span>${escapeHtml(product.type || 'Product')}</span>
                             ${product.size ? `<span>${escapeHtml(product.size)}</span>` : ''}
-                            <span class="nivis-product-price">${escapeHtml(priceLabel)}</span>
+                            <span class="nivis-product-price">${window.NivisPricing.html(priceNumber)}</span>
                         </div>
                     </div>
                 </a>
