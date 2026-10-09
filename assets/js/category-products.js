@@ -399,15 +399,22 @@
             .product-hover-popover__meta {
                 display: flex;
                 flex-wrap: wrap;
+                align-items: center;
                 gap: 6px;
             }
-            .product-hover-popover__meta span {
+            .product-hover-popover__meta > span {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 28px;
+                max-width: 100%;
                 padding: 3px 7px;
                 border-radius: 999px;
                 background: #f2f5f7;
                 color: #0a2b4a;
                 font-size: 10px;
                 font-weight: 600;
+                line-height: 1.4;
             }
             @media (hover: none) {
                 .product-hover-popover { display: none; }
