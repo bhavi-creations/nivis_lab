@@ -1,0 +1,27 @@
+.nivis-price-pair {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 3px 8px;
+    max-width: 100%;
+    line-height: 1.4;
+}
+.nivis-price-pair .nivis-price-reference {
+    color: #a8b5bf;
+    font-size: .78em;
+    font-weight: 400;
+    text-decoration: line-through;
+    white-space: nowrap;
+}
+.nivis-price-pair .nivis-price-current {
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    white-space: nowrap;
+}
+.nivis-theme .price-row { flex-wrap: wrap; }
+.step-price .nivis-price-pair {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0;
+}

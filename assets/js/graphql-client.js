@@ -463,10 +463,12 @@ const NivisCart = {
 
     const nameEl = card.querySelector('.product-name, h6, [data-product-name]');
     const priceEl = card.querySelector('.product-price, [data-product-price]');
+    const salePriceEl = card.querySelector('[data-sale-price]');
     const imgEl = card.querySelector('.product-img-wrap img.img-primary, .product-img-wrap img, img');
     const name = card.dataset.productName || nameEl?.textContent?.trim() || 'Product';
     const parsePrice = (value) => Number(String(value || '').replace(/,/g, '').replace(/[^0-9.]/g, '')) || 0;
-    const price = parsePrice(card.dataset.price) || parsePrice(card.dataset.productPrice) || parsePrice(priceEl?.textContent);
+    const price = parsePrice(card.dataset.price) || parsePrice(card.dataset.productPrice) ||
+      parsePrice(salePriceEl?.dataset.salePrice) || parsePrice(priceEl?.textContent);
     const sku = String(card.dataset.sku || card.dataset.productSku || card.dataset.productCode || '').trim();
     const idSource = sku || card.dataset.productId || name;
     const id = String(idSource).trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');

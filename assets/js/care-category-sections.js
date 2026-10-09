@@ -37,7 +37,7 @@
                     <div class="spotlight-card__popover">
                         <div class="spotlight-card__popover-title">${escapeHtml(name)}</div>
                         <p class="spotlight-card__popover-text">${escapeHtml(subtitle)}</p>
-                        <div class="spotlight-card__popover-meta">${escapeHtml(product.type || 'Product')} ${product.size ? `• ${escapeHtml(product.size)}` : ''} • ${escapeHtml(priceLabel)}</div>
+                        <div class="spotlight-card__popover-meta">${escapeHtml(product.type || 'Product')} ${product.size ? `• ${escapeHtml(product.size)}` : ''} • <span class="nivis-product-price">${escapeHtml(priceLabel)}</span></div>
                     </div>
                     <button type="button" class="btn btn-dark spotlight-card__btn w-100 rounded-0">ADD TO CART</button>
                 </div>

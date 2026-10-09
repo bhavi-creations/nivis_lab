@@ -465,7 +465,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<script src="assets/js/category-products.js?v=22"></script>
+<script src="assets/js/category-products.js?v=23"></script>
 
 <script>
     const cartDrawerEl = document.getElementById('cartDrawer');
@@ -484,7 +484,9 @@
         const priceEl = card.querySelector('.product-price');
         const imgEl = card.querySelector('.product-img-wrap img.img-primary, .product-img-wrap img, img');
         const name = nameEl ? nameEl.textContent.trim() : 'Product';
-        const priceText = priceEl ? priceEl.textContent.replace(/[^0-9.]/g, '').trim() : card.dataset.price || '0';
+        const salePriceEl = card.querySelector('[data-sale-price]');
+        const priceText = String(card.dataset.price || card.dataset.productPrice || salePriceEl?.dataset.salePrice || priceEl?.textContent || '0')
+            .replace(/,/g, '').replace(/[^0-9.]/g, '').trim();
         const sku = card.dataset.sku || card.dataset.productSku || card.dataset.productCode || '';
 
         return {
@@ -633,7 +635,7 @@
                             <div style="flex: 1; font-size: 13px;">
                                 <div class="fw-bold" style="margin-bottom: 2px; font-size: 14px;">${escapeRelatedHtml(product.name.substring(0, 35))}${product.name.length > 35 ? '...' : ''}</div>
                                 <div class="text-muted small" style="margin-bottom: 4px;">${escapeRelatedHtml(product.sub.substring(0, 40))}${product.sub.length > 40 ? '...' : ''}</div>
-                                <div class="fw-bold" style="color: #d32f2f; margin-bottom: 6px;">${formatPrice(product.price)}</div>
+                                <div class="fw-bold nivis-product-price" style="color: #d32f2f; margin-bottom: 6px;">${formatPrice(product.price)}</div>
                                 <button type="button" data-related-index="${idx}" class="btn btn-sm btn-dark" style="font-size: 12px;">Add</button>
                             </div>
                         </div>
@@ -752,7 +754,7 @@
         });
 
         if (!existingScript) {
-            script.src = 'assets/js/graphql-client.js';
+            script.src = 'assets/js/graphql-client.js?v=6';
             document.head.appendChild(script);
         } else {
             waitForCart();

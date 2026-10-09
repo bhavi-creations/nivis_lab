@@ -3303,7 +3303,7 @@ async function showHairConcern(category, element) {
                         <div class="spotlight-card__popover">
                             <div class="spotlight-card__popover-title">${escapeSpotlightHtml(product.name || 'Product')}</div>
                             <p class="spotlight-card__popover-text">${escapeSpotlightHtml(subtitle)}</p>
-                            <div class="spotlight-card__popover-meta">${escapeSpotlightHtml(product.type || 'Product')} ${product.size ? `• ${escapeSpotlightHtml(product.size)}` : ''} • ${priceLabel}</div>
+                            <div class="spotlight-card__popover-meta">${escapeSpotlightHtml(product.type || 'Product')} ${product.size ? `• ${escapeSpotlightHtml(product.size)}` : ''} • <span class="nivis-product-price">${priceLabel}</span></div>
                         </div>
                         <button type="button" class="btn btn-dark spotlight-card__btn w-100 rounded-0">ADD TO CART</button>
                     </div>

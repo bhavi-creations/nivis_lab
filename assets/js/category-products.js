@@ -654,7 +654,7 @@
                         <div class="product-hover-popover__meta">
                             <span>${escapeHtml(product.type || 'Product')}</span>
                             ${product.size ? `<span>${escapeHtml(product.size)}</span>` : ''}
-                            <span>${escapeHtml(priceLabel)}</span>
+                            <span class="nivis-product-price">${escapeHtml(priceLabel)}</span>
                         </div>
                     </div>
                 </a>

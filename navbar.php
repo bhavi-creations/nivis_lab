@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="./assets/css/new_style.css?v=19">
     <link rel="stylesheet" href="./assets/css/theme.css?v=7">
     <link rel="stylesheet" href="./assets/css/skin-experience.css?v=3">
+    <link rel="stylesheet" href="./assets/css/product-pricing.css?v=1">
+    <script src="./assets/js/product-pricing.js?v=1"></script>
 
 </head>
 
@@ -797,7 +799,7 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/js/graphql-client.js?v=5"></script>
+    <script src="./assets/js/graphql-client.js?v=6"></script>
     <script src="./assets/js/search-suggestions.js?v=3"></script>
 
     <script>
