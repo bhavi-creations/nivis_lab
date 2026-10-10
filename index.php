@@ -868,7 +868,7 @@ $newHeroImages = [
                         </div>
                     </div>
                 </div>
-                <a class="dermat-product-details-link" href="${escapeDermatHtml(detailLink)}" onclick="event.stopPropagation()">View details</a>
+            <span class="dermat-select-pill">    <a class="dermat-product-details-link" href="${escapeDermatHtml(detailLink)}" onclick="event.stopPropagation()">View details</a> </span>
             </div>
         `;
     }
