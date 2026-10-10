@@ -462,8 +462,9 @@ $newHeroImages = [
 
     #dermatConcernRow .routine-concern-image {
         position: relative;
-        width: 100%;
-        aspect-ratio: 1;
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
     }
 
     #dermatConcernRow .routine-concern-photo {
