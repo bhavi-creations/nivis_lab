@@ -90,11 +90,13 @@ function fetchHomeSliders() {
         if (isset($settings['slides']) && is_array($settings['slides'])) {
             foreach ($settings['slides'] as &$slide) {
                 if (isset($slide['image']) && $slide['image']) {
-                    // Remove double slashes
-                    $slide['image'] = preg_replace('#/+#', '/', $slide['image']);
-                    // Prepend base URL if it's a relative path
-                    if (strpos($slide['image'], 'http') !== 0 && strpos($slide['image'], '/') === 0) {
-                        $slide['image'] = EVERSHOP_ASSET_BASE_URL . $slide['image'];
+                    // Preserve absolute URL schemes (https://) and CDN URLs.
+                    $slide['image'] = trim($slide['image']);
+                    if (!preg_match('#^(?:https?:)?//#i', $slide['image'])) {
+                        $slide['image'] = EVERSHOP_ASSET_BASE_URL . '/' . ltrim(
+                            preg_replace('#/+#', '/', $slide['image']),
+                            '/'
+                        );
                     }
                 }
             }
