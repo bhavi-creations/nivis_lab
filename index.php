@@ -523,6 +523,34 @@ $newHeroImages = [
     #dermatConcernRow .concern-card.active-dermat .routine-concern-photo {
         border-color: var(--nivis-gold, #b02a37);
     }
+
+    @media (max-width: 576px) {
+        #dermatConcernRow .concern-item {
+            flex: 0 0 calc((100% - 24px) / 3);
+            min-width: 0;
+        }
+
+        #dermatConcernRow .routine-concern-image {
+            width: 100%;
+            max-width: 120px;
+            height: auto;
+            aspect-ratio: 1;
+        }
+
+        #dermatConcernRow .routine-concern-photo {
+            border-width: 3px;
+        }
+
+        #dermatConcernRow .routine-concern-arrow {
+            min-width: 26px;
+        }
+
+        #dermatConcernRow .concern-overlay {
+            padding: 10px 0 0;
+            font-size: 12px;
+            overflow-wrap: anywhere;
+        }
+    }
 </style>
 
 <div class="container py-5 img_section_container dermat-routine-section">
