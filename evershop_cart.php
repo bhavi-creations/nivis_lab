@@ -157,6 +157,65 @@ function storeCartId(?string $cartId): void
     $_SESSION['evershop_cart_uuid'] = $cartId ?: null;
 }
 
+function couponSessionCode(): string
+{
+    return trim((string) ($_SESSION['evershop_coupon_code'] ?? ''));
+}
+
+function setCouponSessionCode(string $code): void
+{
+    if ($code === '') {
+        unset($_SESSION['evershop_coupon_code']);
+    } else {
+        $_SESSION['evershop_coupon_code'] = $code;
+    }
+}
+
+function getCartPricingSummary(string $cartId): ?array
+{
+    $query = <<<'GRAPHQL'
+query CartPricing($id: String!) {
+  cart(id: $id) {
+    coupon
+    subTotal { value text }
+    discountAmount { value text }
+    shippingFeeInclTax { value text }
+    grandTotal { value text }
+  }
+}
+GRAPHQL;
+    $result = postJson(rtrim(EVERSHOP_BASE_URL, '/') . '/api/graphql', [
+        'query' => $query,
+        'variables' => ['id' => $cartId]
+    ]);
+    $decoded = json_decode((string) $result['response'], true);
+    return $result['error'] || $result['http_code'] < 200 || $result['http_code'] >= 300
+        ? null
+        : ($decoded['data']['cart'] ?? null);
+}
+
+function applyCouponToCart(string $cartId, string $coupon): array
+{
+    $result = requestJson('POST', rtrim(EVERSHOP_BASE_URL, '/') . "/api/carts/{$cartId}/coupons", ['coupon' => $coupon]);
+    $decoded = json_decode((string) $result['response'], true);
+    if ($result['error'] || $result['http_code'] < 200 || $result['http_code'] >= 300 || !empty($decoded['error'])) {
+        return ['error' => $decoded['error']['message'] ?? $decoded['message'] ?? $result['error'] ?? 'Coupon could not be applied.'];
+    }
+    return ['success' => true];
+}
+
+function reapplySessionCoupon(string $cartId): ?string
+{
+    $coupon = couponSessionCode();
+    if ($coupon === '') return null;
+    $result = applyCouponToCart($cartId, $coupon);
+    if (empty($result['success'])) {
+        setCouponSessionCode('');
+        return $result['error'] ?? 'The coupon could not be reapplied to your updated cart.';
+    }
+    return null;
+}
+
 function normalizeQty($qty): int
 {
     return max(1, (int) $qty);
@@ -270,6 +329,45 @@ if ($method !== 'POST' && $method !== 'DELETE') {
 
 $action = strtolower(trim((string) ($input['action'] ?? 'add')));
 $cartId = currentCartId();
+$providedCartId = trim((string) ($input['cart_id'] ?? ''));
+if ($providedCartId !== '') {
+    $cartId = $providedCartId;
+    storeCartId($cartId);
+}
+
+if ($action === 'apply_coupon' || $action === 'remove_coupon' || $action === 'cart_summary') {
+    if (!$cartId) {
+        jsonResponse(['success' => false, 'message' => 'Your cart is unavailable. Refresh the page and try again.'], 400);
+    }
+
+    if ($action === 'apply_coupon') {
+        $coupon = trim((string) ($input['coupon'] ?? ''));
+        if ($coupon === '' || preg_match('/\s/', $coupon)) {
+            jsonResponse(['success' => false, 'message' => 'Enter a valid coupon code.'], 400);
+        }
+        $result = applyCouponToCart($cartId, $coupon);
+        if (empty($result['success'])) {
+            jsonResponse(['success' => false, 'message' => $result['error'] ?? 'Coupon could not be applied.'], 422);
+        }
+        setCouponSessionCode($coupon);
+    } elseif ($action === 'remove_coupon') {
+        $coupon = trim((string) ($input['coupon'] ?? couponSessionCode()));
+        if ($coupon !== '') {
+            $result = requestJson('DELETE', rtrim(EVERSHOP_BASE_URL, '/') . "/api/carts/{$cartId}/coupons/" . rawurlencode($coupon));
+            $decoded = json_decode((string) $result['response'], true);
+            if ($result['error'] || $result['http_code'] < 200 || $result['http_code'] >= 300 || !empty($decoded['error'])) {
+                jsonResponse(['success' => false, 'message' => $decoded['error']['message'] ?? 'Coupon could not be removed.'], 422);
+            }
+        }
+        setCouponSessionCode('');
+    }
+
+    $summary = getCartPricingSummary($cartId);
+    if (!is_array($summary)) {
+        jsonResponse(['success' => false, 'message' => 'Coupon updated, but cart totals could not be refreshed. Please retry.'], 502);
+    }
+    jsonResponse(['success' => true, 'cart_id' => $cartId, 'summary' => $summary]);
+}
 
 if ($action === 'sync') {
     $items = is_array($input['items'] ?? null) ? $input['items'] : [];
@@ -282,14 +380,17 @@ if ($action === 'sync') {
         jsonResponse(['success' => false, 'message' => $createResult['error'], 'error' => $createResult['debug'] ?? null], 400);
     }
 
+    $couponWarning = reapplySessionCoupon($createResult['cart_id']);
     jsonResponse([
         'success' => true,
-        'cart_id' => $createResult['cart_id']
+        'cart_id' => $createResult['cart_id'],
+        'coupon_warning' => $couponWarning
     ]);
 }
 
 if ($action === 'clear') {
     storeCartId(null);
+    setCouponSessionCode('');
     jsonResponse(['success' => true, 'cart_id' => null]);
 }
 
@@ -324,6 +425,7 @@ if ($cartId === null) {
         'success' => true,
         'cart_id' => $createResult['cart_id'],
         'created' => true,
+        'coupon_warning' => reapplySessionCoupon($createResult['cart_id']),
         'item' => $createResult['response']['data']['items'] ?? null
     ]);
 }

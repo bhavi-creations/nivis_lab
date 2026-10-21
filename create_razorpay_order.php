@@ -1,7 +1,5 @@
 <?php
 require_once __DIR__ . '/razorpay_config.php';
-require_once __DIR__ . '/customer_auth.php';
-require_once __DIR__ . '/customer_backend.php';
 
 header('Content-Type: application/json');
 
@@ -347,10 +345,34 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $input = json_decode(file_get_contents('php://input'), true);
+$action = trim((string) ($input['action'] ?? 'create_order'));
 $cartId = trim((string) ($input['cart_id'] ?? ''));
 $cartTotal = (float) ($input['cart_total'] ?? 0);
 $items = is_array($input['items'] ?? null) ? $input['items'] : [];
 $createCartPayload = null;
+
+if ($action === 'payment_methods') {
+    if ($cartId === '') {
+        jsonResponse(['success' => false, 'message' => 'Cart ID is required to load payment methods.'], 400);
+    }
+    $query = <<<'GRAPHQL'
+query AvailablePaymentMethods($id: String!) {
+  cart(id: $id) {
+    availablePaymentMethods { code name }
+  }
+}
+GRAPHQL;
+    $methodsResult = postJson(rtrim(EVERSHOP_API_BASE_URL, '/') . '/graphql', [
+        'query' => $query,
+        'variables' => ['id' => $cartId]
+    ]);
+    $methodsDecoded = json_decode((string) $methodsResult['response'], true);
+    $methods = $methodsDecoded['data']['cart']['availablePaymentMethods'] ?? null;
+    if ($methodsResult['error'] || $methodsResult['http_code'] < 200 || $methodsResult['http_code'] >= 300 || !is_array($methods)) {
+        jsonResponse(['success' => false, 'message' => 'Unable to load available payment methods from EverShop.'], 502);
+    }
+    jsonResponse(['success' => true, 'payment_methods' => $methods]);
+}
 
 if ($cartId === '') {
     if ($items === []) {
@@ -462,9 +484,27 @@ if ($cartId === '') {
     }
 }
 
+$paymentMethodCode = trim((string) ($input['payment_method'] ?? 'razorpay'));
+$availableMethodsResult = postJson($baseUrl . '/graphql', [
+    'query' => 'query AvailablePaymentMethods($id: String!) { cart(id: $id) { availablePaymentMethods { code name } } }',
+    'variables' => ['id' => $cartId]
+]);
+$availableMethodsDecoded = json_decode((string) $availableMethodsResult['response'], true);
+$availableMethods = $availableMethodsDecoded['data']['cart']['availablePaymentMethods'] ?? [];
+$selectedMethod = null;
+foreach ($availableMethods as $method) {
+    if (($method['code'] ?? '') === $paymentMethodCode) {
+        $selectedMethod = $method;
+        break;
+    }
+}
+if ($selectedMethod === null) {
+    jsonResponse(['success' => false, 'message' => 'The selected payment method is not currently available. Please refresh checkout.'], 422);
+}
+
 $paymentMethodResult = postJson($baseUrl . "/carts/{$cartId}/paymentMethods", [
-    'method_code' => 'razorpay',
-    'method_name' => 'Razorpay'
+    'method_code' => $paymentMethodCode,
+    'method_name' => (string) $selectedMethod['name']
 ]);
 $paymentMethodDecoded = json_decode((string) $paymentMethodResult['response'], true);
 
@@ -525,21 +565,57 @@ if ($shippingAddress !== []) {
     }
 }
 
-// Authenticated checkout attaches the order to the backend customer account.
-if (($_SESSION['auth_backend'] ?? '') === 'evershop' && !empty($_SESSION['backend_access_token'])) {
-    try {
-        $backendOrder = customer_backend_request('/carts/' . rawurlencode($cartId) . '/checkout', [
-            'cart_id' => $cartId,
-            'customer' => ['email' => $_SESSION['customer_email']],
-            'paymentMethod' => 'razorpay'
-        ], true);
-        $evershopOrderResult = ['response'=>json_encode(['data'=>$backendOrder]), 'http_code'=>200, 'error'=>''];
-    } catch (CustomerBackendException $error) {
-        jsonResponse(['success'=>false, 'message'=>$error->getMessage()], 502);
-    }
-} else {
-    $evershopOrderResult = postJson($baseUrl . '/orders', ['cart_id'=>$cartId]);
+if ($shippingWarning !== null) {
+    jsonResponse([
+        'success' => false,
+        'message' => $shippingWarning
+    ], 422);
 }
+
+$shippingMethods = fetchAvailableShippingMethods($baseUrl, $cartId, $shippingAddress);
+$shippingMethod = pickShippingMethod($shippingMethods);
+if (!is_array($shippingMethod) || empty($shippingMethod['code'])) {
+    jsonResponse([
+        'success' => false,
+        'message' => 'No shipping method is available for this delivery address. Please check the shipping zone and courier serviceability in EverShop.'
+    ], 422);
+}
+
+$shippingMethodResult = postJson($baseUrl . "/carts/{$cartId}/shippingMethods", [
+    'method_code' => (string) $shippingMethod['code']
+]);
+$shippingMethodDecoded = json_decode((string) $shippingMethodResult['response'], true);
+
+if ($shippingMethodResult['error']) {
+    jsonResponse([
+        'success' => false,
+        'message' => 'Unable to connect to Evershop shipping method service: ' . $shippingMethodResult['error']
+    ], 500);
+}
+
+if ($shippingMethodResult['http_code'] < 200 || $shippingMethodResult['http_code'] >= 300 || !empty($shippingMethodDecoded['error'])) {
+    jsonResponse([
+        'success' => false,
+        'message' => $shippingMethodDecoded['error']['message'] ?? 'Unable to set a shipping method on the Evershop cart.',
+        'error' => $shippingMethodDecoded
+    ], 500);
+}
+
+if ($action === 'calculate_shipping') {
+    jsonResponse([
+        'success' => true,
+        'cart_id' => $cartId,
+        'shipping' => [
+            'name' => (string) ($shippingMethod['name'] ?? $shippingMethod['code']),
+            'amount' => (float) ($shippingMethod['cost']['value'] ?? 0),
+            'currency' => (string) ($shippingMethod['cost']['currency'] ?? RAZORPAY_CURRENCY)
+        ]
+    ]);
+}
+
+$evershopOrderResult = postJson($baseUrl . '/orders', [
+    'cart_id' => $cartId
+]);
 $evershopOrderDecoded = json_decode((string) $evershopOrderResult['response'], true);
 
 if ($evershopOrderResult['error']) {
@@ -558,6 +634,21 @@ if ($evershopOrderResult['http_code'] < 200 || $evershopOrderResult['http_code']
         'message' => $evershopOrderDecoded['error']['message'] ?? 'Evershop order creation failed.',
         'error' => $evershopOrderDecoded
     ], 500);
+}
+
+if ($paymentMethodCode === 'cod') {
+    jsonResponse([
+        'success' => true,
+        'payment_method' => 'cod',
+        'order_id' => $evershopOrderId,
+        'order_number' => $evershopOrder['order_number'] ?? null,
+        'cart_id' => $cartId,
+        'shipping' => [
+            'name' => (string) ($shippingMethod['name'] ?? $shippingMethod['code']),
+            'amount' => (float) ($shippingMethod['cost']['value'] ?? 0),
+            'currency' => (string) ($shippingMethod['cost']['currency'] ?? RAZORPAY_CURRENCY)
+        ]
+    ]);
 }
 
 $razorpayCreateOrderResult = postJson($baseUrl . '/razorpay/orders', [
@@ -603,6 +694,11 @@ jsonResponse([
         'status' => $razorpayData['status'] ?? null
     ],
     'company' => RAZORPAY_COMPANY_NAME,
+    'shipping' => [
+        'name' => (string) ($shippingMethod['name'] ?? $shippingMethod['code']),
+        'amount' => (float) ($shippingMethod['cost']['value'] ?? 0),
+        'currency' => (string) ($shippingMethod['cost']['currency'] ?? RAZORPAY_CURRENCY)
+    ],
     'shipping_warning' => $shippingWarning
 ]);
 ?>

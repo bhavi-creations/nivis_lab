@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/razorpay_config.php';
 
-
 header('Content-Type: application/json');
 
 function jsonResponse($payload, $status = 200)

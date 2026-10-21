@@ -89,8 +89,12 @@ include 'navbar.php';
                 </div>
 
                 <div class="border-top pt-4">
+                    <div class="mb-4" id="paymentMethodsSection" hidden>
+                        <h5 class="mb-3">Payment method</h5>
+                        <div id="paymentMethodsList" class="d-grid gap-2"></div>
+                    </div>
                     <button type="submit" class="btn btn-dark w-100 rounded-0 py-3 fw-semibold" id="payNowBtn">
-                        Proceed to Payment
+                        Calculate Shipping
                     </button>
                     <div class="alert alert-warning rounded-0 mt-3 d-none" id="shippingWarning"></div>
                     <p class="text-muted small mb-0 mt-3">
@@ -110,9 +114,22 @@ include 'navbar.php';
                 <div id="checkoutSummaryItems" class="d-grid gap-3"></div>
 
                 <div class="border-top mt-4 pt-3">
+                    <div class="mb-3">
+                        <label for="checkoutCouponCode" class="form-label checkout-coupon-label">Coupon code</label>
+                        <div class="input-group checkout-coupon-group">
+                            <input type="text" class="form-control checkout-coupon-input" id="checkoutCouponCode" placeholder="Enter coupon code" autocomplete="off">
+                            <button type="button" class="btn checkout-coupon-action" id="applyCouponBtn">Apply</button>
+                            <button type="button" class="btn checkout-coupon-action d-none" id="removeCouponBtn">Remove</button>
+                        </div>
+                        <div class="small mt-2" id="couponMessage" role="status" aria-live="polite"></div>
+                    </div>
                     <div class="d-flex justify-content-between mb-2">
                         <span>Subtotal</span>
                         <strong id="checkoutSubtotal">₹0</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2 d-none" id="checkoutDiscountRow">
+                        <span>Discount</span>
+                        <strong class="text-success" id="checkoutDiscount">−₹0</strong>
                     </div>
                     <div class="d-flex justify-content-between mb-2">
                         <span>Shipping</span>
@@ -128,6 +145,31 @@ include 'navbar.php';
     </div>
 </div>
 
+<div class="modal fade" id="shippingConfirmModal" tabindex="-1" aria-labelledby="shippingConfirmTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="shippingConfirmTitle">Shipping price updated</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted small mb-3">Review your order before continuing to secure payment.</p>
+                <div id="shippingConfirmItems" class="d-grid gap-3 mb-3" style="max-height: 260px; overflow-y: auto;"></div>
+                <div class="border-top pt-3">
+                    <div class="d-flex justify-content-between mb-2"><span>Subtotal</span><strong id="shippingConfirmSubtotal"></strong></div>
+                    <div class="d-flex justify-content-between mb-2 d-none" id="shippingConfirmDiscountRow"><span>Discount</span><strong class="text-success" id="shippingConfirmDiscount"></strong></div>
+                    <div class="d-flex justify-content-between mb-2"><span>Shipping</span><strong id="shippingConfirmAmount"></strong></div>
+                    <div class="d-flex justify-content-between border-top pt-2 fs-5"><span class="fw-semibold">Total</span><strong id="shippingConfirmTotal"></strong></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary rounded-0" data-bs-dismiss="modal">Review details</button>
+                <button type="button" class="btn btn-dark rounded-0" id="confirmShippingPayment">Proceed to Payment</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 (() => {
     const draftKey = 'nivis_checkout_details';
@@ -136,10 +178,70 @@ include 'navbar.php';
     const emptyState = document.getElementById('checkoutEmptyState');
     const summaryItems = document.getElementById('checkoutSummaryItems');
     const subtotalEl = document.getElementById('checkoutSubtotal');
+    const shippingEl = document.getElementById('checkoutShipping');
     const totalEl = document.getElementById('checkoutTotal');
+    const discountRowEl = document.getElementById('checkoutDiscountRow');
+    const discountEl = document.getElementById('checkoutDiscount');
+    const couponInput = document.getElementById('checkoutCouponCode');
+    const couponMessageEl = document.getElementById('couponMessage');
+    const applyCouponBtn = document.getElementById('applyCouponBtn');
+    const removeCouponBtn = document.getElementById('removeCouponBtn');
     const itemCountEl = document.getElementById('checkoutItemCount');
     const payBtn = document.getElementById('payNowBtn');
     const shippingWarningEl = document.getElementById('shippingWarning');
+    const shippingModalEl = document.getElementById('shippingConfirmModal');
+    const shippingConfirmItemsEl = document.getElementById('shippingConfirmItems');
+    const shippingConfirmSubtotalEl = document.getElementById('shippingConfirmSubtotal');
+    const shippingConfirmDiscountRowEl = document.getElementById('shippingConfirmDiscountRow');
+    const shippingConfirmDiscountEl = document.getElementById('shippingConfirmDiscount');
+    const shippingConfirmAmountEl = document.getElementById('shippingConfirmAmount');
+    const shippingConfirmTotalEl = document.getElementById('shippingConfirmTotal');
+    const confirmPaymentBtn = document.getElementById('confirmShippingPayment');
+    const paymentMethodsSection = document.getElementById('paymentMethodsSection');
+    const paymentMethodsList = document.getElementById('paymentMethodsList');
+    let confirmingShipping = false;
+    let quotedShipping = null;
+    let cartPricing = null;
+    let appliedCoupon = '';
+
+    function selectedPaymentMethod() {
+        return form.querySelector('[name="checkout_payment_method"]:checked')?.value || 'razorpay';
+    }
+
+    async function loadPaymentMethods() {
+        try {
+            let cartId = window.NivisCart?.getStoredCartId?.() || null;
+            if (!cartId && window.NivisCart?.getCartId) cartId = await window.NivisCart.getCartId();
+            if (!cartId) return;
+
+            const response = await fetch('create_razorpay_order.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'payment_methods', cart_id: cartId })
+            });
+            const result = await response.json();
+            if (!response.ok || !result.success || !Array.isArray(result.payment_methods)) return;
+
+            paymentMethodsList.replaceChildren();
+            const supportedMethods = result.payment_methods.filter((method) => ['razorpay', 'cod'].includes(method.code));
+            supportedMethods.forEach((method, index) => {
+                const label = document.createElement('label');
+                label.className = 'border p-3 d-flex align-items-center gap-2';
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = 'checkout_payment_method';
+                radio.value = method.code;
+                radio.checked = method.code === 'razorpay' || (!supportedMethods.some((entry) => entry.code === 'razorpay') && index === 0);
+                const text = document.createElement('span');
+                text.textContent = method.name;
+                label.append(radio, text);
+                paymentMethodsList.append(label);
+            });
+            if (supportedMethods.length) paymentMethodsSection.hidden = false;
+        } catch (error) {
+            console.warn('Unable to load EverShop payment methods:', error);
+        }
+    }
 
     function formatPrice(value) {
         const amount = Number(value || 0);
@@ -148,6 +250,52 @@ include 'navbar.php';
 
     function getCart() {
         return window.NivisCart ? window.NivisCart.toCart() : { items: [], total: 0, count: 0 };
+    }
+
+    function priceText(price, fallback = 0) {
+        return price?.text || formatPrice(price?.value ?? fallback);
+    }
+
+    function updateCartPricing(summary) {
+        cartPricing = summary || null;
+        const cart = getCart();
+        subtotalEl.textContent = priceText(cartPricing?.subTotal, cart.total);
+        const discount = Math.abs(Number(cartPricing?.discountAmount?.value || 0));
+        discountRowEl.classList.toggle('d-none', discount <= 0);
+        discountEl.textContent = `−${formatPrice(discount)}`;
+        totalEl.textContent = priceText(cartPricing?.grandTotal, cart.total);
+        appliedCoupon = String(cartPricing?.coupon || '');
+        couponInput.value = appliedCoupon;
+        applyCouponBtn.classList.toggle('d-none', Boolean(appliedCoupon));
+        removeCouponBtn.classList.toggle('d-none', !appliedCoupon);
+    }
+
+    async function sendCouponAction(action, coupon = '') {
+        let cartId = window.NivisCart?.getStoredCartId?.() || null;
+        if (!cartId && window.NivisCart?.refresh) cartId = await window.NivisCart.refresh();
+        if (!cartId) throw new Error('Your cart is unavailable. Refresh checkout and try again.');
+        const response = await fetch('evershop_cart.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'same-origin',
+            body: JSON.stringify({ action, coupon, cart_id: cartId })
+        });
+        const result = await response.json();
+        if (!response.ok || !result.success) throw new Error(result.message || 'Unable to update the coupon.');
+        return result;
+    }
+
+    async function refreshCouponPricing() {
+        const cartId = window.NivisCart?.getStoredCartId?.();
+        if (!cartId) return;
+        const response = await fetch('evershop_cart.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'same-origin',
+            body: JSON.stringify({ action: 'cart_summary', cart_id: cartId })
+        });
+        const result = await response.json();
+        if (response.ok && result.success) updateCartPricing(result.summary);
     }
 
     function getDraft() {
@@ -200,7 +348,39 @@ include 'navbar.php';
 
         subtotalEl.textContent = formatPrice(cart.total);
         totalEl.textContent = formatPrice(cart.total);
+        if (cartPricing) updateCartPricing(cartPricing);
         itemCountEl.textContent = `${cart.count} item${cart.count === 1 ? '' : 's'}`;
+    }
+
+    function renderShippingConfirmation(cart, shippingAmount, summary = null) {
+        shippingConfirmItemsEl.replaceChildren();
+        cart.items.forEach((item) => {
+            const row = document.createElement('div');
+            row.className = 'd-flex justify-content-between align-items-start gap-3 border-bottom pb-2';
+
+            const details = document.createElement('div');
+            const name = document.createElement('div');
+            name.className = 'fw-semibold';
+            name.textContent = item.name || 'Product';
+            const quantity = document.createElement('div');
+            quantity.className = 'small text-muted';
+            quantity.textContent = `${formatPrice(item.price)} × ${item.quantity || 1}`;
+            details.append(name, quantity);
+
+            const lineTotal = document.createElement('strong');
+            lineTotal.className = 'text-nowrap';
+            lineTotal.textContent = formatPrice(Number(item.price || 0) * Number(item.quantity || 1));
+            row.append(details, lineTotal);
+            shippingConfirmItemsEl.append(row);
+        });
+
+        const subtotal = Number(summary?.subTotal?.value ?? cart.total);
+        const discount = Math.abs(Number(summary?.discountAmount?.value || 0));
+        shippingConfirmSubtotalEl.textContent = priceText(summary?.subTotal, cart.total);
+        shippingConfirmDiscountRowEl.classList.toggle('d-none', discount <= 0);
+        shippingConfirmDiscountEl.textContent = `−${formatPrice(discount)}`;
+        shippingConfirmAmountEl.textContent = shippingAmount === 0 ? 'Free' : formatPrice(shippingAmount);
+        shippingConfirmTotalEl.textContent = priceText(summary?.grandTotal, Math.max(0, subtotal - discount + shippingAmount));
     }
 
     function buildAddress(formData) {
@@ -277,7 +457,8 @@ include 'navbar.php';
         }
 
         payBtn.disabled = true;
-        payBtn.textContent = 'Preparing Payment...';
+        const action = confirmingShipping ? 'create_order' : 'calculate_shipping';
+        payBtn.textContent = action === 'calculate_shipping' ? 'Calculating Shipping...' : 'Preparing Payment...';
 
         try {
             const orderResponse = await fetch('create_razorpay_order.php', {
@@ -286,6 +467,8 @@ include 'navbar.php';
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
+                    action,
+                    payment_method: selectedPaymentMethod(),
                     cart_id: cartId,
                     cart_total: cart.total,
                     items,
@@ -316,11 +499,46 @@ include 'navbar.php';
                 });
             }
 
-            if (!orderResult.success || !orderResult.gateway?.razorpayOrderId || !orderResult.gateway?.keyId || !orderResult.order_id) {
+            if (!orderResult.success) {
                 const extraMessage = orderResult?.error?.catalog_hint
                     ? ` ${orderResult.error.catalog_hint}`
                     : '';
                 throw new Error((orderResult.message || 'Unable to create the payment order.') + extraMessage);
+            }
+
+            if (action === 'calculate_shipping') {
+                quotedShipping = orderResult.shipping;
+                const shippingAmount = Number(quotedShipping?.amount);
+                if (!Number.isFinite(shippingAmount)) {
+                    throw new Error('Shipping was calculated, but the amount was missing. Please try again.');
+                }
+                shippingEl.textContent = shippingAmount === 0 ? 'Free' : formatPrice(shippingAmount);
+                shippingEl.title = quotedShipping?.name || '';
+                let summary = null;
+                try {
+                    const pricingResult = await sendCouponAction('cart_summary');
+                    summary = pricingResult.summary;
+                    updateCartPricing(summary);
+                } catch (pricingError) {
+                    console.warn('Unable to refresh EverShop totals after shipping calculation:', pricingError);
+                }
+                renderShippingConfirmation(cart, shippingAmount, summary);
+                const selectedLabel = form.querySelector('[name="checkout_payment_method"]:checked')?.parentElement?.querySelector('span')?.textContent || 'Payment method';
+                document.getElementById('shippingConfirmTitle').textContent = `Order summary · ${selectedLabel}`;
+                confirmPaymentBtn.textContent = selectedPaymentMethod() === 'cod' ? 'Place Order' : 'Proceed to Payment';
+                bootstrap.Modal.getOrCreateInstance(shippingModalEl).show();
+                return;
+            }
+
+            if (!orderResult.gateway?.razorpayOrderId || !orderResult.gateway?.keyId || !orderResult.order_id) {
+                if (orderResult.payment_method === 'cod' && orderResult.order_id) {
+                    window.NivisCart.clear();
+                    localStorage.removeItem(draftKey);
+                    renderSummary();
+                    alert(`Order placed successfully. Your order reference is ${orderResult.order_number || orderResult.order_id}. Payment is due on delivery.`);
+                    return;
+                }
+                throw new Error(orderResult.message || 'Unable to create the payment order.');
             }
 
             if (orderResult.shipping_warning && shippingWarningEl) {
@@ -329,6 +547,20 @@ include 'navbar.php';
             } else if (shippingWarningEl) {
                 shippingWarningEl.textContent = '';
                 shippingWarningEl.classList.add('d-none');
+            }
+
+            // Use EverShop's selected shipping method and Razorpay order amount
+            // so the summary reflects the same total that will be paid.
+            const shippingAmount = Number(orderResult.shipping?.amount);
+            const payableAmount = Number(orderResult.gateway.amount) / 100;
+            if (Number.isFinite(shippingAmount) && shippingEl) {
+                shippingEl.textContent = shippingAmount === 0
+                    ? 'Free'
+                    : formatPrice(shippingAmount);
+                shippingEl.title = orderResult.shipping?.name || '';
+            }
+            if (Number.isFinite(payableAmount) && payableAmount > 0) {
+                totalEl.textContent = formatPrice(payableAmount);
             }
 
             const razorpay = new Razorpay({
@@ -362,7 +594,7 @@ include 'navbar.php';
                 modal: {
                     ondismiss: function() {
                         payBtn.disabled = false;
-                        payBtn.textContent = 'Proceed to Payment';
+                        payBtn.textContent = 'Calculate Shipping';
                     }
                 }
             });
@@ -372,7 +604,8 @@ include 'navbar.php';
             alert(error.message || 'Unable to start payment.');
         } finally {
             payBtn.disabled = false;
-            payBtn.textContent = 'Proceed to Payment';
+            payBtn.textContent = 'Calculate Shipping';
+            confirmingShipping = false;
         }
     }
 
@@ -386,8 +619,58 @@ include 'navbar.php';
             }
         }
         renderSummary();
+        await loadPaymentMethods();
+        await refreshCouponPricing();
         form.addEventListener('submit', submitCheckout);
         form.addEventListener('input', saveDraft);
+        applyCouponBtn.addEventListener('click', async () => {
+            const coupon = couponInput.value.trim();
+            if (!coupon) {
+                couponMessageEl.textContent = 'Enter a coupon code.';
+                couponMessageEl.className = 'small mt-2 text-danger';
+                return;
+            }
+            applyCouponBtn.disabled = true;
+            couponMessageEl.textContent = 'Applying coupon…';
+            couponMessageEl.className = 'small mt-2 text-muted';
+            try {
+                const result = await sendCouponAction('apply_coupon', coupon);
+                updateCartPricing(result.summary);
+                couponMessageEl.textContent = `Coupon ${result.summary.coupon || coupon} applied.`;
+                couponMessageEl.className = 'small mt-2 text-success';
+            } catch (error) {
+                couponMessageEl.textContent = error.message || 'Coupon could not be applied.';
+                couponMessageEl.className = 'small mt-2 text-danger';
+            } finally {
+                applyCouponBtn.disabled = false;
+            }
+        });
+        couponInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                applyCouponBtn.click();
+            }
+        });
+        removeCouponBtn.addEventListener('click', async () => {
+            removeCouponBtn.disabled = true;
+            try {
+                const result = await sendCouponAction('remove_coupon', appliedCoupon);
+                updateCartPricing(result.summary);
+                couponMessageEl.textContent = 'Coupon removed.';
+                couponMessageEl.className = 'small mt-2 text-muted';
+            } catch (error) {
+                couponMessageEl.textContent = error.message || 'Coupon could not be removed.';
+                couponMessageEl.className = 'small mt-2 text-danger';
+            } finally {
+                removeCouponBtn.disabled = false;
+            }
+        });
+        confirmPaymentBtn.addEventListener('click', () => {
+            if (!quotedShipping) return;
+            confirmingShipping = true;
+            bootstrap.Modal.getOrCreateInstance(shippingModalEl).hide();
+            form.requestSubmit();
+        });
         window.addEventListener('nivis-cart:updated', renderSummary);
     }
 

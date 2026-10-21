@@ -1,0 +1,12 @@
+shiprocket_config.local.php
+storage/shiprocket/
+cache/shiprocket/
+
+# Local secrets and server-only credentials
+.env
+shiprocket_config.php
+shiprocket_config.local.php
+
+# macOS resource-fork metadata
+__MACOSX/
+.DS_Store

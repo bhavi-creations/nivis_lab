@@ -36,7 +36,7 @@ $newHeroImages = [
         <?php foreach ($newHeroImages as $heroIndex => $heroImage):
             $imagePath = './assets/img/' . $heroImage['file'];
         ?>
-            <a class="index_img_section__slide<?= $heroIndex === 0 ? ' active' : '' ?>" href="products.php"
+            <a class="index_img_section__slide<?php echo $heroIndex === 0 ? ' active' : ''; ?>" href="products.php"
                 style="--hero-img: url('<?php echo htmlspecialchars($imagePath); ?>');">
                 <img class="index_img_section__product" src="<?php echo htmlspecialchars($imagePath); ?>"
                     alt="<?php echo htmlspecialchars($heroImage['alt']); ?>"
@@ -184,9 +184,9 @@ $newHeroImages = [
         hero.addEventListener('mouseleave', startSlider);
         hero.addEventListener('focusin', () => clearInterval(timer));
         hero.addEventListener('focusout', startSlider);
-        // Use GraphQL sliders from backend (already rendered by PHP)
-        function loadGraphQLSlides() {
-            // Sliders are already rendered by PHP from fetch_home_sliders.php
+        // Initialize the product slides rendered by PHP
+        function loadHeroSlides() {
+            // Product slides are already rendered above
             // Just initialize the slider
             initSlides();
         }
@@ -219,8 +219,8 @@ $newHeroImages = [
             }
         }
 
-        // Initialize with GraphQL sliders first, fallback to products
-        loadGraphQLSlides();
+        // Initialize the configured product slides
+        loadHeroSlides();
         // loadBackendSlides(); // Uncomment if you want fallback
     })();
 </script>
@@ -245,15 +245,15 @@ $newHeroImages = [
 
     <div class="skin-wrapper_index">
 
-      
+
         <div class="skin-label_index">SKIN ASSESSMENT</div>
 
-       
+
         <div class="skin-section_index">
 
             <div class="row align-items-center">
 
-                
+
                 <div class="col-md-7">
                     <p class="text-danger fw-semibold mb-1">
                         AI-POWERED SKIN ANALYSIS
@@ -273,7 +273,7 @@ $newHeroImages = [
                     </button>
                 </div>
 
-               
+
                 <div class="col-md-5">
 
                     <div class="feature-box_index">
@@ -432,7 +432,7 @@ $newHeroImages = [
         overflow: hidden;
         /* border: 5px solid #eeeeee; */
         border: 5px solid   #edc58e;
-       
+
         border-radius: 50%;
     }
 
@@ -519,7 +519,8 @@ $newHeroImages = [
 
         <div class="d-flex flex-nowrap justify-content-start overflow-auto pb-3 no-scrollbar dermat-concern-row" id="dermatConcernRow">
 
-            <div class="concern-item" onclick="showDermatRoutine('acne', this, 1)">
+
+        <div class="concern-item" onclick="showDermatRoutine('acne', this, 1)">
                 <div class="concern-card">
                     <div class="routine-concern-image" style="--concern-photo-zoom: 2; --concern-photo-position: 75% center;">
                         <div class="routine-concern-photo"><img src="./assets/img/acne.png" alt="Nivis Labs Acne"></div>
@@ -528,6 +529,8 @@ $newHeroImages = [
                     <div class="concern-overlay">Acne</div>
                 </div>
             </div>
+
+
 
             <div class="concern-item" onclick="showDermatRoutine('pigmentation', this, 2)">
                 <div class="concern-card">
@@ -1318,7 +1321,7 @@ $newHeroImages = [
 
 
 
-<section class="my-5 "> 
+<section class="my-5 ">
     <style>
         #hairConcernRow { justify-content: center !important; }
         #hairConcernRow .concern-item { flex: 0 0 180px; }
@@ -1830,7 +1833,7 @@ async function showHairConcern(category, element) {
                             Your browser does not support the video tag.
                         </video>
                     </div>
-                   
+
                 </div>
             </div>
 
@@ -1841,7 +1844,7 @@ async function showHairConcern(category, element) {
                             <source src="./assets/img/reel_2.mp4" type="video/mp4">
                         </video>
                     </div>
-                   
+
                 </div>
             </div>
 
@@ -1852,7 +1855,7 @@ async function showHairConcern(category, element) {
                             <source src="./assets/img/reel_3.mp4" type="video/mp4">
                         </video>
                     </div>
-                   
+
                 </div>
             </div>
 
@@ -1863,7 +1866,7 @@ async function showHairConcern(category, element) {
                             <source src="./assets/img/reel_4.mp4" type="video/mp4">
                         </video>
                     </div>
-                    
+
                 </div>
             </div>
 
@@ -2496,7 +2499,7 @@ async function showHairConcern(category, element) {
         </div>
 
         <div class="d-flex flex-wrap justify-content-center mt-4">
-         
+
             <a href="general_advice.php" class="index_img_section__badge mx-1">Advice</a>
             <a href="skin_condition.php" class="index_img_section__badge mx-1">Conditions</a>
             <a href="how-tos.php" class="index_img_section__badge mx-1">How-To</a>
@@ -2677,7 +2680,7 @@ async function showHairConcern(category, element) {
 
         <div class="accordion" id="faqAccordion">
 
-            
+
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
@@ -2692,7 +2695,7 @@ async function showHairConcern(category, element) {
                 </div>
             </div>
 
-           
+
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -2708,7 +2711,7 @@ async function showHairConcern(category, element) {
                 </div>
             </div>
 
-          
+
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
