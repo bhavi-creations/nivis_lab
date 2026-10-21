@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__ . '/auth.php';
 include 'navbar.php';
 include 'fetch_home_sliders.php';
 

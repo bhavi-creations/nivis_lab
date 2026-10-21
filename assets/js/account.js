@@ -5,7 +5,7 @@
     const footer = document.getElementById('accountDrawerFooter');
     const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     async function loadAccount() {
-        content.innerHTML = '<p>Loading your account…</p>';
+        content.innerHTML = '<p>Loading your accountï¿½</p>';
         footer.hidden = true;
         try {
             const response = await fetch('account_dashboard.php', {cache:'no-store', credentials:'same-origin'});
@@ -24,7 +24,7 @@
             if (!orders.length) content.innerHTML += '<div class="account-panel"><p>No orders linked to this account yet. Your new checkout orders will appear here.</p><button type="button" class="account-retry" data-bs-dismiss="offcanvas">Continue shopping</button></div>';
             for (const order of orders) {
                 const total = new Intl.NumberFormat('en-IN', {style:'currency', currency:order.currency}).format(Number(order.amount_subunits)/100);
-                content.innerHTML += `<article class="account-order"><h4>Order ${escape(order.order_id)}</h4><span class="account-status">${order.payment_status === 'paid' ? 'Payment confirmed' : 'Payment pending'}</span><p class="account-date">${escape(order.created_at)}</p><ul>${order.items.map(item=>`<li>${escape(item.name)} <strong>× ${escape(item.quantity)}</strong></li>`).join('')}</ul><strong>Total: ${escape(total)}</strong></article>`;
+                content.innerHTML += `<article class="account-order"><h4>Order ${escape(order.order_id)}</h4><span class="account-status">${escape(order.payment_status_label || (order.payment_status === 'paid' ? 'Payment confirmed' : 'Payment pending'))}</span><p class="account-date">${escape(order.created_at)}</p><ul>${order.items.map(item=>`<li>${escape(item.name)} <strong>ï¿½ ${escape(item.quantity)}</strong></li>`).join('')}</ul><strong>Total: ${escape(total)}</strong></article>`;
             }
         } catch (error) {
             content.innerHTML = `<p role="alert">${escape(error.message)}</p><button type="button" class="account-retry" id="accountRetry">Try again</button>`;

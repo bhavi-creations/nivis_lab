@@ -1,0 +1,1 @@
+{"query":"{ countries { code name provinces { code name } } }"}

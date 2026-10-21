@@ -156,7 +156,7 @@ unset($_SESSION['auth_error'], $_SESSION['auth_old']);
             }
         }
     </style>
-<link rel="stylesheet" href="assets/css/theme.css?v=3"><link rel="stylesheet" href="assets/css/account-login.css?v=1"></head>
+<link rel="stylesheet" href="assets/css/theme.css?v=3"><link rel="stylesheet" href="assets/css/account-login.css?v=2"></head>
 
 <body class="nivis-theme nivis-login">
     <main class="card">
@@ -167,7 +167,7 @@ unset($_SESSION['auth_error'], $_SESSION['auth_old']);
             <a class="continue" href="index.php">Continue to website</a>
         <?php else: ?>
             <h1><?= $signup ? 'Create your account' : 'Welcome back' ?></h1>
-            <p><?= $signup ? 'Register once to explore Nivis Labs.' : 'Log in with your email and phone number.' ?></p>
+            <p><?= $signup ? 'Register once to explore Nivis Labs.' : 'Log in with your email and password.' ?></p>
             <nav class="tabs" aria-label="Account options"><a href="login.php?mode=signup" class="<?= $signup ? 'active' : '' ?>">Sign up</a><a href="login.php?mode=login" class="<?= !$signup ? 'active' : '' ?>">Login</a></nav>
             <?php if ($error !== ''): ?><p class="message error" role="alert"><?= customer_escape($error) ?></p><?php endif; ?>
             <form action="check_login.php" method="post">
@@ -175,18 +175,28 @@ unset($_SESSION['auth_error'], $_SESSION['auth_old']);
                 <input type="hidden" name="mode" value="<?= $signup ? 'signup' : 'login' ?>">
                 <?php if ($signup): ?>
                     <label for="name">Name</label><input id="name" name="name" autocomplete="name" maxlength="120" value="<?= customer_escape($old['name'] ?? '') ?>" required>
-                    <label for="address">Address</label><textarea id="address" name="address" autocomplete="street-address" maxlength="4000" required><?= customer_escape($old['address'] ?? '') ?></textarea>
+                    <label for="address">Address</label><textarea id="address" name="address" autocomplete="street-address" maxlength="255" required><?= customer_escape($old['address'] ?? '') ?></textarea>
+                    <label for="country">Country</label><select id="country" name="country" autocomplete="country" required>
+<?php $countryOptions = json_decode(file_get_contents(__DIR__ . '/assets/customer-countries.json'), true)['data']['countries']; foreach ($countryOptions as $option): ?>
+<option value="<?= customer_escape($option['code']) ?>" <?= ($old['country'] ?? 'IN') === $option['code'] ? 'selected' : '' ?>><?= customer_escape($option['name']) ?></option>
+<?php endforeach; ?></select>
+                    <label for="province">State / Province</label><select id="province" name="province" autocomplete="address-level1" required><option value="">Select state</option>
+<?php foreach ($countryOptions as $option): if ($option['code'] !== ($old['country'] ?? 'IN')) continue; foreach ($option['provinces'] ?? [] as $state): ?>
+<option value="<?= customer_escape($state['code']) ?>" <?= ($old['province'] ?? '') === $state['code'] ? 'selected' : '' ?>><?= customer_escape($state['name']) ?></option>
+<?php endforeach; endforeach; ?></select>
+                    <label for="postcode">PIN / Postal code</label><input id="postcode" name="postcode" maxlength="20" value="<?= customer_escape($old['postcode'] ?? '') ?>" autocomplete="postal-code" required>
                     <label for="phone">Phone number</label><input id="phone" name="phone" type="tel" autocomplete="tel" pattern="\+?[0-9]{10,15}" maxlength="16" title="10 to 15 digits, optionally starting with +" value="<?= customer_escape($old['phone'] ?? '') ?>" required>
                 <?php endif; ?>
                 <label for="email">Email<?= $signup ? '' : ' / Username' ?></label><input id="email" name="email" type="email" autocomplete="username" maxlength="254" value="<?= customer_escape($old['email'] ?? '') ?>" required>
                 <?php if (!$signup): ?>
                     <label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required>
                 <?php endif; ?>
-                <p class="hint"><?= $signup ? 'Your email will be your username. Your phone number, exactly as entered, will be your password. We will email your login credentials to you.' : 'Use the phone number entered during signup as your password.' ?></p>
+                <p class="hint"><?= $signup ? 'Your email will be your username. Your phone number, exactly as entered, will be your password. We will email your login credentials to you.' : 'Use your current password (your phone number until you change it).' ?></p>
                 <button type="submit"><?= $signup ? 'Create account' : 'Login' ?></button>
             </form>
+            <?php if (!$signup): ?><form action="forgot_password.php" method="get"><button type="submit" style="margin-top:12px">Forgot password?</button></form><?php endif; ?>
         <?php endif; ?>
     </main>
-</body>
+<script src="assets/js/account-address.js?v=2" defer></script></body>
 
 </html>

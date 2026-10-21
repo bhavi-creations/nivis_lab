@@ -3,6 +3,10 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start(['use_strict_mode' => true, 'cookie_httponly' => true,
         'cookie_secure' => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off', 'cookie_samesite' => 'Lax']);
 }
+// Accounts created before backend integration must sign in again.
+if (!empty($_SESSION['customer_id']) && ($_SESSION['auth_backend'] ?? '') !== 'evershop') {
+    unset($_SESSION['customer_id'], $_SESSION['customer_name'], $_SESSION['logged_in'], $_SESSION['website_login']);
+}
 function customer_db() {
     require_once __DIR__ . '/config.php';
     return new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4', DB_USER, DB_PASS,

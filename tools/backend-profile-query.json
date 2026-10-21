@@ -1,0 +1,1 @@
+{"query":"{ currentCustomer { customerId uuid email fullName addresses { fullName telephone address1 address2 city postcode province { name } country { name } isDefault } orders { orderNumber uuid currency grandTotal { value } createdAt { text } paymentStatus { code name } items { productName qty } } } }"}

@@ -1,0 +1,21 @@
+Customer accounts now use the existing EVERSHOP_BASE_URL from backend_config.php.
+
+Signup: POST /api/customers, followed by the authenticated customer address API.
+Login: POST /api/customer/tokens; tokens stay in the server-side PHP session.
+Dashboard: authenticated currentCustomer GraphQL query, including addresses and orders.
+Checkout: authenticated /api/carts/{id}/checkout links the order to that customer.
+Forgot password: /api/customers/reset-password. Email delivery and the emailed reset-page URL are controlled by the existing backend notification configuration.
+Password update: /api/customers/password. The PHP reset page also accepts backend-issued tokens.
+
+No new customer, order-history, or reset-token data is written to the separate nivis_lab MySQL database by the active account flow. Previous local tables/data are retained as a backup, not migrated or deleted. Local-only accounts must register with the backend; do not overwrite any existing backend customer password during migration.
+
+Checks:
+php tools/check-customer-backend.php
+
+Isolated HTTP integration tests (never use production as the fixture):
+1. php -S 127.0.0.1:8097 tests/customer-backend-router.php
+2. In another shell set EVERSHOP_BASE_URL=http://127.0.0.1:8097, then php -S 127.0.0.1:8098
+3. php tests/customer-auth.test.php
+On restricted systems use -d session.save_path=<writable temporary directory> for server 2.
+
+Live account creation, actual email delivery and a real paid checkout still require end-to-end validation against the deployed backend. Schema and anonymous API connectivity have been checked without creating live test accounts or charges.

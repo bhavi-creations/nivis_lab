@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/razorpay_config.php';
-require_once __DIR__ . '/customer_orders.php';
+
 
 header('Content-Type: application/json');
 
@@ -83,11 +83,6 @@ if (!$apiSuccess) {
     ], 502);
 }
 
-try {
-    customer_order_paid($orderId, $gatewayOrderId);
-} catch (Throwable $historyError) {
-    error_log('Customer order history update failed: ' . $historyError->getMessage());
-}
 jsonResponse([
     'success' => true,
     'message' => 'Payment verified successfully.',

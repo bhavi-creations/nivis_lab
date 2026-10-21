@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/razorpay_config.php';
-require_once __DIR__ . '/customer_orders.php';
+require_once __DIR__ . '/customer_auth.php';
+require_once __DIR__ . '/customer_backend.php';
 
 header('Content-Type: application/json');
 
@@ -524,9 +525,21 @@ if ($shippingAddress !== []) {
     }
 }
 
-$evershopOrderResult = postJson($baseUrl . '/orders', [
-    'cart_id' => $cartId
-]);
+// Authenticated checkout attaches the order to the backend customer account.
+if (($_SESSION['auth_backend'] ?? '') === 'evershop' && !empty($_SESSION['backend_access_token'])) {
+    try {
+        $backendOrder = customer_backend_request('/carts/' . rawurlencode($cartId) . '/checkout', [
+            'cart_id' => $cartId,
+            'customer' => ['email' => $_SESSION['customer_email']],
+            'paymentMethod' => 'razorpay'
+        ], true);
+        $evershopOrderResult = ['response'=>json_encode(['data'=>$backendOrder]), 'http_code'=>200, 'error'=>''];
+    } catch (CustomerBackendException $error) {
+        jsonResponse(['success'=>false, 'message'=>$error->getMessage()], 502);
+    }
+} else {
+    $evershopOrderResult = postJson($baseUrl . '/orders', ['cart_id'=>$cartId]);
+}
 $evershopOrderDecoded = json_decode((string) $evershopOrderResult['response'], true);
 
 if ($evershopOrderResult['error']) {
@@ -578,11 +591,6 @@ if (!$gateway) {
     ], 500);
 }
 
-try {
-    customer_order_save($evershopOrderId, $gateway, $items, $razorpayData['amount'] ?? $amountSubunits, $razorpayData['currency'] ?? RAZORPAY_CURRENCY);
-} catch (Throwable $historyError) {
-    error_log('Customer order history save failed: ' . $historyError->getMessage());
-}
 jsonResponse([
     'success' => true,
     'order_id' => $evershopOrderId,
