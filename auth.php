@@ -1,9 +1,6 @@
 <?php
-session_start();
-
-if(!isset($_SESSION['website_login']))
-{
-    header("Location: login.php");
-    exit();
+require_once __DIR__ . '/customer_auth.php';
+if (empty($_SESSION['customer_id'])) {
+    header('Location: login.php');
+    exit;
 }
-?>

@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/razorpay_config.php';
+require_once __DIR__ . '/customer_orders.php';
 
 header('Content-Type: application/json');
 
@@ -577,6 +578,11 @@ if (!$gateway) {
     ], 500);
 }
 
+try {
+    customer_order_save($evershopOrderId, $gateway, $items, $razorpayData['amount'] ?? $amountSubunits, $razorpayData['currency'] ?? RAZORPAY_CURRENCY);
+} catch (Throwable $historyError) {
+    error_log('Customer order history save failed: ' . $historyError->getMessage());
+}
 jsonResponse([
     'success' => true,
     'order_id' => $evershopOrderId,

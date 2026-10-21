@@ -1,0 +1,4 @@
+DirectoryIndex index.php index.html
+<Files "smtp_settings.php">
+    Require all denied
+</Files>

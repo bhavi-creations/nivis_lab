@@ -478,14 +478,14 @@
 
 
                 <!-- ACCOUNT -->
-                <!-- <button type="button"
+                <button type="button"
                         class="new_navbr_section__icon"
                         title="Account"
-                        aria-label="Account">
+                        aria-label="Account" data-bs-toggle="offcanvas" data-bs-target="#accountDrawer" aria-controls="accountDrawer">
 
                     <i class="bi bi-person"></i>
 
-                </button> -->
+                </button>
 
 
                 <!-- CART -->
@@ -995,3 +995,5 @@
 
 });
     </script>
+
+<?php include __DIR__ . '/account_drawer.php'; ?>
