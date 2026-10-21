@@ -1,15 +1,5 @@
 <?php
 include 'navbar.php';
-include 'fetch_home_sliders.php';
-
-$oldHeroSlides = [];
-foreach ($homeSliders as $slider) {
-    foreach (($slider['settings']['slides'] ?? []) as $slide) {
-        $oldHeroSlides[] = ['slide' => $slide, 'name' => $slider['name'] ?? 'Nivis Labs'];
-    }
-}
-// The previous slider displayed its third slide first.
-$firstHeroSlide = $oldHeroSlides[2] ?? $oldHeroSlides[0] ?? null;
 $newHeroImages = [
     ['file' => 'foaming_face_washing-bg.png', 'alt' => 'Foaming Face Wash'],
     ['file' => 'instant-glow-bg.png', 'alt' => 'Instant Glow'],
@@ -43,41 +33,10 @@ $newHeroImages = [
     </button>
 
     <div class="index_img_section__slides" id="indexHeroSlides">
-        <?php if ($firstHeroSlide):
-            $slide = $firstHeroSlide['slide'];
-            $imageUrl = !empty($slide['image']) ? $slide['image'] : './assets/img/product.webp';
-            $headline = $slide['headline'] ?? '';
-            $subText = $slide['subText'] ?? '';
-            $buttonText = $slide['buttonText'] ?? 'Read More';
-            $altText = $headline ?: ($subText ?: $firstHeroSlide['name'] . ' slide');
-        ?>
-            <a class="index_img_section__slide active" href="products.php"
-                style="--hero-img: url('<?php echo htmlspecialchars($imageUrl); ?>');">
-                <img class="index_img_section__product" src="<?php echo htmlspecialchars($imageUrl); ?>"
-                    alt="<?php echo htmlspecialchars($altText); ?>"
-                    onerror="this.src='./assets/img/product.webp';" />
-                <?php if ($headline || $subText): ?>
-                    <div class="index_img_section__content">
-                        <?php if ($subText): ?>
-                            <span class="index_img_section__new-tag"><?php echo htmlspecialchars($subText); ?></span>
-                        <?php endif; ?>
-                        <?php if ($headline): ?>
-                            <h1 class="index_img_section__title"><?php echo nl2br(htmlspecialchars($headline)); ?></h1>
-                        <?php endif; ?>
-                    </div>
-                <?php endif; ?>
-                <div class="index_img_section__cta"><span><?php echo htmlspecialchars($buttonText); ?></span><i class="bi bi-arrow-right-circle"></i></div>
-            </a>
-        <?php else: ?>
-            <a class="index_img_section__slide active" href="products.php" style="--hero-img: url('./assets/img/4.png');">
-                <img class="index_img_section__product" src="./assets/img/4.png" alt="Nivis Labs featured slide" onerror="this.src='./assets/img/product.webp';" />
-                <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
-            </a>
-        <?php endif; ?>
-        <?php foreach ($newHeroImages as $heroImage):
+        <?php foreach ($newHeroImages as $heroIndex => $heroImage):
             $imagePath = './assets/img/' . $heroImage['file'];
         ?>
-            <a class="index_img_section__slide" href="products.php"
+            <a class="index_img_section__slide<?= $heroIndex === 0 ? ' active' : '' ?>" href="products.php"
                 style="--hero-img: url('<?php echo htmlspecialchars($imagePath); ?>');">
                 <img class="index_img_section__product" src="<?php echo htmlspecialchars($imagePath); ?>"
                     alt="<?php echo htmlspecialchars($heroImage['alt']); ?>"
