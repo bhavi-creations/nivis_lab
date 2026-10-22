@@ -569,8 +569,7 @@ include 'navbar.php';
                 if (orderResult.payment_method === 'cod' && orderResult.order_id) {
                     window.NivisCart.clear();
                     localStorage.removeItem(draftKey);
-                    renderSummary();
-                    alert(`Order placed successfully. Your order reference is ${orderResult.order_number || orderResult.order_id}. Payment is due on delivery.`);
+                    window.location.replace('index.php');
                     return;
                 }
                 throw new Error(orderResult.message || 'Unable to create the payment order.');
@@ -623,8 +622,7 @@ include 'navbar.php';
 
                     window.NivisCart.clear();
                     localStorage.removeItem(draftKey);
-                    renderSummary();
-                    alert('Payment successful. Thank you for your order.');
+                    window.location.replace('index.php');
                 },
                 modal: {
                     ondismiss: function() {
