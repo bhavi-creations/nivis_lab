@@ -14,42 +14,9 @@ try {
     $orders = [];
     foreach ($profile['orders'] ?? [] as $order) {
         $status = $order['paymentStatus']['code'] ?? 'pending';
-        $discount = $order['discountAmount']['value'] ?? $order['discountAmount'] ?? 0;
-        $orders[] = [
-            'order_id' => $order['orderNumber'] ?? $order['uuid'] ?? 'Order',
-            'amount_subunits' => (int)round((float)($order['grandTotal']['value'] ?? $order['grandTotal'] ?? 0) * 100),
-            'discount_subunits' => (int)round((float)$discount * 100),
-            'currency' => $order['currency'] ?? 'INR',
-            'payment_status' => in_array($status, ['paid', 'captured'], true) ? 'paid' : $status,
-            'payment_status_label' => $order['paymentStatus']['name'] ?? 'Pending',
-            'created_at' => $order['createdAt']['text'] ?? $order['createdAt'] ?? '',
-            'items' => array_map(static fn($item) => ['name' => $item['productName'] ?? 'Product', 'quantity' => (int)($item['qty'] ?? 0)], $order['items'] ?? [])
-        ];
+        $orders[] = ['order_id'=>$order['orderNumber'], 'amount_subunits'=>(int)round((float)$order['grandTotal']['value']*100), 'currency'=>$order['currency'], 'payment_status'=>in_array($status,['paid','captured'],true)?'paid':$status, 'payment_status_label'=>$order['paymentStatus']['name'] ?? 'Pending', 'created_at'=>$order['createdAt']['text'], 'items'=>array_map(static fn($item)=>['name'=>$item['productName'],'quantity'=>$item['qty']],$order['items'] ?? [])];
     }
-    $countryCode = 'IN';
-    $stateCode = '';
-    $countries = json_decode((string)file_get_contents(__DIR__ . '/assets/customer-countries.json'), true)['data']['countries'] ?? [];
-    foreach ($countries as $countryOption) {
-        if (strcasecmp((string)($countryOption['name'] ?? ''), (string)($address['country']['name'] ?? '')) === 0) {
-            $countryCode = $countryOption['code'];
-            foreach ($countryOption['provinces'] ?? [] as $provinceOption) {
-                if (strcasecmp((string)($provinceOption['name'] ?? ''), (string)($address['province']['name'] ?? '')) === 0) {
-                    $stateCode = $provinceOption['code'];
-                    break;
-                }
-            }
-            break;
-        }
-    }
-    $customer = [
-        'name' => $profile['fullName'] ?? '', 'email' => $profile['email'] ?? '',
-        'phone' => $address['telephone'] ?? '',
-        'address' => implode(', ', array_filter([$address['address1'] ?? '', $address['address2'] ?? '', $address['city'] ?? '', $address['province']['name'] ?? '', $address['postcode'] ?? '', $address['country']['name'] ?? ''])),
-        'address_1' => $address['address1'] ?? '', 'address_2' => $address['address2'] ?? '',
-        'city' => $address['city'] ?? '', 'state' => $address['province']['name'] ?? '',
-        'state_code' => $stateCode, 'postcode' => $address['postcode'] ?? '', 'country' => $countryCode
-    ];
-    echo json_encode(['authenticated' => true, 'csrf' => $_SESSION['csrf'], 'customer' => $customer, 'orders' => $orders, 'discount_totals_available' => !empty($profile['_discountTotalsAvailable']), 'account_edit_enabled' => trim((string)(getenv('EVERSHOP_ADMIN_API_TOKEN') ?: '')) !== '']);
+    echo json_encode(['authenticated'=>true,'csrf'=>$_SESSION['csrf'],'customer'=>['name'=>$profile['fullName'],'email'=>$profile['email'],'phone'=>$address['telephone'] ?? '', 'address'=>implode(', ',array_filter([$address['address1']??'', $address['address2']??'', $address['city']??'', $address['province']['name']??'', $address['postcode']??'', $address['country']['name']??''])), 'address_1'=>$address['address1']??'', 'address_2'=>$address['address2']??'', 'city'=>$address['city']??'', 'state'=>$address['province']['name']??'', 'state_code'=>$address['province']['code']??'', 'postcode'=>$address['postcode']??'', 'country'=>$address['country']['code']??'IN'], 'orders'=>$orders]);
 } catch (CustomerBackendException $error) {
     if ($error->getCode() === 401) { echo json_encode(['authenticated'=>false]); exit; }
     http_response_code(503);

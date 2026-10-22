@@ -20,10 +20,6 @@ $input = json_decode(file_get_contents('php://input'), true);
 if (!is_array($input) || empty($_SESSION['csrf']) || !hash_equals($_SESSION['csrf'], (string)($input['csrf'] ?? ''))) {
     account_update_response(['error' => 'Your session expired. Refresh the page and try again.'], 419);
 }
-if (trim((string)(getenv('EVERSHOP_ADMIN_API_TOKEN') ?: '')) === '') {
-    account_update_response(['error' => 'The store server has not enabled secure account updates yet. Please contact the store administrator.'], 503);
-}
-
 $name = trim((string)($input['full_name'] ?? ''));
 $email = strtolower(trim((string)($input['email'] ?? '')));
 $phone = trim((string)($input['phone'] ?? ''));
@@ -39,7 +35,7 @@ if ($name === '' || strlen($name) > 120 || !filter_var($email, FILTER_VALIDATE_E
 }
 
 try {
-    $profile = customer_backend_profile_for_edit();
+    $profile = customer_backend_profile();
     if (!$profile || empty($profile['uuid'])) account_update_response(['error' => 'Could not find your customer account. Please sign in again.'], 401);
     $addresses = $profile['addresses'] ?? [];
     $address = $addresses[0] ?? null;
