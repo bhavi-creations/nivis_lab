@@ -38,8 +38,34 @@ function customer_backend_request(string $path, array $payload, bool $authentica
     return $result['data'] ?? $result;
 }
 function customer_backend_profile(bool $orders = false): ?array {
-    $orderFields = $orders ? 'orders { orderNumber uuid currency grandTotal { value } createdAt { text } paymentStatus { code name } items { productName qty } }' : '';
-    $data = customer_backend_request('/graphql', ['query' => '{ currentCustomer { customerId uuid email fullName addresses { uuid fullName telephone address1 address2 city postcode province { name code } country { name code } isDefault } ' . $orderFields . ' } }'], true);
+    $base = 'currentCustomer { customerId uuid email fullName addresses { fullName telephone address1 address2 city postcode province { name } country { name } isDefault } ';
+    if ($orders) {
+        // EverShop deployments may expose discountAmount as a money object or a scalar.
+        $queries = [
+            ['query' => '{ ' . $base . 'orders { orderNumber uuid currency grandTotal { value } discountAmount { value } createdAt { text } paymentStatus { code name } items { productName qty } } }', 'discounts' => true],
+            ['query' => '{ ' . $base . 'orders { orderNumber uuid currency grandTotal { value } discountAmount createdAt { text } paymentStatus { code name } items { productName qty } } }', 'discounts' => true],
+            ['query' => '{ ' . $base . 'orders { orderNumber uuid currency grandTotal { value } createdAt { text } paymentStatus { code name } items { productName qty } } }', 'discounts' => false]
+        ];
+        $lastError = null;
+        foreach ($queries as $candidate) {
+            try {
+                $data = customer_backend_request('/graphql', ['query' => $candidate['query']], true);
+                $profile = $data['currentCustomer'] ?? null;
+                if (is_array($profile)) $profile['_discountTotalsAvailable'] = $candidate['discounts'];
+                return $profile;
+            } catch (CustomerBackendException $error) {
+                if ($error->getCode() === 401) throw $error;
+                $lastError = $error;
+            }
+        }
+        throw $lastError ?? new CustomerBackendException('Could not load your order history.');
+    }
+    $data = customer_backend_request('/graphql', ['query' => '{ ' . $base . ' }'], true);
+    return $data['currentCustomer'] ?? null;
+}
+
+function customer_backend_profile_for_edit(): ?array {
+    $data = customer_backend_request('/graphql', ['query' => '{ currentCustomer { customerId uuid email fullName addresses { uuid fullName telephone address1 address2 city postcode province { name } country { name } isDefault } } }'], true);
     return $data['currentCustomer'] ?? null;
 }
 
