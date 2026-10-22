@@ -3,5 +3,5 @@
     <div class="offcanvas-body" id="accountDrawerContent" aria-live="polite"></div>
     <div class="nivis-account-footer" id="accountDrawerFooter" hidden><a href="logout.php">Logout <i class="bi bi-box-arrow-right" aria-hidden="true"></i></a></div>
 </div>
-<link rel="stylesheet" href="assets/css/account.css?v=1">
-<script src="assets/js/account.js?v=1" defer></script>
+<link rel="stylesheet" href="assets/css/account.css?v=2">
+<script src="assets/js/account.js?v=2" defer></script>

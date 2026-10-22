@@ -4,7 +4,7 @@ require_once __DIR__ . '/customer_backend.php';
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') { header('Location: login.php'); exit; }
 if (empty($_SESSION['csrf']) || !hash_equals($_SESSION['csrf'], customer_value('csrf'))) {
     $_SESSION['auth_error'] = 'Your session expired. Please try again.';
-    header('Location: login.php'); exit;
+    header('Location: login.php?mode=login' . (customer_value('return') === 'checkout.php' ? '&return=checkout.php' : '')); exit;
 }
 $mode = customer_value('mode') === 'signup' ? 'signup' : 'login';
 $email = strtolower(customer_value('email') ?: customer_value('username'));
@@ -47,8 +47,12 @@ try {
         unset($_SESSION['login_attempts'], $_SESSION['login_attempt_time']);
     }
     unset($_SESSION['auth_old']);
+    if (customer_value('return') === 'checkout.php') {
+        unset($_SESSION['auth_notice']);
+        header('Location: checkout.php'); exit;
+    }
     header('Location: login.php'); exit;
 } catch (RuntimeException $error) {
     $_SESSION['auth_error'] = $error->getMessage();
 }
-header('Location: login.php?mode=' . $mode); exit;
+header('Location: login.php?mode=' . $mode . (customer_value('return') === 'checkout.php' ? '&return=checkout.php' : '')); exit;

@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/backend_config.php';
-
-session_start();
+require_once __DIR__ . '/customer_auth.php';
 header('Content-Type: application/json');
 
 function jsonResponse($payload, int $status = 200): void
@@ -106,12 +105,16 @@ function resolveCatalogItem(array $item, array $catalog): ?array
 
 function postJson(string $url, array $payload): array
 {
+    $headers = ['Content-Type: application/json'];
+    if (($_SESSION['auth_backend'] ?? '') === 'evershop' && !empty($_SESSION['backend_access_token'])) {
+        $headers[] = 'Authorization: Bearer ' . $_SESSION['backend_access_token'];
+    }
     $ch = curl_init($url);
     curl_setopt_array($ch, [
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POST => true,
         CURLOPT_POSTFIELDS => json_encode($payload),
-        CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
+        CURLOPT_HTTPHEADER => $headers,
         CURLOPT_TIMEOUT => 30,
     ]);
 
@@ -125,11 +128,15 @@ function postJson(string $url, array $payload): array
 
 function requestJson(string $method, string $url, ?array $payload = null): array
 {
+    $headers = ['Content-Type: application/json'];
+    if (($_SESSION['auth_backend'] ?? '') === 'evershop' && !empty($_SESSION['backend_access_token'])) {
+        $headers[] = 'Authorization: Bearer ' . $_SESSION['backend_access_token'];
+    }
     $ch = curl_init($url);
     $options = [
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_CUSTOMREQUEST => $method,
-        CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
+        CURLOPT_HTTPHEADER => $headers,
         CURLOPT_TIMEOUT => 30,
     ];
 

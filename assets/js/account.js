@@ -20,7 +20,31 @@
             const orders = data.orders;
             const paid = orders.filter(o => o.payment_status === 'paid');
             const quantity = paid.reduce((sum, order) => sum + order.items.reduce((n, item) => n + Number(item.quantity), 0), 0);
-            content.innerHTML = `<section class="account-panel"><h3>Hello, ${escape(c.name)}</h3><dl>${[['Email',c.email],['Phone',c.phone],['Address',c.address]].map(([label,value])=>`<dt>${label}</dt><dd>${escape(value)}</dd>`).join('')}</dl></section><div class="account-stats"><div><strong>${paid.length}</strong><span>Paid orders</span></div><div><strong>${quantity}</strong><span>Products purchased</span></div></div><h3>My orders (${orders.length})</h3>`;
+            content.innerHTML = `<section class="account-panel"><h3>Hello, ${escape(c.name)}</h3><dl>${[['Email',c.email],['Phone',c.phone],['Address',c.address]].map(([label,value])=>`<dt>${label}</dt><dd>${escape(value)}</dd>`).join('')}</dl><button type="button" class="account-retry" id="editAccountToggle">Edit Account Details</button><form id="editAccountForm" class="account-edit-form" hidden><p class="account-form-message" id="accountFormMessage" role="status"></p><label>Name<input name="full_name" maxlength="120" value="${escape(c.name)}" required></label><label>Email<input name="email" type="email" maxlength="254" value="${escape(c.email)}" required></label><label>Phone<input name="phone" type="tel" pattern="\\+?[0-9]{10,15}" value="${escape(c.phone)}" required></label><label>Address line 1<input name="address_1" maxlength="255" value="${escape(c.address_1)}" required></label><label>Address line 2<input name="address_2" maxlength="255" value="${escape(c.address_2)}"></label><label>City<input name="city" maxlength="120" value="${escape(c.city)}" required></label><label>State / Province<input name="state" maxlength="120" value="${escape(c.state_code || c.state)}" required></label><label>PIN / Postal code<input name="postcode" maxlength="20" value="${escape(c.postcode)}" required></label><label>Country code<input name="country" minlength="2" maxlength="2" value="${escape(c.country)}" required></label><label>New password (optional)<input name="password" type="password" minlength="8" maxlength="128" autocomplete="new-password"></label><button type="submit" class="account-retry">Save account details</button></form></section><div class="account-stats"><div><strong>${paid.length}</strong><span>Paid orders</span></div><div><strong>${quantity}</strong><span>Products purchased</span></div></div><h3>My orders (${orders.length})</h3>`;
+            document.getElementById('editAccountToggle').addEventListener('click', () => {
+                const form = document.getElementById('editAccountForm');
+                form.hidden = !form.hidden;
+            });
+            document.getElementById('editAccountForm').addEventListener('submit', async event => {
+                event.preventDefault();
+                const form = event.currentTarget;
+                const button = form.querySelector('button[type="submit"]');
+                const message = document.getElementById('accountFormMessage');
+                button.disabled = true;
+                message.textContent = 'Saving your details…';
+                try {
+                    const values = Object.fromEntries(new FormData(form).entries());
+                    values.csrf = data.csrf;
+                    const saved = await fetch('account_update.php', {method:'POST', credentials:'same-origin', headers:{'Content-Type':'application/json'}, body:JSON.stringify(values)});
+                    const result = await saved.json();
+                    if (!saved.ok) throw new Error(result.error || 'Unable to save your account details.');
+                    loadAccount();
+                } catch (error) {
+                    message.textContent = error.message;
+                } finally {
+                    button.disabled = false;
+                }
+            });
             if (!orders.length) content.innerHTML += '<div class="account-panel"><p>No orders linked to this account yet. Your new checkout orders will appear here.</p><button type="button" class="account-retry" data-bs-dismiss="offcanvas">Continue shopping</button></div>';
             for (const order of orders) {
                 const total = new Intl.NumberFormat('en-IN', {style:'currency', currency:order.currency}).format(Number(order.amount_subunits)/100);

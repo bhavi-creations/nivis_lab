@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/customer_auth.php';
+$checkoutAuthenticated = ($_SESSION['auth_backend'] ?? '') === 'evershop' && !empty($_SESSION['backend_access_token']);
 require_once __DIR__ . '/razorpay_config.php';
 include 'navbar.php';
 ?>
@@ -11,6 +13,16 @@ include 'navbar.php';
         </div>
         <a href="products.php" class="btn btn-outline-dark">Continue Shopping</a>
     </div>
+
+    <?php if (!$checkoutAuthenticated): ?>
+    <div class="border bg-white p-3 mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3" id="checkoutAccountOptions">
+        <div><strong>Checkout options</strong><div class="small text-muted">Sign in to use your saved details, or continue as a guest.</div></div>
+        <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-outline-dark" href="login.php?mode=login&amp;return=checkout.php">Login / Sign Up</a>
+            <button class="btn btn-dark" type="button" id="continueAsGuest">Continue as Guest</button>
+        </div>
+    </div>
+    <?php endif; ?>
 
     <div id="checkoutEmptyState" class="border p-4 d-none">
         <h5 class="mb-2">Your cart is empty</h5>
@@ -322,6 +334,29 @@ include 'navbar.php';
         });
     }
 
+    async function applySavedCustomerDetails() {
+        try {
+            const response = await fetch('checkout_customer.php', { credentials: 'same-origin', cache: 'no-store' });
+            const result = await response.json();
+            if (!response.ok || !result.authenticated || !result.customer) return;
+            const customer = result.customer;
+            ['full_name', 'email', 'phone', 'country', 'address_1', 'address_2', 'city', 'postcode'].forEach((field) => {
+                const input = form.querySelector(`[name="${field}"]`);
+                if (input && customer[field]) input.value = customer[field];
+            });
+            const state = form.querySelector('[name="state"]');
+            if (state && customer.state) {
+                const matchingOption = Array.from(state.options).find(option =>
+                    option.value.toLowerCase() === customer.state.toLowerCase() || option.textContent.trim().toLowerCase() === customer.state.toLowerCase()
+                );
+                if (matchingOption) state.value = matchingOption.value;
+            }
+            saveDraft();
+        } catch (error) {
+            console.warn('Unable to prefill saved customer details:', error);
+        }
+    }
+
     function renderSummary() {
         const cart = getCart();
         if (!cart.items.length) {
@@ -611,6 +646,11 @@ include 'navbar.php';
 
     async function initCheckout() {
         applyDraft();
+        await applySavedCustomerDetails();
+        document.getElementById('continueAsGuest')?.addEventListener('click', () => {
+            document.getElementById('checkoutAccountOptions')?.remove();
+            document.getElementById('full_name')?.focus();
+        });
         if (window.NivisCart?.refresh) {
             try {
                 await window.NivisCart.refresh();

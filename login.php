@@ -168,11 +168,13 @@ unset($_SESSION['auth_error'], $_SESSION['auth_old']);
         <?php else: ?>
             <h1><?= $signup ? 'Create your account' : 'Welcome back' ?></h1>
             <p><?= $signup ? 'Register once to explore Nivis Labs.' : 'Log in with your email and password.' ?></p>
-            <nav class="tabs" aria-label="Account options"><a href="login.php?mode=signup" class="<?= $signup ? 'active' : '' ?>">Sign up</a><a href="login.php?mode=login" class="<?= !$signup ? 'active' : '' ?>">Login</a></nav>
+            <?php $returnTo = ($_GET['return'] ?? '') === 'checkout.php' ? 'checkout.php' : ''; ?>
+            <nav class="tabs" aria-label="Account options"><a href="login.php?mode=signup<?= $returnTo ? '&amp;return=checkout.php' : '' ?>" class="<?= $signup ? 'active' : '' ?>">Sign up</a><a href="login.php?mode=login<?= $returnTo ? '&amp;return=checkout.php' : '' ?>" class="<?= !$signup ? 'active' : '' ?>">Login</a></nav>
             <?php if ($error !== ''): ?><p class="message error" role="alert"><?= customer_escape($error) ?></p><?php endif; ?>
             <form action="check_login.php" method="post">
                 <input type="hidden" name="csrf" value="<?= customer_escape($_SESSION['csrf']) ?>">
                 <input type="hidden" name="mode" value="<?= $signup ? 'signup' : 'login' ?>">
+                <?php if ($returnTo): ?><input type="hidden" name="return" value="checkout.php"><?php endif; ?>
                 <?php if ($signup): ?>
                     <label for="name">Name</label><input id="name" name="name" autocomplete="name" maxlength="120" value="<?= customer_escape($old['name'] ?? '') ?>" required>
                     <label for="address">Address</label><textarea id="address" name="address" autocomplete="street-address" maxlength="255" required><?= customer_escape($old['address'] ?? '') ?></textarea>

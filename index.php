@@ -9,6 +9,17 @@ $newHeroImages = [
    
 ];
 ?>
+<style>
+    html:has(#indexHero),
+    body:has(#indexHero) {
+        margin: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    body:has(#indexHero) .new_navbr_section__offer_bar {
+        margin-top: 0 !important;
+    }
+</style>
 
 
 <section class="index_img_section" id="indexHero" aria-label="Nivis Labs featured products">

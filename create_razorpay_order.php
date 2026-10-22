@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/razorpay_config.php';
+require_once __DIR__ . '/customer_auth.php';
 
 header('Content-Type: application/json');
 
@@ -12,12 +13,16 @@ function jsonResponse($payload, $status = 200)
 
 function postJson(string $url, array $payload): array
 {
+    $headers = ['Content-Type: application/json'];
+    if (str_starts_with($url, rtrim(EVERSHOP_API_BASE_URL, '/') . '/') && !str_contains($url, '/razorpay/') && ($_SESSION['auth_backend'] ?? '') === 'evershop' && !empty($_SESSION['backend_access_token'])) {
+        $headers[] = 'Authorization: Bearer ' . $_SESSION['backend_access_token'];
+    }
     $ch = curl_init($url);
     curl_setopt_array($ch, [
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POST => true,
         CURLOPT_POSTFIELDS => json_encode($payload),
-        CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
+        CURLOPT_HTTPHEADER => $headers,
         CURLOPT_TIMEOUT => 30
     ]);
 
@@ -35,6 +40,9 @@ function postJson(string $url, array $payload): array
 
 function postJsonWithHeaders(string $url, array $payload, array $headers): array
 {
+    if (str_starts_with($url, rtrim(EVERSHOP_API_BASE_URL, '/') . '/') && !str_contains($url, '/razorpay/') && ($_SESSION['auth_backend'] ?? '') === 'evershop' && !empty($_SESSION['backend_access_token'])) {
+        $headers[] = 'Authorization: Bearer ' . $_SESSION['backend_access_token'];
+    }
     $ch = curl_init($url);
     $mergedHeaders = array_merge(['Content-Type: application/json'], $headers);
     curl_setopt_array($ch, [

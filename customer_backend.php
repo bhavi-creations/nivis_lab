@@ -39,8 +39,26 @@ function customer_backend_request(string $path, array $payload, bool $authentica
 }
 function customer_backend_profile(bool $orders = false): ?array {
     $orderFields = $orders ? 'orders { orderNumber uuid currency grandTotal { value } createdAt { text } paymentStatus { code name } items { productName qty } }' : '';
-    $data = customer_backend_request('/graphql', ['query' => '{ currentCustomer { customerId uuid email fullName addresses { fullName telephone address1 address2 city postcode province { name } country { name } isDefault } ' . $orderFields . ' } }'], true);
+    $data = customer_backend_request('/graphql', ['query' => '{ currentCustomer { customerId uuid email fullName addresses { uuid fullName telephone address1 address2 city postcode province { name code } country { name code } isDefault } ' . $orderFields . ' } }'], true);
     return $data['currentCustomer'] ?? null;
+}
+
+function customer_backend_admin_request_method(string $method, string $path, array $payload): array {
+    $token = trim((string)(getenv('EVERSHOP_ADMIN_API_TOKEN') ?: ''));
+    if ($token === '') throw new CustomerBackendException('Account editing is not enabled yet. The store backend needs EVERSHOP_ADMIN_API_TOKEN configured securely.');
+    $ch = curl_init(rtrim(EVERSHOP_API_BASE_URL, '/') . '/' . ltrim($path, '/'));
+    curl_setopt_array($ch, [CURLOPT_CUSTOMREQUEST => strtoupper($method), CURLOPT_POSTFIELDS => json_encode($payload), CURLOPT_HTTPHEADER => ['Content-Type: application/json', 'Accept: application/json', 'Authorization: Bearer ' . $token], CURLOPT_RETURNTRANSFER => true, CURLOPT_CONNECTTIMEOUT => 10, CURLOPT_TIMEOUT => 30]);
+    $raw = curl_exec($ch);
+    $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $failed = curl_errno($ch);
+    curl_close($ch);
+    if ($failed) throw new CustomerBackendException('The account server could not be reached. Please try again.');
+    $result = json_decode((string)$raw, true);
+    if (!is_array($result) || $status < 200 || $status >= 300 || !empty($result['error']) || !empty($result['errors'])) {
+        $message = $result['error']['message'] ?? 'The account server could not complete this request. Please try again.';
+        throw new CustomerBackendException(is_string($message) ? $message : 'Account request failed.', $status);
+    }
+    return $result['data'] ?? $result;
 }
 function customer_backend_login(string $email, string $password): array {
     $tokens = customer_backend_request('/customer/tokens', ['email'=>$email, 'password'=>$password]);
