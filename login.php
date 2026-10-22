@@ -156,7 +156,7 @@ unset($_SESSION['auth_error'], $_SESSION['auth_old']);
             }
         }
     </style>
-<link rel="stylesheet" href="assets/css/theme.css?v=3"><link rel="stylesheet" href="assets/css/account-login.css?v=2"></head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"><link rel="stylesheet" href="assets/css/theme.css?v=3"><link rel="stylesheet" href="assets/css/account-login.css?v=2"></head>
 
 <body class="nivis-theme nivis-login">
     <main class="card">
@@ -189,7 +189,13 @@ unset($_SESSION['auth_error'], $_SESSION['auth_old']);
                 <?php endif; ?>
                 <label for="email">Email<?= $signup ? '' : ' / Username' ?></label><input id="email" name="email" type="email" autocomplete="username" maxlength="254" value="<?= customer_escape($old['email'] ?? '') ?>" required>
                 <?php if (!$signup): ?>
-                    <label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required>
+                    <label for="password">Password</label>
+                    <div class="password-field">
+                        <input id="password" name="password" type="password" autocomplete="current-password" required>
+                        <button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="password">
+                            <i class="bi bi-eye" aria-hidden="true"></i>
+                        </button>
+                    </div>
                 <?php endif; ?>
                 <p class="hint"><?= $signup ? 'Your email will be your username. Your phone number, exactly as entered, will be your password. We will email your login credentials to you.' : 'Use your current password (your phone number until you change it).' ?></p>
                 <button type="submit"><?= $signup ? 'Create account' : 'Login' ?></button>
@@ -197,6 +203,19 @@ unset($_SESSION['auth_error'], $_SESSION['auth_old']);
             <?php if (!$signup): ?><form action="forgot_password.php" method="get"><button type="submit" style="margin-top:12px">Forgot password?</button></form><?php endif; ?>
         <?php endif; ?>
     </main>
-<script src="assets/js/account-address.js?v=2" defer></script></body>
+<script src="assets/js/account-address.js?v=2" defer></script>
+<script>
+    document.querySelectorAll('.password-toggle').forEach(button => {
+        button.addEventListener('click', () => {
+            const input = document.getElementById(button.getAttribute('aria-controls'));
+            const showing = input.type === 'password';
+            input.type = showing ? 'text' : 'password';
+            button.setAttribute('aria-label', showing ? 'Hide password' : 'Show password');
+            button.setAttribute('aria-pressed', String(showing));
+            button.innerHTML = `<i class="bi ${showing ? 'bi-eye-slash' : 'bi-eye'}" aria-hidden="true"></i>`;
+        });
+    });
+</script>
+</body>
 
 </html>

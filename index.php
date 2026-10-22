@@ -1,12 +1,12 @@
-<?php
+﻿<?php
 include 'navbar.php';
 $newHeroImages = [
-    ['file' => 'foaming_face_washing-bg.png', 'alt' => 'Foaming Face Wash'],
+    ['file' => '2.png', 'alt' => 'Foaming Face Wash'],
     ['file' => 'instant-glow-bg.png', 'alt' => 'Instant Glow'],
-    ['file' => 'folilock-cream-bg.png', 'alt' => 'Folilock Cream'],
-    ['file' => 'folilock-cream-pro-bg.png', 'alt' => 'Folilock Cream Pro'],
-    ['file' => 'skartstar-face-cream-bg.png', 'alt' => 'Skarstat Face Cream'],
-    ['file' => 'uv-aqua-bg.png', 'alt' => 'UV Aqua'],
+     ['file' => '6.png', 'alt' => 'Instant Glow'],
+    ['file' => '7.png', 'alt' => 'Folilock Cream'],
+    ['file' => '8.png', 'alt' => 'Folilock Cream Pro'],
+   
 ];
 ?>
 

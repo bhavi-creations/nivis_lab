@@ -117,7 +117,7 @@ function productCategoryName($product)
 
 function productImage($product)
 {
-    $image = $product["image"]["url"] ?? $product["primaryImage"] ?? "";
+    $image = $product["image"]["url"] ?? $product["primaryImage"] ?? $product["imageUrl"] ?? "";
 
     if (!$image && is_array($product["gallery"] ?? null) && !empty($product["gallery"][0])) {
         $image = is_array($product["gallery"][0]) ? ($product["gallery"][0]["url"] ?? "") : $product["gallery"][0];
@@ -147,7 +147,7 @@ function productSearchText($product)
 function productItem($product)
 {
     $key = searchText($product["urlKey"] ?? $product["url_key"] ?? $product["sku"] ?? $product["id"] ?? $product["name"] ?? "");
-    $price = $product["price"]["regular"]["text"] ?? "";
+    $price = $product["price"]["regular"]["text"] ?? $product["price"] ?? "";
     $category = productCategoryName($product);
 
     return [
@@ -232,6 +232,21 @@ foreach (($result["data"]["products"]["items"] ?? []) as $product) {
 
     if (strpos($haystack, $needle) !== false || ($needleSlug !== "" && strpos($haystackSlug, $needleSlug) !== false)) {
         $items[] = productItem($product);
+    }
+}
+
+// Include locally cached products too, so names like "Foot Cream" are
+// searchable even when the backend GraphQL result omits that product.
+$productCachePath = __DIR__ . "/cache/category-products-v15-all.json";
+if (is_file($productCachePath)) {
+    $productCache = json_decode(file_get_contents($productCachePath), true);
+    foreach (($productCache["products"] ?? []) as $product) {
+        $haystack = productSearchText($product);
+        $haystackSlug = searchSlug($haystack);
+
+        if (strpos($haystack, $needle) !== false || ($needleSlug !== "" && strpos($haystackSlug, $needleSlug) !== false)) {
+            $items[] = productItem($product);
+        }
     }
 }
 
