@@ -3,34 +3,22 @@ require_once __DIR__ . '/customer_auth.php';
 require_once __DIR__ . '/customer_backend.php';
 header('Content-Type: application/json');
 header('Cache-Control: no-store');
-function account_dashboard_json(array $payload, int $status = 200): void {
-    http_response_code($status);
-    echo json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE);
-    exit;
-}
-if (($_SESSION['auth_backend'] ?? '') !== 'evershop' || empty($_SESSION['backend_access_token'])) { account_dashboard_json(['authenticated'=>false]); }
+if (($_SESSION['auth_backend'] ?? '') !== 'evershop' || empty($_SESSION['backend_access_token'])) { echo json_encode(['authenticated'=>false]); exit; }
 $_SESSION['csrf'] = $_SESSION['csrf'] ?? bin2hex(random_bytes(32));
 try {
     $profile = customer_backend_profile(true);
-    if (!$profile) { account_dashboard_json(['authenticated'=>false]); }
+    if (!$profile) { echo json_encode(['authenticated'=>false]); exit; }
     $addresses = $profile['addresses'] ?? [];
     $address = $addresses[0] ?? [];
     foreach ($addresses as $entry) if (!empty($entry['isDefault'])) { $address=$entry; break; }
-    $province = $address['province'] ?? $address['state'] ?? [];
-    $stateName = is_array($province) ? ($province['name'] ?? $province['code'] ?? '') : (string)$province;
-    $stateCode = is_array($province) ? ($province['code'] ?? '') : '';
-    $country = $address['country'] ?? [];
-    $countryName = is_array($country) ? ($country['name'] ?? '') : (string)$country;
-    $countryCode = is_array($country) ? ($country['code'] ?? 'IN') : 'IN';
-    $phone = $address['telephone'] ?? $address['phone'] ?? '';
-    $address1 = $address['address1'] ?? $address['addressLine1'] ?? '';
-    $address2 = $address['address2'] ?? $address['addressLine2'] ?? '';
-    $orders = customer_backend_saved_orders($profile);
-    account_dashboard_json(['authenticated'=>true,'csrf'=>$_SESSION['csrf'],'customer'=>['name'=>$profile['fullName'],'email'=>$profile['email'],'phone'=>$phone, 'address'=>implode(', ',array_filter([$address1, $address2, $address['city']??'', $stateName, $address['postcode']??'', $countryName])), 'address_1'=>$address1, 'address_2'=>$address2, 'city'=>$address['city']??'', 'state'=>$stateName, 'state_code'=>$stateCode, 'postcode'=>$address['postcode']??'', 'country'=>$countryCode], 'orders'=>$orders]);
+    $orders = [];
+    foreach ($profile['orders'] ?? [] as $order) {
+        $status = $order['paymentStatus']['code'] ?? 'pending';
+        $orders[] = ['order_id'=>$order['orderNumber'], 'amount_subunits'=>(int)round((float)$order['grandTotal']['value']*100), 'currency'=>$order['currency'], 'payment_status'=>in_array($status,['paid','captured'],true)?'paid':$status, 'payment_status_label'=>$order['paymentStatus']['name'] ?? 'Pending', 'created_at'=>$order['createdAt']['text'], 'items'=>array_map(static fn($item)=>['name'=>$item['productName'],'quantity'=>$item['qty']],$order['items'] ?? [])];
+    }
+    echo json_encode(['authenticated'=>true,'csrf'=>$_SESSION['csrf'],'customer'=>['name'=>$profile['fullName'],'email'=>$profile['email'],'phone'=>$address['telephone'] ?? '', 'address'=>implode(', ',array_filter([$address['address1']??'', $address['address2']??'', $address['city']??'', $address['province']['name']??'', $address['postcode']??'', $address['country']['name']??''])), 'address_1'=>$address['address1']??'', 'address_2'=>$address['address2']??'', 'city'=>$address['city']??'', 'state'=>$address['province']['name']??'', 'state_code'=>$address['province']['code']??'', 'postcode'=>$address['postcode']??'', 'country'=>$address['country']['code']??'IN'], 'orders'=>$orders]);
 } catch (CustomerBackendException $error) {
-    if ($error->getCode() === 401) { account_dashboard_json(['authenticated'=>false]); }
-    account_dashboard_json(['error'=>$error->getMessage()], 503);
-} catch (Throwable $error) {
-    error_log('Account dashboard failed: ' . $error->getMessage());
-    account_dashboard_json(['error'=>'Unable to load your account dashboard. Check the PHP/server error log.'], 503);
+    if ($error->getCode() === 401) { echo json_encode(['authenticated'=>false]); exit; }
+    http_response_code(503);
+    echo json_encode(['error'=>$error->getMessage()]);
 }

@@ -40,54 +40,41 @@
     <!--
      1. MARQUEE SECTION
 -->
-    <div class="new_navbr_section__offer_bar">
-        <marquee behavior="scroll" direction="left" scrollamount="5">
-            <div class="new_navbr_section__offer_track">
+<div class="new_navbr_section__offer_bar">
+    <marquee behavior="scroll" direction="left" scrollamount="5">
+        <div class="new_navbr_section__offer_track">
 
-                <div class="new_navbr_section__offer_item">
-                    <strong>40%</strong>
-                    <span>OFF ON NEW ARRIVAL</span>
-                </div>
-
-                <span class="new_navbr_section__offer_sep"></span>
-
-                <div class="new_navbr_section__offer_item">
-
-                    <span> NEW ARRIVAL =</span>
-                    <strong>FIRSTTIME</strong>
-                </div>
- <span class="new_navbr_section__offer_sep"></span>
-                <div class="new_navbr_section__offer_item">
-
-                    <span>40% off on All Products- Use </span>
-                    <strong>“NIVISLABS40”</strong>
-                </div>
-
-                <span class="new_navbr_section__offer_sep"></span>
-
-                <div class="new_navbr_section__offer_item">
-                    <strong>40%</strong>
-                    <span>OFF ON NEW ARRIVAL</span>
-                </div>
-
-                <span class="new_navbr_section__offer_sep"></span>
-
-                <div class="new_navbr_section__offer_item">
-
-                    <span> NEW ARRIVAL =</span>
-                    <strong>FIRSTTIME</strong>
-                </div>
- <span class="new_navbr_section__offer_sep"></span>
-                <div class="new_navbr_section__offer_item">
-
-                    <span>40% off on All Products- Use </span>
-                    <strong>“NIVISLABS40”</strong>
-                </div>
-
-
+            <div class="new_navbr_section__offer_item">
+                <strong>40%</strong>
+                <span>OFF ON NEW ARRIVAL</span>
             </div>
-        </marquee>
-    </div>
+
+            <span class="new_navbr_section__offer_sep"></span>
+
+            <div class="new_navbr_section__offer_item">
+                
+                <span> NEW ARRIVAL =</span>
+                <strong>FIRSTTIME</strong>
+            </div>
+
+            <span class="new_navbr_section__offer_sep"></span>
+
+            <div class="new_navbr_section__offer_item">
+                <strong>40%</strong>
+                <span>OFF ON NEW ARRIVAL</span>
+            </div>
+
+            <span class="new_navbr_section__offer_sep"></span>
+
+           <div class="new_navbr_section__offer_item">
+                
+                <span> NEW ARRIVAL =</span>
+                <strong>FIRSTTIME</strong>
+            </div>
+
+        </div>
+    </marquee>
+</div>
 
     <!-- <div class="index_marquee_section">
         <div class="index_marquee_section__track" id="marqueeTrack">

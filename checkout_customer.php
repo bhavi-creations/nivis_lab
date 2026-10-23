@@ -23,26 +23,18 @@ try {
             break;
         }
     }
-    $province = $address['province'] ?? $address['state'] ?? '';
-    if (is_array($province)) {
-        $province = $province['code'] ?? $province['name'] ?? '';
-    }
-    $country = $address['country'] ?? $address['countryCode'] ?? '';
-    if (is_array($country)) {
-        $country = $country['code'] ?? '';
-    }
     echo json_encode([
         'authenticated' => true,
         'customer' => [
-            'full_name' => $address['fullName'] ?? $profile['fullName'] ?? '',
+            'full_name' => $profile['fullName'] ?? '',
             'email' => $profile['email'] ?? '',
-            'phone' => $address['telephone'] ?? $address['phone'] ?? '',
-            'address_1' => $address['address1'] ?? $address['addressLine1'] ?? '',
-            'address_2' => $address['address2'] ?? $address['addressLine2'] ?? '',
+            'phone' => $address['telephone'] ?? '',
+            'address_1' => $address['address1'] ?? '',
+            'address_2' => $address['address2'] ?? '',
             'city' => $address['city'] ?? '',
-            'state' => $province,
+            'state' => $address['province']['name'] ?? '',
             'postcode' => $address['postcode'] ?? '',
-            'country' => $country ?: 'IN'
+            'country' => $address['country']['code'] ?? 'IN'
         ]
     ]);
 } catch (CustomerBackendException $error) {

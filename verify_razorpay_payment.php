@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . '/razorpay_config.php';
-require_once __DIR__ . '/customer_auth.php';
 
 header('Content-Type: application/json');
 

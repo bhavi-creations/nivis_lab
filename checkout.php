@@ -15,15 +15,13 @@ include 'navbar.php';
     </div>
 
     <?php if (!$checkoutAuthenticated): ?>
-        <div class="border  p-3 mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3" id="checkoutAccountOptions" style="background: radial-gradient(ellipse at 17% 0%, rgba(54, 157, 211, .20), transparent 35%), radial-gradient(ellipse at 75% 100%, rgba(54, 145, 190, .14), transparent 37%), linear-gradient(90deg, #032641 0%, #042e4b 48%, #02233b 100%); ">
-            <div><strong>Checkout options</strong>
-                <div class="small text-muted">Sign in to use your saved details, or continue as a guest.</div>
-            </div>
-            <div class="d-flex flex-wrap gap-2">
-                <a class="btn btn-outline-dark" href="login.php?mode=login&amp;return=checkout.php">Login / Sign Up</a>
-                <button class="btn btn-dark" type="button" id="continueAsGuest">Continue as Guest</button>
-            </div>
+    <div class="border bg-white p-3 mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3" id="checkoutAccountOptions">
+        <div><strong>Checkout options</strong><div class="small text-muted">Sign in to use your saved details, or continue as a guest.</div></div>
+        <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-outline-dark" href="login.php?mode=login&amp;return=checkout.php">Login / Sign Up</a>
+            <button class="btn btn-dark" type="button" id="continueAsGuest">Continue as Guest</button>
         </div>
+    </div>
     <?php endif; ?>
 
     <div id="checkoutEmptyState" class="border p-4 d-none">
@@ -185,215 +183,192 @@ include 'navbar.php';
 </div>
 
 <script>
-    (() => {
-        const draftKey = 'nivis_checkout_details';
-        const form = document.getElementById('checkoutForm');
-        const layout = document.getElementById('checkoutLayout');
-        const emptyState = document.getElementById('checkoutEmptyState');
-        const summaryItems = document.getElementById('checkoutSummaryItems');
-        const subtotalEl = document.getElementById('checkoutSubtotal');
-        const shippingEl = document.getElementById('checkoutShipping');
-        const totalEl = document.getElementById('checkoutTotal');
-        const discountRowEl = document.getElementById('checkoutDiscountRow');
-        const discountEl = document.getElementById('checkoutDiscount');
-        const couponInput = document.getElementById('checkoutCouponCode');
-        const couponMessageEl = document.getElementById('couponMessage');
-        const applyCouponBtn = document.getElementById('applyCouponBtn');
-        const removeCouponBtn = document.getElementById('removeCouponBtn');
-        const itemCountEl = document.getElementById('checkoutItemCount');
-        const payBtn = document.getElementById('payNowBtn');
-        const shippingWarningEl = document.getElementById('shippingWarning');
-        const shippingModalEl = document.getElementById('shippingConfirmModal');
-        const shippingConfirmItemsEl = document.getElementById('shippingConfirmItems');
-        const shippingConfirmSubtotalEl = document.getElementById('shippingConfirmSubtotal');
-        const shippingConfirmDiscountRowEl = document.getElementById('shippingConfirmDiscountRow');
-        const shippingConfirmDiscountEl = document.getElementById('shippingConfirmDiscount');
-        const shippingConfirmAmountEl = document.getElementById('shippingConfirmAmount');
-        const shippingConfirmTotalEl = document.getElementById('shippingConfirmTotal');
-        const confirmPaymentBtn = document.getElementById('confirmShippingPayment');
-        const paymentMethodsSection = document.getElementById('paymentMethodsSection');
-        const paymentMethodsList = document.getElementById('paymentMethodsList');
-        let confirmingShipping = false;
-        let quotedShipping = null;
-        let cartPricing = null;
-        let appliedCoupon = '';
+(() => {
+    const draftKey = 'nivis_checkout_details';
+    const form = document.getElementById('checkoutForm');
+    const layout = document.getElementById('checkoutLayout');
+    const emptyState = document.getElementById('checkoutEmptyState');
+    const summaryItems = document.getElementById('checkoutSummaryItems');
+    const subtotalEl = document.getElementById('checkoutSubtotal');
+    const shippingEl = document.getElementById('checkoutShipping');
+    const totalEl = document.getElementById('checkoutTotal');
+    const discountRowEl = document.getElementById('checkoutDiscountRow');
+    const discountEl = document.getElementById('checkoutDiscount');
+    const couponInput = document.getElementById('checkoutCouponCode');
+    const couponMessageEl = document.getElementById('couponMessage');
+    const applyCouponBtn = document.getElementById('applyCouponBtn');
+    const removeCouponBtn = document.getElementById('removeCouponBtn');
+    const itemCountEl = document.getElementById('checkoutItemCount');
+    const payBtn = document.getElementById('payNowBtn');
+    const shippingWarningEl = document.getElementById('shippingWarning');
+    const shippingModalEl = document.getElementById('shippingConfirmModal');
+    const shippingConfirmItemsEl = document.getElementById('shippingConfirmItems');
+    const shippingConfirmSubtotalEl = document.getElementById('shippingConfirmSubtotal');
+    const shippingConfirmDiscountRowEl = document.getElementById('shippingConfirmDiscountRow');
+    const shippingConfirmDiscountEl = document.getElementById('shippingConfirmDiscount');
+    const shippingConfirmAmountEl = document.getElementById('shippingConfirmAmount');
+    const shippingConfirmTotalEl = document.getElementById('shippingConfirmTotal');
+    const confirmPaymentBtn = document.getElementById('confirmShippingPayment');
+    const paymentMethodsSection = document.getElementById('paymentMethodsSection');
+    const paymentMethodsList = document.getElementById('paymentMethodsList');
+    let confirmingShipping = false;
+    let quotedShipping = null;
+    let cartPricing = null;
+    let appliedCoupon = '';
 
-        function selectedPaymentMethod() {
-            return form.querySelector('[name="checkout_payment_method"]:checked')?.value || 'razorpay';
-        }
+    function selectedPaymentMethod() {
+        return form.querySelector('[name="checkout_payment_method"]:checked')?.value || 'razorpay';
+    }
 
-        async function loadPaymentMethods() {
-            try {
-                let cartId = window.NivisCart?.getStoredCartId?.() || null;
-                if (!cartId && window.NivisCart?.getCartId) cartId = await window.NivisCart.getCartId();
-                if (!cartId) return;
-
-                const response = await fetch('create_razorpay_order.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        action: 'payment_methods',
-                        cart_id: cartId
-                    })
-                });
-                const result = await response.json();
-                if (!response.ok || !result.success || !Array.isArray(result.payment_methods)) return;
-
-                paymentMethodsList.replaceChildren();
-                const supportedMethods = result.payment_methods.filter((method) => ['razorpay', 'cod'].includes(method.code));
-                supportedMethods.forEach((method, index) => {
-                    const label = document.createElement('label');
-                    label.className = 'border p-3 d-flex align-items-center gap-2';
-                    const radio = document.createElement('input');
-                    radio.type = 'radio';
-                    radio.name = 'checkout_payment_method';
-                    radio.value = method.code;
-                    radio.checked = method.code === 'razorpay' || (!supportedMethods.some((entry) => entry.code === 'razorpay') && index === 0);
-                    const text = document.createElement('span');
-                    text.textContent = method.name;
-                    label.append(radio, text);
-                    paymentMethodsList.append(label);
-                });
-                if (supportedMethods.length) paymentMethodsSection.hidden = false;
-            } catch (error) {
-                console.warn('Unable to load EverShop payment methods:', error);
-            }
-        }
-
-        function formatPrice(value) {
-            const amount = Number(value || 0);
-            return `₹${amount.toFixed(0)}`;
-        }
-
-        function getCart() {
-            return window.NivisCart ? window.NivisCart.toCart() : {
-                items: [],
-                total: 0,
-                count: 0
-            };
-        }
-
-        function priceText(price, fallback = 0) {
-            return price?.text || formatPrice(price?.value ?? fallback);
-        }
-
-        function updateCartPricing(summary) {
-            cartPricing = summary || null;
-            const cart = getCart();
-            subtotalEl.textContent = priceText(cartPricing?.subTotal, cart.total);
-            const discount = Math.abs(Number(cartPricing?.discountAmount?.value || 0));
-            discountRowEl.classList.toggle('d-none', discount <= 0);
-            discountEl.textContent = `−${formatPrice(discount)}`;
-            totalEl.textContent = priceText(cartPricing?.grandTotal, cart.total);
-            appliedCoupon = String(cartPricing?.coupon || '');
-            couponInput.value = appliedCoupon;
-            applyCouponBtn.classList.toggle('d-none', Boolean(appliedCoupon));
-            removeCouponBtn.classList.toggle('d-none', !appliedCoupon);
-        }
-
-        async function sendCouponAction(action, coupon = '') {
+    async function loadPaymentMethods() {
+        try {
             let cartId = window.NivisCart?.getStoredCartId?.() || null;
-            if (!cartId && window.NivisCart?.refresh) cartId = await window.NivisCart.refresh();
-            if (!cartId) throw new Error('Your cart is unavailable. Refresh checkout and try again.');
-            const response = await fetch('evershop_cart.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                credentials: 'same-origin',
-                body: JSON.stringify({
-                    action,
-                    coupon,
-                    cart_id: cartId
-                })
-            });
-            const result = await response.json();
-            if (!response.ok || !result.success) throw new Error(result.message || 'Unable to update the coupon.');
-            return result;
-        }
-
-        async function refreshCouponPricing() {
-            const cartId = window.NivisCart?.getStoredCartId?.();
+            if (!cartId && window.NivisCart?.getCartId) cartId = await window.NivisCart.getCartId();
             if (!cartId) return;
-            const response = await fetch('evershop_cart.php', {
+
+            const response = await fetch('create_razorpay_order.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                credentials: 'same-origin',
-                body: JSON.stringify({
-                    action: 'cart_summary',
-                    cart_id: cartId
-                })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'payment_methods', cart_id: cartId })
             });
             const result = await response.json();
-            if (response.ok && result.success) updateCartPricing(result.summary);
-        }
+            if (!response.ok || !result.success || !Array.isArray(result.payment_methods)) return;
 
-        function getDraft() {
-            try {
-                return JSON.parse(localStorage.getItem(draftKey) || '{}') || {};
-            } catch (error) {
-                return {};
-            }
-        }
-
-        function saveDraft() {
-            if (!form) return;
-            const data = Object.fromEntries(new FormData(form).entries());
-            localStorage.setItem(draftKey, JSON.stringify(data));
-        }
-
-        function applyDraft() {
-            const draft = getDraft();
-            ['full_name', 'email', 'phone', 'country', 'address_1', 'address_2', 'city', 'state', 'postcode'].forEach((field) => {
-                const input = form.querySelector(`[name="${field}"]`);
-                if (input && draft[field]) {
-                    input.value = draft[field];
-                }
+            paymentMethodsList.replaceChildren();
+            const supportedMethods = result.payment_methods.filter((method) => ['razorpay', 'cod'].includes(method.code));
+            supportedMethods.forEach((method, index) => {
+                const label = document.createElement('label');
+                label.className = 'border p-3 d-flex align-items-center gap-2';
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = 'checkout_payment_method';
+                radio.value = method.code;
+                radio.checked = method.code === 'razorpay' || (!supportedMethods.some((entry) => entry.code === 'razorpay') && index === 0);
+                const text = document.createElement('span');
+                text.textContent = method.name;
+                label.append(radio, text);
+                paymentMethodsList.append(label);
             });
+            if (supportedMethods.length) paymentMethodsSection.hidden = false;
+        } catch (error) {
+            console.warn('Unable to load EverShop payment methods:', error);
+        }
+    }
+
+    function formatPrice(value) {
+        const amount = Number(value || 0);
+        return `₹${amount.toFixed(0)}`;
+    }
+
+    function getCart() {
+        return window.NivisCart ? window.NivisCart.toCart() : { items: [], total: 0, count: 0 };
+    }
+
+    function priceText(price, fallback = 0) {
+        return price?.text || formatPrice(price?.value ?? fallback);
+    }
+
+    function updateCartPricing(summary) {
+        cartPricing = summary || null;
+        const cart = getCart();
+        subtotalEl.textContent = priceText(cartPricing?.subTotal, cart.total);
+        const discount = Math.abs(Number(cartPricing?.discountAmount?.value || 0));
+        discountRowEl.classList.toggle('d-none', discount <= 0);
+        discountEl.textContent = `−${formatPrice(discount)}`;
+        totalEl.textContent = priceText(cartPricing?.grandTotal, cart.total);
+        appliedCoupon = String(cartPricing?.coupon || '');
+        couponInput.value = appliedCoupon;
+        applyCouponBtn.classList.toggle('d-none', Boolean(appliedCoupon));
+        removeCouponBtn.classList.toggle('d-none', !appliedCoupon);
+    }
+
+    async function sendCouponAction(action, coupon = '') {
+        let cartId = window.NivisCart?.getStoredCartId?.() || null;
+        if (!cartId && window.NivisCart?.refresh) cartId = await window.NivisCart.refresh();
+        if (!cartId) throw new Error('Your cart is unavailable. Refresh checkout and try again.');
+        const response = await fetch('evershop_cart.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'same-origin',
+            body: JSON.stringify({ action, coupon, cart_id: cartId })
+        });
+        const result = await response.json();
+        if (!response.ok || !result.success) throw new Error(result.message || 'Unable to update the coupon.');
+        return result;
+    }
+
+    async function refreshCouponPricing() {
+        const cartId = window.NivisCart?.getStoredCartId?.();
+        if (!cartId) return;
+        const response = await fetch('evershop_cart.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'same-origin',
+            body: JSON.stringify({ action: 'cart_summary', cart_id: cartId })
+        });
+        const result = await response.json();
+        if (response.ok && result.success) updateCartPricing(result.summary);
+    }
+
+    function getDraft() {
+        try {
+            return JSON.parse(localStorage.getItem(draftKey) || '{}') || {};
+        } catch (error) {
+            return {};
+        }
+    }
+
+    function saveDraft() {
+        if (!form) return;
+        const data = Object.fromEntries(new FormData(form).entries());
+        localStorage.setItem(draftKey, JSON.stringify(data));
+    }
+
+    function applyDraft() {
+        const draft = getDraft();
+        ['full_name', 'email', 'phone', 'country', 'address_1', 'address_2', 'city', 'state', 'postcode'].forEach((field) => {
+            const input = form.querySelector(`[name="${field}"]`);
+            if (input && draft[field]) {
+                input.value = draft[field];
+            }
+        });
+    }
+
+    async function applySavedCustomerDetails() {
+        try {
+            const response = await fetch('checkout_customer.php', { credentials: 'same-origin', cache: 'no-store' });
+            const result = await response.json();
+            if (!response.ok || !result.authenticated || !result.customer) return;
+            const customer = result.customer;
+            ['full_name', 'email', 'phone', 'country', 'address_1', 'address_2', 'city', 'postcode'].forEach((field) => {
+                const input = form.querySelector(`[name="${field}"]`);
+                if (input && customer[field]) input.value = customer[field];
+            });
+            const state = form.querySelector('[name="state"]');
+            if (state && customer.state) {
+                const matchingOption = Array.from(state.options).find(option =>
+                    option.value.toLowerCase() === customer.state.toLowerCase() || option.textContent.trim().toLowerCase() === customer.state.toLowerCase()
+                );
+                if (matchingOption) state.value = matchingOption.value;
+            }
+            saveDraft();
+        } catch (error) {
+            console.warn('Unable to prefill saved customer details:', error);
+        }
+    }
+
+    function renderSummary() {
+        const cart = getCart();
+        if (!cart.items.length) {
+            layout.classList.add('d-none');
+            emptyState.classList.remove('d-none');
+            return;
         }
 
-        async function applySavedCustomerDetails() {
-            try {
-                const response = await fetch('checkout_customer.php', {
-                    credentials: 'same-origin',
-                    cache: 'no-store'
-                });
-                const result = await response.json();
-                if (!response.ok || !result.authenticated || !result.customer) return;
-                const customer = result.customer;
-                ['full_name', 'email', 'phone', 'country', 'address_1', 'address_2', 'city', 'postcode'].forEach((field) => {
-                    const input = form.querySelector(`[name="${field}"]`);
-                    if (input && customer[field]) input.value = customer[field];
-                });
-                const state = form.querySelector('[name="state"]');
-                if (state && customer.state) {
-                    const matchingOption = Array.from(state.options).find(option =>
-                        option.value.toLowerCase() === customer.state.toLowerCase() || option.textContent.trim().toLowerCase() === customer.state.toLowerCase()
-                    );
-                    if (matchingOption) state.value = matchingOption.value;
-                }
-                saveDraft();
-            } catch (error) {
-                console.warn('Unable to prefill saved customer details:', error);
-            }
-        }
+        layout.classList.remove('d-none');
+        emptyState.classList.add('d-none');
 
-        function renderSummary() {
-            const cart = getCart();
-            if (!cart.items.length) {
-                layout.classList.add('d-none');
-                emptyState.classList.remove('d-none');
-                return;
-            }
-
-            layout.classList.remove('d-none');
-            emptyState.classList.add('d-none');
-
-            summaryItems.innerHTML = cart.items.map((item) => `
+        summaryItems.innerHTML = cart.items.map((item) => `
             <div class="nivis-checkout-item pb-3 border-bottom">
                 <div class="nivis-checkout-item__image" style="width: 64px; min-width: 64px;">
                     <img src="${item.image || ''}" alt="${item.name || 'Product'}" class="img-fluid" style="width: 64px; height: 64px; object-fit: cover;">
@@ -406,345 +381,343 @@ include 'navbar.php';
             </div>
         `).join('');
 
-            subtotalEl.textContent = formatPrice(cart.total);
-            totalEl.textContent = formatPrice(cart.total);
-            if (cartPricing) updateCartPricing(cartPricing);
-            itemCountEl.textContent = `${cart.count} item${cart.count === 1 ? '' : 's'}`;
+        subtotalEl.textContent = formatPrice(cart.total);
+        totalEl.textContent = formatPrice(cart.total);
+        if (cartPricing) updateCartPricing(cartPricing);
+        itemCountEl.textContent = `${cart.count} item${cart.count === 1 ? '' : 's'}`;
+    }
+
+    function renderShippingConfirmation(cart, shippingAmount, summary = null) {
+        shippingConfirmItemsEl.replaceChildren();
+        cart.items.forEach((item) => {
+            const row = document.createElement('div');
+            row.className = 'd-flex justify-content-between align-items-start gap-3 border-bottom pb-2';
+
+            const details = document.createElement('div');
+            const name = document.createElement('div');
+            name.className = 'fw-semibold';
+            name.textContent = item.name || 'Product';
+            const quantity = document.createElement('div');
+            quantity.className = 'small text-muted';
+            quantity.textContent = `${formatPrice(item.price)} × ${item.quantity || 1}`;
+            details.append(name, quantity);
+
+            const lineTotal = document.createElement('strong');
+            lineTotal.className = 'text-nowrap';
+            lineTotal.textContent = formatPrice(Number(item.price || 0) * Number(item.quantity || 1));
+            row.append(details, lineTotal);
+            shippingConfirmItemsEl.append(row);
+        });
+
+        const subtotal = Number(summary?.subTotal?.value ?? cart.total);
+        const discount = Math.abs(Number(summary?.discountAmount?.value || 0));
+        shippingConfirmSubtotalEl.textContent = priceText(summary?.subTotal, cart.total);
+        shippingConfirmDiscountRowEl.classList.toggle('d-none', discount <= 0);
+        shippingConfirmDiscountEl.textContent = `−${formatPrice(discount)}`;
+        shippingConfirmAmountEl.textContent = shippingAmount === 0 ? 'Free' : formatPrice(shippingAmount);
+        shippingConfirmTotalEl.textContent = priceText(summary?.grandTotal, Math.max(0, subtotal - discount + shippingAmount));
+    }
+
+    function buildAddress(formData) {
+        return {
+            full_name: formData.full_name,
+            address_1: formData.address_1,
+            address_2: formData.address_2,
+            city: formData.city,
+            province: formData.state,
+            postcode: formData.postcode,
+            country: formData.country,
+            telephone: formData.phone,
+            email: formData.email
+        };
+    }
+
+    async function verifyPayment(orderId, response) {
+        const verifyResponse = await fetch('verify_razorpay_payment.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                order_id: orderId,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_signature: response.razorpay_signature
+            })
+        });
+
+        return await verifyResponse.json();
+    }
+
+    async function submitCheckout(event) {
+        event.preventDefault();
+
+        if (window.NivisCart?.refresh) {
+            try {
+                await window.NivisCart.refresh({
+                    customer_full_name: form.querySelector('[name="full_name"]')?.value || '',
+                    customer_email: form.querySelector('[name="email"]')?.value || ''
+                });
+            } catch (error) {
+                console.warn('Unable to refresh EverShop cart before checkout:', error);
+            }
         }
 
-        function renderShippingConfirmation(cart, shippingAmount, summary = null) {
-            shippingConfirmItemsEl.replaceChildren();
-            cart.items.forEach((item) => {
-                const row = document.createElement('div');
-                row.className = 'd-flex justify-content-between align-items-start gap-3 border-bottom pb-2';
-
-                const details = document.createElement('div');
-                const name = document.createElement('div');
-                name.className = 'fw-semibold';
-                name.textContent = item.name || 'Product';
-                const quantity = document.createElement('div');
-                quantity.className = 'small text-muted';
-                quantity.textContent = `${formatPrice(item.price)} × ${item.quantity || 1}`;
-                details.append(name, quantity);
-
-                const lineTotal = document.createElement('strong');
-                lineTotal.className = 'text-nowrap';
-                lineTotal.textContent = formatPrice(Number(item.price || 0) * Number(item.quantity || 1));
-                row.append(details, lineTotal);
-                shippingConfirmItemsEl.append(row);
-            });
-
-            const subtotal = Number(summary?.subTotal?.value ?? cart.total);
-            const discount = Math.abs(Number(summary?.discountAmount?.value || 0));
-            shippingConfirmSubtotalEl.textContent = priceText(summary?.subTotal, cart.total);
-            shippingConfirmDiscountRowEl.classList.toggle('d-none', discount <= 0);
-            shippingConfirmDiscountEl.textContent = `−${formatPrice(discount)}`;
-            shippingConfirmAmountEl.textContent = shippingAmount === 0 ? 'Free' : formatPrice(shippingAmount);
-            shippingConfirmTotalEl.textContent = priceText(summary?.grandTotal, Math.max(0, subtotal - discount + shippingAmount));
+        const cart = getCart();
+        if (!cart.items.length || cart.total <= 0) {
+            alert('Your cart is empty.');
+            return;
         }
 
-        function buildAddress(formData) {
-            return {
-                full_name: formData.full_name,
-                address_1: formData.address_1,
-                address_2: formData.address_2,
-                city: formData.city,
-                province: formData.state,
-                postcode: formData.postcode,
-                country: formData.country,
-                telephone: formData.phone,
-                email: formData.email
-            };
+        const formData = Object.fromEntries(new FormData(form).entries());
+        localStorage.setItem(draftKey, JSON.stringify(formData));
+
+        const items = cart.items.map((item) => ({
+            id: item.id || item.productId || '',
+            sku: item.sku || item.productSku || item.productCode || '',
+            name: item.name || item.product_name || '',
+            product_name: item.product_name || item.name || '',
+            productCode: item.productCode || item.id || '',
+            productSku: item.productSku || item.sku || '',
+            qty: Math.max(1, Number(item.quantity || 1))
+        }));
+
+        let cartId = window.NivisCart?.getStoredCartId ? window.NivisCart.getStoredCartId() : null;
+        if (!cartId && window.NivisCart?.getCartId) {
+            try {
+                cartId = await window.NivisCart.getCartId();
+            } catch (error) {
+                console.warn('Unable to load EverShop cart id before checkout submit:', error);
+            }
         }
 
-        async function verifyPayment(orderId, response) {
-            const verifyResponse = await fetch('verify_razorpay_payment.php', {
+        payBtn.disabled = true;
+        const action = confirmingShipping ? 'create_order' : 'calculate_shipping';
+        payBtn.textContent = action === 'calculate_shipping' ? 'Calculating Shipping...' : 'Preparing Payment...';
+
+        try {
+            const orderResponse = await fetch('create_razorpay_order.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    order_id: orderId,
-                    razorpay_payment_id: response.razorpay_payment_id,
-                    razorpay_order_id: response.razorpay_order_id,
-                    razorpay_signature: response.razorpay_signature
+                    action,
+                    payment_method: selectedPaymentMethod(),
+                    cart_id: cartId,
+                    cart_total: cart.total,
+                    items,
+                    customer_full_name: formData.full_name,
+                    customer_email: formData.email,
+                    customer_phone: formData.phone,
+                    billing_address: buildAddress(formData),
+                    shipping_address: buildAddress(formData)
                 })
             });
 
-            return await verifyResponse.json();
-        }
-
-        async function submitCheckout(event) {
-            event.preventDefault();
-
-            if (window.NivisCart?.refresh) {
-                try {
-                    await window.NivisCart.refresh({
-                        customer_full_name: form.querySelector('[name="full_name"]')?.value || '',
-                        customer_email: form.querySelector('[name="email"]')?.value || ''
-                    });
-                } catch (error) {
-                    console.warn('Unable to refresh EverShop cart before checkout:', error);
-                }
+            const orderText = await orderResponse.text();
+            let orderResult = {};
+            try {
+                orderResult = orderText ? JSON.parse(orderText) : {};
+            } catch (parseError) {
+                orderResult = {
+                    success: false,
+                    message: orderText || `Unexpected response from create_razorpay_order.php (${orderResponse.status}).`
+                };
             }
 
-            const cart = getCart();
-            if (!cart.items.length || cart.total <= 0) {
-                alert('Your cart is empty.');
+            if (!orderResponse.ok) {
+                console.error('create_razorpay_order.php failed', {
+                    status: orderResponse.status,
+                    response: orderResult,
+                    raw: orderText
+                });
+            }
+
+            if (!orderResult.success) {
+                const extraMessage = orderResult?.error?.catalog_hint
+                    ? ` ${orderResult.error.catalog_hint}`
+                    : '';
+                throw new Error((orderResult.message || 'Unable to create the payment order.') + extraMessage);
+            }
+
+            if (action === 'calculate_shipping') {
+                quotedShipping = orderResult.shipping;
+                const shippingAmount = Number(quotedShipping?.amount);
+                if (!Number.isFinite(shippingAmount)) {
+                    throw new Error('Shipping was calculated, but the amount was missing. Please try again.');
+                }
+                shippingEl.textContent = shippingAmount === 0 ? 'Free' : formatPrice(shippingAmount);
+                shippingEl.title = quotedShipping?.name || '';
+                let summary = null;
+                try {
+                    const pricingResult = await sendCouponAction('cart_summary');
+                    summary = pricingResult.summary;
+                    updateCartPricing(summary);
+                } catch (pricingError) {
+                    console.warn('Unable to refresh EverShop totals after shipping calculation:', pricingError);
+                }
+                renderShippingConfirmation(cart, shippingAmount, summary);
+                const selectedLabel = form.querySelector('[name="checkout_payment_method"]:checked')?.parentElement?.querySelector('span')?.textContent || 'Payment method';
+                document.getElementById('shippingConfirmTitle').textContent = `Order summary · ${selectedLabel}`;
+                confirmPaymentBtn.textContent = selectedPaymentMethod() === 'cod' ? 'Place Order' : 'Proceed to Payment';
+                bootstrap.Modal.getOrCreateInstance(shippingModalEl).show();
                 return;
             }
 
-            const formData = Object.fromEntries(new FormData(form).entries());
-            localStorage.setItem(draftKey, JSON.stringify(formData));
-
-            const items = cart.items.map((item) => ({
-                id: item.id || item.productId || '',
-                sku: item.sku || item.productSku || item.productCode || '',
-                name: item.name || item.product_name || '',
-                product_name: item.product_name || item.name || '',
-                productCode: item.productCode || item.id || '',
-                productSku: item.productSku || item.sku || '',
-                qty: Math.max(1, Number(item.quantity || 1))
-            }));
-
-            let cartId = window.NivisCart?.getStoredCartId ? window.NivisCart.getStoredCartId() : null;
-            if (!cartId && window.NivisCart?.getCartId) {
-                try {
-                    cartId = await window.NivisCart.getCartId();
-                } catch (error) {
-                    console.warn('Unable to load EverShop cart id before checkout submit:', error);
-                }
-            }
-
-            payBtn.disabled = true;
-            const action = confirmingShipping ? 'create_order' : 'calculate_shipping';
-            payBtn.textContent = action === 'calculate_shipping' ? 'Calculating Shipping...' : 'Preparing Payment...';
-
-            try {
-                const orderResponse = await fetch('create_razorpay_order.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        action,
-                        payment_method: selectedPaymentMethod(),
-                        cart_id: cartId,
-                        cart_total: cart.total,
-                        items,
-                        customer_full_name: formData.full_name,
-                        customer_email: formData.email,
-                        customer_phone: formData.phone,
-                        billing_address: buildAddress(formData),
-                        shipping_address: buildAddress(formData)
-                    })
-                });
-
-                const orderText = await orderResponse.text();
-                let orderResult = {};
-                try {
-                    orderResult = orderText ? JSON.parse(orderText) : {};
-                } catch (parseError) {
-                    orderResult = {
-                        success: false,
-                        message: orderText || `Unexpected response from create_razorpay_order.php (${orderResponse.status}).`
-                    };
-                }
-
-                if (!orderResponse.ok) {
-                    console.error('create_razorpay_order.php failed', {
-                        status: orderResponse.status,
-                        response: orderResult,
-                        raw: orderText
-                    });
-                }
-
-                if (!orderResult.success) {
-                    const extraMessage = orderResult?.error?.catalog_hint ?
-                        ` ${orderResult.error.catalog_hint}` :
-                        '';
-                    throw new Error((orderResult.message || 'Unable to create the payment order.') + extraMessage);
-                }
-
-                if (action === 'calculate_shipping') {
-                    quotedShipping = orderResult.shipping;
-                    const shippingAmount = Number(quotedShipping?.amount);
-                    if (!Number.isFinite(shippingAmount)) {
-                        throw new Error('Shipping was calculated, but the amount was missing. Please try again.');
-                    }
-                    shippingEl.textContent = shippingAmount === 0 ? 'Free' : formatPrice(shippingAmount);
-                    shippingEl.title = quotedShipping?.name || '';
-                    let summary = null;
-                    try {
-                        const pricingResult = await sendCouponAction('cart_summary');
-                        summary = pricingResult.summary;
-                        updateCartPricing(summary);
-                    } catch (pricingError) {
-                        console.warn('Unable to refresh EverShop totals after shipping calculation:', pricingError);
-                    }
-                    renderShippingConfirmation(cart, shippingAmount, summary);
-                    const selectedLabel = form.querySelector('[name="checkout_payment_method"]:checked')?.parentElement?.querySelector('span')?.textContent || 'Payment method';
-                    document.getElementById('shippingConfirmTitle').textContent = `Order summary · ${selectedLabel}`;
-                    confirmPaymentBtn.textContent = selectedPaymentMethod() === 'cod' ? 'Place Order' : 'Proceed to Payment';
-                    bootstrap.Modal.getOrCreateInstance(shippingModalEl).show();
+            if (!orderResult.gateway?.razorpayOrderId || !orderResult.gateway?.keyId || !orderResult.order_id) {
+                if (orderResult.payment_method === 'cod' && orderResult.order_id) {
+                    window.NivisCart.clear();
+                    localStorage.removeItem(draftKey);
+                    window.location.replace('index.php');
                     return;
                 }
+                throw new Error(orderResult.message || 'Unable to create the payment order.');
+            }
 
-                if (!orderResult.gateway?.razorpayOrderId || !orderResult.gateway?.keyId || !orderResult.order_id) {
-                    if (orderResult.payment_method === 'cod' && orderResult.order_id) {
-                        window.NivisCart.clear();
-                        localStorage.removeItem(draftKey);
-                        window.location.replace('index.php');
+            if (orderResult.shipping_warning && shippingWarningEl) {
+                shippingWarningEl.textContent = orderResult.shipping_warning;
+                shippingWarningEl.classList.remove('d-none');
+            } else if (shippingWarningEl) {
+                shippingWarningEl.textContent = '';
+                shippingWarningEl.classList.add('d-none');
+            }
+
+            // Use EverShop's selected shipping method and Razorpay order amount
+            // so the summary reflects the same total that will be paid.
+            const shippingAmount = Number(orderResult.shipping?.amount);
+            const payableAmount = Number(orderResult.gateway.amount) / 100;
+            if (Number.isFinite(shippingAmount) && shippingEl) {
+                shippingEl.textContent = shippingAmount === 0
+                    ? 'Free'
+                    : formatPrice(shippingAmount);
+                shippingEl.title = orderResult.shipping?.name || '';
+            }
+            if (Number.isFinite(payableAmount) && payableAmount > 0) {
+                totalEl.textContent = formatPrice(payableAmount);
+            }
+
+            const razorpay = new Razorpay({
+                key: orderResult.gateway.keyId,
+                amount: orderResult.gateway.amount,
+                currency: <?= json_encode(RAZORPAY_CURRENCY) ?>,
+                name: orderResult.company || 'Nivis Labs',
+                description: `${cart.count} item${cart.count === 1 ? '' : 's'}`,
+                order_id: orderResult.gateway.razorpayOrderId,
+                prefill: {
+                    name: formData.full_name,
+                    email: formData.email,
+                    contact: formData.phone
+                },
+                theme: {
+                    color: '#0a2b4a'
+                },
+                handler: async function(response) {
+                    const verifyResult = await verifyPayment(orderResult.order_id, response);
+
+                    if (!verifyResult.success) {
+                        alert(verifyResult.message || 'Payment verification failed.');
                         return;
                     }
-                    throw new Error(orderResult.message || 'Unable to create the payment order.');
-                }
 
-                if (orderResult.shipping_warning && shippingWarningEl) {
-                    shippingWarningEl.textContent = orderResult.shipping_warning;
-                    shippingWarningEl.classList.remove('d-none');
-                } else if (shippingWarningEl) {
-                    shippingWarningEl.textContent = '';
-                    shippingWarningEl.classList.add('d-none');
-                }
-
-                // Use EverShop's selected shipping method and Razorpay order amount
-                // so the summary reflects the same total that will be paid.
-                const shippingAmount = Number(orderResult.shipping?.amount);
-                const payableAmount = Number(orderResult.gateway.amount) / 100;
-                if (Number.isFinite(shippingAmount) && shippingEl) {
-                    shippingEl.textContent = shippingAmount === 0 ?
-                        'Free' :
-                        formatPrice(shippingAmount);
-                    shippingEl.title = orderResult.shipping?.name || '';
-                }
-                if (Number.isFinite(payableAmount) && payableAmount > 0) {
-                    totalEl.textContent = formatPrice(payableAmount);
-                }
-
-                const razorpay = new Razorpay({
-                    key: orderResult.gateway.keyId,
-                    amount: orderResult.gateway.amount,
-                    currency: <?= json_encode(RAZORPAY_CURRENCY) ?>,
-                    name: orderResult.company || 'Nivis Labs',
-                    description: `${cart.count} item${cart.count === 1 ? '' : 's'}`,
-                    order_id: orderResult.gateway.razorpayOrderId,
-                    prefill: {
-                        name: formData.full_name,
-                        email: formData.email,
-                        contact: formData.phone
-                    },
-                    theme: {
-                        color: '#0a2b4a'
-                    },
-                    handler: async function(response) {
-                        const verifyResult = await verifyPayment(orderResult.order_id, response);
-
-                        if (!verifyResult.success) {
-                            alert(verifyResult.message || 'Payment verification failed.');
-                            return;
-                        }
-
-                        window.NivisCart.clear();
-                        localStorage.removeItem(draftKey);
-                        window.location.replace('index.php');
-                    },
-                    modal: {
-                        ondismiss: function() {
-                            payBtn.disabled = false;
-                            payBtn.textContent = 'Calculate Shipping';
-                        }
+                    window.NivisCart.clear();
+                    localStorage.removeItem(draftKey);
+                    window.location.replace('index.php');
+                },
+                modal: {
+                    ondismiss: function() {
+                        payBtn.disabled = false;
+                        payBtn.textContent = 'Calculate Shipping';
                     }
-                });
+                }
+            });
 
-                razorpay.open();
+            razorpay.open();
+        } catch (error) {
+            alert(error.message || 'Unable to start payment.');
+        } finally {
+            payBtn.disabled = false;
+            payBtn.textContent = 'Calculate Shipping';
+            confirmingShipping = false;
+        }
+    }
+
+    async function initCheckout() {
+        applyDraft();
+        await applySavedCustomerDetails();
+        document.getElementById('continueAsGuest')?.addEventListener('click', () => {
+            document.getElementById('checkoutAccountOptions')?.remove();
+            document.getElementById('full_name')?.focus();
+        });
+        if (window.NivisCart?.refresh) {
+            try {
+                await window.NivisCart.refresh();
             } catch (error) {
-                alert(error.message || 'Unable to start payment.');
+                console.warn('Unable to refresh EverShop cart on checkout load:', error);
+            }
+        }
+        renderSummary();
+        await loadPaymentMethods();
+        await refreshCouponPricing();
+        form.addEventListener('submit', submitCheckout);
+        form.addEventListener('input', saveDraft);
+        applyCouponBtn.addEventListener('click', async () => {
+            const coupon = couponInput.value.trim();
+            if (!coupon) {
+                couponMessageEl.textContent = 'Enter a coupon code.';
+                couponMessageEl.className = 'small mt-2 text-danger';
+                return;
+            }
+            applyCouponBtn.disabled = true;
+            couponMessageEl.textContent = 'Applying coupon…';
+            couponMessageEl.className = 'small mt-2 text-muted';
+            try {
+                const result = await sendCouponAction('apply_coupon', coupon);
+                updateCartPricing(result.summary);
+                couponMessageEl.textContent = `Coupon ${result.summary.coupon || coupon} applied.`;
+                couponMessageEl.className = 'small mt-2 text-success';
+            } catch (error) {
+                couponMessageEl.textContent = error.message || 'Coupon could not be applied.';
+                couponMessageEl.className = 'small mt-2 text-danger';
             } finally {
-                payBtn.disabled = false;
-                payBtn.textContent = 'Calculate Shipping';
-                confirmingShipping = false;
+                applyCouponBtn.disabled = false;
             }
-        }
-
-        async function initCheckout() {
-            applyDraft();
-            await applySavedCustomerDetails();
-            document.getElementById('continueAsGuest')?.addEventListener('click', () => {
-                document.getElementById('checkoutAccountOptions')?.remove();
-                document.getElementById('full_name')?.focus();
-            });
-            if (window.NivisCart?.refresh) {
-                try {
-                    await window.NivisCart.refresh();
-                } catch (error) {
-                    console.warn('Unable to refresh EverShop cart on checkout load:', error);
-                }
+        });
+        couponInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                applyCouponBtn.click();
             }
-            renderSummary();
-            await loadPaymentMethods();
-            await refreshCouponPricing();
-            form.addEventListener('submit', submitCheckout);
-            form.addEventListener('input', saveDraft);
-            applyCouponBtn.addEventListener('click', async () => {
-                const coupon = couponInput.value.trim();
-                if (!coupon) {
-                    couponMessageEl.textContent = 'Enter a coupon code.';
-                    couponMessageEl.className = 'small mt-2 text-danger';
-                    return;
-                }
-                applyCouponBtn.disabled = true;
-                couponMessageEl.textContent = 'Applying coupon…';
+        });
+        removeCouponBtn.addEventListener('click', async () => {
+            removeCouponBtn.disabled = true;
+            try {
+                const result = await sendCouponAction('remove_coupon', appliedCoupon);
+                updateCartPricing(result.summary);
+                couponMessageEl.textContent = 'Coupon removed.';
                 couponMessageEl.className = 'small mt-2 text-muted';
-                try {
-                    const result = await sendCouponAction('apply_coupon', coupon);
-                    updateCartPricing(result.summary);
-                    couponMessageEl.textContent = `Coupon ${result.summary.coupon || coupon} applied.`;
-                    couponMessageEl.className = 'small mt-2 text-success';
-                } catch (error) {
-                    couponMessageEl.textContent = error.message || 'Coupon could not be applied.';
-                    couponMessageEl.className = 'small mt-2 text-danger';
-                } finally {
-                    applyCouponBtn.disabled = false;
-                }
-            });
-            couponInput.addEventListener('keydown', (event) => {
-                if (event.key === 'Enter') {
-                    event.preventDefault();
-                    applyCouponBtn.click();
-                }
-            });
-            removeCouponBtn.addEventListener('click', async () => {
-                removeCouponBtn.disabled = true;
-                try {
-                    const result = await sendCouponAction('remove_coupon', appliedCoupon);
-                    updateCartPricing(result.summary);
-                    couponMessageEl.textContent = 'Coupon removed.';
-                    couponMessageEl.className = 'small mt-2 text-muted';
-                } catch (error) {
-                    couponMessageEl.textContent = error.message || 'Coupon could not be removed.';
-                    couponMessageEl.className = 'small mt-2 text-danger';
-                } finally {
-                    removeCouponBtn.disabled = false;
-                }
-            });
-            confirmPaymentBtn.addEventListener('click', () => {
-                if (!quotedShipping) return;
-                confirmingShipping = true;
-                bootstrap.Modal.getOrCreateInstance(shippingModalEl).hide();
-                form.requestSubmit();
-            });
-            window.addEventListener('nivis-cart:updated', renderSummary);
-        }
+            } catch (error) {
+                couponMessageEl.textContent = error.message || 'Coupon could not be removed.';
+                couponMessageEl.className = 'small mt-2 text-danger';
+            } finally {
+                removeCouponBtn.disabled = false;
+            }
+        });
+        confirmPaymentBtn.addEventListener('click', () => {
+            if (!quotedShipping) return;
+            confirmingShipping = true;
+            bootstrap.Modal.getOrCreateInstance(shippingModalEl).hide();
+            form.requestSubmit();
+        });
+        window.addEventListener('nivis-cart:updated', renderSummary);
+    }
 
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initCheckout, {
-                once: true
-            });
-        } else {
-            initCheckout();
-        }
-    })();
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCheckout, { once: true });
+    } else {
+        initCheckout();
+    }
+})();
 </script>
 
 <?php include 'footer.php'; ?>
