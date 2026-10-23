@@ -71,15 +71,21 @@ function customer_backend_update_profile(array $input): array {
     $id = rawurlencode($customerId);
     customer_backend_admin_request_method('PATCH', '/customers/' . $id, $payload);
 
+    $countryData = json_decode((string)file_get_contents(__DIR__ . '/assets/customer-countries.json'), true);
+    $countryEntry = null;
+    foreach ($countryData['data']['countries'] ?? [] as $entry) if (($entry['code'] ?? '') === $country) { $countryEntry = $entry; break; }
+    $provinceName = $state;
+    foreach ($countryEntry['provinces'] ?? [] as $entry) if (($entry['code'] ?? '') === $state) { $provinceName = $entry['name']; break; }
     $address = [
         'full_name' => $name,
         'telephone' => $phone,
         'address_1' => $address1,
         'address_2' => $address2,
         'city' => $city,
-        'province' => $state,
+        'province' => $provinceName,
         'postcode' => $postcode,
         'country' => $country,
+        'is_default' => true,
     ];
     $savedAddress = null;
     foreach ($profile['addresses'] ?? [] as $candidate) if (!empty($candidate['isDefault'])) { $savedAddress = $candidate; break; }

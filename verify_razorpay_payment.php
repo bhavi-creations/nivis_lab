@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__ . '/razorpay_config.php';
+require_once __DIR__ . '/customer_auth.php';
+require_once __DIR__ . '/customer_orders.php';
 
 header('Content-Type: application/json');
 
@@ -80,6 +82,19 @@ if (!$apiSuccess) {
         'payment_id' => $paymentId,
         'api_updated' => false
     ], 502);
+}
+
+// Keep a customer-owned order snapshot for the dashboard after EverShop
+// confirms payment. Never trust customer IDs supplied by the browser.
+if (($_SESSION['auth_backend'] ?? '') === 'evershop' && !empty($_SESSION['customer_id'])) {
+    $snapshot = is_array($input['items'] ?? null) ? $input['items'] : [];
+    $amount = (int)($input['amount_subunits'] ?? 0);
+    try {
+        customer_order_save($orderId, $gatewayOrderId, $snapshot, $amount, RAZORPAY_CURRENCY, (int)$_SESSION['customer_id']);
+        customer_order_paid($orderId, $gatewayOrderId, (int)$_SESSION['customer_id']);
+    } catch (Throwable $error) {
+        error_log('Customer order dashboard snapshot could not be saved: ' . $error->getMessage());
+    }
 }
 
 jsonResponse([
