@@ -28,7 +28,7 @@ try {
         $_SESSION['auth_backend'] = 'evershop';
         $_SESSION['auth_notice'] = 'Account created in Nivis Labs. Your email is your username and your phone number is your initial password.';
         try {
-            customer_backend_request('/customers/' . rawurlencode($customer['uuid']) . '/addresses', ['full_name'=>$name,'address_1'=>$address,'telephone'=>$phone,'country'=>$country,'province'=>$province,'postcode'=>$postcode,'is_default'=>1], true);
+            customer_backend_admin_request_method('POST', '/customers/' . rawurlencode($customer['uuid']) . '/addresses', ['full_name'=>$name,'address_1'=>$address,'telephone'=>$phone,'country'=>$country,'province'=>$province,'postcode'=>$postcode,'is_default'=>1]);
         } catch (Throwable $error) {
             $_SESSION['auth_notice'] .= ' Your account was created, but the backend could not save your address. Please add it in your backend account address book.';
         }

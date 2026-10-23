@@ -467,9 +467,7 @@ include 'navbar.php';
                     order_id: orderId,
                     razorpay_payment_id: response.razorpay_payment_id,
                     razorpay_order_id: response.razorpay_order_id,
-                    razorpay_signature: response.razorpay_signature,
-                    items: getCart().items.map(item => ({name: item.name || item.product_name || item.sku || 'Product', quantity: item.quantity || item.qty || 1})),
-                    amount_subunits: Number(orderResult.gateway.amount || 0)
+                    razorpay_signature: response.razorpay_signature
                 })
             });
 
