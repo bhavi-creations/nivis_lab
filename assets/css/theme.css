@@ -350,6 +350,7 @@ body.nivis-theme {
 /* Contact, tracking, checkout and cart surfaces. */
 .nivis-theme :is(.contact-cards .card, .contact-form-box, .track_your_order-container),
 .nivis-theme .checkout-page :is(#checkoutForm, #checkoutLayout > .col-lg-5 > div, #checkoutEmptyState),
+.nivis-theme .checkout-page #checkoutAccountOptions,
 .nivis-theme :is(#cartDrawer, .modal-content) {
     background: var(--nivis-panel) !important;
     color: var(--nivis-text);
