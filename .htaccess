@@ -29,6 +29,7 @@ SetEnvIf Host "aws.yourdomain.com" IS_AWS=1
 
 # Remove .php extension from URL (301 redirect)
 RewriteCond %{ENV:IS_AWS} !^1$
+RewriteCond %{REQUEST_URI} !/checkout_customer\.php$ [NC]
 RewriteCond %{THE_REQUEST} ^GET\ /[^?\s]+\.php [NC]
 RewriteRule ^(.*)\.php$ /$1 [R=301,L,NE]
 
