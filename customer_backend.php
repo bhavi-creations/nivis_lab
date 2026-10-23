@@ -64,7 +64,8 @@ function customer_backend_update_profile(array $input): array {
         throw new CustomerBackendException('Enter valid name, email, phone, shipping address and country details. A new password must contain at least 8 characters.');
     }
 
-    // Customer ID comes from the authenticated profile, never the submitted form.
+    // Customer profile writes are admin API operations in the current store setup.
+    // Keep profile and address changes explicit and report a clear configuration error.
     $customerId = (string)($profile['uuid'] ?? $profile['customerId']);
     $payload = ['full_name' => $name, 'email' => $email];
     if ($password !== '') $payload['password'] = $password;
@@ -97,6 +98,21 @@ function customer_backend_update_profile(array $input): array {
         customer_backend_admin_request_method('POST', '/customers/' . $id . '/addresses', $address);
     }
     return customer_backend_profile() ?? [];
+}
+
+function customer_backend_saved_orders(array $profile): array {
+    $orders = [];
+    foreach ($profile['orders'] ?? [] as $order) {
+        $status = (string)($order['paymentStatus']['code'] ?? 'pending');
+        $normalized = strtolower($status);
+        $paid = in_array($normalized, ['paid', 'captured'], true) || str_ends_with($normalized, '_captured');
+        $items = [];
+        foreach ($order['items'] ?? [] as $item) {
+            $items[] = ['name' => (string)($item['productName'] ?? $item['name'] ?? 'Product'), 'quantity' => max(1, (int)($item['qty'] ?? $item['quantity'] ?? 1))];
+        }
+        $orders[] = ['order_id' => (string)($order['orderNumber'] ?? $order['uuid'] ?? ''), 'amount_subunits' => (int)round((float)($order['grandTotal']['value'] ?? 0) * 100), 'currency' => (string)($order['currency'] ?? 'INR'), 'payment_status' => $paid ? 'paid' : $status, 'payment_status_label' => (string)($order['paymentStatus']['name'] ?? 'Pending'), 'created_at' => (string)($order['createdAt']['text'] ?? $order['createdAt'] ?? ''), 'items' => $items];
+    }
+    return $orders;
 }
 
 function customer_backend_admin_request_method(string $method, string $path, array $payload): array {

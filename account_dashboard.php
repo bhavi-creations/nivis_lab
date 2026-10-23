@@ -16,13 +16,7 @@ try {
     $addresses = $profile['addresses'] ?? [];
     $address = $addresses[0] ?? [];
     foreach ($addresses as $entry) if (!empty($entry['isDefault'])) { $address=$entry; break; }
-    $orders = [];
-    foreach ($profile['orders'] ?? [] as $order) {
-        $status = $order['paymentStatus']['code'] ?? 'pending';
-        $normalizedStatus = strtolower((string)$status);
-        $isSettled = in_array($normalizedStatus, ['paid','captured'], true) || str_ends_with($normalizedStatus, '_captured');
-        $orders[] = ['order_id'=>$order['orderNumber'], 'amount_subunits'=>(int)round((float)$order['grandTotal']['value']*100), 'currency'=>$order['currency'], 'payment_status'=>$isSettled?'paid':$status, 'payment_status_label'=>$order['paymentStatus']['name'] ?? 'Pending', 'created_at'=>$order['createdAt']['text'], 'items'=>array_map(static fn($item)=>['name'=>$item['productName'],'quantity'=>$item['qty']],$order['items'] ?? [])];
-    }
+    $orders = customer_backend_saved_orders($profile);
     account_dashboard_json(['authenticated'=>true,'csrf'=>$_SESSION['csrf'],'customer'=>['name'=>$profile['fullName'],'email'=>$profile['email'],'phone'=>$address['telephone'] ?? '', 'address'=>implode(', ',array_filter([$address['address1']??'', $address['address2']??'', $address['city']??'', $address['province']['name']??'', $address['postcode']??'', $address['country']['name']??''])), 'address_1'=>$address['address1']??'', 'address_2'=>$address['address2']??'', 'city'=>$address['city']??'', 'state'=>$address['province']['name']??'', 'state_code'=>$address['province']['code']??'', 'postcode'=>$address['postcode']??'', 'country'=>$address['country']['code']??'IN'], 'orders'=>$orders]);
 } catch (CustomerBackendException $error) {
     if ($error->getCode() === 401) { account_dashboard_json(['authenticated'=>false]); }

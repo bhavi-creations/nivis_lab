@@ -17,6 +17,7 @@ try {
     http_response_code($error->getCode() >= 400 && $error->getCode() <= 599 ? $error->getCode() : 400);
     echo json_encode(['error'=>$error->getMessage()]);
 } catch (Throwable $error) {
+    error_log('Account update failed: ' . $error->getMessage());
     http_response_code(503);
-    echo json_encode(['error'=>'Unable to save your account details right now.']);
+    echo json_encode(['error'=>'Unable to save your account details right now. Check the PHP/server error log.']);
 }

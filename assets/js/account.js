@@ -23,7 +23,7 @@
             }
             footer.hidden = false;
             const c = data.customer;
-            const orders = data.orders;
+            const orders = data.orders || [];
             const paid = orders.filter(o => ['paid','captured'].includes(String(o.payment_status).toLowerCase()));
             const quantity = paid.reduce((sum, order) => sum + order.items.reduce((n, item) => n + Number(item.quantity || item.qty || 0), 0), 0);
             const spend = paid.reduce((sum, order) => sum + Number(order.amount_subunits || 0), 0);
