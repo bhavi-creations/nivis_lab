@@ -38,7 +38,7 @@
                     const saved = await fetch('account_update.php', {method:'POST', credentials:'same-origin', headers:{'Content-Type':'application/json'}, body:JSON.stringify(values)});
                     const result = await saved.json();
                     if (!saved.ok) throw new Error(result.error || 'Unable to save your account details.');
-                    loadAccount();
+                    await loadAccount();
                 } catch (error) {
                     message.textContent = error.message;
                 } finally {

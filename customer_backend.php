@@ -43,6 +43,51 @@ function customer_backend_profile(bool $orders = false): ?array {
     return $data['currentCustomer'] ?? null;
 }
 
+/** Update the signed-in customer's profile and default shipping address. */
+function customer_backend_update_profile(array $input): array {
+    $profile = customer_backend_profile();
+    if (!$profile || empty($profile['customerId'])) throw new CustomerBackendException('Please log in again.', 401);
+    $name = trim((string)($input['full_name'] ?? ''));
+    $email = strtolower(trim((string)($input['email'] ?? '')));
+    if ($name === '' || strlen($name) > 120) throw new CustomerBackendException('Enter a name up to 120 characters.');
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 254) throw new CustomerBackendException('Enter a valid email address.');
+
+    // Customer updates use the store's protected admin REST API. The ID always
+    // comes from the authenticated session token, never from the submitted form.
+    $payload = ['fullName' => $name, 'email' => $email];
+    if (isset($input['password']) && $input['password'] !== '') {
+        if (strlen($input['password']) < 8 || strlen($input['password']) > 128) throw new CustomerBackendException('New password must be 8 to 128 characters.');
+        $payload['password'] = $input['password'];
+    }
+    $id = rawurlencode((string)$profile['customerId']);
+    customer_backend_admin_request_method('PATCH', '/customers/' . $id, $payload);
+
+    $address = [
+        'fullName' => $name,
+        'telephone' => trim((string)($input['phone'] ?? '')),
+        'address1' => trim((string)($input['address_1'] ?? '')),
+        'address2' => trim((string)($input['address_2'] ?? '')),
+        'city' => trim((string)($input['city'] ?? '')),
+        'province' => ['name' => trim((string)($input['state'] ?? ''))],
+        'postcode' => trim((string)($input['postcode'] ?? '')),
+        'country' => trim((string)($input['country'] ?? 'IN')),
+    ];
+    foreach (['telephone'=>15,'address1'=>255,'address2'=>255,'city'=>120,'postcode'=>20] as $field=>$limit) {
+        if (strlen($address[$field]) > $limit) throw new CustomerBackendException('One or more address fields are too long.');
+    }
+    if (!preg_match('/^\\+?[0-9]{10,15}$/', $address['telephone']) || $address['address1'] === '' || $address['city'] === '' || $address['province']['name'] === '' || $address['postcode'] === '' || !preg_match('/^[A-Z]{2}$/', strtoupper($address['country']))) {
+        throw new CustomerBackendException('Complete all required contact and address fields with valid values.');
+    }
+    $address['country'] = strtoupper($address['country']);
+    if (!empty($profile['addresses'][0]['uuid'])) {
+        $address['uuid'] = $profile['addresses'][0]['uuid'];
+        customer_backend_admin_request_method('PATCH', '/customers/' . $id . '/addresses/' . rawurlencode($address['uuid']), $address);
+    } else {
+        customer_backend_admin_request_method('POST', '/customers/' . $id . '/addresses', $address);
+    }
+    return customer_backend_profile() ?? [];
+}
+
 function customer_backend_admin_request_method(string $method, string $path, array $payload): array {
     $token = trim((string)(getenv('EVERSHOP_ADMIN_API_TOKEN') ?: ''));
     if ($token === '') throw new CustomerBackendException('Account editing is not enabled yet. The store backend needs EVERSHOP_ADMIN_API_TOKEN configured securely.');
