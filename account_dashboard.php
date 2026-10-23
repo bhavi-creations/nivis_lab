@@ -16,8 +16,17 @@ try {
     $addresses = $profile['addresses'] ?? [];
     $address = $addresses[0] ?? [];
     foreach ($addresses as $entry) if (!empty($entry['isDefault'])) { $address=$entry; break; }
+    $province = $address['province'] ?? $address['state'] ?? [];
+    $stateName = is_array($province) ? ($province['name'] ?? $province['code'] ?? '') : (string)$province;
+    $stateCode = is_array($province) ? ($province['code'] ?? '') : '';
+    $country = $address['country'] ?? [];
+    $countryName = is_array($country) ? ($country['name'] ?? '') : (string)$country;
+    $countryCode = is_array($country) ? ($country['code'] ?? 'IN') : 'IN';
+    $phone = $address['telephone'] ?? $address['phone'] ?? '';
+    $address1 = $address['address1'] ?? $address['addressLine1'] ?? '';
+    $address2 = $address['address2'] ?? $address['addressLine2'] ?? '';
     $orders = customer_backend_saved_orders($profile);
-    account_dashboard_json(['authenticated'=>true,'csrf'=>$_SESSION['csrf'],'customer'=>['name'=>$profile['fullName'],'email'=>$profile['email'],'phone'=>$address['telephone'] ?? '', 'address'=>implode(', ',array_filter([$address['address1']??'', $address['address2']??'', $address['city']??'', $address['province']['name']??'', $address['postcode']??'', $address['country']['name']??''])), 'address_1'=>$address['address1']??'', 'address_2'=>$address['address2']??'', 'city'=>$address['city']??'', 'state'=>$address['province']['name']??'', 'state_code'=>$address['province']['code']??'', 'postcode'=>$address['postcode']??'', 'country'=>$address['country']['code']??'IN'], 'orders'=>$orders]);
+    account_dashboard_json(['authenticated'=>true,'csrf'=>$_SESSION['csrf'],'customer'=>['name'=>$profile['fullName'],'email'=>$profile['email'],'phone'=>$phone, 'address'=>implode(', ',array_filter([$address1, $address2, $address['city']??'', $stateName, $address['postcode']??'', $countryName])), 'address_1'=>$address1, 'address_2'=>$address2, 'city'=>$address['city']??'', 'state'=>$stateName, 'state_code'=>$stateCode, 'postcode'=>$address['postcode']??'', 'country'=>$countryCode], 'orders'=>$orders]);
 } catch (CustomerBackendException $error) {
     if ($error->getCode() === 401) { account_dashboard_json(['authenticated'=>false]); }
     account_dashboard_json(['error'=>$error->getMessage()], 503);
