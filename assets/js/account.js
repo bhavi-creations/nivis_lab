@@ -4,12 +4,18 @@
     const content = document.getElementById('accountDrawerContent');
     const footer = document.getElementById('accountDrawerFooter');
     const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    async function readJsonResponse(response) {
+        const body = await response.text();
+        if (!body.trim()) throw new Error(`Server returned an empty response (HTTP ${response.status}).`);
+        try { return JSON.parse(body); }
+        catch { throw new Error(`Server returned an invalid response (HTTP ${response.status}). Check the PHP/server error log.`); }
+    }
     async function loadAccount() {
         content.innerHTML = '<p>Loading your accountï¿½</p>';
         footer.hidden = true;
         try {
             const response = await fetch('account_dashboard.php', {cache:'no-store', credentials:'same-origin'});
-            const data = await response.json();
+            const data = await readJsonResponse(response);
             if (!response.ok) throw new Error(data.error || 'Unable to load account details.');
             if (!data.authenticated) {
                 content.innerHTML = '<div class="account-panel"><h3>Your Nivis account</h3><p>Log in to see your details and orders, or sign up to create an account.</p><a class="account-action" href="login.php?mode=login">Sign in / Login</a><a class="account-action account-secondary" href="login.php?mode=signup">Sign up / Create account</a></div>';
@@ -38,7 +44,7 @@
                     const values = Object.fromEntries(new FormData(form).entries());
                     values.csrf = data.csrf;
                     const saved = await fetch('account_update.php', {method:'POST', credentials:'same-origin', headers:{'Content-Type':'application/json'}, body:JSON.stringify(values)});
-                    const result = await saved.json();
+                    const result = await readJsonResponse(saved);
                     if (!saved.ok) throw new Error(result.error || 'Unable to save your account details.');
                     await loadAccount();
                 } catch (error) {

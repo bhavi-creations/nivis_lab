@@ -18,7 +18,7 @@ function customer_value($key) {
 function customer_escape($value) { return htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); }
 function customer_login($customer) {
     session_regenerate_id(true);
-    $_SESSION['customer_id'] = (int)$customer['id'];
+    $_SESSION['customer_id'] = (string)$customer['id'];
     $_SESSION['customer_name'] = $customer['name'];
     $_SESSION['logged_in'] = true;
     $_SESSION['website_login'] = true;

@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/razorpay_config.php';
 require_once __DIR__ . '/customer_auth.php';
-require_once __DIR__ . '/customer_orders.php';
 
 header('Content-Type: application/json');
 
@@ -90,10 +89,12 @@ if (($_SESSION['auth_backend'] ?? '') === 'evershop' && !empty($_SESSION['custom
     $snapshot = is_array($input['items'] ?? null) ? $input['items'] : [];
     $amount = (int)($input['amount_subunits'] ?? 0);
     try {
+        require_once __DIR__ . '/customer_orders.php';
         customer_order_save($orderId, $gatewayOrderId, $snapshot, $amount, RAZORPAY_CURRENCY, (int)$_SESSION['customer_id']);
         customer_order_paid($orderId, $gatewayOrderId, (int)$_SESSION['customer_id']);
     } catch (Throwable $error) {
         error_log('Customer order dashboard snapshot could not be saved: ' . $error->getMessage());
+        jsonResponse(['success'=>false, 'message'=>'Payment was verified, but the order could not be linked to your account. Please contact support with order ID ' . $orderId . '.'], 503);
     }
 }
 

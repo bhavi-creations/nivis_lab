@@ -5,7 +5,7 @@ function customer_orders_ensure_table(): void {
     if ($ready) return;
     customer_db()->exec("CREATE TABLE IF NOT EXISTS website_customer_orders (
         id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        customer_id BIGINT NOT NULL,
+        customer_id VARCHAR(191) NOT NULL,
         order_id VARCHAR(100) NOT NULL,
         gateway_order_id VARCHAR(100) NOT NULL,
         items_json LONGTEXT NOT NULL,
@@ -16,6 +16,10 @@ function customer_orders_ensure_table(): void {
         UNIQUE KEY uq_customer_gateway_order (customer_id, order_id, gateway_order_id),
         KEY idx_customer_order_status (customer_id, payment_status)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+    $column = customer_db()->query("SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='website_customer_orders' AND COLUMN_NAME='customer_id'")->fetchColumn();
+    if ($column && !in_array(strtolower((string)$column), ['varchar','char'], true)) {
+        customer_db()->exec('ALTER TABLE website_customer_orders MODIFY customer_id VARCHAR(191) NOT NULL');
+    }
     $ready = true;
 }
 function customer_order_save($orderId, $gatewayId, $items, $amount, $currency, $customerId = null) {
@@ -36,7 +40,7 @@ function customer_order_paid($orderId, $gatewayId, $customerId = null) {
     if ($customerId) { $sql .= ' AND customer_id=?'; $params[] = $customerId; }
     customer_db()->prepare($sql)->execute($params);
 }
-function customer_orders_for_customer(int $customerId): array {
+function customer_orders_for_customer(string $customerId): array {
     customer_orders_ensure_table();
     $statement = customer_db()->prepare("SELECT order_id,gateway_order_id,items_json,amount_subunits,currency,payment_status,created_at FROM website_customer_orders WHERE customer_id=? ORDER BY created_at DESC");
     $statement->execute([$customerId]);
