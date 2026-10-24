@@ -38,7 +38,7 @@ function customer_backend_request(string $path, array $payload, bool $authentica
     return $result['data'] ?? $result;
 }
 function customer_backend_profile(bool $orders = false): ?array {
-    $orderFields = $orders ? 'orders { orderNumber uuid currency grandTotal { value } createdAt { text } paymentStatus { code name } items { productName qty } }' : '';
+    $orderFields = $orders ? 'orders { orderNumber uuid currency grandTotal { value } createdAt paymentStatus { code name } items { productName qty } }' : '';
     $data = customer_backend_request('/graphql', ['query' => '{ currentCustomer { customerId uuid email fullName addresses { uuid fullName telephone address1 address2 city postcode province { name code } country { name code } isDefault } ' . $orderFields . ' } }'], true);
     return $data['currentCustomer'] ?? null;
 }

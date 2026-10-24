@@ -14,7 +14,17 @@ try {
     $orders = [];
     foreach ($profile['orders'] ?? [] as $order) {
         $status = $order['paymentStatus']['code'] ?? 'pending';
-        $orders[] = ['order_id'=>$order['orderNumber'], 'amount_subunits'=>(int)round((float)$order['grandTotal']['value']*100), 'currency'=>$order['currency'], 'payment_status'=>in_array($status,['paid','captured'],true)?'paid':$status, 'payment_status_label'=>$order['paymentStatus']['name'] ?? 'Pending', 'created_at'=>$order['createdAt']['text'], 'items'=>array_map(static fn($item)=>['name'=>$item['productName'],'quantity'=>$item['qty']],$order['items'] ?? [])];
+        $createdAt = (string) ($order['createdAt'] ?? '');
+        if ($createdAt !== '') {
+            try {
+                $createdAt = (new DateTimeImmutable($createdAt, new DateTimeZone('Asia/Kolkata')))
+                    ->setTimezone(new DateTimeZone('Asia/Kolkata'))
+                    ->format('d M Y, h:i A');
+            } catch (Throwable $dateError) {
+                // Preserve the backend date string if it is unexpectedly malformed.
+            }
+        }
+        $orders[] = ['order_id'=>$order['orderNumber'], 'amount_subunits'=>(int)round((float)$order['grandTotal']['value']*100), 'currency'=>$order['currency'], 'payment_status'=>in_array($status,['paid','captured','razorpay_captured'],true)?'paid':$status, 'payment_status_label'=>$order['paymentStatus']['name'] ?? 'Pending', 'created_at'=>$createdAt, 'items'=>array_map(static fn($item)=>['name'=>$item['productName'],'quantity'=>$item['qty']],$order['items'] ?? [])];
     }
     echo json_encode(['authenticated'=>true,'csrf'=>$_SESSION['csrf'],'customer'=>['name'=>$profile['fullName'],'email'=>$profile['email'],'phone'=>$address['telephone'] ?? '', 'address'=>implode(', ',array_filter([$address['address1']??'', $address['address2']??'', $address['city']??'', $address['province']['name']??'', $address['postcode']??'', $address['country']['name']??''])), 'address_1'=>$address['address1']??'', 'address_2'=>$address['address2']??'', 'city'=>$address['city']??'', 'state'=>$address['province']['name']??'', 'state_code'=>$address['province']['code']??'', 'postcode'=>$address['postcode']??'', 'country'=>$address['country']['code']??'IN'], 'orders'=>$orders]);
 } catch (CustomerBackendException $error) {
