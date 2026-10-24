@@ -63,7 +63,7 @@
             const image = String(item.thumbnail || '');
             const safeImage = /^(https?:\/\/|\/)/i.test(image) ? image : '';
             return `<div class="account-detail-item">
-                <div class="account-detail-thumb">${safeImage ? `<img src="${escape(safeImage)}" alt="${escape(item.name)}">` : ''}<span>${escape(item.quantity)}</span></div>
+                <div class="account-detail-thumb">${safeImage ? `<img src="${escape(safeImage)}" alt="${escape(item.name)}" onerror="this.onerror=null;this.src='/assets/img/product.webp'">` : ''}<span>${escape(item.quantity)}</span></div>
                 <div class="account-detail-product"><strong>${escape(item.name)}</strong><small>SKU: ${escape(item.sku || '—')}</small></div>
                 <div class="account-detail-unit">${escape(money(item.unit_price, currency))} × ${escape(item.quantity)}</div>
                 <strong class="account-detail-line-total">${escape(money(item.line_total, currency))}</strong>

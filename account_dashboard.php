@@ -66,17 +66,26 @@ try {
             'paid', 'captured', 'success', 'succeeded', 'completed', 'complete', 'razorpay_captured'
         ], true);
 
-        $items = array_map(static fn($item) => [
-            'name' => $item['productName']
-                ?? $item['product_name']
-                ?? $item['name']
-                ?? 'Product',
-            'sku' => $item['productSku'] ?? '',
-            'thumbnail' => $item['thumbnail'] ?? '',
-            'quantity' => (int) ($item['qty'] ?? $item['quantity'] ?? 1),
-            'unit_price' => (float) ($item['productPrice']['value'] ?? 0),
-            'line_total' => (float) ($item['lineTotal']['value'] ?? 0)
-        ], $order['items'] ?? []);
+        $items = array_map(static function ($item) {
+            $thumbnail = trim((string) ($item['thumbnail'] ?? ''));
+            if ($thumbnail !== '' && !preg_match('#^(?:https?:)?//#i', $thumbnail)) {
+                $thumbnail = EVERSHOP_ASSET_BASE_URL . '/' . ltrim($thumbnail, '/');
+            } elseif (str_starts_with($thumbnail, '//')) {
+                $thumbnail = 'https:' . $thumbnail;
+            }
+
+            return [
+                'name' => $item['productName']
+                    ?? $item['product_name']
+                    ?? $item['name']
+                    ?? 'Product',
+                'sku' => $item['productSku'] ?? '',
+                'thumbnail' => $thumbnail,
+                'quantity' => (int) ($item['qty'] ?? $item['quantity'] ?? 1),
+                'unit_price' => (float) ($item['productPrice']['value'] ?? 0),
+                'line_total' => (float) ($item['lineTotal']['value'] ?? 0)
+            ];
+        }, $order['items'] ?? []);
 
         if ($isPaid) {
             $paidOrdersCount++;
