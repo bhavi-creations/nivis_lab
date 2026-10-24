@@ -1,6 +1,14 @@
 <?php
 require_once __DIR__ . '/customer_auth.php';
 $checkoutAuthenticated = ($_SESSION['auth_backend'] ?? '') === 'evershop' && !empty($_SESSION['backend_access_token']);
+$countryData = json_decode(file_get_contents(__DIR__ . '/assets/customer-countries.json'), true)['data']['countries'] ?? [];
+$indiaStates = [];
+foreach ($countryData as $countryOption) {
+    if (($countryOption['code'] ?? '') === 'IN') {
+        $indiaStates = $countryOption['provinces'] ?? [];
+        break;
+    }
+}
 require_once __DIR__ . '/razorpay_config.php';
 include 'navbar.php';
 ?>
@@ -68,29 +76,9 @@ include 'navbar.php';
                             <label for="state" class="form-label">State</label>
                             <select class="form-select rounded-0" id="state" name="state" autocomplete="address-level1" required>
                                 <option value="">Select state</option>
-                                <option value="KA">Karnataka</option>
-                                <option value="MH">Maharashtra</option>
-                                <option value="DL">Delhi</option>
-                                <option value="TN">Tamil Nadu</option>
-                                <option value="TS">Telangana</option>
-                                <option value="AP">Andhra Pradesh</option>
-                                <option value="KL">Kerala</option>
-                                <option value="GJ">Gujarat</option>
-                                <option value="RJ">Rajasthan</option>
-                                <option value="UP">Uttar Pradesh</option>
-                                <option value="WB">West Bengal</option>
-                                <option value="HR">Haryana</option>
-                                <option value="PB">Punjab</option>
-                                <option value="MP">Madhya Pradesh</option>
-                                <option value="BR">Bihar</option>
-                                <option value="OR">Odisha</option>
-                                <option value="AS">Assam</option>
-                                <option value="CH">Chandigarh</option>
-                                <option value="JH">Jharkhand</option>
-                                <option value="UK">Uttarakhand</option>
-                                <option value="HP">Himachal Pradesh</option>
-                                <option value="CG">Chhattisgarh</option>
-                                <option value="GO">Goa</option>
+                                <?php foreach ($indiaStates as $indiaState): ?>
+                                    <option value="<?= htmlspecialchars($indiaState['code'], ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($indiaState['name'], ENT_QUOTES, 'UTF-8') ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="col-md-4">

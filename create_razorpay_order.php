@@ -118,6 +118,10 @@ function provinceCandidates(array $address): array
     ];
 
     $upperProvince = strtoupper($province);
+    if (preg_match('/^IN-([A-Z0-9]+)$/', $upperProvince, $matches)) {
+        $upperProvince = $matches[1];
+        $candidates[] = $upperProvince;
+    }
     if ($upperProvince !== '' && isset($provinceMap[$upperProvince])) {
         $candidates[] = $provinceMap[$upperProvince];
     }

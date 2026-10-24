@@ -30,9 +30,30 @@ $state = trim((string)($input['state'] ?? ''));
 $postcode = trim((string)($input['postcode'] ?? ''));
 $country = strtoupper(trim((string)($input['country'] ?? '')));
 $password = (string)($input['password'] ?? '');
-if ($name === '' || strlen($name) > 120 || !filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 254 || !preg_match('/^\+?[0-9]{10,15}$/D', $phone) || $address1 === '' || strlen($address1) > 255 || strlen($address2) > 255 || $city === '' || strlen($city) > 120 || $state === '' || strlen($state) > 120 || $postcode === '' || strlen($postcode) > 20 || !preg_match('/^[A-Z]{2}$/D', $country) || ($password !== '' && (strlen($password) < 8 || strlen($password) > 128))) {
-    account_update_response(['error' => 'Enter valid name, email, phone, shipping address and country details. A new password must contain at least 8 characters.'], 422);
+$countries = json_decode(file_get_contents(__DIR__ . '/assets/customer-countries.json'), true)['data']['countries'] ?? [];
+$selectedCountry = null;
+foreach ($countries as $countryOption) {
+    if (($countryOption['code'] ?? '') === $country) {
+        $selectedCountry = $countryOption;
+        break;
+    }
 }
+$province = null;
+$legacyProvinceCodes = ['TS' => 'IN-TG', 'TG' => 'IN-TG', 'CG' => 'IN-CT', 'UK' => 'IN-UT', 'UT' => 'IN-UT', 'GO' => 'IN-GA', 'OD' => 'IN-OR', 'OR' => 'IN-OR'];
+$state = $legacyProvinceCodes[strtoupper($state)] ?? $state;
+foreach ($selectedCountry['provinces'] ?? [] as $provinceOption) {
+    if (strcasecmp($state, (string) ($provinceOption['code'] ?? '')) === 0 || strcasecmp($state, (string) ($provinceOption['name'] ?? '')) === 0) {
+        $province = $provinceOption;
+        break;
+    }
+}
+if ($province) {
+    $state = $province['code'];
+}
+if ($name === '' || strlen($name) > 120 || !filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 254 || !preg_match('/^\+?[0-9]{10,15}$/D', $phone) || $address1 === '' || strlen($address1) > 255 || strlen($address2) > 255 || $city === '' || strlen($city) > 120 || $state === '' || strlen($state) > 120 || $postcode === '' || strlen($postcode) > 20 || !preg_match('/^[A-Z]{2}$/D', $country) || ($password !== '' && (strlen($password) < 8 || strlen($password) > 128))) {
+    account_update_response(['error' => 'Enter valid name, email, phone, shipping address, country and state details. A new password must contain at least 8 characters.'], 422);
+}
+if (!$province) account_update_response(['error' => 'Enter a valid state or province for the selected country.'], 422);
 
 try {
     $profile = customer_backend_profile();

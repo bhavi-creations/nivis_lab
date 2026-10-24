@@ -4,4 +4,4 @@
     <div class="nivis-account-footer" id="accountDrawerFooter" hidden><a href="logout.php">Logout <i class="bi bi-box-arrow-right" aria-hidden="true"></i></a></div>
 </div>
 <link rel="stylesheet" href="/assets/css/account.css?v=5">
-<script src="/assets/js/account.js?v=6" defer></script>
+<script src="/assets/js/account.js?v=8" defer></script>

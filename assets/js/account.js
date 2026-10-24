@@ -44,12 +44,37 @@
 
     function renderAddress(address) {
         if (!address) return '<span class="account-detail-muted">Address not available</span>';
-        const lines = [
-            address.full_name, address.address_1, address.address_2,
-            address.city, address.province, address.postcode, address.country,
-            address.telephone
-        ].filter(Boolean);
-        return lines.length ? lines.map(line => `<div>${escape(line)}</div>`).join('') : '<span class="account-detail-muted">Address not available</span>';
+        const province = String(address.province || '').toUpperCase() === 'INVALID_PROVINCE' ? '' : address.province;
+        const stateLine = province
+            ? `<div>${escape(province)}</div>`
+            : address.country_code === 'IN' && address.postcode
+                ? `<div class="account-detail-muted" data-state-pin="${escape(address.postcode)}">Looking up state…</div>`
+                : '';
+        const lines = [address.full_name, address.address_1, address.address_2, address.city]
+            .filter(Boolean).map(line => `<div>${escape(line)}</div>`);
+        if (stateLine) lines.push(stateLine);
+        [address.postcode, address.country, address.telephone].filter(Boolean).forEach(line => lines.push(`<div>${escape(line)}</div>`));
+        return lines.length ? lines.join('') : '<span class="account-detail-muted">Address not available</span>';
+    }
+
+    async function resolveInvalidAddressStates(root) {
+        const placeholders = [...root.querySelectorAll('[data-state-pin]')];
+        const lookups = new Map();
+        for (const placeholder of placeholders) {
+            const pin = placeholder.dataset.statePin;
+            if (!lookups.has(pin)) {
+                lookups.set(pin, fetch(`/address_lookup.php?pin=${encodeURIComponent(pin)}`, { cache: 'force-cache' })
+                    .then(response => response.ok ? response.json() : null)
+                    .catch(() => null));
+            }
+            const result = await lookups.get(pin);
+            if (result?.state) {
+                placeholder.textContent = result.state;
+                placeholder.classList.remove('account-detail-muted');
+            } else {
+                placeholder.textContent = 'State unavailable';
+            }
+        }
     }
 
     function renderOrderDetail(order) {
@@ -131,6 +156,7 @@
         const overlay = wrapper.firstElementChild;
         document.body.append(overlay);
         document.body.classList.add('account-detail-open');
+        resolveInvalidAddressStates(overlay);
         const close = () => {
             overlay.remove();
             document.body.classList.remove('account-detail-open');

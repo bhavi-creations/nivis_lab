@@ -33,11 +33,38 @@ try {
         }
     }
 
+    $countryCatalog = json_decode(file_get_contents(__DIR__ . '/assets/customer-countries.json'), true)['data']['countries'] ?? [];
+    $formatProvince = static function ($province, $countryCode) use ($countryCatalog) {
+        $code = is_array($province) ? (string) ($province['code'] ?? '') : '';
+        $name = is_array($province) ? (string) ($province['name'] ?? '') : '';
+        $legacyCodes = [
+            'TS' => 'IN-TG', 'TG' => 'IN-TG', 'CG' => 'IN-CT', 'UK' => 'IN-UT',
+            'UT' => 'IN-UT', 'GO' => 'IN-GA', 'OD' => 'IN-OR', 'OR' => 'IN-OR'
+        ];
+        $lookupCode = $legacyCodes[strtoupper($code)] ?? $code;
+        if ($countryCode === 'IN' && preg_match('/^[A-Z]{2}$/i', $lookupCode)) {
+            $lookupCode = 'IN-' . strtoupper($lookupCode);
+        }
+        foreach ($countryCatalog as $catalogCountry) {
+            if (($catalogCountry['code'] ?? '') !== $countryCode) continue;
+            foreach ($catalogCountry['provinces'] ?? [] as $catalogProvince) {
+                if (($catalogProvince['code'] ?? '') === $lookupCode || ($name !== '' && strcasecmp($catalogProvince['name'], $name) === 0)) {
+                    return ['name' => $catalogProvince['name'], 'code' => $catalogProvince['code']];
+                }
+            }
+        }
+        return [
+            'name' => strtoupper($name) === 'INVALID_PROVINCE' ? '' : $name,
+            'code' => strtoupper($code) === 'INVALID_PROVINCE' ? '' : $code
+        ];
+    };
     $priceValue = static fn($order, $field) => (float) ($order[$field]['value'] ?? 0);
-    $formatAddress = static function ($address) {
+    $formatAddress = static function ($address) use ($formatProvince) {
         if (!is_array($address)) {
             return null;
         }
+        $countryCode = $address['country']['code'] ?? '';
+        $province = $formatProvince($address['province'] ?? [], $countryCode);
 
         return [
             'full_name' => $address['fullName'] ?? '',
@@ -46,7 +73,9 @@ try {
             'city' => $address['city'] ?? '',
             'postcode' => $address['postcode'] ?? '',
             'telephone' => $address['telephone'] ?? '',
-            'province' => $address['province']['name'] ?? '',
+            'province' => $province['name'],
+            'province_code' => $province['code'],
+            'country_code' => $countryCode,
             'country' => $address['country']['name'] ?? ''
         ];
     };
@@ -159,6 +188,9 @@ try {
         }
     }
 
+    $customerCountryCode = $address['country']['code'] ?? 'IN';
+    $customerProvince = $formatProvince($address['province'] ?? [], $customerCountryCode);
+
     echo json_encode([
         'authenticated' => true,
         'csrf' => $_SESSION['csrf'],
@@ -170,15 +202,15 @@ try {
                 $address['address1'] ?? '',
                 $address['address2'] ?? '',
                 $address['city'] ?? '',
-                $address['province']['name'] ?? '',
+                $customerProvince['name'],
                 $address['postcode'] ?? '',
                 $address['country']['name'] ?? ''
             ])),
             'address_1' => $address['address1'] ?? '',
             'address_2' => $address['address2'] ?? '',
             'city' => $address['city'] ?? '',
-            'state' => $address['province']['name'] ?? '',
-            'state_code' => $address['province']['code'] ?? '',
+            'state' => $customerProvince['name'],
+            'state_code' => $customerProvince['code'],
             'postcode' => $address['postcode'] ?? '',
             'country' => $address['country']['code'] ?? 'IN'
         ],

@@ -23,6 +23,13 @@ try {
             break;
         }
     }
+    $countryCode = $address['country']['code'] ?? 'IN';
+    $provinceCode = (string) ($address['province']['code'] ?? '');
+    $provinceAliases = ['TS' => 'IN-TG', 'TG' => 'IN-TG', 'CG' => 'IN-CT', 'UK' => 'IN-UT', 'UT' => 'IN-UT', 'GO' => 'IN-GA', 'OD' => 'IN-OR', 'OR' => 'IN-OR'];
+    $provinceCode = $provinceAliases[strtoupper($provinceCode)] ?? $provinceCode;
+    if ($countryCode === 'IN' && preg_match('/^[A-Z]{2}$/i', $provinceCode)) {
+        $provinceCode = 'IN-' . strtoupper($provinceCode);
+    }
     echo json_encode([
         'authenticated' => true,
         'customer' => [
@@ -32,9 +39,9 @@ try {
             'address_1' => $address['address1'] ?? '',
             'address_2' => $address['address2'] ?? '',
             'city' => $address['city'] ?? '',
-            'state' => $address['province']['name'] ?? '',
+            'state' => $provinceCode,
             'postcode' => $address['postcode'] ?? '',
-            'country' => $address['country']['code'] ?? 'IN'
+            'country' => $countryCode
         ]
     ]);
 } catch (CustomerBackendException $error) {
