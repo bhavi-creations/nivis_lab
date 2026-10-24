@@ -15,7 +15,7 @@ include 'navbar.php';
     </div>
 
     <?php if (!$checkoutAuthenticated): ?>
-    <div class="border bg-white p-3 mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3" id="checkoutAccountOptions">
+    <div class="border  p-3 mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3" id="checkoutAccountOptions">
         <div><strong>Checkout options</strong><div class="small text-muted">Sign in to use your saved details, or continue as a guest.</div></div>
         <div class="d-flex flex-wrap gap-2">
             <a class="btn btn-outline-dark" href="login.php?mode=login&amp;return=checkout.php">Login / Sign Up</a>
