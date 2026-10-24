@@ -4,24 +4,152 @@
 
     const content = document.getElementById('accountDrawerContent');
     const footer = document.getElementById('accountDrawerFooter');
+    let currentOrders = [];
+
     const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     }[c]));
 
-    function renderOrder(order) {
-        const total = new Intl.NumberFormat('en-IN', {
-            style: 'currency',
-            currency: order.currency || 'INR'
-        }).format(Number(order.amount_subunits || 0) / 100);
-        const items = Array.isArray(order.items) ? order.items : [];
-        return `<article class="account-order">
-            <h4>Order ${escape(order.order_id)}</h4>
-            <span class="account-status">${escape(order.payment_status_label || 'Payment pending')}</span>
-            <p class="account-date">${escape(order.created_at)}</p>
-            <ul>${items.map(item => `<li>${escape(item.name)} <strong>× ${escape(item.quantity)}</strong></li>`).join('')}</ul>
-            <strong>Total: ${escape(total)}</strong>
-        </article>`;
+    function money(value, currency = 'INR') {
+        try {
+            return new Intl.NumberFormat('en-IN', { style: 'currency', currency }).format(Number(value || 0));
+        } catch {
+            return `${currency} ${Number(value || 0).toFixed(2)}`;
+        }
     }
+
+    function trackingUrl(order) {
+        const awb = order.shipment?.awb;
+        if (!awb) return '';
+        const raw = order.shipment?.tracking_url || `https://shiprocket.co/tracking/${encodeURIComponent(awb)}`;
+        try {
+            const url = new URL(raw, window.location.origin);
+            return ['http:', 'https:'].includes(url.protocol) ? url.href : '';
+        } catch {
+            return '';
+        }
+    }
+
+    function renderOrderRow(order) {
+        const awb = order.shipment?.awb || '';
+        const href = trackingUrl(order);
+        const awbMarkup = awb && href
+            ? `<a class="account-order-awb" href="${escape(href)}" target="_blank" rel="noopener noreferrer">AWB: ${escape(awb)}</a>`
+            : `<span class="account-order-awb account-order-awb-pending">${awb ? `AWB: ${escape(awb)}` : 'AWB pending'}</span>`;
+        return `<div class="account-order-row">
+            <button type="button" class="account-order-open" data-account-order="${escape(order.uuid)}">Order #${escape(order.order_id)}</button>
+            ${awbMarkup}
+        </div>`;
+    }
+
+    function renderAddress(address) {
+        if (!address) return '<span class="account-detail-muted">Address not available</span>';
+        const lines = [
+            address.full_name, address.address_1, address.address_2,
+            address.city, address.province, address.postcode, address.country,
+            address.telephone
+        ].filter(Boolean);
+        return lines.length ? lines.map(line => `<div>${escape(line)}</div>`).join('') : '<span class="account-detail-muted">Address not available</span>';
+    }
+
+    function renderOrderDetail(order) {
+        const currency = order.currency || 'INR';
+        const items = Array.isArray(order.items) ? order.items : [];
+        const shipment = order.shipment || {};
+        const href = trackingUrl(order);
+        const weight = order.total_weight || {};
+        const activities = Array.isArray(order.activities) ? order.activities : [];
+        const itemRows = items.length ? items.map(item => {
+            const image = String(item.thumbnail || '');
+            const safeImage = /^(https?:\/\/|\/)/i.test(image) ? image : '';
+            return `<div class="account-detail-item">
+                <div class="account-detail-thumb">${safeImage ? `<img src="${escape(safeImage)}" alt="${escape(item.name)}">` : ''}<span>${escape(item.quantity)}</span></div>
+                <div class="account-detail-product"><strong>${escape(item.name)}</strong><small>SKU: ${escape(item.sku || '—')}</small></div>
+                <div class="account-detail-unit">${escape(money(item.unit_price, currency))} × ${escape(item.quantity)}</div>
+                <strong class="account-detail-line-total">${escape(money(item.line_total, currency))}</strong>
+            </div>`;
+        }).join('') : '<p class="account-detail-muted">No item details available.</p>';
+        const activityRows = activities.length ? activities.map(activity => `<div class="account-detail-activity"><time>${escape(activity.created_at)}</time><p>${escape(activity.comment || 'Order updated')}</p></div>`).join('') : '<p class="account-detail-muted">No order activity yet.</p>';
+
+        return `<div class="account-detail-overlay" role="presentation">
+            <section class="account-detail-shell" role="dialog" aria-modal="true" aria-labelledby="accountOrderTitle" tabindex="-1">
+                <div class="account-detail-heading">
+                    <button type="button" class="account-detail-back" data-close-order-detail>← Back to orders</button>
+                    <div class="account-detail-heading-main">
+                        <h1 id="accountOrderTitle">Order #${escape(order.order_id)}</h1>
+                        <span class="account-detail-badge">${escape(order.status_label || order.payment_status_label || 'Processing')}</span>
+                    </div>
+                </div>
+                <div class="account-detail-grid">
+                    <main class="account-detail-main">
+                        <section class="account-detail-card">
+                            <h2><span class="account-detail-status-dot"></span>${escape(order.shipment_status_label || 'Order items')}</h2>
+                            <div class="account-detail-items">${itemRows}</div>
+                        </section>
+                        <section class="account-detail-card">
+                            <h2><span class="account-detail-status-dot account-detail-status-paid"></span>${escape(order.payment_status_label || 'Payment')} – ${escape(order.payment_method || 'Payment method')}</h2>
+                            <div class="account-detail-totals">
+                                <div><span>Subtotal</span><strong>${escape(money(order.subtotal, currency))}</strong></div>
+                                <div><span>Total product weight</span><strong>${escape(weight.value ?? 0)} ${escape(weight.unit || '')}</strong></div>
+                                <div><span>Shipping${order.shipping_method ? ` · ${escape(order.shipping_method)}` : ''}</span><strong>${escape(money(order.shipping_amount, currency))}</strong></div>
+                                ${Number(order.discount_amount) ? `<div><span>Discount${order.coupon ? ` · ${escape(order.coupon)}` : ''}</span><strong class="account-detail-discount">−${escape(money(Math.abs(Number(order.discount_amount)), currency))}</strong></div>` : ''}
+                                <div><span>Tax</span><strong>${escape(money(order.tax_amount, currency))}</strong></div>
+                                <div class="account-detail-total"><span>Total</span><strong>${escape(money(Number(order.amount_subunits || 0) / 100, currency))}</strong></div>
+                            </div>
+                        </section>
+                        <section class="account-detail-card">
+                            <h2>Activities</h2>
+                            <div class="account-detail-activities">${activityRows}</div>
+                        </section>
+                    </main>
+                    <aside class="account-detail-aside">
+                        <section class="account-detail-card">
+                            <h2>Shiprocket shipping</h2>
+                            ${shipment.awb ? `<dl><dt>AWB</dt><dd>${href ? `<a href="${escape(href)}" target="_blank" rel="noopener noreferrer">${escape(shipment.awb)} ↗</a>` : escape(shipment.awb)}</dd>${shipment.courier ? `<dt>Courier</dt><dd>${escape(shipment.courier)}</dd>` : ''}${shipment.status ? `<dt>Status</dt><dd>${escape(shipment.status)}</dd>` : ''}</dl>` : '<p class="account-detail-muted">AWB pending assignment</p>'}
+                        </section>
+                        <section class="account-detail-card">
+                            <h2>Customer notes</h2>
+                            <p>${order.shipping_note ? escape(order.shipping_note) : '<span class="account-detail-muted">No notes from customer</span>'}</p>
+                        </section>
+                        <section class="account-detail-card">
+                            <h2>Customer Information</h2>
+                            <p>${escape(order.customer_name)}</p>
+                            <div class="account-detail-divider"><h3>Contact Information</h3><p>${escape(order.customer_email)}</p>${order.shipping_address?.telephone ? `<p>${escape(order.shipping_address.telephone)}</p>` : ''}</div>
+                            ${!order.no_shipping_required ? `<div class="account-detail-divider"><h3>Shipping Address</h3>${renderAddress(order.shipping_address)}</div>` : ''}
+                            <div class="account-detail-divider"><h3>Billing address</h3>${renderAddress(order.billing_address)}</div>
+                        </section>
+                    </aside>
+                </div>
+            </section>
+        </div>`;
+    }
+
+    function openOrderDetail(order) {
+        document.querySelector('.account-detail-overlay')?.remove();
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = renderOrderDetail(order);
+        const overlay = wrapper.firstElementChild;
+        document.body.append(overlay);
+        document.body.classList.add('account-detail-open');
+        const close = () => {
+            overlay.remove();
+            document.body.classList.remove('account-detail-open');
+            document.removeEventListener('keydown', onKeydown);
+        };
+        const onKeydown = event => { if (event.key === 'Escape') close(); };
+        overlay.addEventListener('click', event => {
+            if (event.target === overlay || event.target.closest('[data-close-order-detail]')) close();
+        });
+        document.addEventListener('keydown', onKeydown);
+        overlay.querySelector('.account-detail-shell').focus();
+    }
+
+    content.addEventListener('click', event => {
+        const button = event.target.closest('[data-account-order]');
+        if (!button) return;
+        const order = currentOrders.find(entry => entry.uuid === button.dataset.accountOrder);
+        if (order) openOrderDetail(order);
+    });
 
     async function loadAccount() {
         content.innerHTML = '<p>Loading your account…</p>';
@@ -40,8 +168,8 @@
 
             footer.hidden = false;
             const customer = data.customer || {};
-            const orders = Array.isArray(data.orders) ? data.orders : [];
-            const paid = orders.filter(order => order.payment_status === 'paid');
+            currentOrders = Array.isArray(data.orders) ? data.orders : [];
+            const paid = currentOrders.filter(order => order.payment_status === 'paid');
             const quantity = paid.reduce((sum, order) => sum + (order.items || []).reduce((n, item) => n + Number(item.quantity || 0), 0), 0);
 
             content.innerHTML = `<section class="account-panel">
@@ -64,8 +192,8 @@
                 </form>
             </section>
             <div class="account-stats"><div><strong>${paid.length}</strong><span>Paid orders</span></div><div><strong>${quantity}</strong><span>Products purchased</span></div></div>
-            <section><h3>Paid orders (${paid.length})</h3>${paid.length ? paid.map(renderOrder).join('') : '<div class="account-panel"><p>No paid orders yet.</p></div>'}</section>
-            <section><h3>My orders (${orders.length})</h3>${orders.length ? orders.map(renderOrder).join('') : '<div class="account-panel"><p>No orders linked to this account yet. New checkout orders will appear here.</p></div>'}</section>`;
+            <section class="account-order-section"><h3>Paid orders (${paid.length})</h3>${paid.length ? paid.map(renderOrderRow).join('') : '<div class="account-panel"><p>No paid orders yet.</p></div>'}</section>
+            <section class="account-order-section"><h3>My orders (${currentOrders.length})</h3>${currentOrders.length ? currentOrders.map(renderOrderRow).join('') : '<div class="account-panel"><p>No orders linked to this account yet. New checkout orders will appear here.</p></div>'}</section>`;
 
             document.getElementById('editAccountToggle').addEventListener('click', () => {
                 const form = document.getElementById('editAccountForm');
