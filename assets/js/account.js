@@ -169,8 +169,15 @@
             footer.hidden = false;
             const customer = data.customer || {};
             currentOrders = Array.isArray(data.orders) ? data.orders : [];
-            const paid = currentOrders.filter(order => order.payment_status === 'paid');
-            const quantity = paid.reduce((sum, order) => sum + (order.items || []).reduce((n, item) => n + Number(item.quantity || 0), 0), 0);
+            const paid = Array.isArray(data.paid_orders)
+                ? data.paid_orders
+                : currentOrders.filter(order => order.payment_status === 'paid');
+            const paidCount = Number.isFinite(Number(data.paid_orders_count))
+                ? Number(data.paid_orders_count)
+                : paid.length;
+            const quantity = Number.isFinite(Number(data.products_purchased))
+                ? Number(data.products_purchased)
+                : paid.reduce((sum, order) => sum + Number(order.quantity || (order.items || []).reduce((n, item) => n + Number(item.quantity || 0), 0)), 0);
 
             content.innerHTML = `<section class="account-panel">
                 <h3>Hello, ${escape(customer.name)}</h3>
@@ -191,8 +198,8 @@
                     <button type="submit" class="account-retry">Save account details</button>
                 </form>
             </section>
-            <div class="account-stats"><div><strong>${paid.length}</strong><span>Paid orders</span></div><div><strong>${quantity}</strong><span>Products purchased</span></div></div>
-            <section class="account-order-section"><h3>Paid orders (${paid.length})</h3>${paid.length ? paid.map(renderOrderRow).join('') : '<div class="account-panel"><p>No paid orders yet.</p></div>'}</section>
+            <div class="account-stats"><div><strong>${paidCount}</strong><span>Paid orders</span></div><div><strong>${quantity}</strong><span>Products purchased</span></div></div>
+            <section class="account-order-section"><h3>Paid orders (${paidCount})</h3>${paid.length ? paid.map(renderOrderRow).join('') : '<div class="account-panel"><p>No paid orders yet.</p></div>'}</section>
             <section class="account-order-section"><h3>My orders (${currentOrders.length})</h3>${currentOrders.length ? currentOrders.map(renderOrderRow).join('') : '<div class="account-panel"><p>No orders linked to this account yet. New checkout orders will appear here.</p></div>'}</section>`;
 
             document.getElementById('editAccountToggle').addEventListener('click', () => {

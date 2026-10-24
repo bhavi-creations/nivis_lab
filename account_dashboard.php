@@ -80,9 +80,9 @@ try {
 
         if ($isPaid) {
             $paidOrdersCount++;
-            foreach ($items as $item) {
-                $productsPurchased += $item['quantity'];
-            }
+            // Prefer EverShop's order quantity total, which remains available
+            // even when an order has no expanded item rows in the response.
+            $productsPurchased += (int) ($order['totalQty'] ?? array_sum(array_column($items, 'quantity')));
         }
 
         $createdAt = $order['createdAt']['text']
