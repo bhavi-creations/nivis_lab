@@ -43,17 +43,45 @@ function customer_backend_profile(bool $orders = false): ?array {
     return $data['currentCustomer'] ?? null;
 }
 
-function customer_backend_admin_request_method(string $method, string $path, array $payload): array {
-    $token = trim((string)(getenv('EVERSHOP_ADMIN_API_TOKEN') ?: ''));
-    if ($token === '') throw new CustomerBackendException('Account editing is not enabled yet. The store backend needs EVERSHOP_ADMIN_API_TOKEN configured securely.');
+function customer_backend_request_method(string $method, string $path, array $payload, bool $authenticated = true, bool $allowRefresh = true): array {
+    $headers = ['Content-Type: application/json', 'Accept: application/json'];
+    if ($authenticated) {
+        if (empty($_SESSION['backend_access_token'])) throw new CustomerBackendException('Please log in again.', 401);
+        $headers[] = 'Authorization: Bearer ' . $_SESSION['backend_access_token'];
+    }
     $ch = curl_init(rtrim(EVERSHOP_API_BASE_URL, '/') . '/' . ltrim($path, '/'));
-    curl_setopt_array($ch, [CURLOPT_CUSTOMREQUEST => strtoupper($method), CURLOPT_POSTFIELDS => json_encode($payload), CURLOPT_HTTPHEADER => ['Content-Type: application/json', 'Accept: application/json', 'Authorization: Bearer ' . $token], CURLOPT_RETURNTRANSFER => true, CURLOPT_CONNECTTIMEOUT => 10, CURLOPT_TIMEOUT => 30]);
+    curl_setopt_array($ch, [
+        CURLOPT_CUSTOMREQUEST => strtoupper($method),
+        CURLOPT_POSTFIELDS => json_encode($payload),
+        CURLOPT_HTTPHEADER => $headers,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CONNECTTIMEOUT => 10,
+        CURLOPT_TIMEOUT => 30
+    ]);
     $raw = curl_exec($ch);
     $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     $failed = curl_errno($ch);
     curl_close($ch);
     if ($failed) throw new CustomerBackendException('The account server could not be reached. Please try again.');
     $result = json_decode((string)$raw, true);
+
+    if ($status === 401 && $authenticated && $allowRefresh && !empty($_SESSION['backend_refresh_token'])) {
+        $refresh = $_SESSION['backend_refresh_token'];
+        try {
+            $tokens = customer_backend_request('/customer/token/refresh', ['refreshToken' => $refresh]);
+        } catch (Throwable $error) {
+            customer_backend_clear_session();
+            throw new CustomerBackendException('Your session expired. Please log in again.', 401);
+        }
+        if (empty($tokens['accessToken'])) {
+            customer_backend_clear_session();
+            throw new CustomerBackendException('Your session expired. Please log in again.', 401);
+        }
+        $_SESSION['backend_access_token'] = $tokens['accessToken'];
+        $_SESSION['backend_refresh_token'] = $tokens['refreshToken'] ?? $refresh;
+        return customer_backend_request_method($method, $path, $payload, $authenticated, false);
+    }
+    if ($status === 401 && $authenticated) customer_backend_clear_session();
     if (!is_array($result) || $status < 200 || $status >= 300 || !empty($result['error']) || !empty($result['errors'])) {
         $message = $result['error']['message'] ?? 'The account server could not complete this request. Please try again.';
         throw new CustomerBackendException(is_string($message) ? $message : 'Account request failed.', $status);

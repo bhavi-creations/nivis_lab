@@ -621,8 +621,11 @@ if ($action === 'calculate_shipping') {
     ]);
 }
 
-$evershopOrderResult = postJson($baseUrl . '/orders', [
-    'cart_id' => $cartId
+$evershopOrderResult = postJson($baseUrl . '/carts/' . rawurlencode($cartId) . '/checkout', [
+    'cart_id' => $cartId,
+    'customer' => [
+        'email' => trim((string) ($input['customer_email'] ?? ''))
+    ]
 ]);
 $evershopOrderDecoded = json_decode((string) $evershopOrderResult['response'], true);
 

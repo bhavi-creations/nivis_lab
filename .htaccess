@@ -14,7 +14,7 @@
 
     # 1. REMOVE .PHP EXTENSION (301 Redirect)
     # URL లో నేరుగా .php టైప్ చేస్తే దాన్ని తీసివేసి క్లీన్ URL కి పంపుతుంది
-    RewriteCond %{THE_REQUEST} \s/+[^\s?]+\.php(?:[?\s]) [NC]
+    RewriteCond %{THE_REQUEST} ^(?:GET|HEAD)\s/+[^\s?]+\.php(?:[?\s]) [NC]
     RewriteRule ^(.+)\.php$ $1 [R=301,L,NE]
 
     # 2. INTERNAL REWRITE FOR PHP FILES

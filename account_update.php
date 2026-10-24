@@ -40,16 +40,20 @@ try {
     $addresses = $profile['addresses'] ?? [];
     $address = $addresses[0] ?? null;
     foreach ($addresses as $candidate) if (!empty($candidate['isDefault'])) { $address = $candidate; break; }
-    if (!$address || empty($address['uuid'])) account_update_response(['error' => 'Your account has no saved address to update. Please contact the store.'], 409);
 
     $customerChanges = ['full_name' => $name, 'email' => $email];
     if ($password !== '') $customerChanges['password'] = $password;
-    customer_backend_admin_request_method('PATCH', '/customers/' . rawurlencode($profile['uuid']), $customerChanges);
-    customer_backend_admin_request_method('PATCH', '/customers/' . rawurlencode($profile['uuid']) . '/addresses/' . rawurlencode($address['uuid']), [
+    customer_backend_request_method('PATCH', '/customers/' . rawurlencode($profile['uuid']), $customerChanges);
+    $addressPayload = [
         'full_name' => $name, 'telephone' => $phone, 'address_1' => $address1,
         'address_2' => $address2, 'city' => $city, 'province' => $state,
-        'country' => $country, 'postcode' => $postcode
-    ]);
+        'country' => $country, 'postcode' => $postcode, 'is_default' => 1
+    ];
+    if ($address && !empty($address['uuid'])) {
+        customer_backend_request_method('PATCH', '/customers/' . rawurlencode($profile['uuid']) . '/addresses/' . rawurlencode($address['uuid']), $addressPayload);
+    } else {
+        customer_backend_request_method('POST', '/customers/' . rawurlencode($profile['uuid']) . '/addresses', $addressPayload);
+    }
     $_SESSION['customer_name'] = $name;
     $_SESSION['customer_email'] = $email;
     account_update_response(['success' => true, 'message' => 'Your account details have been updated.']);
