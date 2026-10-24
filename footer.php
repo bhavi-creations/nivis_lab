@@ -121,7 +121,7 @@
 
                 </p> -->
 
-                <img src="./assets/img/new.png"
+                <img src="./assets/img/new_logo_head.png"
                     alt="Nivis Labs" style="width: 125px; height:200px;">
 
 

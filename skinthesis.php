@@ -73,17 +73,15 @@
             <div class="col-md-4">
                 <div class="skinthesis-card h-100">
                     <div class="card-img-wrapper">
-                        <img src="./assets/img/UV Best Sunscreen Gel 4.jpeg"
+                        <img src="./assets/img/nivis_korean_moonlight.png"
                             class="card-img-top" alt="Vitamin C">
                     </div>
                     <div class="card-body p-4">
-                        <h4 class="card-title">How Does Vitamin C Really Help Your Skin?</h4>
+                        <h4 class="card-title">How Can a Night Cream Transform Your Skin While You Sleep?</h4>
                         <p class="card-text text-muted small">
-                            Vitamin C is one of the most researched and trusted ingredients in skincare — but
-                            confusion around when to use it, how it works, and what to expect is common. In this
-                            dermatologist-approved guide, we...
+                           Your skin naturally enters a recovery phase at night, making your bedtime skincare routine especially important. A good night ...
                         </p>
-                        <a href="how_does_vitamin_c_really_help_your_skin.php" class="read-more-link">READ MORE →</a>
+                        <a href="nivis-labs-korean-moon-light-night-cream.php" class="read-more-link">READ MORE →</a>
                     </div>
                 </div>
             </div>
@@ -91,7 +89,7 @@
             <div class="col-md-4">
                 <div class="skinthesis-card h-100">
                     <div class="card-img-wrapper">
-                        <img src="./assets/img/Layer Skincare.png"
+                        <img src="./assets/img/nivis_glow_face_serum.png"
                             class="card-img-top" alt="Layer Skincare">
                     </div>
                     <div class="card-body p-4">
@@ -101,7 +99,7 @@
                             skin's natural barrier. This dermatologist-approved guide explains the right order to
                             apply cleansers, serums,...
                         </p>
-                        <a href="how_to_layer_skincare.php" class="read-more-link">READ MORE →</a>
+                        <a href="nivis-glow-face-serum.php" class="read-more-link">READ MORE →</a>
                     </div>
                 </div>
             </div>
@@ -109,7 +107,7 @@
             <div class="col-md-4">
                 <div class="skinthesis-card h-100">
                     <div class="card-img-wrapper">
-                        <img src="./assets/img/Skin Type.png"
+                        <img src="./assets/img/nivis_uv_aqua_sunscreen.png"
                             class="card-img-top" alt="Skin Type">
                     </div>
                     <div class="card-body p-4">
@@ -119,7 +117,7 @@
                             actually works. Whether you have oily, dry, combination, sensitive, or normal skin,
                             knowing how your skin behaves helps...
                         </p>
-                        <a href="what_is_your_skin_type.php" class="read-more-link">READ MORE →</a>
+                        <a href="nivis-uv-aqua-sunscreen.php" class="read-more-link">READ MORE →</a>
                     </div>
                 </div>
             </div>

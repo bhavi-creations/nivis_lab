@@ -1,61 +1,51 @@
 # Enable Rewrite Engine
-RewriteEngine On
-RewriteBase /
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # సబ్‌ఫోల్డర్‌కి అనుగుణంగా RewriteBase మార్చబడింది
+    RewriteBase /nivis_lab/
 
-# Keep the checkout route canonical without a trailing slash.
-RewriteRule ^checkout/$ /checkout [R=301,L,NC]
+    # Direct access to .git, tools, tests, .vscode prevent చేయడం
+    RewriteRule (^|/)\.git(?:/|$) - [F,L,NC]
+    RewriteRule ^(?:tools|tests|\.vscode)(?:/|$) - [F,L,NC]
 
-# ============================================
-# ENVIRONMENT-BASED CONFIGURATION
-# ============================================
-# Set environment variable based on server
-# Method 1: Detect by server IP or hostname
-# Method 2: Manually set in Apache/PHP config
-# Method 3: Check specific directory existence
+    # Keep checkout route canonical without trailing slash
+    RewriteRule ^checkout/$ checkout [R=301,L,NC]
 
-# Auto-detect AWS by checking common AWS identifiers
-# Skip PHP hiding rules if on AWS
-SetEnvIf Host "amazonaws.com" IS_AWS=1
-SetEnvIf Host "your-aws-domain.com" IS_AWS=1
-SetEnvIf Host "aws.yourdomain.com" IS_AWS=1
+    # 1. REMOVE .PHP EXTENSION (301 Redirect)
+    # URL లో నేరుగా .php టైప్ చేస్తే దాన్ని తీసివేసి క్లీన్ URL కి పంపుతుంది
+    RewriteCond %{THE_REQUEST} ^GET\ /nivis_lab/([^\s]+)\.php [NC]
+    RewriteRule ^(.*)\.php$ $1 [R=301,L,NE]
 
-# Or detect by server IP pattern (replace with your AWS IP range)
-# SetEnvIf Remote_Addr "^3\..*" IS_AWS=1
-# SetEnvIf Remote_Addr "^18\..*" IS_AWS=1
+    # 2. INTERNAL REWRITE FOR PHP FILES
+    # extension లేకుండా టైప్ చేసినప్పుడు బ్యాక్‌ఎండ్‌లో .php ఫైల్ ఉంటే లోడ్ చేస్తుంది
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^(.*)$ $1.php [L,QSA]
 
-# ============================================
-# PHP EXTENSION HIDING (NOT on AWS)
-# ============================================
-
-# Remove .php extension from URL (301 redirect)
-RewriteCond %{ENV:IS_AWS} !^1$
-RewriteCond %{THE_REQUEST} ^GET\ /[^?\s]+\.php [NC]
-RewriteRule ^(.*)\.php$ /$1 [R=301,L,NE]
-
-# Internal rewrite: Add .php extension if file exists
-RewriteCond %{ENV:IS_AWS} !^1$
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME}.php -f
-RewriteRule ^(.+)/?$ $1.php [L,QSA]
+    # 3. SPECIFIC DYNAMIC ROUTES (Prefixes added to prevent conflict)
+    # newsletter & blog గందరగోళం లేకుండా prefix లు చేర్చబడ్డాయి
+    RewriteRule ^newsletter/([a-zA-Z0-9-]+)/?$ newsletter.php?slug=$1 [L,QSA]
+    RewriteRule ^blog/([a-zA-Z0-9_-]+)/?$ fullblog.php?id=$1 [L,QSA]
+</IfModule>
 
 # ============================================
-# AWS-SPECIFIC RULES (Optional)
-# ============================================
-# These rules ONLY apply on AWS
-# Example: Different caching, redirects, etc.
-
-# RewriteCond %{ENV:IS_AWS} ^1$
-# RewriteRule ... [rules specific to AWS]
-
-# ============================================
-# COMMON SECURITY & OPTIMIZATION
+# SECURITY & OPTIMIZATION
 # ============================================
 
-# Prevent access to hidden files
-<FilesMatch "^\.">
-    Require all denied
-</FilesMatch>
+# Protect sensitive files (Shiprocket & Hidden files)
+<IfModule mod_authz_core.c>
+    <FilesMatch "^(\.git|shiprocket_config\.php)">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+    <FilesMatch "^(\.git|shiprocket_config\.php)">
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+</IfModule>
 
 # Prevent directory listing
 Options -Indexes
@@ -68,41 +58,3 @@ AddDefaultCharset UTF-8
     AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript
 </IfModule>
 
-# Error documents (optional)
-# ErrorDocument 404 /404.php
-# ErrorDocument 500 /500.php
-
-
-
-RewriteEngine On
-
-RewriteRule ^([a-zA-Z0-9-]+)$ newsletter.php?slug=$1 [L,QSA]
-
-
-
-RewriteEngine On
-
-# URL చివర .php లేకుండా ఉండటానికి
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^([a-zA-Z0-9_-]+)$ fullblog.php?id=$1 [L,QSA]
-
-
-# Protect this review copy when served from a public_html directory.
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteRule (^|/)\.git(?:/|$) - [F,L,NC]
-    RewriteRule ^(?:tools|tests|\.vscode)(?:/|$) - [F,L,NC]
-</IfModule>
-
-<IfModule mod_authz_core.c>
-    <FilesMatch "^shiprocket_config\.php$">
-        Require all denied
-    </FilesMatch>
-</IfModule>
-<IfModule !mod_authz_core.c>
-    <FilesMatch "^shiprocket_config\.php$">
-        Order allow,deny
-        Deny from all
-    </FilesMatch>
-</IfModule>
