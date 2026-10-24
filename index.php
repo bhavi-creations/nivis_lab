@@ -1804,12 +1804,12 @@ async function showHairConcern(category, element) {
         </div>
 
 
-        <!-- PRODUCT CAROUSEL -->
+        
         <div
             class="product-carousel nivis_index_third_section__carousel"
             id="spotlightProductCarousel">
 
-            <!-- EXISTING LOADER - SAME FUNCTIONALITY -->
+           
             <div class="spotlight-loading text-center py-4 w-100">
 
                 <div
@@ -2622,7 +2622,7 @@ async function showHairConcern(category, element) {
 
                     <div class="nivis_index_fifth_section__product">
 
-                        <img src="./assets/img/FACE SERUM.jpeg"
+                        <img src="./assets/img/FACE SERUM.png"
                             alt="Face Serum">
 
                     </div>
@@ -2665,7 +2665,7 @@ async function showHairConcern(category, element) {
 
                     <div class="nivis_index_fifth_section__product">
 
-                        <img src="./assets/img/foot cream.jpeg"
+                        <img src="./assets/img/foot cream.png"
                             alt="Moisturizers">
 
                     </div>
@@ -2708,7 +2708,7 @@ async function showHairConcern(category, element) {
 
                     <div class="nivis_index_fifth_section__product">
 
-                        <img src="./assets/img/face spray.jpeg"
+                        <img src="./assets/img/face spray.png"
                             alt="Sunscreen">
 
                     </div>
@@ -2751,7 +2751,7 @@ async function showHairConcern(category, element) {
 
                     <div class="nivis_index_fifth_section__product">
 
-                        <img src="./assets/img/SUNSCFREEN.jpeg"
+                        <img src="./assets/img/SUNSCFREEN.png"
                             alt="Face Cleanser">
 
                     </div>

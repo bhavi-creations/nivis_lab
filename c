@@ -1,9 +1,34 @@
-SKIN ASSESSMENT lo  start skin care  click chestey 
-What's your skin type?
-vasthunnadhi andulo skin type ni selct cheysukuntaru next click chestey 
-What are your skin concerns?
-ani vasthaahid andhulo  vallaki  kavalisinadhi vasthadhi next click chestey  Share your preference appudu image add cheyyai so image add cheyya ganey  
-first and second valla echina skin type concern prakaram ga  replated product kanipinchali so aa vidham ga update chey and 
-left rtight lo  social media link ike insta face boos whats unadali andh kindha okka chat bot undali   indta click chestey yinsta ki vellali fae book click chestey face book ki vellai whats medha click chestey whats ki velli chat bot medha click chestey box type open avli  welcome to skin speciality annatu ledhu inka professional ga chinna heaiding buton kindha undali aa button click cheste lopagl product kosam 3 button undali like like  product kosam explain chethunandu question undali aa questional andhulo okka question medha cliick chestey aa question kosam explin cheysi kindha  contact  button okakti emil button okkati undalili 
-contacct medha click chestsy   9666690910 ki call ki velli emial medha lclick chestey  nivislabs@gmail.com ki vellia
-mobile device ki vecheysariki
+<?php
+require_once __DIR__ . '/customer_auth.php';
+require_once __DIR__ . '/customer_backend.php';
+header('Content-Type: application/json');
+header('Cache-Control: no-store');
+if (($_SESSION['auth_backend'] ?? '') !== 'evershop' || empty($_SESSION['backend_access_token'])) { echo json_encode(['authenticated'=>false]); exit; }
+$_SESSION['csrf'] = $_SESSION['csrf'] ?? bin2hex(random_bytes(32));
+try {
+    $profile = customer_backend_profile(true);
+    if (!$profile) { echo json_encode(['authenticated'=>false]); exit; }
+    $addresses = $profile['addresses'] ?? [];
+    $address = $addresses[0] ?? [];
+    foreach ($addresses as $entry) if (!empty($entry['isDefault'])) { $address=$entry; break; }
+    $orders = [];
+    foreach ($profile['orders'] ?? [] as $order) {
+        $status = $order['paymentStatus']['code'] ?? 'pending';
+        $createdAt = (string) ($order['createdAt'] ?? '');
+        if ($createdAt !== '') {
+            try {
+                $createdAt = (new DateTimeImmutable($createdAt, new DateTimeZone('Asia/Kolkata')))
+                    ->setTimezone(new DateTimeZone('Asia/Kolkata'))
+                    ->format('d M Y, h:i A');
+            } catch (Throwable $dateError) {
+                // Preserve the backend date string if it is unexpectedly malformed.
+            }
+        }
+        $orders[] = ['order_id'=>$order['orderNumber'], 'amount_subunits'=>(int)round((float)$order['grandTotal']['value']*100), 'currency'=>$order['currency'], 'payment_status'=>in_array($status,['paid','captured','razorpay_captured'],true)?'paid':$status, 'payment_status_label'=>$order['paymentStatus']['name'] ?? 'Pending', 'created_at'=>$createdAt, 'items'=>array_map(static fn($item)=>['name'=>$item['productName'],'quantity'=>$item['qty']],$order['items'] ?? [])];
+    }
+    echo json_encode(['authenticated'=>true,'csrf'=>$_SESSION['csrf'],'customer'=>['name'=>$profile['fullName'],'email'=>$profile['email'],'phone'=>$address['telephone'] ?? '', 'address'=>implode(', ',array_filter([$address['address1']??'', $address['address2']??'', $address['city']??'', $address['province']['name']??'', $address['postcode']??'', $address['country']['name']??''])), 'address_1'=>$address['address1']??'', 'address_2'=>$address['address2']??'', 'city'=>$address['city']??'', 'state'=>$address['province']['name']??'', 'state_code'=>$address['province']['code']??'', 'postcode'=>$address['postcode']??'', 'country'=>$address['country']['code']??'IN'], 'orders'=>$orders]);
+} catch (CustomerBackendException $error) {
+    if ($error->getCode() === 401) { echo json_encode(['authenticated'=>false]); exit; }
+    http_response_code(503);
+    echo json_encode(['error'=>$error->getMessage()]);
+}
