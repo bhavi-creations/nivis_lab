@@ -1,4 +1,10 @@
 (function() {
+    const climateCollections = new Set([
+        'climate-tropical-humid',
+        'climate-hot-dry',
+        'climate-cold-dry'
+    ]);
+    const allProductsCollections = new Set(['all', 'all-products', 'products']);
     window.toggleFilter = toggleFilter;
     window.updatePrice = updatePrice;
 
@@ -18,6 +24,20 @@
         if (!categoryKey) return;
 
         if (grid) {
+            if (allProductsCollections.has(categoryKey)) {
+                const productGridWrap = grid.closest('.product-grid-wrap');
+                if (productGridWrap) {
+                    productGridWrap.classList.add('all-products-theme');
+                }
+            }
+            if (climateCollections.has(categoryKey)) {
+                const productGridWrap = grid.closest('.product-grid-wrap');
+                if (productGridWrap) {
+                    productGridWrap.classList.add('care-products-page', 'skincare-style-products-page');
+                    productGridWrap.classList.add('climate-products-page');
+                }
+                bindSpotlightStyleProductCart(grid);
+            }
             patchCaseInsensitiveFilters();
             showLoadingState(grid, count);
             document.body.classList.add('dynamic-products-loading');
@@ -400,11 +420,15 @@
                 font-weight: 700;
                 line-height: 1.25;
             }
-            .product-hover-popover__text {
-                margin: 0 0 8px;
+            .nivis-theme .product-hover-popover p.product-hover-popover__text {
+                display: -webkit-box !important;
+                margin: 0 0 6px;
                 color: #555;
-                font-size: 11px;
-                line-height: 1.35;
+                font-size: 10px !important;
+                line-height: 1.3 !important;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 3;
+                overflow: hidden !important;
             }
             .product-hover-popover__meta {
                 display: flex;
@@ -426,12 +450,147 @@
                 font-weight: 600;
                 line-height: 1.4;
             }
+            .product-hover-popover__meta > .nivis-product-price {
+                flex: 0 0 100%;
+                justify-content: flex-start;
+                min-height: 0;
+                padding: 3px 0 0;
+                background: transparent;
+                color: #075563;
+                font-size: 13px;
+                font-weight: 700;
+            }
+            .skincare-style-products-page .products-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 24px;
+            }
+            .skincare-style-products-page .spotlight-card {
+                min-width: 0;
+            }
+            .climate-products-page .climate-product-image-wrap {
+                position: relative;
+                width: 100%;
+                aspect-ratio: 1 / 1;
+                margin-bottom: 1rem;
+                overflow: hidden;
+                border: 1px solid rgba(162, 215, 239, .16);
+                border-radius: 12px;
+                background: #082f49;
+            }
+            .climate-products-page .climate-product-image-wrap img {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                margin: 0 !important;
+                object-fit: contain;
+                transition: opacity .25s ease, transform .45s ease;
+            }
+            .climate-products-page .climate-product-image-secondary {
+                opacity: 0;
+            }
+            .climate-products-page .climate-product-image-wrap:hover .climate-product-image-secondary {
+                opacity: 1;
+            }
+            .climate-products-page .care-products-coming-soon {
+                grid-column: auto;
+            }
+            @media (max-width: 991.98px) {
+                .skincare-style-products-page .products-grid {
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+            }
+            @media (max-width: 575.98px) {
+                .skincare-style-products-page .products-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
             @media (hover: none) {
                 .product-hover-popover { display: none; }
                 .product-card .product-info { min-height: 0; }
             }
         `;
         document.head.appendChild(style);
+    }
+
+    function bindSpotlightStyleProductCart(targetGrid) {
+        if (targetGrid.dataset.spotlightStyleCartBound === 'true') return;
+
+        targetGrid.dataset.spotlightStyleCartBound = 'true';
+        targetGrid.addEventListener('click', event => {
+            const button = event.target.closest('.spotlight-card__btn');
+            if (!button || !window.NivisCart) return;
+
+            const card = button.closest('[data-product-id]');
+            const product = card && window.NivisCart.fromCard(card);
+            if (!product) return;
+
+            if (typeof window.addProductToCart === 'function') {
+                window.addProductToCart(product);
+                return;
+            }
+
+            window.NivisCart.add(product, 1);
+            const drawer = document.getElementById('cartDrawer');
+            if (drawer && window.bootstrap) {
+                window.bootstrap.Offcanvas.getOrCreateInstance(drawer).show();
+            }
+        });
+    }
+
+    function spotlightStyleProductCard(product) {
+        const name = product.name || 'Product';
+        const fallbackImage = './assets/img/product.webp';
+        const primaryImage = (product.images && product.images.length > 0)
+            ? product.images[0]
+            : (product.imageUrl || fallbackImage);
+        const secondaryImage = (product.images && product.images.length > 1)
+            ? product.images[1]
+            : (product.secondaryImageUrl || primaryImage);
+        const key = product.urlKey || product.url_key || product.sku || product.id || name;
+        const link = `product-detail.php?product=${encodeURIComponent(key)}`;
+        const subtitle = product.subtitle || product.displayConcern || product.concern || product.category || 'Skincare';
+        const size = product.size ? `<span class="spotlight-product-size">${escapeHtml(product.size)}</span>` : '';
+        const priceNumber = productPriceNumber(product);
+        const priceLabel = window.NivisPricing.html(priceNumber);
+
+        return `
+            <div class="spotlight-card"
+                data-product-id="${escapeHtml(key)}"
+                data-product-name="${escapeHtml(name)}"
+                data-product-price="${escapeHtml(priceNumber)}"
+                data-product-image="${escapeHtml(primaryImage)}"
+                data-price="${escapeHtml(priceNumber)}">
+                <a href="${escapeHtml(link)}">
+                    <div class="climate-product-image-wrap">
+                        <img class="climate-product-image-primary" src="${escapeHtml(primaryImage)}" alt="${escapeHtml(name)}" loading="lazy"
+                            onerror="this.onerror=null;this.src='${fallbackImage}';">
+                        <img class="climate-product-image-secondary" src="${escapeHtml(secondaryImage)}" alt="${escapeHtml(name)} alternate view" loading="lazy"
+                            onerror="this.onerror=null;this.src='${escapeHtml(primaryImage)}';">
+                    </div>
+                    <h6 class="fw-bold">${escapeHtml(name)} ${size}</h6>
+                    <p class="small text-muted mb-2">/ ${escapeHtml(subtitle)} /</p>
+                    <div class="spotlight-card__price mb-3"><span class="ms-1">${priceLabel}</span></div>
+                </a>
+                <div class="spotlight-card__popover">
+                    <div class="spotlight-card__popover-title">${escapeHtml(name)}</div>
+                    <p class="spotlight-card__popover-text">${escapeHtml(subtitle)}</p>
+                    <div class="spotlight-card__popover-meta">${escapeHtml(product.type || 'Product')} ${product.size ? `• ${escapeHtml(product.size)}` : ''} • <span class="nivis-product-price">${priceLabel}</span></div>
+                </div>
+                <button type="button" class="spotlight-card__btn w-100 rounded-0">ADD TO CART</button>
+            </div>
+        `;
+    }
+
+    function spotlightStyleComingSoonCard() {
+        return `
+            <div class="spotlight-card care-products-coming-soon" role="status">
+                <div class="care-products-coming-soon__content">
+                    <span class="care-products-coming-soon__icon" aria-hidden="true">+</span>
+                    <h3>More Products Coming Soon</h3>
+                </div>
+            </div>
+        `;
     }
 
     function emptyProductsCard(categoryName) {
@@ -517,13 +676,16 @@
         populateDynamicFilters(products);
         syncPriceSliderForProducts(products);
         bindPriceInputs();
-        targetGrid.innerHTML = products.map(productCard).join('') + `
-            <div class="product-coming-soon-card" role="status">
-                <div>
-                    <span class="product-coming-soon-card__icon" aria-hidden="true">+</span>
-                    <h2>More Products Coming Soon</h2>
-                </div>
-            </div>`;
+        const categoryKey = getCategoryKey();
+        targetGrid.innerHTML = climateCollections.has(categoryKey)
+            ? products.map(spotlightStyleProductCard).join('') + spotlightStyleComingSoonCard()
+            : products.map(productCard).join('') + `
+                <div class="product-coming-soon-card" role="status">
+                    <div>
+                        <span class="product-coming-soon-card__icon" aria-hidden="true">+</span>
+                        <h2>More Products Coming Soon</h2>
+                    </div>
+                </div>`;
         if (targetCount) {
             targetCount.textContent = `${products.length} product${products.length !== 1 ? 's' : ''}`;
         }

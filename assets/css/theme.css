@@ -1349,7 +1349,7 @@ body.nivis-theme {
 @media (min-width: 992px) and (max-width: 1399.98px) {
     .nivis-theme h1,
     .nivis-theme .page-title { font-size: 48px !important; }
-    .nivis-theme h2 { font-size: 40px !important; }
+    .nivis-theme h2 { font-size: 32px !important; }
     .nivis-theme h3 { font-size: 34px !important; }
     .nivis-theme h4,
     .nivis-theme .product-title,
@@ -1486,4 +1486,101 @@ body.nivis-theme {
     .nivis-theme :is(.form-control, .form-select, input, textarea) { font-size: 13px !important; }
     .nivis-theme .accordion-button { font-size: 13px !important; }
     .nivis-theme .accordion-body { font-size: 12px !important; }
+}
+
+/* Match the All Products card colors to Skin Care without changing its layout or imagery. */
+.nivis-theme .all-products-theme .products-grid .product-card {
+    border-color: rgba(162, 215, 239, .3) !important;
+    border-radius: 18px !important;
+    background: linear-gradient(145deg, rgba(255, 255, 255, .065), rgba(255, 255, 255, .015)), #032238 !important;
+    color: #f5f8fb !important;
+    box-shadow: 0 14px 28px rgba(0, 8, 18, .24) !important;
+}
+
+.nivis-theme .all-products-theme .products-grid .product-card:hover {
+    border-color: rgba(237, 197, 142, .72) !important;
+    box-shadow: 0 18px 34px rgba(0, 8, 18, .32) !important;
+}
+
+.nivis-theme .all-products-theme .products-grid .product-card > a,
+.nivis-theme .all-products-theme .products-grid .product-card .product-name {
+    color: #f5f8fb !important;
+}
+
+.nivis-theme .all-products-theme .products-grid .product-card .product-sub {
+    color: #bbccd8 !important;
+}
+
+.nivis-theme .all-products-theme .products-grid .product-card > a,
+.nivis-theme .all-products-theme .products-grid .product-card .product-info {
+    flex: 0 0 auto;
+}
+
+.nivis-theme .all-products-theme .products-grid .product-card .product-info {
+    min-height: 0 !important;
+}
+
+.nivis-theme .all-products-theme .products-grid .product-card .btn-cart {
+    margin-top: 8px !important;
+}
+
+.nivis-theme #productsGrid .product-card .btn-cart {
+    border: 1px solid rgba(237, 197, 142, .78) !important;
+    border-radius: 10px !important;
+    background: linear-gradient(105deg, #f4dbb6, #d99f59) !important;
+    color: #06243a !important;
+    box-shadow: none !important;
+}
+
+.nivis-theme #productsGrid .product-card .btn-cart:hover {
+    background: #0f172a !important;
+    color: #ffffff !important;
+}
+
+/* Center the navbar search icon and reveal its search field beneath it. */
+.nivis-theme .nivis-search-panel.is-open {
+    display: block;
+    padding: 0;
+    overflow-y: auto;
+    animation: nivis-search-panel-fade-in .25s ease both;
+}
+
+.nivis-theme .nivis-search-panel__box {
+    position: absolute;
+    top: calc(50% + 32px);
+    left: 50%;
+    width: min(680px, calc(100% - 32px));
+    padding: 22px;
+    transform: translateX(-50%);
+    animation: nivis-search-box-slide-in .4s ease both;
+}
+
+.nivis-theme #navbarSearchButton.nivis-search-panel__trigger {
+    position: absolute;
+    z-index: 10001;
+    left: var(--search-origin-x);
+    top: var(--search-origin-y);
+    width: 48px !important;
+    height: 48px !important;
+    margin: 0;
+    transform: translate(-50%, -50%);
+    transition: left .45s cubic-bezier(.2, .75, .25, 1),
+        top .45s cubic-bezier(.2, .75, .25, 1),
+        width .25s ease,
+        height .25s ease;
+}
+
+.nivis-theme #navbarSearchButton.nivis-search-panel__trigger.is-centered {
+    left: 50%;
+    top: 50%;
+}
+
+@keyframes nivis-search-panel-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes nivis-search-box-slide-in {
+    from { opacity: 0; transform: translate(-50%, 12px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
 }

@@ -221,7 +221,7 @@
 
                     <div class="climate-image-wrap">
                         <img
-                            src="assets/img/tropical-climate.jpg"
+                            src="assets/img/humid.png"
                             alt="Tropical and Humid Climate"
                             class="img-fluid"
                         >
@@ -262,7 +262,7 @@
 
                     <div class="climate-image-wrap">
                         <img
-                            src="assets/img/hot-dry-climate.jpg"
+                            src="assets/img/hot.png"
                             alt="Hot and Dry Climate"
                             class="img-fluid"
                         >
@@ -303,7 +303,7 @@
 
                     <div class="climate-image-wrap">
                         <img
-                            src="assets/img/cold-dry-climate.jpg"
+                            src="assets/img/cold.png"
                             alt="Cold and Dry Climate"
                             class="img-fluid"
                         >
@@ -972,6 +972,69 @@
         font-size:12px;
     }
 
+}
+</style>
+
+<style>
+body.nivis-theme {
+    background-color: #ffffff !important;
+}
+
+.climate-adaptive-skincaare,
+.climate-adaptive-skincaare-second-section,
+.climate-adaptive-skincaare-second-section .climate-card,
+.climate-adaptive-skincaare-second-section .climate-card-content,
+.climate-adaptive-skincaare-second-section .climate-protection-bar {
+    background: #ffffff !important;
+}
+
+.climate-adaptive-skincaare__eyebrow p,
+.climate-adaptive-skincaare__description,
+.climate-adaptive-skincaare-second-section .climate-copy h5,
+.climate-adaptive-skincaare-second-section .climate-copy p,
+.climate-adaptive-skincaare-second-section .protection-item p {
+    color: #092f46 !important;
+}
+
+.climate-adaptive-skincaare .climate-adaptive-skincaare__title,
+.climate-adaptive-skincaare-second-section .climate-second-heading h2,
+.climate-adaptive-skincaare-second-section .climate-title-row h3,
+.climate-adaptive-skincaare-second-section .protection-main-title,
+.climate-adaptive-skincaare-second-section .protection-item h4 {
+    color: #075563 !important;
+}
+
+.climate-adaptive-skincaare-second-section .tropical-icon,
+.climate-adaptive-skincaare-second-section .cold-icon {
+    color: #075563 !important;
+    border-color: rgba(7, 85, 99, .24) !important;
+}
+
+.climate-adaptive-skincaare-second-section .hot-icon {
+    color: #c7a66a !important;
+    border-color: rgba(199, 166, 106, .35) !important;
+}
+
+.climate-adaptive-skincaare-second-section .climate-btn {
+    color: #092f46 !important;
+    background: #c7a66a !important;
+    border-color: #c7a66a !important;
+}
+
+.climate-adaptive-skincaare-second-section .climate-btn:hover {
+    color: #ffffff !important;
+    background: #075563 !important;
+    border-color: #075563 !important;
+}
+
+.climate-adaptive-skincaare-second-section .protection-icon {
+    color: #075563 !important;
+    border-color: #075563 !important;
+}
+
+.climate-adaptive-skincaare-second-section .antioxidant-icon {
+    color: #c7a66a !important;
+    border-color: #c7a66a !important;
 }
 </style>
 

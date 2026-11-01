@@ -17,7 +17,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="./assets/css/style.css?v=21">
+    <link rel="stylesheet" href="./assets/css/style.css?v=22">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="./assets/css/new_style.css?v=20">
-    <link rel="stylesheet" href="./assets/css/theme.css?v=7">
+    <link rel="stylesheet" href="./assets/css/theme.css?v=12">
     <link rel="stylesheet" href="./assets/css/skin-experience.css?v=3">
     <link rel="stylesheet" href="./assets/css/product-pricing.css?v=2">
     <script src="./assets/js/product-pricing.js?v=2"></script>
@@ -881,7 +881,7 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/js/graphql-client.js?v=6"></script>
-    <script src="./assets/js/search-suggestions.js?v=4"></script>
+    <script src="./assets/js/search-suggestions.js?v=9"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

@@ -118,22 +118,55 @@
         const input = document.getElementById('navbarSearchInput');
         const results = document.getElementById('navbarSearchResults');
         const closeButton = document.getElementById('navbarSearchClose');
+        let searchButtonPlaceholder = null;
+        let searchButtonOriginalStyle = null;
 
         initSearch(input, results);
 
         if (!searchButton || !panel || !input) return;
 
         function openPanel() {
+            if (panel.classList.contains('is-open')) return;
+
+            const buttonRect = searchButton.getBoundingClientRect();
+            searchButtonOriginalStyle = searchButton.getAttribute('style');
+            searchButtonPlaceholder = document.createComment('navbar search button position');
+            searchButton.parentNode.insertBefore(searchButtonPlaceholder, searchButton);
+            panel.appendChild(searchButton);
+
+            searchButton.classList.add('nivis-search-panel__trigger');
+            searchButton.style.setProperty('--search-origin-x', `${buttonRect.left + buttonRect.width / 2}px`);
+            searchButton.style.setProperty('--search-origin-y', `${buttonRect.top + buttonRect.height / 2}px`);
+            searchButton.style.width = `${buttonRect.width}px`;
+            searchButton.style.height = `${buttonRect.height}px`;
+
             panel.classList.add('is-open');
             panel.setAttribute('aria-hidden', 'false');
-            setTimeout(() => input.focus(), 30);
+            searchButton.setAttribute('aria-expanded', 'true');
+            searchButton.getBoundingClientRect();
+            searchButton.classList.add('is-centered');
+            setTimeout(() => {
+                if (panel.classList.contains('is-open')) input.focus();
+            }, 450);
         }
 
         function closePanel() {
             panel.classList.remove('is-open');
             panel.setAttribute('aria-hidden', 'true');
+            searchButton.setAttribute('aria-expanded', 'false');
             input.value = '';
             if (results) hideResults(results);
+
+            if (searchButtonPlaceholder?.parentNode) {
+                searchButtonPlaceholder.parentNode.insertBefore(searchButton, searchButtonPlaceholder);
+                searchButtonPlaceholder.remove();
+            }
+            searchButton.classList.remove('nivis-search-panel__trigger', 'is-centered');
+            if (searchButtonOriginalStyle === null) {
+                searchButton.removeAttribute('style');
+            } else {
+                searchButton.setAttribute('style', searchButtonOriginalStyle);
+            }
         }
 
         searchButton.addEventListener('click', openPanel);
@@ -245,10 +278,16 @@
         }
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
+    function initializeSearchFeatures() {
         initNavbarSearch();
         initIndexSearch();
         initSkinthesisSearch();
         initContactEmailLink();
-    });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeSearchFeatures, { once: true });
+    } else {
+        initializeSearchFeatures();
+    }
 })();

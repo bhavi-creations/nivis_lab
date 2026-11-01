@@ -1496,7 +1496,8 @@ $newHeroImages = [
             #hairConcernRow .hair-concern-image {
                 position: relative;
                 display: block;
-                width: 100%;
+                width: min(100%, 132px);
+                margin-inline: auto;
                 aspect-ratio: 1;
             }
             #hairConcernRow .concern-card .hair-concern-image img {
@@ -2988,7 +2989,7 @@ async function showHairConcern(category, element) {
                             <h6 class="fw-bold">${escapeSpotlightHtml(product.name || 'Product')} ${size}</h6>
                             <p class="small text-muted mb-2">/ ${escapeSpotlightHtml(subtitle)} /</p>
                             
-                            <div class="spotlight-card__price mb-3"><span class="badge-b1g1">${escapeSpotlightHtml(product.boughtTag || 'B1G1')}</span> <span class="ms-1">${priceLabel}</span></div>
+                            <div class="spotlight-card__price mb-3"><span class="ms-1">${priceLabel}</span></div>
                         </a>
                         <div class="spotlight-card__popover">
                             <div class="spotlight-card__popover-title">${escapeSpotlightHtml(product.name || 'Product')}</div>

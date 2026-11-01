@@ -5076,9 +5076,9 @@ button:hover {
     --text: #1a1a1a;
     --muted: #4a4a4a;
     --line: #b0aba3;
-    --ball-idle: #e8e6e1;
+    --ball-idle: #c7a66a;
     --ball-border: #888;
-    --ball-active: #ffffff;
+    --ball-active: #c7a66a;
     --ball-size: 18px;
     --line-x: 28px;
     /* centre of the ball / line from left of the track col */
