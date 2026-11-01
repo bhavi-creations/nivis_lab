@@ -2,8 +2,8 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
-    # సబ్‌ఫోల్డర్‌కి అనుగుణంగా RewriteBase మార్చబడింది
-    RewriteBase /nivis_lab/
+    # The site is served from the domain document root.
+    RewriteBase /
 
     # Direct access to .git, tools, tests, .vscode prevent చేయడం
     RewriteRule (^|/)\.git(?:/|$) - [F,L,NC]
@@ -14,15 +14,15 @@
 
     # 1. REMOVE .PHP EXTENSION (301 Redirect)
     # URL లో నేరుగా .php టైప్ చేస్తే దాన్ని తీసివేసి క్లీన్ URL కి పంపుతుంది
-    RewriteCond %{THE_REQUEST} ^GET\ /nivis_lab/([^\s]+)\.php [NC]
-    RewriteRule ^(.*)\.php$ $1 [R=301,L,NE]
+    RewriteCond %{THE_REQUEST} \s/+(.+?)\.php(?:[?\s]) [NC]
+    RewriteRule ^(.+)\.php$ /$1 [R=301,L,NE]
 
     # 2. INTERNAL REWRITE FOR PHP FILES
     # extension లేకుండా టైప్ చేసినప్పుడు బ్యాక్‌ఎండ్‌లో .php ఫైల్ ఉంటే లోడ్ చేస్తుంది
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME}.php -f
-    RewriteRule ^(.*)$ $1.php [L,QSA]
+    RewriteRule ^(.+)$ $1.php [L,QSA]
 
     # 3. SPECIFIC DYNAMIC ROUTES (Prefixes added to prevent conflict)
     # newsletter & blog గందరగోళం లేకుండా prefix లు చేర్చబడ్డాయి
