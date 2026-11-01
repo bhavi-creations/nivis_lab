@@ -18,6 +18,7 @@
     font-size: inherit;
     font-weight: inherit;
     white-space: nowrap;
+    color:#c7a66a;
 }
 .nivis-theme .price-row { flex-wrap: wrap; }
 .step-price .nivis-price-pair {

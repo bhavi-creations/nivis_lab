@@ -81,7 +81,17 @@
     }
 
     async function fetchCategoryProducts(category) {
-        const cacheKey = `category-products:v15:${category}`;
+        const collectionVersion = new Set([
+            'hot-humid',
+            'cold-dry',
+            'pollutions',
+            'changing-environments'
+        ]).has(category) ? 'v16' : new Set([
+            'climate-tropical-humid',
+            'climate-hot-dry',
+            'climate-cold-dry'
+        ]).has(category) ? 'v19' : 'v15';
+        const cacheKey = `category-products:${collectionVersion}:${category}`;
         const cacheTtl = 10000;
         const cached = sessionStorage.getItem(cacheKey);
 
@@ -647,11 +657,7 @@
                     <div class="product-info">
                         <div class="product-name">${escapeHtml(product.name)}${productSize ? ` <span class="spotlight-product-size">${escapeHtml(productSize)}</span>` : ''}</div>
                         <div class="product-sub">/ ${escapeHtml(product.subtitle || product.concern || 'Skincare')} /</div>
-                        <div>
-                            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-                            <span class="review-count">(${escapeHtml(product.reviewsCount || 120)} reviews)</span>
-                        </div>
-                        <div class="product-price">${product.boughtTag ? `<span class="badge-b1g1">${escapeHtml(product.boughtTag)}</span> ` : ''}${window.NivisPricing.html(priceNumber)}</div>
+                       
                     </div>
 
                     <div class="product-hover-popover">

@@ -100,7 +100,8 @@
 
 .skin-assessment-primary {
     background: var(--nivis-button, #edc58e);
-    color: var(--nivis-ink, #06243a);
+    color: white;
+    /* color: var(--nivis-ink, #06243a); */
 }
 
 .skin-assessment-panel .skin-assessment-primary:not(:disabled):is(:hover, :focus-visible, :active) {

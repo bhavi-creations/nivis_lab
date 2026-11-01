@@ -47,3 +47,81 @@ function productsInCareCategory($products, $canonical)
             && preg_match('/\bsun[\s-]*screens?\b/i', normalizeText($product['name'] ?? '')) === 1;
     }));
 }
+
+function canonicalSeeTheMagicCollection($slug)
+{
+    if ($slug === 'pollution') {
+        return 'pollutions';
+    }
+
+    return in_array($slug, ['hot-humid', 'cold-dry', 'pollutions', 'changing-environments'], true)
+        ? $slug
+        : null;
+}
+
+function canonicalClimateCollection($slug)
+{
+    return in_array($slug, ['climate-tropical-humid', 'climate-hot-dry', 'climate-cold-dry'], true)
+        ? $slug
+        : null;
+}
+
+function productsInClimateCollection($products, $collection)
+{
+    $collectionProducts = [
+        'climate-tropical-humid' => [
+            'nluv01',
+            'nivis-labs-hydrofresh-hydrating-light-moisturiser-lotion',
+            'nivis-labs-hydromist-revitalizing-face-calming-mist',
+            'nivis-bright-glutathione-vit-c-face-wash'
+        ],
+        'climate-hot-dry' => [
+            'nivis-labs-hydrofresh-hydrating-light-moisturiser-lotion',
+            'nivis-labs-hydromist-revitalizing-face-calming-mist',
+            'nivis-labs-korean-moon-light-night-cream-dehydration',
+            'nluv01',
+            'nivis-labs-uv-aqua-sunscreen-spray-spf-50'
+        ],
+        'climate-cold-dry' => [
+            'nivis-labs-korean-moon-light-night-cream-dehydration',
+            'nivis-labs-hydrofresh-hydrating-light-moisturiser-lotion',
+            'nivis-labs-hydromist-revitalizing-face-calming-mist',
+            'nluv01',
+            'nivis-labs-uv-aqua-sunscreen-spray-spf-50'
+        ]
+    ];
+    $productKeys = $collectionProducts[$collection] ?? [];
+    $displayNames = [
+        'nluv01' => 'UV BEST Sunscreen Gel',
+        'nivis-labs-hydrofresh-hydrating-light-moisturiser-lotion' => 'HYDROFRESH Moisturising Lotion',
+        'nivis-labs-hydromist-revitalizing-face-calming-mist' => 'HYDROMIST Face Mist',
+        'nivis-bright-glutathione-vit-c-face-wash' => 'BRIGHT Face Wash',
+        'nivis-labs-uv-aqua-sunscreen-spray-spf-50' => 'UV AQUA Sunscreen Spray'
+    ];
+    $matchedProducts = array_values(array_filter($products, function ($product) use ($productKeys) {
+        $identifiers = [
+            slugifyValue(normalizeText($product['urlKey'] ?? $product['url_key'] ?? '')),
+            slugifyValue(normalizeText($product['sku'] ?? '')),
+            slugifyValue(normalizeText($product['name'] ?? ''))
+        ];
+
+        return count(array_intersect($productKeys, $identifiers)) > 0;
+    }));
+
+    foreach ($matchedProducts as &$product) {
+        $urlKey = slugifyValue(normalizeText($product['urlKey'] ?? $product['url_key'] ?? ''));
+        if (isset($displayNames[$urlKey])) {
+            $product['name'] = $displayNames[$urlKey];
+        }
+    }
+    unset($product);
+
+    return $matchedProducts;
+}
+
+function productsInSeeTheMagicCollection($products, $categoryKeys)
+{
+    return array_values(array_filter($products, function ($product) use ($categoryKeys) {
+        return in_array(productCategorySlug($product), $categoryKeys, true);
+    }));
+}

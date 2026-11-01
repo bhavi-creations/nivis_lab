@@ -488,6 +488,7 @@ $newHeroImages = [
         padding: 14px 8px 0;
         background: none;
         text-shadow: none;
+        color: #075563;
     }
 
     #dermatConcernRow .concern-card.active-dermat .routine-concern-photo {
@@ -2273,7 +2274,7 @@ async function showHairConcern(category, element) {
 
 <?php include __DIR__ . '/skin_assessment.php'; ?>
 
-<section class="index_straight-up_section">
+<!-- <section class="index_straight-up_section">
     <div class="container">
 
         <h5 class="text-uppercase ls-2">NIVIS SKIN GUIDE</h5>
@@ -2333,7 +2334,7 @@ async function showHairConcern(category, element) {
         </div>
 
     </div>
-</section>
+</section> -->
 <!-- SECTION 2: ICONS -->
 <!-- <section class="index_last_second">
     <div class="container">
@@ -2553,53 +2554,34 @@ async function showHairConcern(category, element) {
      EXPLORE OUR CATEGORIES
 ========================================================= -->
 
-<section class=" py-5">
+<!-- <section class=" py-5">
 
-    <!-- Decorative side text -->
-    <!-- <div class="nivis_index_fifth_section__side_text
-                nivis_index_fifth_section__side_text--left">
-        <span>SCIENCE</span>
-        <span>FOR</span>
-        <span>HEALTHIER</span>
-        <span>SKIN</span>
-        <i></i>
-    </div> -->
-
-    <!-- <div class="nivis_index_fifth_section__side_text
-                nivis_index_fifth_section__side_text--right">
-        <span>SIMPLE</span>
-        <span>SKINCARE</span>
-        <span>REAL</span>
-        <span>RESULTS</span>
-        <i></i>
-    </div> -->
-
-
+ 
     <div class="container ">
 
-        <!-- Kicker -->
+       
         <div class="nivis_index_fifth_section__kicker">
             <span></span>
             DISCOVER SOLUTIONS
             <span></span>
         </div>
 
-        <!-- Main heading -->
+       
         <h2 class="nivis_index_fifth_section__title">
             Explore Our <strong>Categories</strong>
         </h2>
 
-        <!-- Subtitle -->
+        
         <p class="nivis_index_fifth_section__subtitle">
             Science-backed skincare for every unique need
         </p>
 
 
-        <!-- Categories -->
+        
         <div class="row g-3
                     nivis_index_fifth_section__cards">
 
-            <!-- CARD 01 -->
+         
             <div class="col-md-6 col-xl-3">
 
                 <a href="category.php?category=face-serum"
@@ -2642,7 +2624,7 @@ async function showHairConcern(category, element) {
             </div>
 
 
-            <!-- CARD 02 -->
+           
             <div class="col-md-6 col-xl-3">
 
                 <a href="category.php?category=moisturizers"
@@ -2685,7 +2667,7 @@ async function showHairConcern(category, element) {
             </div>
 
 
-            <!-- CARD 03 -->
+           
             <div class="col-md-6 col-xl-3">
 
                 <a href="category.php?category=sunscreen"
@@ -2728,7 +2710,7 @@ async function showHairConcern(category, element) {
             </div>
 
 
-            <!-- CARD 04 -->
+            
             <div class="col-md-6 col-xl-3">
 
                 <a href="category.php?category=face-cleanser"
@@ -2774,7 +2756,7 @@ async function showHairConcern(category, element) {
 
     </div>
 
-</section>
+</section> -->
 
 
 
@@ -2783,9 +2765,9 @@ async function showHairConcern(category, element) {
      FREQUENTLY ASKED QUESTIONS
 ========================================================= -->
 
-<section class="nivis_index_sixth_section">
+<!-- <section class="nivis_index_sixth_section">
 
-    <!-- LEFT SIDE DETAILS -->
+   
     <div class="nivis_index_sixth_section__side
                 nivis_index_sixth_section__side--left">
 
@@ -2799,54 +2781,12 @@ async function showHairConcern(category, element) {
     </div>
 
 
-    <!-- RIGHT SIDE FEATURES -->
-    <!-- <div class="nivis_index_sixth_section__features">
-
-        <div class="nivis_index_sixth_section__feature">
-
-            <i class="fa-solid fa-flask"></i>
-
-            <span>
-                SCIENCE<br>
-                BACKED
-            </span>
-
-        </div>
-
-        <b></b>
-
-        <div class="nivis_index_sixth_section__feature">
-
-            <i class="fa-regular fa-shield"></i>
-
-            <span>
-                DERMATOLOGIST<br>
-                INSPIRED
-            </span>
-
-        </div>
-
-        <b></b>
-
-        <div class="nivis_index_sixth_section__feature">
-
-            <i class="fa-regular fa-leaf"></i>
-
-            <span>
-                REAL<br>
-                RESULTS
-            </span>
-
-        </div>
-
-    </div> -->
-
-
+  
     <div class="container">
 
         <div class="nivis_index_sixth_section__panel">
 
-            <!-- Kicker -->
+           
             <div class="nivis_index_sixth_section__kicker">
 
                 ANSWERS YOU CAN TRUST
@@ -2856,14 +2796,14 @@ async function showHairConcern(category, element) {
             </div>
 
 
-            <!-- Heading -->
+           
             <h2 class="nivis_index_sixth_section__title">
                 Frequently Asked
                 <strong>Questions</strong>
             </h2>
 
 
-            <!-- Subtitle -->
+           
             <p class="nivis_index_sixth_section__subtitle">
 
                 Quick answers about Nivis Labs, our product approach,
@@ -2872,13 +2812,13 @@ async function showHairConcern(category, element) {
             </p>
 
 
-            <!-- FAQ ACCORDION -->
+         
             <div class="accordion
                         nivis_index_sixth_section__accordion"
                 id="faqAccordion">
 
 
-                <!-- ITEM 01 -->
+               
                 <div class="accordion-item">
 
                     <h2 class="accordion-header">
@@ -2915,7 +2855,7 @@ async function showHairConcern(category, element) {
                 </div>
 
 
-                <!-- ITEM 02 -->
+               
                 <div class="accordion-item">
 
                     <h2 class="accordion-header">
@@ -2952,7 +2892,7 @@ async function showHairConcern(category, element) {
                 </div>
 
 
-                <!-- ITEM 03 -->
+               
                 <div class="accordion-item">
 
                     <h2 class="accordion-header">
@@ -2994,7 +2934,7 @@ async function showHairConcern(category, element) {
 
     </div>
 
-</section>
+</section> -->
 
 
 
@@ -3047,7 +2987,7 @@ async function showHairConcern(category, element) {
                             <img src="${escapeSpotlightHtml(imageUrl)}" class="w-100 mb-3" alt="${escapeSpotlightHtml(product.name || 'Product')}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImage}';">
                             <h6 class="fw-bold">${escapeSpotlightHtml(product.name || 'Product')} ${size}</h6>
                             <p class="small text-muted mb-2">/ ${escapeSpotlightHtml(subtitle)} /</p>
-                            <div class="spotlight-card__meta small mb-2">${ratingHtml} (${escapeSpotlightHtml(product.reviewsCount || 120)} reviews)</div>
+                            
                             <div class="spotlight-card__price mb-3"><span class="badge-b1g1">${escapeSpotlightHtml(product.boughtTag || 'B1G1')}</span> <span class="ms-1">${priceLabel}</span></div>
                         </a>
                         <div class="spotlight-card__popover">

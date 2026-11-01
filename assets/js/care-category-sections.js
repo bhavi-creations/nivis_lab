@@ -31,8 +31,8 @@
                             onerror="this.onerror=null;this.src='./assets/img/product.webp';">
                         <h6 class="fw-bold">${escapeHtml(name)} ${size}</h6>
                         <p class="small text-muted mb-2">/ ${escapeHtml(subtitle)} /</p>
-                        <div class="spotlight-card__meta small mb-2"><span class="text-warning">★★★★☆</span> (${escapeHtml(product.reviewsCount || 120)} reviews)</div>
-                        <div class="spotlight-card__price mb-3"><span class="badge-b1g1">${escapeHtml(product.boughtTag || 'B1G1')}</span> <span class="ms-1">${priceLabel}</span></div>
+                      
+                        <div class="spotlight-card__price mb-3"> <span class="ms-1">${priceLabel}</span></div>
                     </a>
                     <div class="spotlight-card__popover">
                         <div class="spotlight-card__popover-title">${escapeHtml(name)}</div>

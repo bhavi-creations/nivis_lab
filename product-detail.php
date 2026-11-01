@@ -117,7 +117,7 @@
       </div>
 
       <button class="btn-buy" id="addToCartBtn" type="button">ADD TO CART</button>
-      <div class="bought-note" id="boughtNote"></div>
+      <!-- <div class="bought-note" id="boughtNote"></div> -->
 
       <hr class="sec-divider" />
 
@@ -314,7 +314,7 @@
     setText('productSubtitle', subtitle);
     document.getElementById('productSubtitle').style.display = subtitle ? '' : 'none';
     setRatingStars();
-    setText('productReviews', `${product.reviewsCount || 120} reviews`);
+    
     document.getElementById('productPrice').innerHTML = window.NivisPricing.html(product.priceNumber || product.price);
     // Show the summary once beneath the product name, without a second copy here.
     setText('productDesc', '');
@@ -452,6 +452,13 @@
         ['desc', 'how', 'details'].forEach(name => {
           document.getElementById(`tab-${name}`).style.display = tab.dataset.tab === name ? '' : 'none';
         });
+
+        const activePanel = document.getElementById(`tab-${tab.dataset.tab}`);
+        const productPanel = document.querySelector('.product-detail-page .right_side_product');
+        if (activePanel && productPanel) {
+          const overflow = activePanel.getBoundingClientRect().bottom - productPanel.getBoundingClientRect().bottom;
+          if (overflow > 0) productPanel.scrollTop += overflow;
+        }
       });
     });
 

@@ -26,7 +26,7 @@
     <!-- image slider   -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <link rel="stylesheet" href="./assets/css/new_style.css?v=19">
+    <link rel="stylesheet" href="./assets/css/new_style.css?v=20">
     <link rel="stylesheet" href="./assets/css/theme.css?v=7">
     <link rel="stylesheet" href="./assets/css/skin-experience.css?v=3">
     <link rel="stylesheet" href="./assets/css/product-pricing.css?v=2">
@@ -40,7 +40,7 @@
     <!--
      1. MARQUEE SECTION
 -->
-<div class="new_navbr_section__offer_bar">
+<!-- <div class="new_navbr_section__offer_bar">
     <marquee behavior="scroll" direction="left" scrollamount="5">
         <div class="new_navbr_section__offer_track">
 
@@ -74,7 +74,22 @@
 
         </div>
     </marquee>
-</div>
+</div> -->
+
+
+<!-- NEW MARQUEE SECTION START -->
+<section class="new-marquee-section">
+    <div class="new-marquee-wrapper">
+        <div class="new-marquee-track" id="newMarqueeTrack">
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+
 
     <!-- <div class="index_marquee_section">
         <div class="index_marquee_section__track" id="marqueeTrack">
@@ -200,7 +215,7 @@
             </li>
 
             <!-- INGREDIENTS -->
-            <li class="index_navbar_section__mob-item" data-has-sub="true">
+            <!-- <li class="index_navbar_section__mob-item" data-has-sub="true">
                 <div class="index_navbar_section__mob-row">
                     <span class="index_navbar_section__mob-label">Ingredients</span>
                     <span class="index_navbar_section__mob-plus"><i class="bi bi-plus"></i></span>
@@ -213,9 +228,24 @@
                     <li><a href="retinol.php">Retinol</a></li>
                     <li><a href="hyaluronic_acid.php">Hyaluronic Acid</a></li>
                     <li><a href="ceramides.php">Ceramides</a></li>
-                    <!-- <li><a href="#">Explore all products</a></li> -->
+                    <li><a href="#">Explore all products</a></li>
                 </ul>
-            </li>
+            </li> -->
+
+
+
+                    <!-- <li class="index_navbar_section__mob-item" data-has-sub="true">
+    <div class="index_navbar_section__mob-row">
+        <span class="index_navbar_section__mob-label">See The Magic</span>
+        <span class="index_navbar_section__mob-plus"><i class="bi bi-plus"></i></span>
+    </div>
+    <ul class="index_navbar_section__mob-sub" id="navbarIngredientMobile">
+        <li><a href="products.php?category=hot-humid">Hot & Humid</a></li>
+        <li><a href="products.php?category=cold-dry">Cold & Dry</a></li>
+        <li><a href="products.php?category=pollutions">Pollutions</a></li>
+        <li><a href="products.php?category=changing-environments">Changing Environments</a></li>
+    </ul>
+</li> -->
 
 
 
@@ -268,7 +298,7 @@
                 <a href="index.php"
                     class="new_navbr_section__logo " style="padding: 10px 0px;">
 
-                    <img src="./assets/img/new_logo_head.png"
+                    <img src="./assets/img/logo_12.png"
                         alt="Nivis Labs">
 
                 </a>
@@ -318,10 +348,8 @@
 
                         </li>
 
-
-
                         <!-- INGREDIENTS -->
-                        <li class="new_navbr_section__item">
+                          <!-- <li class="new_navbr_section__item">
 
                             <a href="#"
                                 class="new_navbr_section__link">
@@ -384,9 +412,30 @@
 
                             </ul>
 
-                        </li>
+                        </li>  -->
 
 
+
+
+                      <!-- <li class="new_navbr_section__item">
+    <a href="#" class="new_navbr_section__link">
+        See The Magic
+    </a>
+    <ul class="new_navbr_section__dropdown" id="navbarSeeMagicDesktop">
+        <li>
+            <a href="products.php?category=hot-humid">Hot & Humid</a>
+        </li>
+        <li>
+            <a href="products.php?category=cold-dry">Cold & Dry</a>
+        </li>
+        <li>
+            <a href="products.php?category=pollutions">Pollutions</a>
+        </li>
+        <li>
+            <a href="products.php?category=changing-environments">Changing Environments</a>
+        </li>
+    </ul>
+</li> -->
 
 
 
@@ -399,6 +448,17 @@
                                 class="new_navbr_section__link">
 
                                 THESIS
+
+                            </a>
+
+                        </li>
+
+                         <li class="new_navbr_section__item">
+
+                            <a href="climate-adaptive-skincaare.php"
+                                class="new_navbr_section__link">
+
+                                Climate-Adaptive Skincare
 
                             </a>
 
@@ -587,7 +647,7 @@
                 <a href="/"
                     class="new_navbr_section__mobile_logo">
 
-                    <img src="./assets/img/logo_new_white.png"
+                    <img src="./assets/img/logo_12.png"
                         alt="Nivis Labs">
 
                 </a>
@@ -646,10 +706,37 @@
 
                 </li>
 
+                <!-- <li class="new_navbr_section__mobile_item"
+                    data-has-sub="true">
+
+                    <div class="new_navbr_section__mobile_row">
+
+                        <span class="new_navbr_section__mobile_label">
+                            See The Magic
+                        </span>
+
+                        <span class="new_navbr_section__mobile_plus">
+                            <i class="bi bi-plus"></i>
+                        </span>
+
+                    </div>
+
+                    <ul class="new_navbr_section__mobile_sub"
+                        id="navbarSeeMagicMobile">
+
+                        <li><a href="products.php?category=hot-humid">Hot &amp; Humid</a></li>
+                        <li><a href="products.php?category=cold-dry">Cold &amp; Dry</a></li>
+                        <li><a href="products.php?category=pollutions">Pollutions</a></li>
+                        <li><a href="products.php?category=changing-environments">Changing Environments</a></li>
+
+                    </ul>
+
+                </li> -->
+
 
 
                 <!-- INGREDIENTS -->
-                <li class="new_navbr_section__mobile_item"
+                <!-- <li class="new_navbr_section__mobile_item"
                     data-has-sub="true">
 
                     <div class="new_navbr_section__mobile_row">
@@ -712,7 +799,7 @@
 
                     </ul>
 
-                </li>
+                </li> -->
 
                 <!-- STORY -->
                 <!-- <li class="new_navbr_section__mobile_item">
@@ -740,6 +827,20 @@
                     </a>
 
                 </li>
+
+                 <li class="new_navbr_section__mobile_item">
+
+                    <a href="climate-adaptive-skincaare.php"
+                        class="new_navbr_section__mobile_plain">
+
+                        <!-- Skinthesis -->
+                        Climate-Adaptive Skincare
+
+                    </a>
+
+                </li>
+
+                
 
 
 
@@ -781,6 +882,27 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/js/graphql-client.js?v=6"></script>
     <script src="./assets/js/search-suggestions.js?v=4"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const track = document.getElementById('newMarqueeTrack');
+            if (!track) return;
+
+            const offers = [
+                '40% OFF ON FIRSTTIME',
+                'NEW ARRIVAL = FIRSTTIME'
+            ];
+            const items = Array.from({ length: 8 }, () => offers).flat();
+
+            track.innerHTML = items.map(offer => `
+                <div class="new-marquee-item">
+                    <span class="new-marquee-separator">✦</span>
+                    <span>${offer}</span>
+                    <span class="new-marquee-separator">✦</span>
+                </div>
+            `).join('');
+        });
+    </script>
 
     <script>
         /* â”€â”€â”€ Navbar scroll behaviour â”€â”€â”€ */
@@ -854,27 +976,6 @@
         }
 
         loadNavbarCategories();
-
-        function loadNavbarIngredients() {
-            const desktopMenu = navbarRoot?.querySelector('#navbarIngredientDesktop');
-            const mobileMenu = navbarRoot?.querySelector('#navbarIngredientMobile');
-            const ingredients = [
-                ['Salicylic Acid', 'salicylic_acid.php'],
-                ['Niacinamide', 'niacinamide.php'],
-                ['Alpha Arbutin', 'alpha_arbutin.php'],
-                ['Vitamin C', 'vitamin_c.php'],
-                ['Retinol', 'retinol.php'],
-                ['Hyaluronic Acid', 'hyaluronic_acid.php'],
-                ['Ceramides', 'ceramides.php'],
-                ['Explore all products', 'products.php']
-            ];
-            const itemsHtml = ingredients.map(([label, url]) => `<li><a href="${url}">${label}</a></li>`).join('');
-
-            if (desktopMenu) desktopMenu.innerHTML = itemsHtml;
-            if (mobileMenu) mobileMenu.innerHTML = itemsHtml;
-        }
-
-        loadNavbarIngredients();
 
         /* â”€â”€â”€ Hero keyboard accessibility â”€â”€â”€ */
         const indexHero = document.getElementById('indexHero');

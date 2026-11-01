@@ -846,10 +846,12 @@ if ($category === "") {
 
 $categorySlug = slugifyValue($category);
 $careCategory = canonicalCareCategory($categorySlug);
-$categorySlug = $careCategory ?: $categorySlug;
+$climateCollection = canonicalClimateCollection($categorySlug);
+$magicCollection = canonicalSeeTheMagicCollection($categorySlug);
+$categorySlug = $careCategory ?: ($climateCollection ?: ($magicCollection ?: $categorySlug));
 $isAllProductsCategory = in_array($categorySlug, ["all", "products", "all-products"], true);
 $cacheDir = __DIR__ . "/cache";
-$cacheVersion = "v15";
+$cacheVersion = $climateCollection ? "v19" : ($magicCollection ? "v16" : "v15");
 $cacheFile = $cacheDir . "/category-products-" . $cacheVersion . "-" . $categorySlug . ".json";
 
 if (!$forceRefresh && is_file($cacheFile) && time() - filemtime($cacheFile) < $cacheTtl) {
@@ -882,6 +884,11 @@ $categoryKeys = [];
 if ($careCategory) {
     $categoryKeys = careCategoryAliases()[$careCategory];
     $products = productsInCareCategory($allProducts, $careCategory);
+} elseif ($climateCollection) {
+    $products = productsInClimateCollection($allProducts, $climateCollection);
+} elseif ($magicCollection) {
+    $categoryKeys = resolveCategoryKeys($categorySlug);
+    $products = productsInSeeTheMagicCollection($allProducts, $categoryKeys);
 } else {
     $categoryKeys = $isAllProductsCategory ? [] : resolveCategoryKeys($categorySlug);
     $products = $isAllProductsCategory ? array_values($allProducts) : array_values(array_filter($allProducts, function ($product) use ($categoryKeys) {
@@ -889,7 +896,7 @@ if ($careCategory) {
     }));
 }
 
-if (!$isAllProductsCategory && !$careCategory && count($products) === 0 && !$backendConnectionError) {
+if (!$isAllProductsCategory && !$careCategory && !$climateCollection && count($products) === 0 && !$backendConnectionError) {
     $productsById = [];
 
     foreach ($categoryKeys as $key) {
@@ -902,7 +909,9 @@ if (!$isAllProductsCategory && !$careCategory && count($products) === 0 && !$bac
     $products = array_values($productsById);
 }
 
-$preferredCategories = $careCategory ? careCategoryAliases()[$careCategory] : [$categorySlug];
+$preferredCategories = $careCategory
+    ? careCategoryAliases()[$careCategory]
+    : ($climateCollection ? [] : [$categorySlug]);
 $products = uniqueCategoryProducts($products, $preferredCategories);
 
 $categoryLabels = [
@@ -918,7 +927,14 @@ $categoryLabels = [
     "dehydration" => "Dehydration",
     "grey-hair" => "Grey Hair",
     "thin-hair" => "Thin Hair",
-    "hair-fall" => "Hair Fall"
+    "hair-fall" => "Hair Fall",
+    "hot-humid" => "Hot & Humid",
+    "cold-dry" => "Cold & Dry",
+    "pollutions" => "Pollutions",
+    "changing-environments" => "Changing Environments",
+    "climate-tropical-humid" => "Tropical & Humid",
+    "climate-hot-dry" => "Hot & Dry",
+    "climate-cold-dry" => "Cold & Dry"
 ];
 $categoryName = $isAllProductsCategory
     ? ($categorySlug === "products" ? "Our Products" : "All Products")

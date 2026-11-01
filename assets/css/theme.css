@@ -1,20 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Manrope:wght@500;600;700&display=swap');
+
 /* Shared navy and gold palette for the remaining storefront pages.
    Keep component rules scoped so product photography retains its light canvas. */
 :root {
-    --nivis-bg: #021a2d;
-    --nivis-surface: #082f49;
-    --nivis-surface-deep: #032238;
-    --nivis-text: #f5f8fb;
-    --nivis-muted: #bbccd8;
-    --nivis-gold: #edc58e;
-    --nivis-ink: #06243a;
-    --nivis-border: rgba(162, 215, 239, .3);
-    --nivis-shadow: 0 18px 35px rgba(0, 8, 18, .23);
-    --nivis-button: linear-gradient(105deg, #f4dbb6, #d99f59);
-    --nivis-panel: linear-gradient(145deg, rgba(255, 255, 255, .065), transparent), var(--nivis-surface-deep);
-    --nivis-page: radial-gradient(ellipse at 17% 0%, rgba(54, 157, 211, .2), transparent 35%),
-        radial-gradient(ellipse at 75% 100%, rgba(54, 145, 190, .14), transparent 37%),
-        linear-gradient(90deg, #032641, #042e4b 48%, #02233b);
+    --nivis-bg: #ffffff;
+    --nivis-surface: #f3f5f5;
+    --nivis-surface-deep: #ffffff;
+    --nivis-text: #092f46;
+    --nivis-muted: #5f6f78;
+    --nivis-gold: #c7a66a;
+    --nivis-ink: #092f46;
+    --nivis-teal: #075563;
+    --nivis-border: rgba(9, 47, 70, .12);
+    --nivis-shadow: 0 12px 30px rgba(9, 47, 70, .08);
+    --nivis-button: #075563;
+    --nivis-panel: #ffffff;
+    --nivis-page: #ffffff;
 }
 
 body.nivis-theme {
@@ -666,7 +667,8 @@ body.nivis-theme {
     .nivis-search-panel__box, .nivis-search-results, .nivis-search-result) {
     background: var(--nivis-panel);
     color: var(--nivis-text);
-    border-color: var(--nivis-border);
+    border-color:  var(--nivis-border);
+    /* border-color: var(--nivis-border); */
 }
 
 .nivis-theme :is(.dermat-routine-step:hover, .nivis-search-result:hover,
@@ -822,4 +824,666 @@ body.nivis-theme {
     .nivis-theme .rewards-card {
         left: 16px;
     }
+}
+/* =========================================================
+   NIVIS REFERENCE THEME OVERRIDES
+   White-first skincare layout
+   Palette: #075563 #092f46 #c7a66a #f3f5f5 #ffffff
+========================================================= */
+
+body.nivis-theme {
+    background: #ffffff !important;
+    color: #092f46 !important;
+    font-family: 'Inter', sans-serif !important;
+
+    --red: #075563;
+    --doctor-red: #075563;
+    --clr-primary: #075563;
+    --clr-accent: #c7a66a;
+    --bg: #ffffff;
+    --card-bg: #ffffff;
+    --text: #092f46;
+    --muted: #5f6f78;
+    --border: rgba(9, 47, 70, .12);
+    --faq-primary: #075563;
+    --faq-text: #092f46;
+    --faq-muted: #5f6f78;
+    --faq-border: rgba(9, 47, 70, .12);
+    --bs-body-color: #092f46;
+    --bs-body-bg: #ffffff;
+    --bs-secondary-color: #5f6f78;
+    --bs-border-color: rgba(9, 47, 70, .12);
+    --bs-link-color: #075563;
+    --bs-link-hover-color: #c7a66a;
+}
+
+/* Typography */
+.nivis-theme h1,
+.nivis-theme h2,
+.nivis-theme h3,
+.nivis-theme h4,
+.nivis-theme h5,
+.nivis-theme h6,
+.nivis-theme .page-title,
+.nivis-theme .product-title,
+.nivis-theme .sec-title {
+    font-family: 'Manrope', sans-serif !important;
+    color: #c7a66a !important;
+    /* color: #092f46 !important; */
+}
+
+.nivis-theme h1,
+.nivis-theme .page-title {
+    font-size: clamp(48px, 4.5vw, 56px);
+    font-weight: 700;
+}
+
+.nivis-theme h2 {
+    font-size: clamp(40px, 3.8vw, 48px);
+    font-weight: 700;
+}
+
+.nivis-theme h3 {
+    font-size: clamp(32px, 3vw, 40px);
+    font-weight: 600;
+}
+
+.nivis-theme h4,
+.nivis-theme .product-title,
+.nivis-theme .product-name {
+    font-size: clamp(22px, 2vw, 26px);
+    font-weight: 600;
+}
+
+.nivis-theme p,
+.nivis-theme .product-desc,
+.nivis-theme .product-subtitle {
+    font-family: 'Manrope', sans-serif !important;
+    font-size: clamp(18px, 1.4vw, 22px);
+    font-weight: 600;
+    color: #5f6f78;
+}
+
+.nivis-theme nav,
+.nivis-theme .nav-link,
+.nivis-theme .navbar a,
+.nivis-theme .breadcrumb,
+.nivis-theme .breadcrumb a {
+    font-family: 'Inter', sans-serif !important;
+    font-size: clamp(16px, 1.2vw, 18px);
+    font-weight: 400;
+}
+
+.nivis-theme button,
+.nivis-theme .btn,
+.nivis-theme .btn-cart,
+.nivis-theme .btn-buy,
+.nivis-theme .contact-btn,
+.nivis-theme .toc-button {
+    font-family: 'Manrope', sans-serif !important;
+    font-size: clamp(14px, 1vw, 16px);
+    font-weight: 500;
+}
+
+.nivis-theme .small,
+.nivis-theme .badge,
+.nivis-theme .label,
+.nivis-theme .product-type-badge,
+.nivis-theme .products-coming-soon__eyebrow {
+    font-family: 'Manrope', sans-serif !important;
+    font-size: clamp(14px, 1vw, 16px);
+    font-weight: 600;
+}
+
+.nivis-theme .meta,
+.nivis-theme .review-count,
+.nivis-theme .product-size,
+.nivis-theme .tracking,
+.nivis-theme .contact_sub_heading {
+    font-family: 'Inter', sans-serif !important;
+    font-size: clamp(12px, .9vw, 14px);
+    font-weight: 500;
+}
+
+/* White-first page surfaces */
+.nivis-theme :is(
+    .shop-layout,
+    .product-grid-wrap,
+    .right_side_product,
+    .our_section_2,
+    .skinthesis_section,
+    .doctor_bio_section,
+    .skin-section_index,
+    .qa-section,
+    .checkout-page,
+    .rewards_bg_white,
+    .rewards_bg_light,
+    .refer_earn_leaderboard_section,
+    .Squalane_second_section,
+    .Squalane_fourth_section
+) {
+    background: #ffffff !important;
+    color: #092f46 !important;
+}
+
+/* Cards / panels */
+.nivis-theme :is(
+    .products-grid .product-card,
+    .contact-cards .card,
+    .contact-form-box,
+    .track_your_order-container,
+    .review-card,
+    .question-header,
+    .login-box,
+    .dermat-box,
+    .routine-card,
+    .dermat-routine-card,
+    .dermat-selected-product,
+    .dermat-products-grid .product-card,
+    .build-phd-table-container,
+    .build-phd-modal-left,
+    .build-phd-modal-right,
+    .rewards-card,
+    .rewards_earn_card,
+    .rewards_ref_box,
+    .rewards_table_container,
+    .refer_earn_reward_card,
+    .refer_earn_filter_group,
+    .refer_earn_table_container,
+    .refer_earn_modal_left,
+    .refer_earn_modal_right,
+    .skin_condition_card,
+    .How_Tos_card,
+    .ing-card,
+    .skinthesis-card,
+    .our_section_2 .content-box,
+    .nivis-search-panel__box,
+    .nivis-search-results,
+    .nivis-search-result
+) {
+    background: #ffffff !important;
+    color: #092f46 !important;
+    border-color: rgba(9, 47, 70, .12) !important;
+    box-shadow: 0 12px 30px rgba(9, 47, 70, .08) !important;
+}
+
+/* Light gray secondary surfaces */
+.nivis-theme :is(
+    .spf-badge,
+    .benefit-icon,
+    .feature-icon_index,
+    .must-pick-note,
+    .doctor_bio_quote_card,
+    .alert-banner,
+    .rewards-card .list-item:hover,
+    .refer_earn_table th,
+    .accordion-button,
+    .accordion-body,
+    #filterBar .filter-btn,
+    .pagination-wrap .pg-btn,
+    .skin_condition_page_item
+) {
+    background: #f3f5f5 !important;
+}
+
+/* Headings / important text */
+.nivis-theme :is(
+    .product-title,
+    .price-main,
+    .sec-title,
+    .page-title,
+    .product-name,
+    .product-price,
+    .dermat-selected-product-copy h3,
+    .dermat-selected-actions strong,
+    .dermat-routine-doctor,
+    .dermat-routine-step-name,
+    .dermat-routine-step-price,
+    .dermat-routine-summary,
+    .doctor_bio_name,
+    .doctor_bio_prod_name,
+    .doctor_bio_prod_price,
+    .nivis-search-result__title,
+    .skin_condition_card_title,
+    .How_Tos_card_title,
+    .How_Tos_header h1,
+    .ing-card__name
+) {
+    color: #092f46 !important;
+}
+
+/* Muted copy */
+.nivis-theme :is(
+    .text-muted,
+    .product-sub,
+    .bought-tag,
+    .product-count,
+    .filter-empty,
+    .timing,
+    .contact-cards .card p,
+    .gst p,
+    .form-heading p,
+    .doctor_bio_credentials,
+    .doctor_bio_description,
+    .doctor_bio_quote_text,
+    .skin_condition_card_text,
+    .How_Tos_card_text,
+    .ing-card__desc,
+    .skin_condition_nav a,
+    .How_Tos_nav a,
+    .product-hover-popover__text,
+    .product-hover-popover__meta,
+    .spotlight-card__popover-text,
+    .spotlight-card__popover-meta
+) {
+    color: #5f6f78 !important;
+}
+
+/* Teal accents */
+.nivis-theme :is(
+    .read-more-link,
+    .breadcrumb-bar a:hover,
+    .spf-badge,
+    .benefit-icon,
+    .dermat-selected-kicker,
+    .dermat-routine-tag,
+    .dermat-routine-step-label,
+    .faq_sidebar_link:hover,
+    .nivis-search-result__type,
+    .doctor_bio_recommends_label,
+    .skin_condition_read_more,
+    .How_Tos_read_more,
+    .ing-card__link,
+    .skin_condition_nav a.active,
+    .How_Tos_nav a.active,
+    .track_your_order-tab-item.active
+) {
+    color: #075563 !important;
+}
+
+/* Gold accents */
+.nivis-theme :is(
+    .stars,
+    .products-coming-soon__eyebrow,
+    .product-size,
+    .product-type-badge
+) {
+    color: #c7a66a !important;
+}
+
+/* Primary CTAs */
+.nivis-theme :is(
+    .btn-primary,
+    .btn-dark,
+    .btn-buy,
+    .btn-cart,
+    .btn-ask,
+    .dermat-direct-cart,
+    .dermat-select-pill,
+    .build-phd-submit-btn,
+    .login-box button,
+    .our_section_5__cta,
+    .contact-cards button,
+    .contact-btn,
+    .track_your_order-submit-btn,
+    .checkout-page .btn-dark,
+    #cartDrawer .btn-dark,
+    .Squalane_fourth_section .submit-btn,
+    .toc-button,
+    .Rewards-btn,
+    .rewards_btn_dark,
+    .refer_earn_signup_btn,
+    .products-coming-soon__cta
+) {
+    background: #075563 !important;
+    color: #ffffff !important;
+    border-color: #075563 !important;
+    box-shadow: none !important;
+}
+
+.nivis-theme :is(
+    .btn-primary,
+    .btn-dark,
+    .btn-buy,
+    .btn-cart,
+    .btn-ask,
+    .dermat-direct-cart,
+    .build-phd-submit-btn,
+    .login-box button,
+    .our_section_5__cta,
+    .contact-cards button,
+    .contact-btn,
+    .track_your_order-submit-btn,
+    .checkout-page .btn-dark,
+    #cartDrawer .btn-dark,
+    .Squalane_fourth_section .submit-btn,
+    .toc-button,
+    .Rewards-btn,
+    .rewards_btn_dark,
+    .refer_earn_signup_btn,
+    .products-coming-soon__cta
+):hover {
+    background: #092f46 !important;
+    color: #ffffff !important;
+    border-color: #092f46 !important;
+}
+
+/* Gold highlight controls */
+.nivis-theme :is(
+    .consumer-study,
+    .routine-card-header,
+    .step-check,
+    .step-this-btn,
+    .routine-cta,
+    .card-back,
+    .skin-label_index,
+    .dermat-brand-mark,
+    .dermat-routine-check,
+    .dermat-routine-saving span,
+    .dermat-complete-cart,
+    .doctor_bio_add_btn
+) {
+    background: #c7a66a !important;
+    color: #092f46 !important;
+    border-color: #c7a66a !important;
+}
+
+/* Inputs */
+.nivis-theme :is(
+    .form-control,
+    .form-select,
+    .ask-form input,
+    .ask-form textarea,
+    .login-box input,
+    .nivis-search-field,
+    .sort-select,
+    .price-inputs input
+) {
+    background: #ffffff !important;
+    color: #092f46 !important;
+    border: 1px solid rgba(9, 47, 70, .16) !important;
+    border-radius: 8px !important;
+}
+
+.nivis-theme :is(.form-control, .form-select):focus {
+    border-color: #075563 !important;
+    box-shadow: 0 0 0 3px rgba(7, 85, 99, .10) !important;
+}
+
+/* Product images stay clean and bright */
+.nivis-theme :is(.product-img-wrap, .chemical-structure) {
+    background: #f3f5f5 !important;
+}
+
+/* Accordion */
+.nivis-theme .accordion {
+    --bs-accordion-color: #092f46;
+    --bs-accordion-bg: #ffffff;
+    --bs-accordion-border-color: rgba(9, 47, 70, .12);
+    --bs-accordion-btn-color: #092f46;
+    --bs-accordion-btn-bg: #ffffff;
+    --bs-accordion-active-color: #075563;
+    --bs-accordion-active-bg: #f3f5f5;
+}
+
+.nivis-theme .accordion-button:not(.collapsed) {
+    background: #f3f5f5 !important;
+    color: #075563 !important;
+}
+
+.nivis-theme .accordion-button::after {
+    filter: none !important;
+}
+
+/* Product coming soon */
+.nivis-theme .products-coming-soon {
+    background: #ffffff !important;
+    border-color: rgba(9, 47, 70, .12) !important;
+    box-shadow: 0 12px 30px rgba(9, 47, 70, .08) !important;
+}
+
+.nivis-theme .products-coming-soon__question {
+    background: #f3f5f5 !important;
+    color: #092f46 !important;
+}
+
+.nivis-theme .products-coming-soon__icon {
+    background: #075563 !important;
+    color: #ffffff !important;
+}
+
+/* Tables */
+.nivis-theme :is(.rewards_table_container .table, .refer_earn_table, .build-phd-table-container .table) {
+    --bs-table-color: #092f46;
+    --bs-table-bg: #ffffff;
+    --bs-table-border-color: rgba(9, 47, 70, .12);
+    --bs-table-hover-color: #092f46;
+    --bs-table-hover-bg: #f3f5f5;
+    color: #092f46 !important;
+}
+
+/* Modals / cart / checkout */
+.nivis-theme :is(#cartDrawer, .modal-content),
+.nivis-theme .checkout-page :is(#checkoutForm, #checkoutLayout > .col-lg-5 > div, #checkoutEmptyState) {
+    background: #ffffff !important;
+    color: #092f46 !important;
+    border-color: rgba(9, 47, 70, .12) !important;
+    box-shadow: 0 12px 30px rgba(9, 47, 70, .08) !important;
+}
+
+.nivis-theme :is(#cartDrawer, .modal-content) .btn-close {
+    filter: none !important;
+}
+
+/* Focus */
+.nivis-theme :is(a, button, input, select, textarea):focus-visible {
+    outline: 2px solid #075563;
+    outline-offset: 3px;
+}
+
+@media (max-width: 767px) {
+    .nivis-theme h1,
+    .nivis-theme .page-title {
+        font-size: 38px;
+    }
+
+    .nivis-theme h2 {
+        font-size: 32px;
+    }
+
+    .nivis-theme h3 {
+        font-size: 28px;
+    }
+
+    .nivis-theme h4,
+    .nivis-theme .product-title,
+    .nivis-theme .product-name {
+        font-size: 22px;
+    }
+
+    .nivis-theme p,
+    .nivis-theme .product-desc,
+    .nivis-theme .product-subtitle {
+        font-size: 16px;
+    }
+
+    .nivis-theme nav,
+    .nivis-theme .nav-link,
+    .nivis-theme .navbar a {
+        font-size: 15px;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE TYPOGRAPHY OVERRIDES
+   Theme / colors / backgrounds are intentionally unchanged.
+   Only font sizing and text rhythm are adjusted by device.
+========================================================= */
+
+/* Large desktop */
+@media (min-width: 1400px) {
+    .nivis-theme h1,
+    .nivis-theme .page-title { font-size: 56px !important; }
+    .nivis-theme h2 { font-size: 48px !important; }
+    .nivis-theme h3 { font-size: 40px !important; }
+    .nivis-theme h4,
+    .nivis-theme .product-title,
+    .nivis-theme .product-name { font-size: 26px !important; }
+    .nivis-theme p,
+    .nivis-theme .product-desc,
+    .nivis-theme .product-subtitle { font-size: 20px !important; line-height: 1.65; }
+    .nivis-theme nav,
+    .nivis-theme .nav-link,
+    .nivis-theme .navbar a,
+    .nivis-theme .breadcrumb,
+    .nivis-theme .breadcrumb a { font-size: 17px !important; }
+    .nivis-theme button,
+    .nivis-theme .btn,
+    .nivis-theme .btn-cart,
+    .nivis-theme .btn-buy,
+    .nivis-theme .contact-btn,
+    .nivis-theme .toc-button { font-size: 15px !important; }
+}
+
+/* Laptop / regular desktop */
+@media (min-width: 992px) and (max-width: 1399.98px) {
+    .nivis-theme h1,
+    .nivis-theme .page-title { font-size: 48px !important; }
+    .nivis-theme h2 { font-size: 40px !important; }
+    .nivis-theme h3 { font-size: 34px !important; }
+    .nivis-theme h4,
+    .nivis-theme .product-title,
+    .nivis-theme .product-name { font-size: 23px !important; }
+    .nivis-theme p,
+    .nivis-theme .product-desc,
+    .nivis-theme .product-subtitle { font-size: 15px !important; line-height: 1.6; }
+    .nivis-theme nav,
+    .nivis-theme .nav-link,
+    .nivis-theme .navbar a,
+    .nivis-theme .breadcrumb,
+    .nivis-theme .breadcrumb a { font-size: 15px !important; }
+    .nivis-theme button,
+    .nivis-theme .btn,
+    .nivis-theme .btn-cart,
+    .nivis-theme .btn-buy,
+    .nivis-theme .contact-btn,
+    .nivis-theme .toc-button { font-size: 14px !important; }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .nivis-theme h1,
+    .nivis-theme .page-title { font-size: 42px !important; }
+    .nivis-theme h2 { font-size: 34px !important; }
+    .nivis-theme h3 { font-size: 29px !important; }
+    .nivis-theme h4,
+    .nivis-theme .product-title,
+    .nivis-theme .product-name { font-size: 21px !important; }
+    .nivis-theme p,
+    .nivis-theme .product-desc,
+    .nivis-theme .product-subtitle { font-size: 16px !important; line-height: 1.6; }
+    .nivis-theme nav,
+    .nivis-theme .nav-link,
+    .nivis-theme .navbar a,
+    .nivis-theme .breadcrumb,
+    .nivis-theme .breadcrumb a { font-size: 14px !important; }
+    .nivis-theme button,
+    .nivis-theme .btn,
+    .nivis-theme .btn-cart,
+    .nivis-theme .btn-buy,
+    .nivis-theme .contact-btn,
+    .nivis-theme .toc-button { font-size: 13px !important; }
+    .nivis-theme .small,
+    .nivis-theme .badge,
+    .nivis-theme .label,
+    .nivis-theme .product-type-badge,
+    .nivis-theme .products-coming-soon__eyebrow { font-size: 12px !important; }
+    .nivis-theme .meta,
+    .nivis-theme .review-count,
+    .nivis-theme .product-size,
+    .nivis-theme .tracking,
+    .nivis-theme .contact_sub_heading { font-size: 12px !important; }
+}
+
+/* Mobile */
+@media (max-width: 767.98px) {
+    .nivis-theme h1,
+    .nivis-theme .page-title { font-size: 34px !important; line-height: 1.15; }
+    .nivis-theme h2 { font-size: 29px !important; line-height: 1.18; }
+    .nivis-theme h3 { font-size: 25px !important; line-height: 1.2; }
+    .nivis-theme h4,
+    .nivis-theme .product-title,
+    .nivis-theme .product-name { font-size: 19px !important; line-height: 1.3; }
+    .nivis-theme h5 { font-size: 17px !important; }
+    .nivis-theme h6 { font-size: 15px !important; }
+    .nivis-theme p,
+    .nivis-theme .product-desc,
+    .nivis-theme .product-subtitle { font-size: 15px !important; line-height: 1.6; }
+    .nivis-theme nav,
+    .nivis-theme .nav-link,
+    .nivis-theme .navbar a,
+    .nivis-theme .breadcrumb,
+    .nivis-theme .breadcrumb a { font-size: 13px !important; }
+    .nivis-theme button,
+    .nivis-theme .btn,
+    .nivis-theme .btn-cart,
+    .nivis-theme .btn-buy,
+    .nivis-theme .contact-btn,
+    .nivis-theme .toc-button,
+    .nivis-theme .products-coming-soon__cta { font-size: 13px !important; }
+    .nivis-theme .small,
+    .nivis-theme .badge,
+    .nivis-theme .label,
+    .nivis-theme .product-type-badge,
+    .nivis-theme .products-coming-soon__eyebrow { font-size: 11px !important; }
+    .nivis-theme .meta,
+    .nivis-theme .review-count,
+    .nivis-theme .product-size,
+    .nivis-theme .tracking,
+    .nivis-theme .contact_sub_heading { font-size: 11px !important; }
+    .nivis-theme :is(.form-control, .form-select, input, textarea) { font-size: 14px !important; }
+    .nivis-theme .accordion-button { font-size: 14px !important; }
+    .nivis-theme .accordion-body { font-size: 13px !important; line-height: 1.6; }
+    .nivis-theme .products-coming-soon__question > span { font-size: 14px !important; }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+    .nivis-theme h1,
+    .nivis-theme .page-title { font-size: 30px !important; }
+    .nivis-theme h2 { font-size: 26px !important; }
+    .nivis-theme h3 { font-size: 22px !important; }
+    .nivis-theme h4,
+    .nivis-theme .product-title,
+    .nivis-theme .product-name { font-size: 18px !important; }
+    .nivis-theme h5 { font-size: 16px !important; }
+    .nivis-theme h6 { font-size: 14px !important; }
+    .nivis-theme p,
+    .nivis-theme .product-desc,
+    .nivis-theme .product-subtitle { font-size: 14px !important; line-height: 1.55; }
+    .nivis-theme nav,
+    .nivis-theme .nav-link,
+    .nivis-theme .navbar a,
+    .nivis-theme .breadcrumb,
+    .nivis-theme .breadcrumb a { font-size: 12px !important; }
+    .nivis-theme button,
+    .nivis-theme .btn,
+    .nivis-theme .btn-cart,
+    .nivis-theme .btn-buy,
+    .nivis-theme .contact-btn,
+    .nivis-theme .toc-button,
+    .nivis-theme .products-coming-soon__cta { font-size: 12px !important; }
+    .nivis-theme .small,
+    .nivis-theme .badge,
+    .nivis-theme .label,
+    .nivis-theme .product-type-badge,
+    .nivis-theme .products-coming-soon__eyebrow { font-size: 10px !important; }
+    .nivis-theme .meta,
+    .nivis-theme .review-count,
+    .nivis-theme .product-size,
+    .nivis-theme .tracking,
+    .nivis-theme .contact_sub_heading { font-size: 10px !important; }
+    .nivis-theme :is(.form-control, .form-select, input, textarea) { font-size: 13px !important; }
+    .nivis-theme .accordion-button { font-size: 13px !important; }
+    .nivis-theme .accordion-body { font-size: 12px !important; }
 }

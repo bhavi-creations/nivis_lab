@@ -5006,14 +5006,16 @@
 
     outline: none;
 
-    background:
+    /* background:
         radial-gradient(circle at 35% 25%,
             rgba(255, 255, 255, .08),
-            transparent 38%),
+            transparent 38%), 
 
         linear-gradient(145deg,
             rgba(4, 55, 86, .95),
-            rgba(2, 31, 52, .96));
+            rgba(2, 31, 52, .96));*/
+
+            background: #c7a66a;
 
     color: #ffffff;
 
@@ -5183,6 +5185,7 @@
 
     width: min(390px, 88vw);
     height: 100vh;
+    height: 100dvh;
 
     overflow-y: auto;
 
@@ -5241,8 +5244,8 @@
 .new_navbr_section__mobile_logo img {
     width: 80px;
 
-    filter:
-        brightness(0) invert(1);
+    /* filter:
+        brightness(0) invert(1); */
 }
 
 
@@ -5265,7 +5268,7 @@
     background:
         rgba(255, 255, 255, .035);
 
-    color: #ffffff;
+    color: #000000;
 
     font-size: 20px;
 }
@@ -7092,6 +7095,7 @@
 */
 .new_navbr_section #navbarCategoryDesktop,
 .new_navbr_section #navbarIngredientDesktop,
+.new_navbr_section #navbarSeeMagicDesktop,
 .new_navbr_section #navbarConcernDesktop {
     left: 50%;
     top: calc(100% - 8px);
@@ -7104,9 +7108,11 @@
 
 .new_navbr_section__item:hover #navbarCategoryDesktop,
 .new_navbr_section__item:hover #navbarIngredientDesktop,
+.new_navbr_section__item:hover #navbarSeeMagicDesktop,
 .new_navbr_section__item:hover #navbarConcernDesktop,
 .new_navbr_section__item:focus-within #navbarCategoryDesktop,
 .new_navbr_section__item:focus-within #navbarIngredientDesktop,
+.new_navbr_section__item:focus-within #navbarSeeMagicDesktop,
 .new_navbr_section__item:focus-within #navbarConcernDesktop {
     opacity: 1;
     visibility: visible;
@@ -7116,6 +7122,7 @@
 
 .new_navbr_section #navbarCategoryDesktop li a,
 .new_navbr_section #navbarIngredientDesktop li a,
+.new_navbr_section #navbarSeeMagicDesktop li a,
 .new_navbr_section #navbarConcernDesktop li a {
     padding-right: 10px;
     padding-left: 10px;
@@ -7546,7 +7553,8 @@
     margin-right: auto;
     margin-left: auto;
     padding: 0 20px 19px;
-    color: #ffffff !important;
+    color: #075563 !important;
+    /* color: #ffffff !important; */
     font-size: clamp(28px, 3.1vw, 44px);
     font-weight: 600;
     line-height: 1.16;
@@ -7627,7 +7635,8 @@
 }
 
 .skinthesis-page .skinthesis-card .card-title {
-    color: #ffffff !important;
+    color: #075563 !important;
+    /* color: #ffffff !important; */
     font-size: 1.25rem;
     font-weight: 600;
     line-height: 1.35;
@@ -7869,5 +7878,932 @@
 
     .skinthesis-page .skinthesis-card .card-img-top {
         height: 215px;
+    }
+}
+
+/* =========================================================
+   NIVIS LABS - REFERENCE THEME OVERRIDE
+   Palette: #075563 #092f46 #c7a66a #f3f5f5 #ffffff
+   Typography: Manrope + Inter
+   Existing layout / animation / functionality preserved
+========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Manrope:wght@500;600;700&display=swap');
+
+:root {
+    --nivis-primary: #075563;
+    --nivis-dark: #092f46;
+    --nivis-gold: #c7a66a;
+    --nivis-light: #f3f5f5;
+    --nivis-white: #ffffff;
+    --nivis-text: #092f46;
+    --nivis-muted: #687b83;
+    --nivis-border: #dbe4e5;
+    --nivis-shadow: 0 12px 32px rgba(9, 47, 70, 0.08);
+}
+
+html, body {
+    background: var(--nivis-white) !important;
+    color: var(--nivis-text) !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6,
+.section-title,
+.product-title,
+.product-name,
+.card-title,
+.sec-title {
+    font-family: 'Manrope', sans-serif !important;
+    color: var(--nivis-dark) !important;
+}
+
+h1, .nivis_index_fifth_section__title,
+.nivis_index_sixth_section__title,
+.nivis_index_third_section__heading_line h2,
+.nivis_labs_section__title {
+    font-weight: 700 !important;
+    font-size: clamp(48px, 4vw, 56px) !important;
+}
+
+h2, h3, .section-title, .sec-title {
+    font-weight: 600 !important;
+    font-size: clamp(32px, 3vw, 40px) !important;
+}
+
+.product-title,
+.product-name,
+.card-title,
+.product-detail-related__name {
+    font-family: 'Manrope', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: clamp(22px, 2vw, 26px) !important;
+}
+
+p, .product-desc, .product-desc-text, .product-subtitle,
+.nivis_index_fifth_section__subtitle,
+.nivis_index_sixth_section__subtitle,
+.nivis_labs_section__subtitle {
+    font-family: 'Manrope', sans-serif !important;
+    font-weight: 600 !important;
+    /* font-size: clamp(18px, 1.5vw, 22px) !important; */
+    color: var(--nivis-muted) !important;
+}
+
+.new_navbr_section__link,
+.new_navbr_section__dropdown li a,
+.new_navbr_section__mobile_label,
+.new_navbr_section__mobile_plain {
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 400 !important;
+    font-size: clamp(16px, 1.2vw, 18px) !important;
+}
+
+button, .btn-cart, .btn-buy,
+.nivis_index_fifth_section__shop,
+.spotlight-card__btn {
+    font-family: 'Manrope', sans-serif !important;
+    font-weight: 500 !important;
+    font-size: clamp(14px, 1vw, 16px) !important;
+}
+
+.badge-b1g1, .spf-badge, .bought-tag,
+.product-brand, .review-count,
+.nivis_index_fifth_section__kicker,
+.nivis_index_sixth_section__kicker,
+.nivis_index_third_section__subtitle,
+.nivis_labs_section__subtitle {
+    font-family: 'Manrope', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: clamp(14px, .9vw, 16px) !important;
+}
+
+/* ---------------- NAVBAR ---------------- */
+.new_navbr_section,
+.new_navbr_section__navbar {
+    background: var(--nivis-white) !important;
+    color: var(--nivis-dark) !important;
+    border-color: var(--nivis-border) !important;
+    box-shadow: 0 5px 22px rgba(9, 47, 70, .06) !important;
+}
+
+.new_navbr_section__offer_bar {
+    background: var(--nivis-primary) !important;
+    border-color: rgba(199, 166, 106, .45) !important;
+}
+
+.new_navbr_section__offer_bar::before,
+.new_navbr_section__navbar::before,
+.new_navbr_section__navbar::after {
+    opacity: .18 !important;
+}
+
+.new_navbr_section__logo img {
+    filter: none !important;
+}
+
+.new_navbr_section__link,
+.new_navbr_section__icon,
+.new_navbr_section__burger {
+    color: var(--nivis-dark) !important;
+}
+
+.new_navbr_section__link:hover,
+.new_navbr_section__link.active {
+    color: var(--nivis-primary) !important;
+}
+
+.new_navbr_section__link::after {
+    background: var(--nivis-gold) !important;
+}
+
+.new_navbr_section__dropdown,
+.new_navbr_section__offcanvas {
+    background: var(--nivis-white) !important;
+    border-color: var(--nivis-border) !important;
+    box-shadow: var(--nivis-shadow) !important;
+}
+
+.new_navbr_section__dropdown li a,
+.new_navbr_section__mobile_label,
+.new_navbr_section__mobile_plain,
+.new_navbr_section__mobile_sub a {
+    color: var(--nivis-dark) !important;
+}
+
+.new_navbr_section__dropdown li a:hover,
+.new_navbr_section__mobile_row:hover,
+.new_navbr_section__mobile_plain:hover {
+    background: var(--nivis-light) !important;
+    color: var(--nivis-primary) !important;
+}
+
+.new_navbr_section__cart_badge,
+.new_navbr_section__mobile_plus {
+    background: var(--nivis-primary) !important;
+    color: #fff !important;
+    border-color: var(--nivis-primary) !important;
+}
+
+/* ---------------- HOME PREMIUM SECTIONS ---------------- */
+.nivis_index_third_section,
+.nivis_index_fifth_section,
+.nivis_index_sixth_section,
+.nivis_labs_section {
+    background: var(--nivis-white) !important;
+    color: var(--nivis-dark) !important;
+    border-color: var(--nivis-border) !important;
+}
+
+.nivis_index_third_section::before,
+.nivis_index_third_section::after,
+.nivis_index_fifth_section::before,
+.nivis_index_fifth_section::after,
+.nivis_index_sixth_section::before,
+.nivis_index_sixth_section::after,
+.nivis_labs_section__dish,
+.nivis_labs_section__dropper,
+.nivis_labs_section__molecule,
+.nivis_labs_section__cream {
+    opacity: .14 !important;
+}
+
+.nivis_index_fifth_section__kicker,
+.nivis_index_fifth_section__number,
+.nivis_index_fifth_section__side_text,
+.nivis_index_sixth_section__kicker,
+.nivis_index_sixth_section__side,
+.nivis_index_sixth_section__feature,
+.nivis_index_third_section__left_text strong,
+.nivis_index_third_section__left_text span,
+.nivis_index_third_section__right_text span,
+.nivis_labs_section__side_text {
+    color: var(--nivis-primary) !important;
+}
+
+.nivis_index_fifth_section__title,
+.nivis_index_sixth_section__title,
+.nivis_index_third_section__heading_line h2,
+.nivis_labs_section__title,
+.nivis_index_fifth_section__content h4 {
+    color: var(--nivis-dark) !important;
+}
+
+.nivis_index_fifth_section__title strong,
+.nivis_index_sixth_section__title strong {
+    color: var(--nivis-gold) !important;
+}
+
+.nivis_index_fifth_section__subtitle,
+.nivis_index_sixth_section__subtitle,
+.nivis_index_third_section__subtitle,
+.nivis_labs_section__subtitle,
+.nivis_index_fifth_section__content p {
+    color: var(--nivis-muted) !important;
+}
+
+.nivis_index_fifth_section__card,
+.nivis_index_sixth_section__panel,
+.nivis_labs_section__card,
+.nivis_index_third_section #spotlightProductCarousel .product-card,
+.nivis_index_third_section #spotlightProductCarousel .spotlight-card {
+    background: var(--nivis-white) !important;
+    color: var(--nivis-dark) !important;
+    border: 1px solid var(--nivis-border) !important;
+    box-shadow: var(--nivis-shadow) !important;
+}
+
+.nivis_index_fifth_section__card:hover,
+.nivis_labs_section__card:hover,
+.nivis_index_third_section #spotlightProductCarousel .product-card:hover,
+.nivis_index_third_section #spotlightProductCarousel .spotlight-card:hover {
+    border-color: rgba(7, 85, 99, .35) !important;
+    box-shadow: 0 18px 40px rgba(9, 47, 70, .12) !important;
+}
+
+.nivis_index_fifth_section__card::after {
+    background: radial-gradient(circle, rgba(7, 85, 99, .08), transparent 68%) !important;
+}
+
+.nivis_index_fifth_section__shop,
+.nivis_index_third_section #spotlightProductCarousel .btn-cart,
+.nivis_index_third_section #spotlightProductCarousel .product-card button,
+.nivis_index_third_section #spotlightProductCarousel .spotlight-card__btn,
+.btn-cart,
+.btn-buy {
+    background: var(--nivis-primary) !important;
+    color: #fff !important;
+    border: 1px solid var(--nivis-primary) !important;
+    box-shadow: none !important;
+}
+
+.nivis_index_fifth_section__shop b {
+    background: var(--nivis-dark) !important;
+    color: #fff !important;
+}
+
+.nivis_index_fifth_section__shop:hover,
+.nivis_index_third_section #spotlightProductCarousel .btn-cart:hover,
+.nivis_index_third_section #spotlightProductCarousel .product-card button:hover,
+.nivis_index_third_section #spotlightProductCarousel .spotlight-card__btn:hover,
+.btn-cart:hover,
+.btn-buy:hover {
+    background: var(--nivis-dark) !important;
+    border-color: var(--nivis-dark) !important;
+    color: #fff !important;
+}
+
+.nivis_index_third_section #spotlightProductCarousel .product-img-wrap,
+.nivis_index_third_section #spotlightProductCarousel .product-card>a>img,
+.nivis_index_third_section #spotlightProductCarousel .spotlight-card>a>img,
+.card-img-wrapper,
+.product-img-wrap {
+    background: var(--nivis-light) !important;
+    border-color: var(--nivis-border) !important;
+}
+
+.nivis_index_third_section #spotlightProductCarousel .product-name,
+.nivis_index_third_section #spotlightProductCarousel .product-card h6,
+.nivis_index_third_section #spotlightProductCarousel .spotlight-card h6,
+.nivis_index_third_section #spotlightProductCarousel .product-price,
+.nivis_index_third_section #spotlightProductCarousel .spotlight-card__price {
+    color: var(--nivis-dark) !important;
+}
+
+.nivis_index_third_section #spotlightProductCarousel .product-sub,
+.nivis_index_third_section #spotlightProductCarousel .product-description,
+.nivis_index_third_section #spotlightProductCarousel .product-card p,
+.nivis_index_third_section #spotlightProductCarousel .spotlight-card > a > p,
+.nivis_index_third_section #spotlightProductCarousel .spotlight-card__meta {
+    color: var(--nivis-muted) !important;
+}
+
+.nivis_index_third_section #spotlightProductCarousel .stars,
+.stars,
+.text-warning {
+    color: var(--nivis-gold) !important;
+}
+
+.nivis_index_third_section #spotlightProductCarousel .bought-tag,
+.badge-b1g1,
+.spf-badge {
+    background: var(--nivis-light) !important;
+    color: var(--nivis-primary) !important;
+    border: 1px solid var(--nivis-border) !important;
+}
+
+.nivis_index_third_section #spotlightProductCarousel .slick-prev,
+.nivis_index_third_section #spotlightProductCarousel .slick-next {
+    background: var(--nivis-white) !important;
+    border-color: var(--nivis-border) !important;
+    box-shadow: var(--nivis-shadow) !important;
+}
+
+.nivis_index_third_section #spotlightProductCarousel .slick-prev::before,
+.nivis_index_third_section #spotlightProductCarousel .slick-next::before {
+    color: var(--nivis-primary) !important;
+}
+
+/* ---------------- FAQ ---------------- */
+.nivis_index_sixth_section__accordion .accordion-item {
+    background: var(--nivis-white) !important;
+    border: 1px solid var(--nivis-border) !important;
+}
+
+.nivis_index_sixth_section__accordion .accordion-button {
+    background: var(--nivis-white) !important;
+    color: var(--nivis-dark) !important;
+}
+
+.nivis_index_sixth_section__accordion .accordion-button:not(.collapsed) {
+    background: var(--nivis-light) !important;
+    color: var(--nivis-primary) !important;
+}
+
+.nivis_index_sixth_section__accordion .accordion-button::after,
+.nivis_index_sixth_section__accordion .accordion-button:not(.collapsed)::after {
+    filter: none !important;
+}
+
+.nivis_index_sixth_section__accordion .accordion-body {
+    background: var(--nivis-white) !important;
+    color: var(--nivis-muted) !important;
+}
+
+/* ---------------- PRODUCT LIST / CARE / SKINTHESIS ---------------- */
+.care-products-page,
+.skinthesis-page,
+.skinthesis-hero,
+.skinthesis-article-section,
+.product-detail-page,
+.product-detail-related,
+.shop-layout,
+.product-grid-wrap,
+.right_side_product {
+    background: var(--nivis-white) !important;
+    color: var(--nivis-dark) !important;
+}
+
+.care-compact-hero,
+.care-products-coming-soon,
+.product-coming-soon-card,
+.skinthesis-card,
+.product-detail-related__card,
+.product-card,
+.card-body {
+    background: var(--nivis-white) !important;
+    border-color: var(--nivis-border) !important;
+    box-shadow: var(--nivis-shadow) !important;
+    color: var(--nivis-dark) !important;
+}
+
+.product_img_section,
+.thumb-col,
+.main-img-wrap,
+.skincare-product-image,
+.product-detail-related__image {
+    background: var(--nivis-light) !important;
+    border-color: var(--nivis-border) !important;
+}
+
+.product-title,
+.product-brand,
+.product-price,
+.price-main,
+.sec-title,
+.product-detail-related__name,
+.product-detail-related__price,
+.card-title,
+.product-name {
+    color: var(--nivis-dark) !important;
+}
+
+.product-subtitle,
+.product-desc,
+.product-desc-text,
+.product-description,
+.product-detail-related__meta,
+.card-text,
+.text-muted,
+.review-count {
+    color: var(--nivis-muted) !important;
+}
+
+.thumb-item.active,
+.info-tab.active {
+    border-color: var(--nivis-primary) !important;
+    color: var(--nivis-primary) !important;
+}
+
+.info-tabs,
+.sec-divider,
+.product-detail-breadcrumb {
+    border-color: var(--nivis-border) !important;
+}
+
+/* ---------------- FOOTER ---------------- */
+.nivis_footer_new_section {
+    /* background: var(--nivis-dark) !important;
+     */
+    color: #fff !important;
+    border-top: 3px solid var(--nivis-gold) !important;
+}
+
+.nivis_footer_new_section::before,
+.nivis_footer_new_section::after,
+.nivis_footer_new_section__glass--left,
+.nivis_footer_new_section__glass--right {
+    opacity: .12 !important;
+}
+
+.nivis_footer_new_section__column h6,
+.nivis_footer_new_section__logo {
+    color: #c7a66a !important;
+    /* color: #fff !important; */
+    font-family: 'Manrope', sans-serif !important;
+}
+
+.nivis_footer_new_section__column li a,
+.nivis_footer_new_section__connect_text,
+.nivis_footer_new_section__connect_details a,
+.nivis_footer_new_section__brand p,
+.nivis_footer_new_section__bottom p {
+    color: rgba(255, 255, 255, .78) !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+.nivis_footer_new_section__column li a:hover,
+.nivis_footer_new_section__connect_details a:hover {
+    color: var(--nivis-gold) !important;
+}
+
+.nivis_footer_new_section__small_line,
+.nivis_footer_new_section__brand_line,
+.nivis_footer_new_section__column li a::after {
+    background: var(--nivis-gold) !important;
+}
+
+.nivis_footer_new_section__newsletter {
+    background: rgba(255,255,255,.06) !important;
+    border-color: rgba(255,255,255,.22) !important;
+}
+
+.nivis_footer_new_section__newsletter button {
+    background: var(--nivis-gold) !important;
+    color: var(--nivis-dark) !important;
+}
+
+.nivis_footer_new_section__social a {
+    color: #fff !important;
+    border-color: rgba(255,255,255,.28) !important;
+}
+
+.nivis_footer_new_section__social a:hover {
+    color: var(--nivis-gold) !important;
+    border-color: var(--nivis-gold) !important;
+}
+
+.nivis_footer_new_section__bottom {
+    background: rgba(0,0,0,.08) !important;
+    border-color: rgba(255,255,255,.16) !important;
+}
+
+/* ---------------- MOBILE TYPOGRAPHY ---------------- */
+@media (max-width: 767px) {
+    h1,
+    .nivis_index_fifth_section__title,
+    .nivis_index_sixth_section__title,
+    .nivis_index_third_section__heading_line h2,
+    .nivis_labs_section__title {
+        font-size: 34px !important;
+    }
+
+    h2, h3, .section-title, .sec-title {
+        font-size: 28px !important;
+    }
+
+    .product-title,
+    .product-name,
+    .card-title,
+    .product-detail-related__name {
+        font-size: 20px !important;
+    }
+
+    p, .product-desc, .product-desc-text, .product-subtitle,
+    .nivis_index_fifth_section__subtitle,
+    .nivis_index_sixth_section__subtitle,
+    .nivis_labs_section__subtitle {
+        font-size: 16px !important;
+    }
+
+    .new_navbr_section__link,
+    .new_navbr_section__dropdown li a,
+    .new_navbr_section__mobile_label,
+    .new_navbr_section__mobile_plain {
+        font-size: 15px !important;
+    }
+}
+
+/* =========================================================
+   GLOBAL RESPONSIVE TYPOGRAPHY OVERRIDES
+   Theme / colors / backgrounds / animations unchanged.
+   Added only to make font sizes device friendly.
+========================================================= */
+
+/* Large desktop defaults */
+.nivis_index_fifth_section__title,
+.nivis_index_sixth_section__title,
+.nivis_index_third_section__heading_line h2 {
+    font-size: clamp(34px, 3.5vw, 58px) !important;
+}
+
+.nivis_index_fifth_section__subtitle,
+.nivis_index_sixth_section__subtitle {
+    font-size: clamp(13px, 1.1vw, 17px) !important;
+}
+
+.nivis_index_fifth_section__content h4 {
+    font-size: clamp(15px, 1.15vw, 18px) !important;
+}
+
+.nivis_index_fifth_section__content p,
+.nivis_index_sixth_section__accordion .accordion-body,
+.nivis_footer_new_section__column li a,
+.nivis_footer_new_section__connect_text,
+.nivis_footer_new_section__connect_details a {
+    font-size: clamp(11px, .95vw, 14px) !important;
+}
+
+.nivis_index_sixth_section__accordion .accordion-button {
+    font-size: clamp(13px, 1.05vw, 16px) !important;
+}
+
+.nivis_index_third_section #spotlightProductCarousel .product-name,
+.nivis_index_third_section #spotlightProductCarousel .product-card h6 {
+    font-size: clamp(12px, .95vw, 14px) !important;
+}
+
+.nivis_index_third_section #spotlightProductCarousel .product-sub,
+.nivis_index_third_section #spotlightProductCarousel .product-description,
+.nivis_index_third_section #spotlightProductCarousel .product-card p {
+    font-size: clamp(10px, .85vw, 12px) !important;
+}
+
+.nivis_index_third_section #spotlightProductCarousel .product-price {
+    font-size: clamp(14px, 1.05vw, 17px) !important;
+}
+
+.nivis_index_third_section #spotlightProductCarousel .btn-cart,
+.nivis_index_third_section #spotlightProductCarousel .product-card button,
+.nivis_index_fifth_section__shop {
+    font-size: clamp(10px, .8vw, 12px) !important;
+}
+
+.nivis_footer_new_section__column h6 {
+    font-size: clamp(10px, .9vw, 13px) !important;
+}
+
+.nivis_footer_new_section__newsletter input {
+    font-size: clamp(11px, .9vw, 13px) !important;
+}
+
+.nivis_footer_new_section__logo {
+    font-size: clamp(26px, 2.4vw, 38px) !important;
+}
+
+.nivis_footer_new_section__brand p {
+    font-size: clamp(7px, .72vw, 10px) !important;
+}
+
+.nivis_footer_new_section__bottom p {
+    font-size: clamp(9px, .8vw, 12px) !important;
+}
+
+.new_navbr_section__offer_item {
+    font-size: clamp(11px, 1vw, 16px) !important;
+}
+
+.new_navbr_section__offer_item strong {
+    font-size: clamp(12px, 1.05vw, 17px) !important;
+}
+
+.new_navbr_section__link {
+    font-size: clamp(11px, .95vw, 15px) !important;
+}
+
+.new_navbr_section__dropdown li a {
+    font-size: clamp(11px, .85vw, 13px) !important;
+}
+
+/* ---------------------------------------------------------
+   LAPTOP / SMALL DESKTOP
+--------------------------------------------------------- */
+@media (max-width: 1199.98px) {
+    .nivis_index_fifth_section__title,
+    .nivis_index_sixth_section__title {
+        font-size: 44px !important;
+    }
+
+    .nivis_index_third_section__heading_line h2 {
+        font-size: 37px !important;
+    }
+
+    .nivis_index_fifth_section__subtitle {
+        font-size: 15px !important;
+    }
+
+    .nivis_index_fifth_section__content h4 {
+        font-size: 16px !important;
+    }
+
+    .nivis_index_fifth_section__content p {
+        font-size: 11.5px !important;
+    }
+
+    .nivis_index_sixth_section__accordion .accordion-button {
+        font-size: 14px !important;
+    }
+
+    .nivis_index_sixth_section__accordion .accordion-body {
+        font-size: 13px !important;
+    }
+
+    .new_navbr_section__link {
+        font-size: 12px !important;
+        letter-spacing: 1.4px !important;
+    }
+
+    .new_navbr_section__offer_item {
+        font-size: 13px !important;
+    }
+
+    .new_navbr_section__offer_item strong {
+        font-size: 14px !important;
+    }
+}
+
+/* ---------------------------------------------------------
+   TABLET
+--------------------------------------------------------- */
+@media (max-width: 991.98px) {
+    .nivis_index_fifth_section__title,
+    .nivis_index_sixth_section__title {
+        font-size: 38px !important;
+    }
+
+    .nivis_index_third_section__heading_line h2 {
+        font-size: 32px !important;
+    }
+
+    .nivis_index_fifth_section__kicker,
+    .nivis_index_sixth_section__kicker {
+        font-size: 9px !important;
+        letter-spacing: 3px !important;
+    }
+
+    .nivis_index_fifth_section__subtitle,
+    .nivis_index_sixth_section__subtitle {
+        font-size: 13px !important;
+    }
+
+    .nivis_index_fifth_section__content h4 {
+        font-size: 15px !important;
+    }
+
+    .nivis_index_fifth_section__content p {
+        font-size: 11px !important;
+    }
+
+    .nivis_index_sixth_section__accordion .accordion-button {
+        font-size: 13.5px !important;
+    }
+
+    .nivis_index_sixth_section__accordion .accordion-body {
+        font-size: 12.5px !important;
+    }
+
+    .nivis_index_third_section #spotlightProductCarousel .product-card h6,
+    .nivis_index_third_section #spotlightProductCarousel .product-name {
+        font-size: 12.5px !important;
+    }
+
+    .nivis_index_third_section #spotlightProductCarousel .product-card p,
+    .nivis_index_third_section #spotlightProductCarousel .product-sub {
+        font-size: 10.5px !important;
+    }
+
+    .nivis_footer_new_section__column h6 {
+        font-size: 11px !important;
+    }
+
+    .nivis_footer_new_section__column li a,
+    .nivis_footer_new_section__connect_text,
+    .nivis_footer_new_section__connect_details a {
+        font-size: 12px !important;
+    }
+
+    .nivis_footer_new_section__logo {
+        font-size: 30px !important;
+    }
+
+    .new_navbr_section__offer_item {
+        font-size: 12px !important;
+    }
+
+    .new_navbr_section__offer_item strong {
+        font-size: 13px !important;
+    }
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+--------------------------------------------------------- */
+@media (max-width: 767.98px) {
+    .nivis_index_fifth_section__title,
+    .nivis_index_sixth_section__title {
+        font-size: 31px !important;
+        line-height: 1.05 !important;
+    }
+
+    .nivis_index_third_section__heading_line h2 {
+        font-size: 27px !important;
+        line-height: 1.08 !important;
+    }
+
+    .nivis_index_fifth_section__kicker,
+    .nivis_index_sixth_section__kicker {
+        font-size: 8px !important;
+        letter-spacing: 2.4px !important;
+    }
+
+    .nivis_index_third_section__subtitle {
+        font-size: 7px !important;
+        letter-spacing: 2.6px !important;
+    }
+
+    .nivis_index_fifth_section__subtitle,
+    .nivis_index_sixth_section__subtitle {
+        font-size: 12px !important;
+        line-height: 1.55 !important;
+    }
+
+    .nivis_index_fifth_section__number {
+        font-size: 11px !important;
+    }
+
+    .nivis_index_fifth_section__content h4 {
+        font-size: 14px !important;
+    }
+
+    .nivis_index_fifth_section__content p {
+        font-size: 10.5px !important;
+    }
+
+    .nivis_index_fifth_section__shop {
+        font-size: 10px !important;
+    }
+
+    .nivis_index_sixth_section__accordion .accordion-button {
+        font-size: 12.5px !important;
+        line-height: 1.35 !important;
+    }
+
+    .nivis_index_sixth_section__accordion .accordion-body {
+        font-size: 11.5px !important;
+        line-height: 1.55 !important;
+    }
+
+    .nivis_index_third_section #spotlightProductCarousel .product-card h6,
+    .nivis_index_third_section #spotlightProductCarousel .product-name {
+        font-size: 12px !important;
+    }
+
+    .nivis_index_third_section #spotlightProductCarousel .product-card p,
+    .nivis_index_third_section #spotlightProductCarousel .product-sub,
+    .nivis_index_third_section #spotlightProductCarousel .product-description {
+        font-size: 10px !important;
+    }
+
+    .nivis_index_third_section #spotlightProductCarousel .product-price {
+        font-size: 14px !important;
+    }
+
+    .nivis_index_third_section #spotlightProductCarousel .btn-cart,
+    .nivis_index_third_section #spotlightProductCarousel .product-card button {
+        font-size: 10px !important;
+    }
+
+    .nivis_footer_new_section__column h6 {
+        font-size: 9.5px !important;
+        letter-spacing: 1.6px !important;
+    }
+
+    .nivis_footer_new_section__column li a,
+    .nivis_footer_new_section__connect_text,
+    .nivis_footer_new_section__connect_details a {
+        font-size: 10.5px !important;
+    }
+
+    .nivis_footer_new_section__newsletter input {
+        font-size: 10.5px !important;
+    }
+
+    .nivis_footer_new_section__logo {
+        font-size: 24px !important;
+        letter-spacing: 4px !important;
+    }
+
+    .nivis_footer_new_section__brand p {
+        font-size: 7px !important;
+        letter-spacing: 2.2px !important;
+    }
+
+    .nivis_footer_new_section__bottom p {
+        font-size: 9px !important;
+    }
+
+    .nivis_footer_new_section__bottom p:last-child {
+        font-size: 7px !important;
+        letter-spacing: 1.8px !important;
+    }
+
+    .new_navbr_section__offer_item {
+        font-size: 10px !important;
+        letter-spacing: .8px !important;
+    }
+
+    .new_navbr_section__offer_item strong {
+        font-size: 11px !important;
+    }
+
+    .new_navbr_section__dropdown li a {
+        font-size: 11px !important;
+    }
+}
+
+/* ---------------------------------------------------------
+   SMALL MOBILE
+--------------------------------------------------------- */
+@media (max-width: 479.98px) {
+    .nivis_index_fifth_section__title,
+    .nivis_index_sixth_section__title {
+        font-size: 27px !important;
+    }
+
+    .nivis_index_third_section__heading_line h2 {
+        font-size: 24px !important;
+    }
+
+    .nivis_index_fifth_section__subtitle,
+    .nivis_index_sixth_section__subtitle {
+        font-size: 11px !important;
+    }
+
+    .nivis_index_fifth_section__content h4 {
+        font-size: 13px !important;
+    }
+
+    .nivis_index_fifth_section__content p {
+        font-size: 10px !important;
+    }
+
+    .nivis_index_sixth_section__accordion .accordion-button {
+        font-size: 12px !important;
+    }
+
+    .nivis_index_sixth_section__accordion .accordion-body {
+        font-size: 11px !important;
+    }
+
+    .nivis_index_third_section #spotlightProductCarousel .product-card h6,
+    .nivis_index_third_section #spotlightProductCarousel .product-name {
+        font-size: 11.5px !important;
+    }
+
+    .nivis_index_third_section #spotlightProductCarousel .product-card p,
+    .nivis_index_third_section #spotlightProductCarousel .product-sub,
+    .nivis_index_third_section #spotlightProductCarousel .product-description {
+        font-size: 9.5px !important;
+    }
+
+    .nivis_footer_new_section__column h6 {
+        font-size: 9px !important;
+    }
+
+    .nivis_footer_new_section__column li a,
+    .nivis_footer_new_section__connect_text,
+    .nivis_footer_new_section__connect_details a {
+        font-size: 10px !important;
+    }
+
+    .nivis_footer_new_section__logo {
+        font-size: 22px !important;
+    }
+
+    .new_navbr_section__offer_item {
+        font-size: 9px !important;
+    }
+
+    .new_navbr_section__offer_item strong {
+        font-size: 10px !important;
     }
 }
