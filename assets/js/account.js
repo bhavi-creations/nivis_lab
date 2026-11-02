@@ -3,6 +3,8 @@
     if (!drawer) return;
 
     const content = document.getElementById('accountDrawerContent');
+    const basePath = content.dataset.basePath || '';
+    const appPath = path => `${basePath}/${path.replace(/^\/+/, '')}`;
     const footer = document.getElementById('accountDrawerFooter');
     let currentOrders = [];
 
@@ -63,7 +65,7 @@
         for (const placeholder of placeholders) {
             const pin = placeholder.dataset.statePin;
             if (!lookups.has(pin)) {
-                lookups.set(pin, fetch(`/address_lookup.php?pin=${encodeURIComponent(pin)}`, { cache: 'force-cache' })
+                lookups.set(pin, fetch(appPath(`address_lookup.php?pin=${encodeURIComponent(pin)}`), { cache: 'force-cache' })
                     .then(response => response.ok ? response.json() : null)
                     .catch(() => null));
             }
@@ -149,11 +151,12 @@
         </div>`;
     }
 
-    function openOrderDetail(order) {
+    function openOrderDetail(order, backLabel = 'Back to orders') {
         document.querySelector('.account-detail-overlay')?.remove();
         const wrapper = document.createElement('div');
         wrapper.innerHTML = renderOrderDetail(order);
         const overlay = wrapper.firstElementChild;
+        overlay.querySelector('[data-close-order-detail]').textContent = `← ${backLabel}`;
         document.body.append(overlay);
         document.body.classList.add('account-detail-open');
         resolveInvalidAddressStates(overlay);
@@ -170,6 +173,8 @@
         overlay.querySelector('.account-detail-shell').focus();
     }
 
+    window.NivisAccountOrders = Object.freeze({ open: openOrderDetail });
+
     content.addEventListener('click', event => {
         const button = event.target.closest('[data-account-order]');
         if (!button) return;
@@ -177,18 +182,32 @@
         if (order) openOrderDetail(order);
     });
 
+    function renderAccountAccess(message = '', isError = false) {
+        return `<div class="account-panel"><h3>Your Nivis account</h3>${message ? `<p role="${isError ? 'alert' : 'status'}">${escape(message)}</p>` : '<p>Log in to see your details and orders, or sign up to create an account.</p>'}<a class="account-action" href="${appPath('login.php?mode=login')}">Login</a><a class="account-action account-secondary" href="${appPath('login.php?mode=signup')}">Sign Up</a></div>`;
+    }
+
     async function loadAccount() {
-        content.innerHTML = '<p>Loading your account…</p>';
+        content.innerHTML = renderAccountAccess('Checking your account…');
         footer.hidden = true;
         try {
-            const response = await fetch('/account_dashboard', {
-                cache: 'no-store',
-                credentials: 'same-origin'
-            });
-            const data = await response.json();
+            let response;
+            try {
+                response = await fetch(appPath('account_dashboard.php'), {
+                    cache: 'no-store',
+                    credentials: 'same-origin'
+                });
+            } catch {
+                throw new Error('Unable to connect to the account dashboard. Please check your connection and try again.');
+            }
+            let data;
+            try {
+                data = await response.json();
+            } catch {
+                throw new Error('The account dashboard returned an invalid response. Please try again.');
+            }
             if (!response.ok) throw new Error(data.error || 'Unable to load account details.');
             if (!data.authenticated) {
-                content.innerHTML = '<div class="account-panel"><h3>Your Nivis account</h3><p>Log in to see your details and orders, or sign up to create an account.</p><a class="account-action" href="/login?mode=login">Sign in / Login</a><a class="account-action account-secondary" href="/login?mode=signup">Sign up / Create account</a></div>';
+                content.innerHTML = renderAccountAccess();
                 return;
             }
 
@@ -242,7 +261,7 @@
                 try {
                     const values = Object.fromEntries(new FormData(form).entries());
                     values.csrf = data.csrf;
-                    const saved = await fetch('/account_update', {
+                    const saved = await fetch(appPath('account_update.php'), {
                         method: 'POST',
                         credentials: 'same-origin',
                         headers: { 'Content-Type': 'application/json' },
@@ -258,7 +277,7 @@
                 }
             });
         } catch (error) {
-            content.innerHTML = `<p role="alert">${escape(error.message)}</p><button type="button" class="account-retry" id="accountRetry">Try again</button>`;
+            content.innerHTML = `${renderAccountAccess(error.message, true)}<button type="button" class="account-retry" id="accountRetry">Try again</button>`;
             document.getElementById('accountRetry').addEventListener('click', loadAccount);
         }
     }

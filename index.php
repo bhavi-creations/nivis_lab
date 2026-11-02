@@ -8,6 +8,17 @@ $newHeroImages = [
     ['file' => '8.png', 'alt' => 'Folilock Cream Pro'],
    
 ];
+$mobileHeroImages = [
+    // Add mobile-only banners here, for example: ['file' => 'mobile-banner-1.png', 'alt' => 'Mobile banner']
+ ['file' => 'mobile1.png', 'alt' => 'Foaming Face Wash'],
+    ['file' => 'mobile2.png', 'alt' => 'Instant Glow'],
+     ['file' => 'mobile3.png', 'alt' => 'Instant Glow'],
+    ['file' => 'mobile4.png', 'alt' => 'Folilock Cream'],
+    ['file' => 'mobile5.png', 'alt' => 'Folilock Cream Pro'],
+    ['file' => 'mobile6.png', 'alt' => 'Folilock Cream Pro'],
+
+
+    ];
 ?>
 <style>
     html:has(#indexHero),
@@ -56,16 +67,36 @@ $newHeroImages = [
             </a>
         <?php endforeach; ?>
     </div>
+    <template id="mobileHeroSlidesTemplate">
+        <?php foreach ($mobileHeroImages as $heroImage):
+            $imagePath = './assets/img/' . $heroImage['file'];
+        ?>
+            <a class="index_img_section__slide" href="products.php"
+                style="--hero-img: url('<?php echo htmlspecialchars($imagePath); ?>');">
+                <img class="index_img_section__product" src="<?php echo htmlspecialchars($imagePath); ?>"
+                    alt="<?php echo htmlspecialchars($heroImage['alt']); ?>"
+                    onerror="this.src='./assets/img/product.webp';" />
+                <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
+            </a>
+        <?php endforeach; ?>
+    </template>
 </section>
 
 <script>
     (function() {
         const hero = document.getElementById('indexHero');
         const slidesWrap = document.getElementById('indexHeroSlides');
+        const mobileSlidesTemplate = document.getElementById('mobileHeroSlidesTemplate');
+        const mobileSlidesMarkup = mobileSlidesTemplate ? mobileSlidesTemplate.innerHTML.trim() : '';
+        const desktopSlidesMarkup = slidesWrap ? slidesWrap.innerHTML : '';
+        const mobileViewport = window.matchMedia('(max-width: 640px)');
         const fallbackImage = './assets/img/product.webp';
         let slides = [];
         let current = 0;
         let timer = null;
+        let pointerStart = null;
+        let ignoreSwipeClickUntil = 0;
+        let showingMobileSlides = null;
 
         if (!hero || !slidesWrap) return;
 
@@ -151,6 +182,23 @@ $newHeroImages = [
             if (!slides.length) return;
             current = (index + slides.length) % slides.length;
             slides.forEach((slide, slideIndex) => slide.classList.toggle('active', slideIndex === current));
+            updateMobileHeroAspectRatio();
+        }
+
+        function updateMobileHeroAspectRatio() {
+            if (!mobileViewport.matches || !showingMobileSlides) {
+                hero.style.aspectRatio = '';
+                return;
+            }
+
+            const image = slides[current]?.querySelector('.index_img_section__product');
+            if (!image) return;
+            if (!image.naturalWidth || !image.naturalHeight) {
+                image.addEventListener('load', updateMobileHeroAspectRatio, { once: true });
+                return;
+            }
+
+            hero.style.aspectRatio = `${image.naturalWidth} / ${image.naturalHeight}`;
         }
 
         function goToPreviousSlide() {
@@ -191,16 +239,48 @@ $newHeroImages = [
             goToNextSlide();
             resetSlider();
         });
+        hero.addEventListener('pointerdown', event => {
+            if (event.isPrimary) pointerStart = { x: event.clientX, y: event.clientY };
+        });
+        hero.addEventListener('pointerup', event => {
+            if (!pointerStart || event.pointerType !== 'touch') {
+                pointerStart = null;
+                return;
+            }
+
+            const deltaX = event.clientX - pointerStart.x;
+            const deltaY = event.clientY - pointerStart.y;
+            pointerStart = null;
+            if (Math.abs(deltaX) < 40 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+
+            if (deltaX > 0) goToPreviousSlide();
+            else goToNextSlide();
+            ignoreSwipeClickUntil = Date.now() + 500;
+            resetSlider();
+        });
+        hero.addEventListener('pointercancel', () => {
+            pointerStart = null;
+        });
+        hero.addEventListener('click', event => {
+            if (Date.now() >= ignoreSwipeClickUntil) return;
+            event.preventDefault();
+            event.stopPropagation();
+        }, true);
         hero.addEventListener('mouseenter', () => clearInterval(timer));
         hero.addEventListener('mouseleave', startSlider);
         hero.addEventListener('focusin', () => clearInterval(timer));
         hero.addEventListener('focusout', startSlider);
         // Initialize the product slides rendered by PHP
         function loadHeroSlides() {
-            // Product slides are already rendered above
-            // Just initialize the slider
+            const useMobileSlides = mobileViewport.matches && mobileSlidesMarkup !== '';
+            if (showingMobileSlides !== useMobileSlides) {
+                slidesWrap.innerHTML = useMobileSlides ? mobileSlidesMarkup : desktopSlidesMarkup;
+                showingMobileSlides = useMobileSlides;
+            }
             initSlides();
         }
+
+        window.addEventListener('resize', loadHeroSlides);
 
         // Fallback to product-based slides if GraphQL fails
         async function loadBackendSlides() {

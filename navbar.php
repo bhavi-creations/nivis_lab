@@ -17,7 +17,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="./assets/css/style.css?v=22">
+    <link rel="stylesheet" href="./assets/css/style.css?v=23">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
@@ -26,10 +26,11 @@
     <!-- image slider   -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <link rel="stylesheet" href="./assets/css/new_style.css?v=20">
+    <link rel="stylesheet" href="./assets/css/new_style.css?v=24">
     <link rel="stylesheet" href="./assets/css/theme.css?v=12">
     <link rel="stylesheet" href="./assets/css/skin-experience.css?v=3">
     <link rel="stylesheet" href="./assets/css/product-pricing.css?v=2">
+    <link rel="stylesheet" href="./assets/css/order-tracking.css?v=1">
     <script src="./assets/js/product-pricing.js?v=2"></script>
 
 </head>
@@ -188,7 +189,9 @@
     <div class="index_navbar_section__offcanvas" id="navOffcanvas">
 
         <div class="index_navbar_section__offcanvas-head">
-            <span class="index_navbar_section__offcanvas-logo">Nivis Labs</span>
+            <span class="index_navbar_section__offcanvas-logo">
+                <img src="./assets/img/nivis-labs-international.png" alt="Nivis Labs International">
+            </span>
             <button class="index_navbar_section__offcanvas-close" id="navClose">
                 <i class="bi bi-x-lg"></i>
             </button>
@@ -298,8 +301,8 @@
                 <a href="index.php"
                     class="new_navbr_section__logo " style="padding: 10px 0px;">
 
-                    <img src="./assets/img/logo_12.png"
-                        alt="Nivis Labs">
+                    <img src="./assets/img/nivis-labs-international.png"
+                        alt="Nivis Labs International">
 
                 </a>
 
@@ -314,18 +317,40 @@
                     <ul class="new_navbr_section__links">
 
 
+<li class="new_navbr_section__item">
 
-                        <!-- STORY -->
-                        <li class="new_navbr_section__item">
-
-                            <a href="our-story.php"
+                            <a href="index.php"
                                 class="new_navbr_section__link">
 
-                                THE /NIVIS/ STORY
+                               Home
 
                             </a>
 
                         </li>
+
+
+
+
+
+
+
+
+
+
+                        <!-- STORY -->
+                        <li class="new_navbr_section__item">
+
+                            <a href="about.php"
+                                class="new_navbr_section__link">
+
+                               About
+
+                            </a>
+
+                        </li>
+
+
+
 
 
                         <!-- CATEGORY -->
@@ -462,6 +487,21 @@
 
                             </a>
 
+                        </li>
+
+                        <li class="new_navbr_section__item new_navbr_section__track_item">
+                            <a href="tracking.php" class="new_navbr_section__link">
+                                TRACK MY ORDER
+                            </a>
+                            <ul class="new_navbr_section__dropdown new_navbr_section__track_dropdown">
+                                <li>
+                                    <form action="tracking.php" method="post" class="new_navbr_section__track_form">
+                                        <label for="navbarTrackOrderId">Order ID</label>
+                                        <input id="navbarTrackOrderId" name="order_id" type="text" maxlength="100" placeholder="Enter your order ID" required>
+                                        <button type="submit">Track order</button>
+                                    </form>
+                                </li>
+                            </ul>
                         </li>
 
 
@@ -647,8 +687,8 @@
                 <a href="/"
                     class="new_navbr_section__mobile_logo">
 
-                    <img src="./assets/img/logo_12.png"
-                        alt="Nivis Labs">
+                    <img src="./assets/img/nivis-labs-international.png"
+                        alt="Nivis Labs International">
 
                 </a>
 
@@ -668,16 +708,35 @@
 
             <ul class="new_navbr_section__mobile_list">
 
-                <li class="new_navbr_section__mobile_item">
 
-                    <a href="our-story.php"
+
+ <li class="new_navbr_section__mobile_item">
+
+                    <a href="index.php"
                         class="new_navbr_section__mobile_plain">
 
-                        The /Nivis/ Story
+                        Home
 
                     </a>
 
                 </li>
+
+
+
+
+
+                <li class="new_navbr_section__mobile_item">
+
+                    <a href="about.php"
+                        class="new_navbr_section__mobile_plain">
+
+                        About
+
+                    </a>
+
+                </li>
+
+
 
 
                 <!-- CATEGORY -->
@@ -869,6 +928,15 @@
 
                     </a>
 
+                </li>
+
+                <li class="new_navbr_section__mobile_item new_navbr_section__mobile_track">
+                    <a href="tracking.php" class="new_navbr_section__mobile_plain">Track My Order</a>
+                    <form action="tracking.php" method="post" class="new_navbr_section__track_form">
+                        <label for="mobileTrackOrderId">Order ID</label>
+                        <input id="mobileTrackOrderId" name="order_id" type="text" maxlength="100" placeholder="Enter your order ID" required>
+                        <button type="submit">Track order</button>
+                    </form>
                 </li>
 
             </ul>

@@ -3589,6 +3589,22 @@
     letter-spacing: 9px;
 }
 
+.nivis_footer_new_section__column_logo {
+    display: block;
+    width: 185px;
+    max-width: 90%;
+    height: auto;
+    margin: 0 auto;
+    filter: brightness(0) invert(1);
+}
+
+.nivis_footer_new_section__brand_logo {
+    display: block;
+    width: min(420px, 85vw);
+    height: auto;
+    filter: brightness(0) invert(1);
+}
+
 
 .nivis_footer_new_section__brand p {
     margin:
@@ -5242,7 +5258,9 @@
 
 
 .new_navbr_section__mobile_logo img {
-    width: 80px;
+    width: 150px;
+    max-width: 100%;
+    height: auto;
 
     /* filter:
         brightness(0) invert(1); */
@@ -5620,16 +5638,6 @@
     }
 
 }
-
-
-
-
-
-
-
-
-
-
 
 /* nivis labs */
 /* =========================================================
@@ -7052,14 +7060,21 @@
 }
 
 .new_navbr_section__navbar .new_navbr_section__logo {
-    width: 94px;
-    flex-basis: 94px;
+    width: 200px;
+    flex-basis: 200px;
 }
 
 .new_navbr_section__navbar .new_navbr_section__logo img {
-    width: 84px !important;
+    width: 185px !important;
     height: auto;
     filter: drop-shadow(0 3px 10px rgba(0, 0, 0, .13));
+}
+
+.index_navbar_section__offcanvas-logo img {
+    display: block;
+    width: 180px;
+    max-width: 100%;
+    height: auto;
 }
 
 .new_navbr_section__navbar .new_navbr_section__item {
@@ -7145,12 +7160,12 @@
     }
 
     .new_navbr_section__navbar .new_navbr_section__logo {
-        width: 70px;
-        flex-basis: 70px;
+        width: 155px;
+        flex-basis: 155px;
     }
 
     .new_navbr_section__navbar .new_navbr_section__logo img {
-        width: 62px !important;
+        width: 140px !important;
     }
 
     .new_navbr_section__navbar .new_navbr_section__icon,
@@ -7178,12 +7193,12 @@
     }
 
     .new_navbr_section__navbar .new_navbr_section__logo {
-        width: 61px;
-        flex-basis: 61px;
+        width: 130px;
+        flex-basis: 130px;
     }
 
     .new_navbr_section__navbar .new_navbr_section__logo img {
-        width: 55px !important;
+        width: 120px !important;
     }
 
     .new_navbr_section__navbar .new_navbr_section__icon,
@@ -8805,5 +8820,79 @@ button, .btn-cart, .btn-buy,
 
     .new_navbr_section__offer_item strong {
         font-size: 10px !important;
+    }
+}
+
+@media (max-width: 1199px) {
+    .new_navbr_section__navbar .new_navbr_section__container {
+        position: relative;
+        justify-content: space-between;
+        gap: 0;
+        padding-inline: clamp(10px, 2.4vw, 24px);
+    }
+
+    .new_navbr_section__navbar .new_navbr_section__logo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: clamp(88px, 31vw, 140px);
+        max-width: calc(100% - 160px);
+        flex: 0 1 auto;
+        padding: 0 !important;
+        transform: translate(-50%, -50%);
+    }
+
+    .new_navbr_section__navbar .new_navbr_section__logo img {
+        width: 100% !important;
+        max-width: 100%;
+    }
+
+    .new_navbr_section__navbar .new_navbr_section__burger {
+        position: relative;
+        z-index: 1;
+        order: -1;
+        flex: 0 0 auto;
+        margin: 0;
+    }
+
+    .new_navbr_section__navbar .new_navbr_section__icons {
+        position: relative;
+        z-index: 1;
+        flex: 0 0 auto;
+        margin-left: auto;
+    }
+}
+
+@media (max-width: 420px) {
+    .new_navbr_section__navbar .new_navbr_section__icons {
+        gap: 4px;
+    }
+
+    .new_navbr_section__navbar .new_navbr_section__icon,
+    .new_navbr_section__navbar .new_navbr_section__burger {
+        width: 34px;
+        height: 34px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 360px) {
+    .new_navbr_section__navbar .new_navbr_section__container {
+        padding-inline: 10px;
+    }
+
+    .new_navbr_section__navbar .new_navbr_section__logo {
+        width: clamp(88px, 29vw, 104px);
+    }
+
+    .new_navbr_section__navbar .new_navbr_section__icons {
+        gap: 2px;
+    }
+
+    .new_navbr_section__navbar .new_navbr_section__icon,
+    .new_navbr_section__navbar .new_navbr_section__burger {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
     }
 }

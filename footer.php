@@ -121,8 +121,9 @@
 
                 </p> -->
 
-                <img src="./assets/img/new_logo_head.png"
-                    alt="Nivis Labs" style="width: 125px; height:200px;">
+                <img class="nivis_footer_new_section__column_logo"
+                    src="./assets/img/nivis-labs-international.png"
+                    alt="Nivis Labs International">
 
 
                 <!-- EMAIL FIELD -->
@@ -394,24 +395,9 @@
 
         <div class="nivis_footer_new_section__brand">
 
-            <!-- WATER DROP -->
-            <div class="nivis_footer_new_section__brand_drop">
-
-                <i class="fa-solid fa-droplet"></i>
-
-            </div>
-
-
-            <div class="nivis_footer_new_section__logo">
-
-                NIVIS LABS
-
-            </div>
-
-
-             <p style="color: #c7a66a !important; ">
-                INTERNATIONAL
-            </p>
+            <img class="nivis_footer_new_section__brand_logo"
+                src="./assets/img/nivis-labs-international.png"
+                alt="Nivis Labs International">
 
             <!-- <p>
                 SCIENCE BACKED SKINCARE

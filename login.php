@@ -30,19 +30,19 @@ unset($_SESSION['auth_error'], $_SESSION['auth_old']);
             display: grid;
             place-items: center;
             padding: 30px 16px;
-            background: #f3f6f2;
+            background: var(--nivis-page);
             font-family: Arial, sans-serif;
-            color: #22382f
+            color: var(--nivis-text)
         }
 
         .card {
             width: 100%;
             max-width: 480px;
-            background: white;
+            background: var(--nivis-panel);
             padding: 36px;
-            border: 1px solid #dce5de;
+            border: 1px solid var(--nivis-border);
             border-radius: 20px;
-            box-shadow: 0 15px 45px #203c2910
+            box-shadow: var(--nivis-shadow)
         }
 
         .brand {
@@ -64,7 +64,7 @@ unset($_SESSION['auth_error'], $_SESSION['auth_old']);
         }
 
         p {
-            color: #65746c;
+            color: var(--nivis-muted);
             line-height: 1.6
         }
 
@@ -78,17 +78,17 @@ unset($_SESSION['auth_error'], $_SESSION['auth_old']);
             flex: 1;
             text-align: center;
             padding: 12px;
-            border: 1px solid #cfdad3;
+            border: 1px solid var(--nivis-border);
             border-radius: 8px;
             text-decoration: none;
-            color: #234e3a
+            color: var(--nivis-teal)
         }
 
         .tabs a.active,
         button,
         .continue {
-            background: #234e3a;
-            color: white
+            background: var(--nivis-button);
+            color: #fff
         }
 
         label {
@@ -103,7 +103,7 @@ unset($_SESSION['auth_error'], $_SESSION['auth_old']);
             font: inherit;
             width: 100%;
             padding: 12px;
-            border: 1px solid #b9c9bf;
+            border: 1px solid var(--nivis-border);
             border-radius: 8px
         }
 
@@ -114,7 +114,7 @@ unset($_SESSION['auth_error'], $_SESSION['auth_old']);
 
         input:focus,
         textarea:focus {
-            outline: 2px solid #77a98b;
+            outline: 2px solid var(--nivis-gold);
             outline-offset: 2px
         }
 
@@ -135,7 +135,7 @@ unset($_SESSION['auth_error'], $_SESSION['auth_old']);
 
         .message {
             padding: 14px;
-            background: #edf6ed;
+            background: var(--nivis-surface);
             border-radius: 8px;
             line-height: 1.6
         }
@@ -156,11 +156,11 @@ unset($_SESSION['auth_error'], $_SESSION['auth_old']);
             }
         }
     </style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"><link rel="stylesheet" href="assets/css/theme.css?v=3"><link rel="stylesheet" href="assets/css/account-login.css?v=2"></head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"><link rel="stylesheet" href="assets/css/theme.css?v=3"><link rel="stylesheet" href="assets/css/account-login.css?v=3"></head>
 
 <body class="nivis-theme nivis-login">
     <main class="card">
-        <div class="brand"><img src="assets/img/new_logo_head.png" alt="Nivis Labs International"></div>
+        <div class="brand"><img src="assets/img/nivis-labs-international.png" alt="Nivis Labs International"></div>
         <?php if ($notice !== ''): ?>
             <h1>Welcome to Nivis Labs</h1>
             <p class="message" role="status"><?= customer_escape($notice) ?></p>
@@ -168,13 +168,21 @@ unset($_SESSION['auth_error'], $_SESSION['auth_old']);
         <?php else: ?>
             <h1><?= $signup ? 'Create your account' : 'Welcome back' ?></h1>
             <p><?= $signup ? 'Register once to explore Nivis Labs.' : 'Log in with your email and password.' ?></p>
-            <?php $returnTo = ($_GET['return'] ?? '') === 'checkout.php' ? 'checkout.php' : ''; ?>
-            <nav class="tabs" aria-label="Account options"><a href="login.php?mode=signup<?= $returnTo ? '&amp;return=checkout.php' : '' ?>" class="<?= $signup ? 'active' : '' ?>">Sign up</a><a href="login.php?mode=login<?= $returnTo ? '&amp;return=checkout.php' : '' ?>" class="<?= !$signup ? 'active' : '' ?>">Login</a></nav>
+            <?php
+            $returnOrderId = isset($_GET['order_id']) && is_string($_GET['order_id']) ? trim($_GET['order_id']) : '';
+            $returnToTracking = ($_GET['return'] ?? '') === 'tracking.php' && $returnOrderId !== '' && strlen($returnOrderId) <= 100;
+            $returnTo = $returnToTracking ? 'tracking.php' : (($_GET['return'] ?? '') === 'checkout.php' ? 'checkout.php' : '');
+            $returnQuery = $returnTo === 'checkout.php'
+                ? '&amp;return=checkout.php'
+                : ($returnToTracking ? '&amp;return=tracking.php&amp;order_id=' . rawurlencode($returnOrderId) : '');
+            ?>
+            <nav class="tabs" aria-label="Account options"><a href="login.php?mode=signup<?= $returnQuery ?>" class="<?= $signup ? 'active' : '' ?>">Sign up</a><a href="login.php?mode=login<?= $returnQuery ?>" class="<?= !$signup ? 'active' : '' ?>">Login</a></nav>
             <?php if ($error !== ''): ?><p class="message error" role="alert"><?= customer_escape($error) ?></p><?php endif; ?>
             <form action="check_login.php" method="post">
                 <input type="hidden" name="csrf" value="<?= customer_escape($_SESSION['csrf']) ?>">
                 <input type="hidden" name="mode" value="<?= $signup ? 'signup' : 'login' ?>">
-                <?php if ($returnTo): ?><input type="hidden" name="return" value="checkout.php"><?php endif; ?>
+                <?php if ($returnTo): ?><input type="hidden" name="return" value="<?= customer_escape($returnTo) ?>"><?php endif; ?>
+                <?php if ($returnToTracking): ?><input type="hidden" name="order_id" value="<?= customer_escape($returnOrderId) ?>"><?php endif; ?>
                 <?php if ($signup): ?>
                     <label for="name">Name</label><input id="name" name="name" autocomplete="name" maxlength="120" value="<?= customer_escape($old['name'] ?? '') ?>" required>
                     <label for="address">Address</label><textarea id="address" name="address" autocomplete="street-address" maxlength="255" required><?= customer_escape($old['address'] ?? '') ?></textarea>

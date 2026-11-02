@@ -1207,17 +1207,33 @@ a {
         object-position: center center;
     }
 
-    .index_img_section__cta {
-        right: 0.7rem;
-        bottom: 0.55rem;
-        padding: 0.34rem 0.58rem;
-        font-size: 0.62rem;
-        letter-spacing: 0.12em;
-        gap: 0.35rem;
+    .index_img_section {
+        aspect-ratio: 2 / 1;
+        background: #092f46;
+        touch-action: pan-y;
     }
 
-    .index_img_section__cta i {
-        font-size: 0.78rem;
+    .index_img_section__nav {
+        display: inline-flex;
+        width: 34px;
+        height: 34px;
+        background: rgba(9, 47, 70, .8);
+    }
+
+    .index_img_section__nav--prev {
+        left: 8px;
+    }
+
+    .index_img_section__nav--next {
+        right: 8px;
+    }
+
+    .index_img_section__cta {
+        display: none;
+    }
+
+    .index_img_section__nav i {
+        font-size: 0.9rem;
     }
 
     .index_img_section+* {

@@ -1,6 +1,6 @@
 <?php if (!isset($title)) { http_response_code(404); exit; } ?>
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title><?= customer_escape($title) ?> | Nivis Labs</title>
-<link rel="stylesheet" href="assets/css/theme.css?v=3"><link rel="stylesheet" href="assets/css/account-login.css?v=2">
+<link rel="stylesheet" href="assets/css/theme.css?v=3"><link rel="stylesheet" href="assets/css/account-login.css?v=3">
 <style>*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center}.card{width:100%}h1{font-size:26px;margin-top:28px}p{line-height:1.7}label{display:block;margin:18px 0 8px}input{width:100%;padding:13px;border-radius:8px;font:inherit}button,.continue{display:block;width:100%;padding:14px;margin-top:24px;border:0;border-radius:8px;font:inherit;font-weight:bold;text-align:center;text-decoration:none;cursor:pointer}.message{padding:14px;border-radius:8px}a{color:var(--nivis-gold)}</style></head>
 <body class="nivis-theme nivis-login"><main class="card"><div class="brand"><img src="assets/img/new_logo_head.png" alt="Nivis Labs International"></div><h1><?= customer_escape($title) ?></h1>
 <?php if ($message): ?><p class="message" role="status"><?= customer_escape($message) ?></p><?php endif; ?>

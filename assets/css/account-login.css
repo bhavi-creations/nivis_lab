@@ -8,7 +8,7 @@
 .nivis-login .card {
     background: var(--nivis-panel);
     border: 1px solid var(--nivis-border);
-    box-shadow: 0 24px 80px #0005;
+    box-shadow: var(--nivis-shadow);
     max-width: 490px;
     border-radius: 16px;
     padding: 36px
@@ -16,7 +16,7 @@
 
 .nivis-login .brand {
     text-align: center;
-    color: var(--nivis-gold)
+    color: var(--nivis-teal)
 }
 
 .nivis-login .brand img {
@@ -39,20 +39,23 @@
 }
 
 .nivis-login input,
-.nivis-login textarea {
-    background: #021a2d;
-    color: #f5f8fb;
-    border: 1px solid #7895a766;
-    color-scheme: dark
+.nivis-login textarea,
+.nivis-login select {
+    background: var(--nivis-surface-deep);
+    color: var(--nivis-text);
+    border: 1px solid var(--nivis-border);
+    color-scheme: light
 }
 
 .nivis-login input:focus,
-.nivis-login textarea:focus {
+.nivis-login textarea:focus,
+.nivis-login select:focus {
+    border-color: var(--nivis-gold);
     outline-color: var(--nivis-gold)
 }
 
 .nivis-login .tabs a {
-    color: var(--nivis-gold);
+    color: var(--nivis-teal);
     border-color: var(--nivis-border)
 }
 
@@ -60,20 +63,20 @@
 .nivis-login button,
 .nivis-login .continue {
     background: var(--nivis-button);
-    color: var(--nivis-ink);
+    color: #fff;
     border-color: var(--nivis-gold)
 }
 
 .nivis-login .message {
-    background: #174739;
-    color: #e3f6e8;
-    border: 1px solid #609e7d
+    background: var(--nivis-surface);
+    color: var(--nivis-text);
+    border: 1px solid var(--nivis-border)
 }
 
 .nivis-login .error {
-    background: #512e31;
-    color: #ffe2df;
-    border-color: #ac6866
+    background: #fff0ed;
+    color: #982f24;
+    border-color: #f1c1b9
 }
 
 .nivis-login .hint {
@@ -94,15 +97,11 @@
 .nivis-login select {
     width: 100%;
     padding: 12px;
-    border: 1px solid #7895a766;
     border-radius: 8px;
-    background: #021a2d;
-    color: #f5f8fb;
     font: inherit;
-    color-scheme: dark
 }
 
-.nivis-login select:focus {
+.nivis-login :is(input, textarea, select):focus {
     outline: 2px solid var(--nivis-gold);
     outline-offset: 2px
 }
@@ -130,7 +129,7 @@
     margin: 0 !important;
     background: transparent !important;
     border: 0 !important;
-    color: #f5f8fb !important;
+    color: var(--nivis-text) !important;
     cursor: pointer
 }
 

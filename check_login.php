@@ -2,9 +2,15 @@
 require_once __DIR__ . '/customer_auth.php';
 require_once __DIR__ . '/customer_backend.php';
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') { header('Location: login.php'); exit; }
+$returnTo = customer_value('return');
+$returnOrderId = customer_value('order_id');
+$returnToTracking = $returnTo === 'tracking.php' && $returnOrderId !== '' && strlen($returnOrderId) <= 100;
+$returnSuffix = $returnToTracking
+    ? '&return=tracking.php&order_id=' . rawurlencode($returnOrderId)
+    : ($returnTo === 'checkout.php' ? '&return=checkout.php' : '');
 if (empty($_SESSION['csrf']) || !hash_equals($_SESSION['csrf'], customer_value('csrf'))) {
     $_SESSION['auth_error'] = 'Your session expired. Please try again.';
-    header('Location: login.php?mode=login' . (customer_value('return') === 'checkout.php' ? '&return=checkout.php' : '')); exit;
+    header('Location: login.php?mode=login' . $returnSuffix); exit;
 }
 $mode = customer_value('mode') === 'signup' ? 'signup' : 'login';
 $email = strtolower(customer_value('email') ?: customer_value('username'));
@@ -47,7 +53,11 @@ try {
         unset($_SESSION['login_attempts'], $_SESSION['login_attempt_time']);
     }
     unset($_SESSION['auth_old']);
-    if (customer_value('return') === 'checkout.php') {
+    if ($returnToTracking) {
+        unset($_SESSION['auth_notice']);
+        header('Location: tracking.php?order_id=' . rawurlencode($returnOrderId)); exit;
+    }
+    if ($returnTo === 'checkout.php') {
         unset($_SESSION['auth_notice']);
         header('Location: checkout.php'); exit;
     }
@@ -55,4 +65,4 @@ try {
 } catch (RuntimeException $error) {
     $_SESSION['auth_error'] = $error->getMessage();
 }
-header('Location: login.php?mode=' . $mode . (customer_value('return') === 'checkout.php' ? '&return=checkout.php' : '')); exit;
+header('Location: login.php?mode=' . $mode . $returnSuffix); exit;
