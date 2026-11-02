@@ -40,7 +40,7 @@
                 <!-- RIGHT VISUAL -->
                 <div class="col-lg-6">
 
-                    <div class="nivislabs-about-page__hero-visual">
+                    <!-- <div class="nivislabs-about-page__hero-visual">
 
                         <div class="nivislabs-about-page__drop">
                             <div class="nivislabs-about-page__drop-shine"></div>
@@ -56,7 +56,9 @@
 
                         <div class="nivislabs-about-page__water-shadow"></div>
 
-                    </div>
+                    </div> -->
+
+                    <img src="./assets/img/about-side-img.png" alt="about-img" class="img-fluid">
 
                 </div>
 
@@ -205,7 +207,8 @@
                             <div class="nivislabs-about-page__foundation-item">
 
                                 <div class="foundation-icon">
-                                    <i class="bi bi-bezier2"></i>
+                                    <!-- <i class="bi bi-bezier2"></i> -->
+                                     <img src="./assets/img/dna-strand.png" alt="globe" style="width: 50px; height:50px;">
                                 </div>
 
                                 <p>
@@ -224,7 +227,10 @@
                             <div class="nivislabs-about-page__foundation-item">
 
                                 <div class="foundation-icon">
-                                    <i class="bi bi-leaf"></i>
+                                    <!-- <i class="bi bi-leaf"></i> -->
+                                                                          <!-- <img src="./assets/img/globe.png" alt="globe" style="width: 50px; height:50px;"> -->
+                                     <img src="./assets/img/leaf.png" alt="globe" style="width: 50px; height:50px;">
+
                                 </div>
 
                                 <p>
@@ -243,7 +249,10 @@
                             <div class="nivislabs-about-page__foundation-item">
 
                                 <div class="foundation-icon">
-                                    <i class="bi bi-layers"></i>
+                                    <!-- <i class="bi bi-layers"></i> -->
+                                                                          <!-- <img src="./assets/img/globe.png" alt="globe" style="width: 50px; height:50px;"> -->
+                                     <img src="./assets/img/layers.png" alt="globe" style="width: 50px; height:50px;">
+
                                 </div>
 
                                 <p>
