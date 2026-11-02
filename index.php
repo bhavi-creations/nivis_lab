@@ -1046,7 +1046,7 @@ $mobileHeroImages = [
     }
 
     function dermatRoutineDoctor(type) {
-        return 'Nivis Labs Recommends';
+        return 'Nivis Labs Internationsl';
     }
 
     function dermatAddCardToCart(card) {
@@ -1111,10 +1111,10 @@ $mobileHeroImages = [
                     <div class="dermat-selected-kicker">Selected product</div>
                     <h3>${escapeDermatHtml(selectedProduct.name || 'Product')}</h3>
                     <p>${escapeDermatHtml(selectedSubtitle)}</p>
-                    <div class="dermat-selected-actions">
-                        <strong>${window.NivisPricing.html(dermatPriceNumber(selectedProduct))}</strong>
-                        <button class="dermat-direct-cart" type="button">ADD</button>
-                    </div>
+                    <strong class="dermat-selected-price">${window.NivisPricing.html(dermatPriceNumber(selectedProduct))}</strong>
+                </div>
+                <div class="dermat-selected-actions">
+                    <button class="dermat-direct-cart" type="button">ADD</button>
                 </div>
             </div>
         `;

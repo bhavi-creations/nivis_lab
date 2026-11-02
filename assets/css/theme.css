@@ -678,7 +678,7 @@ body.nivis-theme {
 }
 
 .nivis-theme :is(.product-title, .price-main, .sec-title, .page-title,
-    .dermat-selected-product-copy h3, .dermat-selected-actions strong,
+    .dermat-selected-product-copy h3, .dermat-selected-actions strong, .dermat-selected-price,
     .dermat-selected-product .product-name, .dermat-selected-product .product-price,
     .dermat-routine-doctor, .dermat-routine-step-name, .dermat-routine-step-price,
     .dermat-routine-summary, .doctor_bio_name, .doctor_bio_prod_name,
@@ -1036,6 +1036,7 @@ body.nivis-theme {
     .product-price,
     .dermat-selected-product-copy h3,
     .dermat-selected-actions strong,
+    .dermat-selected-price,
     .dermat-routine-doctor,
     .dermat-routine-step-name,
     .dermat-routine-step-price,
@@ -1537,7 +1538,7 @@ body.nivis-theme {
     color: #ffffff !important;
 }
 
-/* Center the navbar search icon and reveal its search field beneath it. */
+/* Move the navbar search icon to the top and reveal its search field beneath it. */
 .nivis-theme .nivis-search-panel.is-open {
     display: block;
     padding: 0;
@@ -1547,7 +1548,7 @@ body.nivis-theme {
 
 .nivis-theme .nivis-search-panel__box {
     position: absolute;
-    top: calc(50% + 32px);
+    top: 72px;
     left: 50%;
     width: min(680px, calc(100% - 32px));
     padding: 22px;
@@ -1572,7 +1573,7 @@ body.nivis-theme {
 
 .nivis-theme #navbarSearchButton.nivis-search-panel__trigger.is-centered {
     left: 50%;
-    top: 50%;
+    top: 24px;
 }
 
 @keyframes nivis-search-panel-fade-in {

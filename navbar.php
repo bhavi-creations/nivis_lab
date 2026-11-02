@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="./assets/css/new_style.css?v=24">
-    <link rel="stylesheet" href="./assets/css/theme.css?v=12">
+    <link rel="stylesheet" href="./assets/css/theme.css?v=14">
     <link rel="stylesheet" href="./assets/css/skin-experience.css?v=3">
     <link rel="stylesheet" href="./assets/css/product-pricing.css?v=2">
     <link rel="stylesheet" href="./assets/css/order-tracking.css?v=1">
