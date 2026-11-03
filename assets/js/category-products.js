@@ -5,6 +5,14 @@
         'climate-cold-dry'
     ]);
     const allProductsCollections = new Set(['all', 'all-products', 'products']);
+    const skinCareCollections = new Set([
+        'sunscreen',
+        'brightening',
+        'acne',
+        'hyper-pigmentation',
+        'anti-ageing',
+        'dehydration'
+    ]);
     window.toggleFilter = toggleFilter;
     window.updatePrice = updatePrice;
 
@@ -24,6 +32,13 @@
         if (!categoryKey) return;
 
         if (grid) {
+            if (skinCareCollections.has(categoryKey)) {
+                const productGridWrap = grid.closest('.product-grid-wrap');
+                if (productGridWrap) {
+                    productGridWrap.classList.add('care-products-page', 'skincare-style-products-page', 'care-collection-products-page');
+                }
+                bindSpotlightStyleProductCart(grid);
+            }
             if (allProductsCollections.has(categoryKey)) {
                 const productGridWrap = grid.closest('.product-grid-wrap');
                 if (productGridWrap) {
@@ -205,7 +220,7 @@
             const priceMin = document.getElementById('priceMin');
             const priceMax = document.getElementById('priceMax');
             const productCount = document.getElementById('productCount');
-            const cards = document.querySelectorAll('#productsGrid .product-card');
+            const cards = document.querySelectorAll('#productsGrid .product-card, #productsGrid .spotlight-card[data-product-id]');
             const selectedGroups = ['concern', 'ingredient', 'type'].map(key => ({
                 key,
                 values: checkedFilterValues(`#filter-${key}`)
@@ -464,10 +479,14 @@
                 grid-template-columns: repeat(4, minmax(0, 1fr));
                 gap: 24px;
             }
+            .care-collection-products-page .products-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 20px 16px;
+            }
             .skincare-style-products-page .spotlight-card {
                 min-width: 0;
             }
-            .climate-products-page .climate-product-image-wrap {
+            .skincare-style-products-page .climate-product-image-wrap {
                 position: relative;
                 width: 100%;
                 aspect-ratio: 1 / 1;
@@ -477,7 +496,7 @@
                 border-radius: 12px;
                 background: #082f49;
             }
-            .climate-products-page .climate-product-image-wrap img {
+            .skincare-style-products-page .climate-product-image-wrap img {
                 position: absolute;
                 inset: 0;
                 width: 100%;
@@ -486,10 +505,10 @@
                 object-fit: contain;
                 transition: opacity .25s ease, transform .45s ease;
             }
-            .climate-products-page .climate-product-image-secondary {
+            .skincare-style-products-page .climate-product-image-secondary {
                 opacity: 0;
             }
-            .climate-products-page .climate-product-image-wrap:hover .climate-product-image-secondary {
+            .skincare-style-products-page .climate-product-image-wrap:hover .climate-product-image-secondary {
                 opacity: 1;
             }
             .climate-products-page .care-products-coming-soon {
@@ -553,6 +572,9 @@
         const size = product.size ? `<span class="spotlight-product-size">${escapeHtml(product.size)}</span>` : '';
         const priceNumber = productPriceNumber(product);
         const priceLabel = window.NivisPricing.html(priceNumber);
+        const concernTokens = productTokens(labelFromProduct(product, 'concern'));
+        const ingredientTokens = productTokens(labelFromProduct(product, 'ingredient'));
+        const typeTokens = productTokens(labelFromProduct(product, 'type'));
 
         return `
             <div class="spotlight-card"
@@ -560,7 +582,10 @@
                 data-product-name="${escapeHtml(name)}"
                 data-product-price="${escapeHtml(priceNumber)}"
                 data-product-image="${escapeHtml(primaryImage)}"
-                data-price="${escapeHtml(priceNumber)}">
+                data-price="${escapeHtml(priceNumber)}"
+                data-concern="${escapeHtml(concernTokens)}"
+                data-ingredient="${escapeHtml(ingredientTokens)}"
+                data-type="${escapeHtml(typeTokens)}">
                 <a href="${escapeHtml(link)}">
                     <div class="climate-product-image-wrap">
                         <img class="climate-product-image-primary" src="${escapeHtml(primaryImage)}" alt="${escapeHtml(name)}" loading="lazy"
@@ -677,7 +702,7 @@
         syncPriceSliderForProducts(products);
         bindPriceInputs();
         const categoryKey = getCategoryKey();
-        targetGrid.innerHTML = climateCollections.has(categoryKey)
+        targetGrid.innerHTML = climateCollections.has(categoryKey) || skinCareCollections.has(categoryKey)
             ? products.map(spotlightStyleProductCard).join('') + spotlightStyleComingSoonCard()
             : products.map(productCard).join('') + `
                 <div class="product-coming-soon-card" role="status">

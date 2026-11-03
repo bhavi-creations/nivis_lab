@@ -1325,14 +1325,14 @@ body.nivis-theme {
 @media (min-width: 1400px) {
     .nivis-theme h1,
     .nivis-theme .page-title { font-size: 56px !important; }
-    .nivis-theme h2 { font-size: 48px !important; }
-    .nivis-theme h3 { font-size: 40px !important; }
+    .nivis-theme h2 { font-size: 27px !important; }
+    .nivis-theme h3 { font-size: 28px !important; }
     .nivis-theme h4,
     .nivis-theme .product-title,
     .nivis-theme .product-name { font-size: 26px !important; }
     .nivis-theme p,
     .nivis-theme .product-desc,
-    .nivis-theme .product-subtitle { font-size: 20px !important; line-height: 1.65; }
+    .nivis-theme .product-subtitle { font-size: 15px !important; line-height: 1.65; }
     .nivis-theme nav,
     .nivis-theme .nav-link,
     .nivis-theme .navbar a,
@@ -1350,11 +1350,11 @@ body.nivis-theme {
 @media (min-width: 992px) and (max-width: 1399.98px) {
     .nivis-theme h1,
     .nivis-theme .page-title { font-size: 48px !important; }
-    .nivis-theme h2 { font-size: 32px !important; }
-    .nivis-theme h3 { font-size: 34px !important; }
+    .nivis-theme h2 { font-size: 27px !important; }
+    .nivis-theme h3 { font-size: 22px !important; }
     .nivis-theme h4,
     .nivis-theme .product-title,
-    .nivis-theme .product-name { font-size: 23px !important; }
+    .nivis-theme .product-name { font-size: 17px !important; }
     .nivis-theme p,
     .nivis-theme .product-desc,
     .nivis-theme .product-subtitle { font-size: 15px !important; line-height: 1.6; }
@@ -1375,8 +1375,8 @@ body.nivis-theme {
 @media (min-width: 768px) and (max-width: 991.98px) {
     .nivis-theme h1,
     .nivis-theme .page-title { font-size: 42px !important; }
-    .nivis-theme h2 { font-size: 34px !important; }
-    .nivis-theme h3 { font-size: 29px !important; }
+    .nivis-theme h2 { font-size: 27px !important; }
+    .nivis-theme h3 { font-size: 22px !important; }
     .nivis-theme h4,
     .nivis-theme .product-title,
     .nivis-theme .product-name { font-size: 21px !important; }
@@ -1574,6 +1574,39 @@ body.nivis-theme {
 .nivis-theme #navbarSearchButton.nivis-search-panel__trigger.is-centered {
     left: 50%;
     top: 24px;
+}
+
+@media (max-width: 767px) {
+    .nivis-theme .new_navbr_section__navbar .new_navbr_section__icons {
+        position: static;
+    }
+
+    .nivis-theme .new_navbr_section__navbar #navbarSearchButton:not(.nivis-search-panel__trigger) {
+        position: absolute;
+        z-index: 1;
+        top: 50%;
+        left: calc(clamp(10px, 2.4vw, 24px) + 38px + 9px);
+        margin: 0;
+        transform: translateY(-50%);
+    }
+}
+
+@media (max-width: 420px) {
+    .nivis-theme .new_navbr_section__navbar #navbarSearchButton:not(.nivis-search-panel__trigger) {
+        left: calc(clamp(10px, 2.4vw, 24px) + 34px + 4px);
+    }
+}
+
+@media (max-width: 360px) {
+    .nivis-theme .new_navbr_section__navbar #navbarSearchButton:not(.nivis-search-panel__trigger) {
+        left: calc(10px + 28px + 2px);
+    }
+}
+
+.nivis-theme .new_navbr_section__navbar .new_navbr_section__icon:is(:hover, :focus-visible),
+.nivis-theme .new_navbr_section__navbar .new_navbr_section__burger:is(:hover, :focus-visible) {
+    color: #075563 !important;
+    border-color: #c7a66a !important;
 }
 
 @keyframes nivis-search-panel-fade-in {

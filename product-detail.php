@@ -98,8 +98,8 @@
     </div>
 
     <div class="right_side_product">
-      <div class="badge-stamp" id="productBadge">NIVIS<br>LABS<br>*</div>
-      <div class="product-brand">Nivis Labs</div>
+      <!-- <div class="badge-stamp" id="productBadge">NIVIS<br>LABS<br>*</div> -->
+      <div class="product-brand">Nivis Labs International</div>
       <h1 class="product-title" id="productTitle">Loading product...</h1>
       <div class="product-subtitle" id="productSubtitle"></div>
 
@@ -305,7 +305,7 @@
 
   function renderProduct(product) {
     currentProduct = product;
-    document.title = 'Nivis Labs';
+    document.title = 'Nivis Labs ';
 
     setText('breadcrumbProduct', product.name || 'Product');
     setText('productTitle', product.name || 'Product');

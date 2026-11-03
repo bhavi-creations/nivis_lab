@@ -376,7 +376,7 @@
 }
 
 .nivis-support-instagram { background: linear-gradient(35deg, #b53f25, #bb2469, #6945bd); }
-.nivis-support-icon svg { width: 23px; height: 23px; }
+.nivis-support-icon svg { width: 23px; height: 23px;  color:white; }
 .nivis-support-facebook { background: #1667cf; }
 .nivis-support-whatsapp { background: #147f45; }
 .nivis-support-social a:hover { color: #fff; filter: brightness(1.15); }
@@ -408,7 +408,7 @@
     border-radius: 6px;
     background: #06243a;
     color: #fff;
-    font-size: 10px;
+    font-size: clamp(9px, 2.5vw, 10px);
     font-weight: 600;
     line-height: 1.4;
 }
@@ -447,14 +447,14 @@
 .nivis-support-header p {
     margin: 0 0 6px;
     color: #edc58e;
-    font-size: 10px;
+    font-size: clamp(9px, 2.5vw, 10px);
     font-weight: 700;
-    letter-spacing: .15em;
+    /* letter-spacing: .10em; */
 }
 
 .nivis-support-header h2 {
     margin: 0;
-    font-size: 21px;
+    font-size: clamp(16px, 5.25vw, 21px);
     font-weight: 700;
     color: #fff;
 }
@@ -481,7 +481,7 @@
     overflow-y: auto;
     overscroll-behavior: contain;
     padding: 20px;
-    font-size: 14px;
+    font-size: clamp(12px, 3.5vw, 14px);
     line-height: 1.6;
 }
 
@@ -499,7 +499,7 @@
     border-radius: 9px;
     background: #06243a;
     color: #fff;
-    font-size: 13px;
+    font-size: clamp(11px, 3.25vw, 13px);
     font-weight: 600;
     text-decoration: none;
 }
@@ -519,7 +519,7 @@
     border-radius: 10px;
     background: #f5f8fb;
     color: #18334a;
-    font-size: 13px;
+    font-size: clamp(11px, 3.25vw, 13px);
     font-weight: 600;
     text-align: left;
     line-height: 1.5;
@@ -540,7 +540,7 @@
 
 .nivis-support-answer h3 {
     color: #18334a;
-    font-size: 17px;
+    font-size: clamp(15px, 4.25vw, 17px);
     font-weight: 700;
 }
 
@@ -551,7 +551,10 @@
     background: #fff;
 }
 
-.nivis-support-contact p { margin-bottom: 12px; font-size: 13px; }
+.nivis-support-contact p {
+    margin-bottom: 12px;
+    font-size: clamp(11px, 3.25vw, 13px);
+}
 .nivis-support-contact > div { display: flex; gap: 10px; }
 
 .nivis-support-contact a {
@@ -566,6 +569,7 @@
     color: #18334a;
     text-decoration: none;
     font-weight: 700;
+    font-size: clamp(11px, 3.25vw, 13px);
 }
 
 .skin-assessment-panel :is(button, a):focus-visible,

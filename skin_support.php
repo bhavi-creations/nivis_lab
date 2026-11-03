@@ -12,7 +12,7 @@
 
 <section class="nivis-support-panel" id="nivis-support-panel" role="dialog" aria-modal="false" aria-labelledby="nivis-support-title" hidden>
     <header class="nivis-support-header">
-        <div><p>NIVIS LABS</p><h2 id="nivis-support-title" tabindex="-1">Your Skin Care Guide</h2></div>
+        <div><p>NIVIS LABS INTERNATIONAL</p><h2 id="nivis-support-title" tabindex="-1">Your Skin Care Guide</h2></div>
         <button type="button" id="nivis-support-close" aria-label="Close skin care help"><span aria-hidden="true">&times;</span></button>
     </header>
     <div class="nivis-support-body">
