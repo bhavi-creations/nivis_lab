@@ -8306,7 +8306,8 @@ button, .btn-cart, .btn-buy,
 .thumb-item.active,
 .info-tab.active {
     border-color: var(--nivis-primary) !important;
-    color: var(--nivis-primary) !important;
+    color: #ffffff !important;
+    /* color: var(--nivis-primary) !important; */
 }
 
 .info-tabs,

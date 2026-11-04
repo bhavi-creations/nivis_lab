@@ -8,7 +8,8 @@
 
 <style>
   .product-detail-page .info-tab {
-    background: #3d33335e;
+    background: #075563;
+    /* background: #3d33335e; */
     border: 0;
     border-bottom: 2px solid transparent;
   }
