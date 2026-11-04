@@ -7,6 +7,10 @@
 </div>
 
 <style>
+  .product-detail-page .benefit-icon {
+    font-size: 18px;
+  }
+
   .product-detail-page .info-tab {
     background: #075563;
     /* background: #3d33335e; */
@@ -289,7 +293,8 @@
     block.style.display = '';
     list.innerHTML = benefits.map(benefit => `
       <div class="benefit-item">
-        <div class="benefit-icon"><i class="fa fa-check"></i></div>
+        
+        <div class="benefit-icon" >✦</div>
         <div class="benefit-text">${escapeHtml(benefit)}</div>
       </div>
     `).join('');
