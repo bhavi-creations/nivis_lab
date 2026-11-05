@@ -440,7 +440,7 @@
 
 </footer>
 
-<nav class="nivis-social-rail" aria-label="Nivis Labs social media">
+<!-- <nav class="nivis-social-rail" aria-label="Nivis Labs social media">
     <a href="https://www.facebook.com/nivislabs.co/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
         <i class="fab fa-facebook-f" aria-hidden="true"></i>
     </a>
@@ -450,7 +450,7 @@
     <a href="https://www.youtube.com/@NivisLabs" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
         <i class="fab fa-youtube" aria-hidden="true"></i>
     </a>
-</nav>
+</nav> -->
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="cartDrawer">
     <div class="offcanvas-header border-bottom">

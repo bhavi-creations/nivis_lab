@@ -1329,7 +1329,7 @@ body.nivis-theme {
     .nivis-theme h3 { font-size: 28px !important; }
     .nivis-theme h4,
     .nivis-theme .product-title,
-    .nivis-theme .product-name { font-size: 26px !important; }
+    .nivis-theme .product-name { font-size: 19px !important; }
     .nivis-theme p,
     .nivis-theme .product-desc,
     .nivis-theme .product-subtitle { font-size: 15px !important; line-height: 1.65; }
@@ -1379,7 +1379,7 @@ body.nivis-theme {
     .nivis-theme h3 { font-size: 22px !important; }
     .nivis-theme h4,
     .nivis-theme .product-title,
-    .nivis-theme .product-name { font-size: 21px !important; }
+    .nivis-theme .product-name { font-size: 13px !important; }
     .nivis-theme p,
     .nivis-theme .product-desc,
     .nivis-theme .product-subtitle { font-size: 16px !important; line-height: 1.6; }
@@ -1604,4 +1604,47 @@ body.nivis-theme {
 @keyframes nivis-search-box-slide-in {
     from { opacity: 0; transform: translate(-50%, 12px); }
     to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.nivis-theme #hair-routine-content .hair-result-card {
+    border-color: var(--nivis-border);
+    background: var(--nivis-panel);
+    color: var(--nivis-text);
+    box-shadow: var(--nivis-shadow);
+}
+
+.nivis-theme #hair-routine-content .hair-result-card img {
+    border-color: var(--nivis-border);
+    background: var(--nivis-surface);
+}
+
+.nivis-theme #hair-routine-content .hair-result-card h3 {
+    color: var(--nivis-text);
+}
+
+.nivis-theme #hair-routine-content .hair-result-card .hair-result-meta {
+    color: var(--nivis-gold);
+}
+
+.nivis-theme #hair-routine-content .hair-result-card .hair-result-price {
+    color: var(--nivis-gold);
+}
+
+.nivis-theme #hair-routine-content .hair-result-card .hair-result-btn {
+    border: 1px solid var(--nivis-button);
+    background: var(--nivis-button);
+    color: #fff;
+}
+
+.nivis-theme #hair-routine-content .hair-result-card--coming-soon {
+    background: var(--nivis-panel);
+    color: var(--nivis-muted);
+}
+
+.nivis-theme #hair-routine-content .hair-result-card--coming-soon h3 {
+    color: var(--nivis-gold);
+}
+
+.nivis-theme #hair-routine-content .hair-result-card--coming-soon p {
+    color: var(--nivis-muted);
 }

@@ -367,19 +367,17 @@
     justify-content: center;
     width: 44px;
     height: 44px;
-    border: 1px solid rgba(255, 255, 255, .2);
+    border: 1px solid rgba(9, 47, 70, .35);
     border-radius: 50%;
-    color: #fff;
+    background: transparent;
+    color: var(--nivis-text, #092f46);
     font-size: 21px;
-    box-shadow: 0 5px 16px rgba(0, 0, 0, .25);
+    box-shadow: none;
     text-decoration: none;
 }
 
-.nivis-support-instagram { background: linear-gradient(35deg, #b53f25, #bb2469, #6945bd); }
-.nivis-support-icon svg { width: 23px; height: 23px;  color:white; }
-.nivis-support-facebook { background: #1667cf; }
-.nivis-support-whatsapp { background: #147f45; }
-.nivis-support-social a:hover { color: #fff; filter: brightness(1.15); }
+.nivis-support-icon svg { width: 23px; height: 23px; }
+.nivis-support-social a:hover { color: var(--nivis-text, #092f46); }
 
 .nivis-support-launcher {
     display: flex;
@@ -398,16 +396,16 @@
 .nivis-support-launcher .nivis-support-icon {
     width: 50px;
     height: 50px;
-    background: var(--nivis-button, #edc58e);
-    color: var(--nivis-ink, #06243a);
+    background: transparent;
+    color: var(--nivis-text, #092f46);
 }
 
 .nivis-support-caption {
     padding: 4px 7px;
-    border: 1px solid var(--nivis-border, #cad5de);
+    border: 1px solid transparent;
     border-radius: 6px;
-    background: #06243a;
-    color: #fff;
+    background: transparent;
+    color: var(--nivis-text, #092f46);
     font-size: clamp(9px, 2.5vw, 10px);
     font-weight: 600;
     line-height: 1.4;
@@ -587,21 +585,21 @@
     .skin-assessment-actions > .skin-assessment-primary { flex: 1; }
     .nivis-support-dock {
         right: 10px;
-        left: 10px;
-        flex-direction: row;
-        justify-content: space-between;
+        left: auto;
+        flex-direction: column;
+        justify-content: flex-start;
         align-items: flex-end;
-        gap: 10px;
+        gap: 8px;
         pointer-events: none;
     }
     .nivis-support-dock > * { pointer-events: auto; }
     .nivis-support-social {
-        flex-direction: row;
+        flex-direction: column;
         gap: 8px;
-        padding: 7px;
-        border: 1px solid var(--nivis-border, #cad5de);
-        border-radius: 40px;
-        background: #06243a;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
     }
     .nivis-support-icon { width: 44px; height: 44px; font-size: 19px; }
     .nivis-support-launcher .nivis-support-icon { width: 44px; height: 44px; }

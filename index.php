@@ -10,165 +10,6 @@
         margin-top: 0 !important;
     }
 
-    #indexStorySlider.index-story-slider {
-        position: relative;
-        width: 100%;
-        height: clamp(440px, 42vw, 600px);
-        min-height: 0;
-        aspect-ratio: auto;
-        overflow: hidden;
-        cursor: default;
-        border: 0;
-        /* background: linear-gradient(115deg, #f3f7f7, #fff 58%, #edf4f4); */
-        background: radial-gradient(circle at 86% 30%, rgba(7, 85, 99, .08), transparent 30%), linear-gradient(100deg, #ffffff 0%, #fbfdfd 50%, #edf7f7 100%);
-    }
-
-    #indexStorySlider .indexHero-slides,
-    #indexStorySlider .indexHero-slide {
-        position: absolute;
-        inset: 0;
-    }
-
-    #indexStorySlider .indexHero-slide {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-        align-items: center;
-        gap: clamp(20px, 4vw, 64px);
-        padding: clamp(32px, 6vw, 92px) max(9%, calc((100% - 1180px) / 2));
-        visibility: hidden;
-        opacity: 0;
-        pointer-events: none;
-        transform: translateX(18px);
-        transition: opacity .55s ease, transform .55s ease, visibility .55s;
-    }
-
-    #indexStorySlider .indexHero-slide.is-active {
-        visibility: visible;
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateX(0);
-    }
-
-    #indexStorySlider .indexHero-copy {
-        max-width: 560px;
-    }
-
-    #indexStorySlider .indexHero-eyebrow {
-        display: inline-block;
-        margin-bottom: 16px;
-        color: #075563;
-        font: 600 12px/1.4 'Barlow', sans-serif;
-        letter-spacing: .2em;
-        text-transform: uppercase;
-    }
-
-    #indexStorySlider .indexHero-title {
-        margin: 0 0 18px;
-        color: #092f46;
-        font: 700 clamp(34px, 4.2vw, 58px)/1.08 'Manrope', sans-serif;
-        letter-spacing: -.035em;
-    }
-
-    #indexStorySlider .indexHero-description {
-        max-width: 500px;
-        margin: 0 0 26px;
-        color: #536873;
-        font: 400 clamp(15px, 1.3vw, 18px)/1.7 'Barlow', sans-serif;
-    }
-
-    #indexStorySlider .indexHero-cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 13px 20px;
-        border: 1px solid #075563;
-        border-radius: 3px;
-        background: #075563;
-        color: #fff;
-        font: 600 14px/1.2 'Barlow', sans-serif;
-        text-decoration: none;
-        transition: background .2s ease, transform .2s ease;
-    }
-
-    #indexStorySlider .indexHero-cta:hover {
-        transform: translateY(-2px);
-        background: #092f46;
-    }
-
-    #indexStorySlider .indexHero-visual {
-        display: flex;
-        min-width: 0;
-        height: 100%;
-        max-height: 420px;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        border-radius: 8px;
-        background: rgba(255, 255, 255, .62);
-    }
-
-    #indexStorySlider .indexHero-visual img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: right center;
-    }
-
-    #indexStorySlider .indexHero-nav {
-        position: absolute;
-        top: 50%;
-        z-index: 3;
-        display: grid;
-        width: 44px;
-        height: 44px;
-        place-items: center;
-        border: 1px solid rgba(7, 85, 99, .2);
-        border-radius: 50%;
-        background: rgba(255, 255, 255, .94);
-        color: #075563;
-        box-shadow: 0 6px 18px rgba(9, 47, 70, .1);
-        transform: translateY(-50%);
-        cursor: pointer;
-    }
-
-    #indexStorySlider .indexHero-nav:hover {
-        background: #075563;
-        color: #fff;
-    }
-
-    #indexStorySlider .indexHero-nav--prev {
-        left: 20px;
-    }
-
-    #indexStorySlider .indexHero-nav--next {
-        right: 20px;
-    }
-
-    #indexStorySlider .indexHero-dots {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        z-index: 3;
-        display: flex;
-        gap: 9px;
-        transform: translateX(-50%);
-    }
-
-    #indexStorySlider .indexHero-dot {
-        width: 9px;
-        height: 9px;
-        padding: 0;
-        border: 0;
-        border-radius: 50%;
-        background: #b7c8ca;
-        cursor: pointer;
-    }
-
-    #indexStorySlider .indexHero-dot[aria-current="true"] {
-        background: #075563;
-    }
-
     #indexHero .index_img_section__nav {
         display: inline-flex;
     }
@@ -203,65 +44,6 @@
     }
 
     @media (max-width: 767.98px) {
-        #indexStorySlider.index-story-slider {
-            height: auto;
-            min-height: 0;
-            aspect-ratio: auto;
-        }
-
-        #indexStorySlider .indexHero-slides {
-            position: relative;
-            inset: auto;
-        }
-
-        #indexStorySlider .indexHero-slide {
-            position: relative;
-            inset: auto;
-            display: none;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            padding: 34px 52px 56px;
-            transform: none;
-        }
-
-        #indexStorySlider .indexHero-slide.is-active {
-            display: grid;
-        }
-
-        #indexStorySlider .indexHero-copy {
-            order: 1;
-        }
-
-        #indexStorySlider .indexHero-visual {
-            order: 2;
-            height: clamp(190px, 54vw, 300px);
-        }
-
-        #indexStorySlider .indexHero-title {
-            font-size: clamp(30px, 8vw, 42px);
-        }
-
-        #indexStorySlider .indexHero-description {
-            margin-bottom: 18px;
-        }
-
-        #indexStorySlider .indexHero-nav {
-            width: 36px;
-            height: 36px;
-        }
-
-        #indexStorySlider .indexHero-nav--prev {
-            left: 8px;
-        }
-
-        #indexStorySlider .indexHero-nav--next {
-            right: 8px;
-        }
-
-        #indexStorySlider .indexHero-dots {
-            bottom: 14px;
-        }
-
         #indexHero.index_img_section {
             height: auto;
             min-height: 0;
@@ -316,13 +98,6 @@
         }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-
-        #indexStorySlider .indexHero-slide,
-        #indexStorySlider .indexHero-cta {
-            transition: none;
-        }
-    }
 </style>
 
 <section class="index_img_section" id="indexHero" aria-label="Featured products image slider" aria-roledescription="carousel">
@@ -345,13 +120,13 @@
             </picture>
             <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
         </a>
-        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/instant-glow-bg.png');">
+        <!-- <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/instant-glow-bg.png');">
             <picture>
                 <source media="(max-width: 640px)" srcset="./assets/img/mobile2.png">
                 <img class="index_img_section__product" src="./assets/img/instant-glow-bg.png" alt="Nivis Labs Instant Glow" loading="lazy">
             </picture>
             <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
-        </a>
+        </a> -->
         <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/6.png');">
             <picture>
                 <source media="(max-width: 640px)" srcset="./assets/img/mobile3.png">
@@ -373,13 +148,13 @@
             </picture>
             <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
         </a>
-        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/folilock-cream-pro-bg.png');">
+        <!-- <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/folilock-cream-pro-bg.png');">
             <picture>
                 <source media="(max-width: 640px)" srcset="./assets/img/mobile6.png">
                 <img class="index_img_section__product" src="./assets/img/folilock-cream-pro-bg.png" alt="Nivis Labs Folilock Cream Pro" loading="lazy">
             </picture>
             <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
-        </a>
+        </a> -->
     </div>
     <button type="button" class="index_img_section__nav index_img_section__nav--prev" id="classicHeroPrev" aria-label="Previous image">
         <i class="bi bi-chevron-left" aria-hidden="true"></i>
@@ -388,52 +163,6 @@
         <i class="bi bi-chevron-right" aria-hidden="true"></i>
     </button>
     <div class="index_img_section__dots" id="classicHeroDots" aria-label="Image slider navigation"></div>
-</section>
-
-<section class="index-story-slider" id="indexStorySlider" aria-label="About Nivis Labs" aria-roledescription="carousel">
-    <div class="indexHero-slides" id="storySliderSlides" aria-live="polite">
-        <article class="indexHero-slide is-active" aria-hidden="false">
-            <div class="indexHero-copy">
-                <span class="indexHero-eyebrow">About Nivis Labs</span>
-                <h1 class="indexHero-title">Skincare, shaped by science.</h1>
-                <p class="indexHero-description">Thoughtfully created skincare that works with your skin and the changing climate to help keep it healthy, balanced and resilient.</p>
-                <a class="indexHero-cta" href="about.php">Discover our story <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-            </div>
-            <div class="indexHero-visual">
-                <img src="./assets/img/2.png" alt="Nivis Labs skincare product" fetchpriority="high">
-            </div>
-        </article>
-        <article class="indexHero-slide" aria-hidden="true">
-            <div class="indexHero-copy">
-                <span class="indexHero-eyebrow">Everyday radiance</span>
-                <h2 class="indexHero-title">A little care. A brighter glow.</h2>
-                <p class="indexHero-description">Explore gentle, science-led essentials made to support a fresh, luminous-looking complexion every day.</p>
-                <a class="indexHero-cta" href="products.php">Explore skincare <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-            </div>
-            <div class="indexHero-visual">
-                <img src="./assets/img/6.png" alt="Nivis Labs glow serum" loading="lazy">
-            </div>
-        </article>
-        <article class="indexHero-slide" aria-hidden="true">
-            <div class="indexHero-copy">
-                <span class="indexHero-eyebrow">Care for every climate</span>
-                <h2 class="indexHero-title">Make daily sun care simple.</h2>
-                <p class="indexHero-description">Find lightweight daily sun-care essentials designed to fit comfortably into your routine.</p>
-                <a class="indexHero-cta" href="products.php?category=sunscreen">Shop sun care <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-            </div>
-            <div class="indexHero-visual">
-                <img src="./assets/img/7.png" alt="Nivis Labs UV Aqua sunscreen" loading="lazy">
-            </div>
-        </article>
-    </div>
-    <button type="button" class="indexHero-nav indexHero-nav--prev" id="storySliderPrev" aria-label="Previous slide">
-        <i class="bi bi-chevron-left" aria-hidden="true"></i>
-    </button>
-    <button type="button" class="indexHero-nav indexHero-nav--next" id="storySliderNext" aria-label="Next slide">
-        <i class="bi bi-chevron-right" aria-hidden="true"></i>
-    </button>
-    <div class="indexHero-dots" role="group" aria-label="Choose a slide">
-    </div>
 </section>
 
 <script>
@@ -488,96 +217,6 @@
         hero.addEventListener('focusin', stopAutoplay);
         hero.addEventListener('focusout', event => {
             if (!hero.contains(event.relatedTarget)) startAutoplay();
-        });
-        hero.addEventListener('touchstart', event => {
-            touchStartX = event.changedTouches[0]?.clientX ?? null;
-        }, {
-            passive: true
-        });
-        hero.addEventListener('touchend', event => {
-            const endX = event.changedTouches[0]?.clientX;
-            if (touchStartX === null || typeof endX !== 'number' || Math.abs(endX - touchStartX) < 45) return;
-            showSlide(current + (endX < touchStartX ? 1 : -1));
-            startAutoplay();
-            touchStartX = null;
-        }, {
-            passive: true
-        });
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) stopAutoplay();
-            else if (!hero.matches(':hover') && !hero.contains(document.activeElement)) startAutoplay();
-        });
-
-        showSlide(0);
-        startAutoplay();
-    })();
-
-    (function() {
-        const hero = document.getElementById('indexStorySlider');
-        if (!hero) return;
-
-        const slides = Array.from(hero.querySelectorAll('.indexHero-slide'));
-        const dotsWrap = hero.querySelector('.indexHero-dots');
-        if (!slides.length || !dotsWrap) return;
-
-        dotsWrap.innerHTML = slides.map((_, index) =>
-            `<button type="button" class="indexHero-dot" aria-label="Show slide ${index + 1}" aria-current="${index === 0}"></button>`
-        ).join('');
-        const dots = Array.from(dotsWrap.querySelectorAll('.indexHero-dot'));
-        let current = 0;
-        let timer = null;
-        let touchStartX = null;
-
-        function showSlide(index) {
-            current = (index + slides.length) % slides.length;
-            slides.forEach((slide, slideIndex) => {
-                const active = slideIndex === current;
-                slide.classList.toggle('is-active', active);
-                slide.setAttribute('aria-hidden', String(!active));
-                if (slide.matches('a, button')) slide.tabIndex = active ? 0 : -1;
-                slide.querySelectorAll('a, button').forEach(control => {
-                    control.tabIndex = active ? 0 : -1;
-                });
-                dots[slideIndex]?.setAttribute('aria-current', String(active));
-            });
-        }
-
-        function startAutoplay() {
-            window.clearInterval(timer);
-            timer = window.setInterval(() => showSlide(current + 1), 5000);
-        }
-
-        function stopAutoplay() {
-            window.clearInterval(timer);
-        }
-
-        document.getElementById('storySliderPrev')?.addEventListener('click', () => {
-            showSlide(current - 1);
-            startAutoplay();
-        });
-        document.getElementById('storySliderNext')?.addEventListener('click', () => {
-            showSlide(current + 1);
-            startAutoplay();
-        });
-        dots.forEach((dot, index) => dot.addEventListener('click', () => {
-            showSlide(index);
-            startAutoplay();
-        }));
-
-        hero.addEventListener('mouseenter', stopAutoplay);
-        hero.addEventListener('mouseleave', startAutoplay);
-        hero.addEventListener('focusin', stopAutoplay);
-        hero.addEventListener('focusout', event => {
-            if (!hero.contains(event.relatedTarget)) startAutoplay();
-        });
-        hero.addEventListener('keydown', event => {
-            if (event.key === 'ArrowLeft') {
-                showSlide(current - 1);
-                startAutoplay();
-            } else if (event.key === 'ArrowRight') {
-                showSlide(current + 1);
-                startAutoplay();
-            }
         });
         hero.addEventListener('touchstart', event => {
             touchStartX = event.changedTouches[0]?.clientX ?? null;
@@ -799,8 +438,8 @@
 
     #dermatConcernRow .routine-concern-image {
         position: relative;
-        width: 150px;
-        height: 150px;
+        width: 147px;
+        height: 147px;
         margin: 0 auto;
     }
 
@@ -870,7 +509,7 @@
 
         #dermatConcernRow .routine-concern-image {
             width: 100%;
-            max-width: 120px;
+            max-width: 117px;
             height: auto;
             aspect-ratio: 1;
         }
@@ -1719,7 +1358,12 @@
         }
 
         #hairConcernRow .concern-item {
-            flex: 0 0 180px;
+            flex: 0 0 140px;
+        }
+
+        #hairConcernRow .concern-card img {
+            width: calc(100% - 3px);
+            margin-inline: auto;
         }
 
         #hairConcernRow .hair-concern-image {
@@ -1918,7 +1562,7 @@
             #hairConcernRow .hair-concern-image {
                 position: relative;
                 display: block;
-                width: min(100%, 132px);
+                width: min(100%, 119px);
                 margin-inline: auto;
                 aspect-ratio: 1;
             }

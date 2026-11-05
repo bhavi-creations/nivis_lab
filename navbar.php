@@ -28,7 +28,7 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="./assets/css/new_style.css?v=29">
     <link rel="stylesheet" href="./assets/css/theme.css?v=15">
-    <link rel="stylesheet" href="./assets/css/skin-experience.css?v=4">
+    <link rel="stylesheet" href="./assets/css/skin-experience.css?v=5">
     <link rel="stylesheet" href="./assets/css/product-pricing.css?v=2">
     <link rel="stylesheet" href="./assets/css/order-tracking.css?v=1">
     <script src="./assets/js/product-pricing.js?v=2"></script>
@@ -41,7 +41,7 @@
     <!--
      1. MARQUEE SECTION
 -->
-<!-- <div class="new_navbr_section__offer_bar">
+    <!-- <div class="new_navbr_section__offer_bar">
     <marquee behavior="scroll" direction="left" scrollamount="5">
         <div class="new_navbr_section__offer_track">
 
@@ -78,14 +78,14 @@
 </div> -->
 
 
-<!-- NEW MARQUEE SECTION START -->
-<section class="new-marquee-section">
-    <div class="new-marquee-wrapper">
-        <div class="new-marquee-track" id="newMarqueeTrack">
-            
+    <!-- NEW MARQUEE SECTION START -->
+    <section class="new-marquee-section">
+        <div class="new-marquee-wrapper">
+            <div class="new-marquee-track" id="newMarqueeTrack">
+
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
 
@@ -237,7 +237,7 @@
 
 
 
-                    <!-- <li class="index_navbar_section__mob-item" data-has-sub="true">
+            <!-- <li class="index_navbar_section__mob-item" data-has-sub="true">
     <div class="index_navbar_section__mob-row">
         <span class="index_navbar_section__mob-label">See The Magic</span>
         <span class="index_navbar_section__mob-plus"><i class="bi bi-plus"></i></span>
@@ -317,12 +317,12 @@
                     <ul class="new_navbr_section__links">
 
 
-<li class="new_navbr_section__item">
+                        <li class="new_navbr_section__item">
 
                             <a href="index.php"
                                 class="new_navbr_section__link">
 
-                               Home
+                                Home
 
                             </a>
 
@@ -343,7 +343,7 @@
                             <a href="about.php"
                                 class="new_navbr_section__link">
 
-                               About
+                                About
 
                             </a>
 
@@ -374,7 +374,7 @@
                         </li>
 
                         <!-- INGREDIENTS -->
-                          <!-- <li class="new_navbr_section__item">
+                        <!-- <li class="new_navbr_section__item">
 
                             <a href="#"
                                 class="new_navbr_section__link">
@@ -442,7 +442,7 @@
 
 
 
-                      <!-- <li class="new_navbr_section__item">
+                        <!-- <li class="new_navbr_section__item">
     <a href="#" class="new_navbr_section__link">
         See The Magic
     </a>
@@ -478,7 +478,7 @@
 
                         </li>
 
-                         <li class="new_navbr_section__item">
+                        <li class="new_navbr_section__item">
 
                             <a href="climate-adaptive-skincaare.php"
                                 class="new_navbr_section__link">
@@ -710,7 +710,7 @@
 
 
 
- <li class="new_navbr_section__mobile_item">
+                <li class="new_navbr_section__mobile_item">
 
                     <a href="index.php"
                         class="new_navbr_section__mobile_plain">
@@ -900,9 +900,9 @@
                         <li><a href="products.php?category=climate-cold-dry">Cold &amp; Dry</a></li>
                     </ul>
                 </li>
-              
 
-                
+
+
 
 
 
@@ -954,27 +954,39 @@
     <script src="./assets/js/graphql-client.js?v=6"></script>
     <script src="./assets/js/search-suggestions.js?v=9"></script>
 
-   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const track = document.getElementById('newMarqueeTrack');
-        if (!track) return;
 
-        const offers = [
-            'BUY 1 GET 10% OFF',
-            'BUY 2 GET 20% OFF'
-        ];
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const track = document.getElementById('newMarqueeTrack');
+            if (!track) return;
 
-        const items = Array.from({ length: 8 }, () => offers).flat();
+            const offers = [{
+                    text: 'BUY 1 GET 10% OFF',
+                    coupon: 'COUPON: FIRSTTIME'
+                },
+                {
+                    text: 'BUY 2 GET 20% OFF',
+                    coupon: 'COUPON: SECONDTIME'
+                }
+            ];
 
-        track.innerHTML = items.map(offer => `
+            const items = Array.from({
+                length: 8
+            }, () => offers).flat();
+
+            track.innerHTML = items.map(offer => `
             <div class="new-marquee-item">
                 <span class="new-marquee-separator">✦</span>
-                <span>${offer}</span>
+                <span>${offer.text}</span>
+                <span class="new-marquee-coupon">
+                    ${offer.coupon}
+                </span>
                 <span class="new-marquee-separator">✦</span>
             </div>
         `).join('');
-    });
-</script>
+        });
+    </script>
+
 
     <script>
         /* â”€â”€â”€ Navbar scroll behaviour â”€â”€â”€ */
@@ -1157,6 +1169,6 @@
         });
     </script>
 
-    
+
 
     <?php include __DIR__ . '/account_drawer.php'; ?>

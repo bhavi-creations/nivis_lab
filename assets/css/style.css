@@ -1742,7 +1742,7 @@ a {
 ========================================================= */
 
 .index_straight-up_section .container::before {
-    content: "";
+    content: none;
 
     position: absolute;
 
