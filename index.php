@@ -1,28 +1,4 @@
-﻿<?php
-include 'navbar.php';
-$newHeroImages = [
-    // ['file' => 'index-slider-img.png', 'alt' => 'Folilock Cream Pro'],
-    ['file' => '2.png', 'alt' => 'Foaming Face Wash'],
-    ['file' => 'instant-glow-bg.png', 'alt' => 'Instant Glow'],
-     ['file' => '6.png', 'alt' => 'Instant Glow'],
-    ['file' => '7.png', 'alt' => 'Folilock Cream'],
-    ['file' => '8.png', 'alt' => 'Folilock Cream Pro'],
-    
-   
-];
-$mobileHeroImages = [
-    // Add mobile-only banners here, for example: ['file' => 'mobile-banner-1.png', 'alt' => 'Mobile banner']
-//  ['file' => 'index-slider-img-sqare.png', 'alt' => 'Foaming Face Wash'],
- ['file' => 'mobile1.png', 'alt' => 'Foaming Face Wash'],
-    ['file' => 'mobile2.png', 'alt' => 'Instant Glow'],
-     ['file' => 'mobile3.png', 'alt' => 'Instant Glow'],
-    ['file' => 'mobile4.png', 'alt' => 'Folilock Cream'],
-    ['file' => 'mobile5.png', 'alt' => 'Folilock Cream Pro'],
-    ['file' => 'mobile6.png', 'alt' => 'Folilock Cream Pro'],
-
-
-    ];
-?>
+<?php include 'navbar.php'; ?>
 <style>
     html:has(#indexHero),
     body:has(#indexHero) {
@@ -33,15 +9,327 @@ $mobileHeroImages = [
     body:has(#indexHero) .new_navbr_section__offer_bar {
         margin-top: 0 !important;
     }
+
+    #indexStorySlider.index-story-slider {
+        position: relative;
+        width: 100%;
+        height: clamp(440px, 42vw, 600px);
+        min-height: 0;
+        aspect-ratio: auto;
+        overflow: hidden;
+        cursor: default;
+        border: 0;
+        /* background: linear-gradient(115deg, #f3f7f7, #fff 58%, #edf4f4); */
+        background: radial-gradient(circle at 86% 30%, rgba(7, 85, 99, .08), transparent 30%), linear-gradient(100deg, #ffffff 0%, #fbfdfd 50%, #edf7f7 100%);
+    }
+
+    #indexStorySlider .indexHero-slides,
+    #indexStorySlider .indexHero-slide {
+        position: absolute;
+        inset: 0;
+    }
+
+    #indexStorySlider .indexHero-slide {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        align-items: center;
+        gap: clamp(20px, 4vw, 64px);
+        padding: clamp(32px, 6vw, 92px) max(9%, calc((100% - 1180px) / 2));
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(18px);
+        transition: opacity .55s ease, transform .55s ease, visibility .55s;
+    }
+
+    #indexStorySlider .indexHero-slide.is-active {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(0);
+    }
+
+    #indexStorySlider .indexHero-copy {
+        max-width: 560px;
+    }
+
+    #indexStorySlider .indexHero-eyebrow {
+        display: inline-block;
+        margin-bottom: 16px;
+        color: #075563;
+        font: 600 12px/1.4 'Barlow', sans-serif;
+        letter-spacing: .2em;
+        text-transform: uppercase;
+    }
+
+    #indexStorySlider .indexHero-title {
+        margin: 0 0 18px;
+        color: #092f46;
+        font: 700 clamp(34px, 4.2vw, 58px)/1.08 'Manrope', sans-serif;
+        letter-spacing: -.035em;
+    }
+
+    #indexStorySlider .indexHero-description {
+        max-width: 500px;
+        margin: 0 0 26px;
+        color: #536873;
+        font: 400 clamp(15px, 1.3vw, 18px)/1.7 'Barlow', sans-serif;
+    }
+
+    #indexStorySlider .indexHero-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 13px 20px;
+        border: 1px solid #075563;
+        border-radius: 3px;
+        background: #075563;
+        color: #fff;
+        font: 600 14px/1.2 'Barlow', sans-serif;
+        text-decoration: none;
+        transition: background .2s ease, transform .2s ease;
+    }
+
+    #indexStorySlider .indexHero-cta:hover {
+        transform: translateY(-2px);
+        background: #092f46;
+    }
+
+    #indexStorySlider .indexHero-visual {
+        display: flex;
+        min-width: 0;
+        height: 100%;
+        max-height: 420px;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, .62);
+    }
+
+    #indexStorySlider .indexHero-visual img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: right center;
+    }
+
+    #indexStorySlider .indexHero-nav {
+        position: absolute;
+        top: 50%;
+        z-index: 3;
+        display: grid;
+        width: 44px;
+        height: 44px;
+        place-items: center;
+        border: 1px solid rgba(7, 85, 99, .2);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, .94);
+        color: #075563;
+        box-shadow: 0 6px 18px rgba(9, 47, 70, .1);
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+
+    #indexStorySlider .indexHero-nav:hover {
+        background: #075563;
+        color: #fff;
+    }
+
+    #indexStorySlider .indexHero-nav--prev {
+        left: 20px;
+    }
+
+    #indexStorySlider .indexHero-nav--next {
+        right: 20px;
+    }
+
+    #indexStorySlider .indexHero-dots {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        z-index: 3;
+        display: flex;
+        gap: 9px;
+        transform: translateX(-50%);
+    }
+
+    #indexStorySlider .indexHero-dot {
+        width: 9px;
+        height: 9px;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        background: #b7c8ca;
+        cursor: pointer;
+    }
+
+    #indexStorySlider .indexHero-dot[aria-current="true"] {
+        background: #075563;
+    }
+
+    #indexHero .index_img_section__nav {
+        display: inline-flex;
+    }
+
+    #indexHero .index_img_section__dots {
+        position: absolute;
+        right: 0;
+        bottom: 14px;
+        left: 0;
+        z-index: 15;
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    #indexHero .index_img_section__dots button {
+        width: 9px;
+        height: 9px;
+        padding: 0;
+        overflow: hidden;
+        border: 1px solid rgba(9, 47, 70, .5);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, .7);
+        color: transparent;
+        font-size: 0;
+        cursor: pointer;
+    }
+
+    #indexHero .index_img_section__dots button.active {
+        background: #075563;
+        border-color: #075563;
+    }
+
+    @media (max-width: 767.98px) {
+        #indexStorySlider.index-story-slider {
+            height: auto;
+            min-height: 0;
+            aspect-ratio: auto;
+        }
+
+        #indexStorySlider .indexHero-slides {
+            position: relative;
+            inset: auto;
+        }
+
+        #indexStorySlider .indexHero-slide {
+            position: relative;
+            inset: auto;
+            display: none;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 34px 52px 56px;
+            transform: none;
+        }
+
+        #indexStorySlider .indexHero-slide.is-active {
+            display: grid;
+        }
+
+        #indexStorySlider .indexHero-copy {
+            order: 1;
+        }
+
+        #indexStorySlider .indexHero-visual {
+            order: 2;
+            height: clamp(190px, 54vw, 300px);
+        }
+
+        #indexStorySlider .indexHero-title {
+            font-size: clamp(30px, 8vw, 42px);
+        }
+
+        #indexStorySlider .indexHero-description {
+            margin-bottom: 18px;
+        }
+
+        #indexStorySlider .indexHero-nav {
+            width: 36px;
+            height: 36px;
+        }
+
+        #indexStorySlider .indexHero-nav--prev {
+            left: 8px;
+        }
+
+        #indexStorySlider .indexHero-nav--next {
+            right: 8px;
+        }
+
+        #indexStorySlider .indexHero-dots {
+            bottom: 14px;
+        }
+
+        #indexHero.index_img_section {
+            height: auto;
+            min-height: 0;
+            aspect-ratio: auto;
+            background: #f3f5f5;
+        }
+
+        #indexHero .index_img_section__slides {
+            position: relative;
+            inset: auto;
+        }
+
+        #indexHero .index_img_section__slide {
+            display: none;
+            position: relative;
+            inset: auto;
+            aspect-ratio: auto;
+            opacity: 1;
+            visibility: visible;
+            transition: none;
+        }
+
+        #indexHero .index_img_section__slide.active {
+            display: block;
+        }
+
+        #indexHero .index_img_section__slide::after {
+            display: none;
+        }
+
+        #indexHero .index_img_section__product,
+        #indexHero .index_img_section__slide picture {
+            position: relative;
+            inset: auto;
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 72vh;
+            object-fit: contain;
+        }
+
+        #indexHero .index_img_section__nav--prev {
+            left: 8px;
+        }
+
+        #indexHero .index_img_section__nav--next {
+            right: 8px;
+        }
+
+        #indexHero .index_img_section__dots {
+            bottom: 10px;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+        #indexStorySlider .indexHero-slide,
+        #indexStorySlider .indexHero-cta {
+            transition: none;
+        }
+    }
 </style>
 
-
-<section class="index_img_section" id="indexHero" aria-label="Nivis Labs featured products">
+<section class="index_img_section" id="indexHero" aria-label="Featured products image slider" aria-roledescription="carousel">
     <div class="index_img_section__bg"></div>
     <div class="index_img_section__stripes"></div>
     <div class="index_img_section__glow"></div>
-
-    <svg class="index_img_section__rays" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <svg class="index_img_section__rays" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <line class="ray ray-1" x1="820" y1="380" x2="1440" y2="60" />
         <line class="ray ray-2" x1="820" y1="380" x2="1440" y2="200" />
         <line class="ray ray-3" x1="820" y1="380" x2="1440" y2="720" />
@@ -49,273 +337,269 @@ $mobileHeroImages = [
         <line class="ray ray-1" x1="820" y1="380" x2="100" y2="50" />
         <line class="ray ray-3" x1="820" y1="380" x2="600" y2="800" />
     </svg>
-
-    <button type="button" class="index_img_section__nav index_img_section__nav--prev" id="indexHeroPrev" aria-label="Previous slide">
-        <i class="bi bi-chevron-left"></i>
-    </button>
-    <button type="button" class="index_img_section__nav index_img_section__nav--next" id="indexHeroNext" aria-label="Next slide">
-        <i class="bi bi-chevron-right"></i>
-    </button>
-
-    <div class="index_img_section__slides" id="indexHeroSlides">
-        <?php foreach ($newHeroImages as $heroIndex => $heroImage):
-            $imagePath = './assets/img/' . $heroImage['file'];
-        ?>
-            <a class="index_img_section__slide<?php echo $heroIndex === 0 ? ' active' : ''; ?>" href="products.php"
-                style="--hero-img: url('<?php echo htmlspecialchars($imagePath); ?>');">
-                <img class="index_img_section__product" src="<?php echo htmlspecialchars($imagePath); ?>"
-                    alt="<?php echo htmlspecialchars($heroImage['alt']); ?>"
-                    onerror="this.src='./assets/img/product.webp';" />
-                <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
-            </a>
-        <?php endforeach; ?>
+    <div class="index_img_section__slides" id="indexHeroSlides" aria-live="polite">
+        <a class="index_img_section__slide active" href="products.php" style="--hero-img: url('./assets/img/2.png');">
+            <picture>
+                <source media="(max-width: 640px)" srcset="./assets/img/mobile1.png">
+                <img class="index_img_section__product" src="./assets/img/2.png" alt="Nivis Labs featured skincare" fetchpriority="high">
+            </picture>
+            <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
+        </a>
+        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/instant-glow-bg.png');">
+            <picture>
+                <source media="(max-width: 640px)" srcset="./assets/img/mobile2.png">
+                <img class="index_img_section__product" src="./assets/img/instant-glow-bg.png" alt="Nivis Labs Instant Glow" loading="lazy">
+            </picture>
+            <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
+        </a>
+        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/6.png');">
+            <picture>
+                <source media="(max-width: 640px)" srcset="./assets/img/mobile3.png">
+                <img class="index_img_section__product" src="./assets/img/6.png" alt="Nivis Labs Nivis-Glow serum" loading="lazy">
+            </picture>
+            <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
+        </a>
+        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/7.png');">
+            <picture>
+                <source media="(max-width: 640px)" srcset="./assets/img/mobile4.png">
+                <img class="index_img_section__product" src="./assets/img/7.png" alt="Nivis Labs UV Aqua sunscreen" loading="lazy">
+            </picture>
+            <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
+        </a>
+        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/8.png');">
+            <picture>
+                <source media="(max-width: 640px)" srcset="./assets/img/mobile5.png">
+                <img class="index_img_section__product" src="./assets/img/8.png" alt="Nivis Labs Folilock Cream Pro" loading="lazy">
+            </picture>
+            <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
+        </a>
+        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/folilock-cream-pro-bg.png');">
+            <picture>
+                <source media="(max-width: 640px)" srcset="./assets/img/mobile6.png">
+                <img class="index_img_section__product" src="./assets/img/folilock-cream-pro-bg.png" alt="Nivis Labs Folilock Cream Pro" loading="lazy">
+            </picture>
+            <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
+        </a>
     </div>
-    <template id="mobileHeroSlidesTemplate">
-        <?php foreach ($mobileHeroImages as $heroImage):
-            $imagePath = './assets/img/' . $heroImage['file'];
-        ?>
-            <a class="index_img_section__slide" href="products.php"
-                style="--hero-img: url('<?php echo htmlspecialchars($imagePath); ?>');">
-                <img class="index_img_section__product" src="<?php echo htmlspecialchars($imagePath); ?>"
-                    alt="<?php echo htmlspecialchars($heroImage['alt']); ?>"
-                    onerror="this.src='./assets/img/product.webp';" />
-                <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
-            </a>
-        <?php endforeach; ?>
-    </template>
+    <button type="button" class="index_img_section__nav index_img_section__nav--prev" id="classicHeroPrev" aria-label="Previous image">
+        <i class="bi bi-chevron-left" aria-hidden="true"></i>
+    </button>
+    <button type="button" class="index_img_section__nav index_img_section__nav--next" id="classicHeroNext" aria-label="Next image">
+        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+    </button>
+    <div class="index_img_section__dots" id="classicHeroDots" aria-label="Image slider navigation"></div>
+</section>
+
+<section class="index-story-slider" id="indexStorySlider" aria-label="About Nivis Labs" aria-roledescription="carousel">
+    <div class="indexHero-slides" id="storySliderSlides" aria-live="polite">
+        <article class="indexHero-slide is-active" aria-hidden="false">
+            <div class="indexHero-copy">
+                <span class="indexHero-eyebrow">About Nivis Labs</span>
+                <h1 class="indexHero-title">Skincare, shaped by science.</h1>
+                <p class="indexHero-description">Thoughtfully created skincare that works with your skin and the changing climate to help keep it healthy, balanced and resilient.</p>
+                <a class="indexHero-cta" href="about.php">Discover our story <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+            </div>
+            <div class="indexHero-visual">
+                <img src="./assets/img/2.png" alt="Nivis Labs skincare product" fetchpriority="high">
+            </div>
+        </article>
+        <article class="indexHero-slide" aria-hidden="true">
+            <div class="indexHero-copy">
+                <span class="indexHero-eyebrow">Everyday radiance</span>
+                <h2 class="indexHero-title">A little care. A brighter glow.</h2>
+                <p class="indexHero-description">Explore gentle, science-led essentials made to support a fresh, luminous-looking complexion every day.</p>
+                <a class="indexHero-cta" href="products.php">Explore skincare <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+            </div>
+            <div class="indexHero-visual">
+                <img src="./assets/img/6.png" alt="Nivis Labs glow serum" loading="lazy">
+            </div>
+        </article>
+        <article class="indexHero-slide" aria-hidden="true">
+            <div class="indexHero-copy">
+                <span class="indexHero-eyebrow">Care for every climate</span>
+                <h2 class="indexHero-title">Make daily sun care simple.</h2>
+                <p class="indexHero-description">Find lightweight daily sun-care essentials designed to fit comfortably into your routine.</p>
+                <a class="indexHero-cta" href="products.php?category=sunscreen">Shop sun care <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+            </div>
+            <div class="indexHero-visual">
+                <img src="./assets/img/7.png" alt="Nivis Labs UV Aqua sunscreen" loading="lazy">
+            </div>
+        </article>
+    </div>
+    <button type="button" class="indexHero-nav indexHero-nav--prev" id="storySliderPrev" aria-label="Previous slide">
+        <i class="bi bi-chevron-left" aria-hidden="true"></i>
+    </button>
+    <button type="button" class="indexHero-nav indexHero-nav--next" id="storySliderNext" aria-label="Next slide">
+        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+    </button>
+    <div class="indexHero-dots" role="group" aria-label="Choose a slide">
+    </div>
 </section>
 
 <script>
     (function() {
         const hero = document.getElementById('indexHero');
-        const slidesWrap = document.getElementById('indexHeroSlides');
-        const mobileSlidesTemplate = document.getElementById('mobileHeroSlidesTemplate');
-        const mobileSlidesMarkup = mobileSlidesTemplate ? mobileSlidesTemplate.innerHTML.trim() : '';
-        const desktopSlidesMarkup = slidesWrap ? slidesWrap.innerHTML : '';
-        const mobileViewport = window.matchMedia('(max-width: 640px)');
-        const fallbackImage = './assets/img/product.webp';
-        let slides = [];
+        const slides = Array.from(hero?.querySelectorAll('.index_img_section__slide') || []);
+        const dotsWrap = document.getElementById('classicHeroDots');
+        if (!hero || !slides.length || !dotsWrap) return;
+
+        dotsWrap.innerHTML = slides.map((_, index) =>
+            `<button type="button" aria-label="Show image ${index + 1}">${index + 1}</button>`
+        ).join('');
+        const dots = Array.from(dotsWrap.querySelectorAll('button'));
         let current = 0;
         let timer = null;
-        let pointerStart = null;
-        let ignoreSwipeClickUntil = 0;
-        let showingMobileSlides = null;
+        let touchStartX = null;
 
-        if (!hero || !slidesWrap) return;
-
-        function escapeHtml(value) {
-            return String(value ?? '').replace(/[&<>"']/g, match => ({
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#039;'
-            } [match]));
-        }
-
-        function heroTitle(title) {
-            const words = String(title || 'Nivis Labs Product').trim().split(/\s+/);
-            const rows = [
-                words.slice(0, 2).join(' '),
-                words.slice(2, 4).join(' '),
-                words.slice(4).join(' ')
-            ].filter(Boolean);
-            return rows.map(escapeHtml).join('<br />');
-        }
-
-        function productImage(product) {
-            if (Array.isArray(product.images) && product.images.length > 0) return product.images[0];
-            return product.imageUrl || product.thumbnail || '';
-        }
-
-        function normalizeHeroImage(image) {
-            const imagePath = String(image || '').trim();
-            if (!imagePath) return fallbackImage;
-            if (/^(https?:)?\/\//i.test(imagePath) || imagePath.startsWith('/') || imagePath.startsWith('./')) return imagePath;
-
-            return imagePath;
-        }
-
-        function hasUploadedImage(image) {
-            const imagePath = normalizeHeroImage(image);
-            return imagePath && !imagePath.includes('/assets/img/product.webp');
-        }
-
-        function isHeroBannerImage(image) {
-            return new Promise(resolve => {
-                if (!hasUploadedImage(image)) {
-                    resolve(false);
-                    return;
-                }
-
-                const probe = new Image();
-                probe.onload = () => {
-                    const ratio = probe.naturalWidth / Math.max(1, probe.naturalHeight);
-                    resolve(ratio >= 2.4);
-                };
-                probe.onerror = () => resolve(false);
-                probe.src = image;
+        function showSlide(index) {
+            current = (index + slides.length) % slides.length;
+            slides.forEach((slide, slideIndex) => {
+                const active = slideIndex === current;
+                slide.classList.toggle('active', active);
+                slide.setAttribute('aria-hidden', String(!active));
+                slide.tabIndex = active ? 0 : -1;
+                dots[slideIndex]?.classList.toggle('active', active);
             });
         }
 
-        function productHref(product) {
-            const key = product.urlKey || product.url_key || product.sku || product.id || product.name || '';
-            return key ? `product-detail.php?product=${encodeURIComponent(key)}` : 'products.php';
+        function startAutoplay() {
+            window.clearInterval(timer);
+            timer = window.setInterval(() => showSlide(current + 1), 5000);
         }
 
-        function slideTemplate(slide) {
-            const badges = (slide.badges || []).filter(Boolean).slice(0, 3).map(badge => (
-                `<span class="index_img_section__badge">${escapeHtml(badge)}</span>`
-            )).join('');
-
-            return `
-                <a class="index_img_section__slide" href="products.php" style="--hero-img: url('${escapeHtml(slide.image)}');">
-                    <img class="index_img_section__product" src="${escapeHtml(slide.image)}" alt="${escapeHtml(slide.title)}" onerror="this.src='${fallbackImage}';" />
-                    <div class="index_img_section__content">
-                        <span class="index_img_section__new-tag">${escapeHtml(slide.tag || 'Nivis Labs')}</span>
-                        <h1 class="index_img_section__title">${heroTitle(slide.title)}</h1>
-                        <div class="index_img_section__badges">${badges}</div>
-                    </div>
-                    <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
-                </a>
-            `;
+        function stopAutoplay() {
+            window.clearInterval(timer);
         }
 
-        function setSlide(index) {
-            if (!slides.length) return;
+        document.getElementById('classicHeroPrev')?.addEventListener('click', () => {
+            showSlide(current - 1);
+            startAutoplay();
+        });
+        document.getElementById('classicHeroNext')?.addEventListener('click', () => {
+            showSlide(current + 1);
+            startAutoplay();
+        });
+        dots.forEach((dot, index) => dot.addEventListener('click', () => {
+            showSlide(index);
+            startAutoplay();
+        }));
+        hero.addEventListener('mouseenter', stopAutoplay);
+        hero.addEventListener('mouseleave', startAutoplay);
+        hero.addEventListener('focusin', stopAutoplay);
+        hero.addEventListener('focusout', event => {
+            if (!hero.contains(event.relatedTarget)) startAutoplay();
+        });
+        hero.addEventListener('touchstart', event => {
+            touchStartX = event.changedTouches[0]?.clientX ?? null;
+        }, {
+            passive: true
+        });
+        hero.addEventListener('touchend', event => {
+            const endX = event.changedTouches[0]?.clientX;
+            if (touchStartX === null || typeof endX !== 'number' || Math.abs(endX - touchStartX) < 45) return;
+            showSlide(current + (endX < touchStartX ? 1 : -1));
+            startAutoplay();
+            touchStartX = null;
+        }, {
+            passive: true
+        });
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) stopAutoplay();
+            else if (!hero.matches(':hover') && !hero.contains(document.activeElement)) startAutoplay();
+        });
+
+        showSlide(0);
+        startAutoplay();
+    })();
+
+    (function() {
+        const hero = document.getElementById('indexStorySlider');
+        if (!hero) return;
+
+        const slides = Array.from(hero.querySelectorAll('.indexHero-slide'));
+        const dotsWrap = hero.querySelector('.indexHero-dots');
+        if (!slides.length || !dotsWrap) return;
+
+        dotsWrap.innerHTML = slides.map((_, index) =>
+            `<button type="button" class="indexHero-dot" aria-label="Show slide ${index + 1}" aria-current="${index === 0}"></button>`
+        ).join('');
+        const dots = Array.from(dotsWrap.querySelectorAll('.indexHero-dot'));
+        let current = 0;
+        let timer = null;
+        let touchStartX = null;
+
+        function showSlide(index) {
             current = (index + slides.length) % slides.length;
-            slides.forEach((slide, slideIndex) => slide.classList.toggle('active', slideIndex === current));
-            updateMobileHeroAspectRatio();
+            slides.forEach((slide, slideIndex) => {
+                const active = slideIndex === current;
+                slide.classList.toggle('is-active', active);
+                slide.setAttribute('aria-hidden', String(!active));
+                if (slide.matches('a, button')) slide.tabIndex = active ? 0 : -1;
+                slide.querySelectorAll('a, button').forEach(control => {
+                    control.tabIndex = active ? 0 : -1;
+                });
+                dots[slideIndex]?.setAttribute('aria-current', String(active));
+            });
         }
 
-        function updateMobileHeroAspectRatio() {
-            if (!mobileViewport.matches || !showingMobileSlides) {
-                hero.style.aspectRatio = '';
-                return;
-            }
-
-            const image = slides[current]?.querySelector('.index_img_section__product');
-            if (!image) return;
-            if (!image.naturalWidth || !image.naturalHeight) {
-                image.addEventListener('load', updateMobileHeroAspectRatio, { once: true });
-                return;
-            }
-
-            hero.style.aspectRatio = `${image.naturalWidth} / ${image.naturalHeight}`;
+        function startAutoplay() {
+            window.clearInterval(timer);
+            timer = window.setInterval(() => showSlide(current + 1), 5000);
         }
 
-        function goToPreviousSlide() {
-            setSlide(current - 1);
+        function stopAutoplay() {
+            window.clearInterval(timer);
         }
 
-        function goToNextSlide() {
-            setSlide(current + 1);
-        }
-
-        function startSlider() {
-            clearInterval(timer);
-            if (slides.length > 1) {
-                timer = setInterval(() => setSlide(current + 1), 3500);
-            }
-        }
-
-        function resetSlider() {
-            startSlider();
-        }
-
-        function initSlides() {
-            slides = Array.from(slidesWrap.querySelectorAll('.index_img_section__slide'));
-            setSlide(0);
-            startSlider();
-        }
-
-
-
-        const prevButton = document.getElementById('indexHeroPrev');
-        const nextButton = document.getElementById('indexHeroNext');
-
-        if (prevButton) prevButton.addEventListener('click', function() {
-            goToPreviousSlide();
-            resetSlider();
+        document.getElementById('storySliderPrev')?.addEventListener('click', () => {
+            showSlide(current - 1);
+            startAutoplay();
         });
-        if (nextButton) nextButton.addEventListener('click', function() {
-            goToNextSlide();
-            resetSlider();
+        document.getElementById('storySliderNext')?.addEventListener('click', () => {
+            showSlide(current + 1);
+            startAutoplay();
         });
-        hero.addEventListener('pointerdown', event => {
-            if (event.isPrimary) pointerStart = { x: event.clientX, y: event.clientY };
+        dots.forEach((dot, index) => dot.addEventListener('click', () => {
+            showSlide(index);
+            startAutoplay();
+        }));
+
+        hero.addEventListener('mouseenter', stopAutoplay);
+        hero.addEventListener('mouseleave', startAutoplay);
+        hero.addEventListener('focusin', stopAutoplay);
+        hero.addEventListener('focusout', event => {
+            if (!hero.contains(event.relatedTarget)) startAutoplay();
         });
-        hero.addEventListener('pointerup', event => {
-            if (!pointerStart || event.pointerType !== 'touch') {
-                pointerStart = null;
-                return;
+        hero.addEventListener('keydown', event => {
+            if (event.key === 'ArrowLeft') {
+                showSlide(current - 1);
+                startAutoplay();
+            } else if (event.key === 'ArrowRight') {
+                showSlide(current + 1);
+                startAutoplay();
             }
-
-            const deltaX = event.clientX - pointerStart.x;
-            const deltaY = event.clientY - pointerStart.y;
-            pointerStart = null;
-            if (Math.abs(deltaX) < 40 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
-
-            if (deltaX > 0) goToPreviousSlide();
-            else goToNextSlide();
-            ignoreSwipeClickUntil = Date.now() + 500;
-            resetSlider();
         });
-        hero.addEventListener('pointercancel', () => {
-            pointerStart = null;
+        hero.addEventListener('touchstart', event => {
+            touchStartX = event.changedTouches[0]?.clientX ?? null;
+        }, {
+            passive: true
         });
-        hero.addEventListener('click', event => {
-            if (Date.now() >= ignoreSwipeClickUntil) return;
-            event.preventDefault();
-            event.stopPropagation();
-        }, true);
-        hero.addEventListener('mouseenter', () => clearInterval(timer));
-        hero.addEventListener('mouseleave', startSlider);
-        hero.addEventListener('focusin', () => clearInterval(timer));
-        hero.addEventListener('focusout', startSlider);
-        // Initialize the product slides rendered by PHP
-        function loadHeroSlides() {
-            const useMobileSlides = mobileViewport.matches && mobileSlidesMarkup !== '';
-            if (showingMobileSlides !== useMobileSlides) {
-                slidesWrap.innerHTML = useMobileSlides ? mobileSlidesMarkup : desktopSlidesMarkup;
-                showingMobileSlides = useMobileSlides;
-            }
-            initSlides();
-        }
+        hero.addEventListener('touchend', event => {
+            const endX = event.changedTouches[0]?.clientX;
+            if (touchStartX === null || typeof endX !== 'number' || Math.abs(endX - touchStartX) < 45) return;
+            showSlide(current + (endX < touchStartX ? 1 : -1));
+            startAutoplay();
+            touchStartX = null;
+        }, {
+            passive: true
+        });
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) stopAutoplay();
+            else if (!hero.matches(':hover') && !hero.contains(document.activeElement)) startAutoplay();
+        });
 
-        window.addEventListener('resize', loadHeroSlides);
-
-        // Fallback to product-based slides if GraphQL fails
-        async function loadBackendSlides() {
-            try {
-                const response = await fetch('fetch_category_products.php?category=all');
-                const result = await response.json();
-                const products = result.data?.products || [];
-                const candidateSlides = products
-                    .map(product => ({
-                        title: product.name || 'Nivis Labs Product',
-                        image: normalizeHeroImage(productImage(product)),
-                        href: productHref(product),
-                        tag: product.type || product.category || 'Featured Product',
-                        badges: [product.size, product.subtitle || product.concern || product.category, product.price || 'Shop Now']
-                    }))
-                    .filter(slide => hasUploadedImage(slide.image))
-                    .slice(0, 4);
-
-                const bannerChecks = await Promise.all(candidateSlides.map(slide => isHeroBannerImage(slide.image)));
-                const backendSlides = candidateSlides.filter((_, index) => bannerChecks[index]);
-
-                if (backendSlides.length < 4) return;
-                slidesWrap.innerHTML = backendSlides.map(slideTemplate).join('');
-                initSlides();
-            } catch (error) {
-                console.error('Unable to load hero products:', error);
-            }
-        }
-
-        // Initialize the configured product slides
-        loadHeroSlides();
-        // loadBackendSlides(); // Uncomment if you want fallback
+        showSlide(0);
+        startAutoplay();
     })();
 </script>
 
@@ -335,7 +619,7 @@ $mobileHeroImages = [
 </div> -->
 
 
- <!-- <div class="container my-5 mb-5">
+<!-- <div class="container my-5 mb-5">
 
     <div class="skin-wrapper_index">
 
@@ -525,7 +809,7 @@ $mobileHeroImages = [
         inset: 0;
         overflow: hidden;
         /* border: 5px solid #eeeeee; */
-        border: 5px solid   #edc58e;
+        border: 5px solid #edc58e;
 
         border-radius: 50%;
     }
@@ -615,11 +899,13 @@ $mobileHeroImages = [
         <div class="d-flex flex-nowrap justify-content-start overflow-auto pb-3 no-scrollbar dermat-concern-row" id="dermatConcernRow">
 
 
-        <div class="concern-item" onclick="showDermatRoutine('acne', this, 1)">
+            <div class="concern-item" onclick="showDermatRoutine('acne', this, 1)">
                 <div class="concern-card">
                     <div class="routine-concern-image" style="--concern-photo-zoom: 2; --concern-photo-position: 75% center;">
                         <div class="routine-concern-photo"><img src="./assets/img/acne.png" alt="Nivis Labs Acne"></div>
-                        <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+                        <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m9 5 7 7-7 7" />
+                            </svg></span>
                     </div>
                     <div class="concern-overlay">Acne</div>
                 </div>
@@ -631,7 +917,9 @@ $mobileHeroImages = [
                 <div class="concern-card">
                     <div class="routine-concern-image" style="--concern-photo-zoom: 2; --concern-photo-origin: 65% 25%;">
                         <div class="routine-concern-photo"><img src="./assets/img/Pigmentation.png" alt="Nivis Labs Pigmentation"></div>
-                        <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+                        <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m9 5 7 7-7 7" />
+                            </svg></span>
                     </div>
                     <div class="concern-overlay">Pigmentation</div>
                 </div>
@@ -641,7 +929,9 @@ $mobileHeroImages = [
                 <div class="concern-card">
                     <div class="routine-concern-image" style="--concern-photo-zoom: 1.3;">
                         <div class="routine-concern-photo"><img src="./assets/img/Acne Marks.png" alt="Nivis Labs Acne Marks"></div>
-                        <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+                        <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m9 5 7 7-7 7" />
+                            </svg></span>
                     </div>
                     <div class="concern-overlay">Acne Marks</div>
                 </div>
@@ -651,7 +941,9 @@ $mobileHeroImages = [
                 <div class="concern-card">
                     <div class="routine-concern-image" style="--concern-photo-zoom: 1.2;">
                         <div class="routine-concern-photo"><img src="./assets/img/Dark Spots.png" alt="Nivis Labs Dark Spots"></div>
-                        <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+                        <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m9 5 7 7-7 7" />
+                            </svg></span>
                     </div>
                     <div class="concern-overlay">Dark Spots</div>
                 </div>
@@ -661,7 +953,9 @@ $mobileHeroImages = [
                 <div class="concern-card">
                     <div class="routine-concern-image">
                         <div class="routine-concern-photo"><img src="./assets/img/Anti-Aging.png" alt="Nivis Labs Anti-Aging"></div>
-                        <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+                        <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m9 5 7 7-7 7" />
+                            </svg></span>
                     </div>
                     <div class="concern-overlay">Anti-Aging</div>
                 </div>
@@ -671,7 +965,9 @@ $mobileHeroImages = [
                 <div class="concern-card">
                     <div class="routine-concern-image" style="--concern-photo-zoom: 1.2;">
                         <div class="routine-concern-photo"><img src="./assets/img/Dehydration.png" alt="Nivis Labs Dehydration"></div>
-                        <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+                        <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m9 5 7 7-7 7" />
+                            </svg></span>
                     </div>
                     <div class="concern-overlay">Dehydration</div>
                 </div>
@@ -1195,11 +1491,11 @@ $mobileHeroImages = [
             'dark-spots': ['dark spot', 'dark spots', 'pigmentation', 'alpha arbutin'],
             'anti-ageing': ['anti ageing', 'anti aging', 'wrinkle', 'retinol', 'bakuchiol', 'peptide'],
             dehydration: ['dehydration', 'hydrating', 'hyaluronic', 'ceramide', 'moisture'],
-            'sun-protection': ['sunscreen', 'spf', 'sun protection']
-            , 'grey-hair': ['grey hair', 'gray hair', 'premature greying', 'hair color']
-            , 'thin-hair': ['thin hair', 'hair volume', 'hair growth', 'hair density']
-            , 'hair-fall': ['hair fall', 'hair loss', 'alopecia', 'scalp', 'anti hair fall']
-            , dandruff: ['dandruff', 'dry scalp', 'scalp']
+            'sun-protection': ['sunscreen', 'spf', 'sun protection'],
+            'grey-hair': ['grey hair', 'gray hair', 'premature greying', 'hair color'],
+            'thin-hair': ['thin hair', 'hair volume', 'hair growth', 'hair density'],
+            'hair-fall': ['hair fall', 'hair loss', 'alopecia', 'scalp', 'anti hair fall'],
+            dandruff: ['dandruff', 'dry scalp', 'scalp']
         };
         const aliases = concernAliases[type] || [type.replace(/-/g, ' ')];
 
@@ -1252,9 +1548,9 @@ $mobileHeroImages = [
                 dermatCurrentType = type;
                 dermatVisibleProducts = result.products;
                 dermatCurrentRoutine = [];
-                contentArea.innerHTML = result.products.length
-                    ? ''
-                    : '<p class="text-center">No products in this category yet.</p>';
+                contentArea.innerHTML = result.products.length ?
+                    '' :
+                    '<p class="text-center">No products in this category yet.</p>';
                 if (result.products.length) renderDermatProductChoices(type, result.products);
                 return;
             }
@@ -1418,17 +1714,33 @@ $mobileHeroImages = [
 
 <section class="my-5 ">
     <style>
-        #hairConcernRow { justify-content: center !important; }
-        #hairConcernRow .concern-item { flex: 0 0 180px; }
-        #hairConcernRow .hair-concern-image { display: contents; }
-        #hairConcernRow .hair-concern-arrow { display: none; }
-        #hair-routine-content { width: 100%; }
+        #hairConcernRow {
+            justify-content: center !important;
+        }
+
+        #hairConcernRow .concern-item {
+            flex: 0 0 180px;
+        }
+
+        #hairConcernRow .hair-concern-image {
+            display: contents;
+        }
+
+        #hairConcernRow .hair-concern-arrow {
+            display: none;
+        }
+
+        #hair-routine-content {
+            width: 100%;
+        }
+
         #hair-routine-content .dermat-products-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 18px;
             align-items: stretch;
         }
+
         #hair-routine-content .hair-result-card {
             position: relative;
             display: flex;
@@ -1445,6 +1757,7 @@ $mobileHeroImages = [
             text-decoration: none;
             overflow: hidden;
         }
+
         #hair-routine-content .hair-result-card .hair-result-number {
             position: absolute;
             top: 12px;
@@ -1462,6 +1775,7 @@ $mobileHeroImages = [
             font-weight: 800;
             box-shadow: 0 8px 20px rgba(237, 197, 142, .3);
         }
+
         #hair-routine-content .hair-result-card--coming-soon {
             justify-content: center;
             align-items: center;
@@ -1469,14 +1783,17 @@ $mobileHeroImages = [
             border-style: dashed;
             background: rgba(4, 27, 43, .7);
         }
+
         #hair-routine-content .hair-result-card--coming-soon .hair-result-number {
             display: none;
         }
+
         #hair-routine-content a.hair-result-card:hover {
             border-color: rgba(237, 197, 142, .72);
             transform: translateY(-2px);
             color: #fff;
         }
+
         #hair-routine-content .hair-result-card img {
             display: block;
             width: 100%;
@@ -1487,16 +1804,19 @@ $mobileHeroImages = [
             border-radius: 12px;
             background: #082f49;
         }
+
         @media (max-width: 767px) {
             #hair-routine-content .dermat-products-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
+
         @media (max-width: 480px) {
             #hair-routine-content .dermat-products-grid {
                 grid-template-columns: 1fr;
             }
         }
+
         #hair-routine-content .hair-result-card--coming-soon img {
             width: 78%;
             height: 120px;
@@ -1504,12 +1824,14 @@ $mobileHeroImages = [
             background: transparent;
             margin-top: 0;
         }
+
         #hair-routine-content .hair-result-card__body {
             display: flex;
             flex-direction: column;
             flex: 1;
             padding: 18px 18px 14px;
         }
+
         #hair-routine-content .hair-result-card h3 {
             margin: 0 0 10px;
             color: #fff;
@@ -1517,6 +1839,7 @@ $mobileHeroImages = [
             line-height: 1.4;
             min-height: 52px;
         }
+
         #hair-routine-content .hair-result-card .hair-result-sub {
             margin: 0 0 10px;
             color: #f2d4a5;
@@ -1524,6 +1847,7 @@ $mobileHeroImages = [
             font-weight: 600;
             line-height: 1.4;
         }
+
         #hair-routine-content .hair-result-card .hair-result-meta {
             display: flex;
             align-items: center;
@@ -1533,6 +1857,7 @@ $mobileHeroImages = [
             font-size: .9rem;
             font-weight: 700;
         }
+
         #hair-routine-content .hair-result-card .hair-result-price {
             margin-top: auto;
             margin-bottom: 12px;
@@ -1540,6 +1865,7 @@ $mobileHeroImages = [
             font-size: 1.12rem;
             font-weight: 800;
         }
+
         #hair-routine-content .hair-result-card .hair-result-btn {
             display: block;
             width: 100%;
@@ -1554,20 +1880,32 @@ $mobileHeroImages = [
             cursor: pointer;
             margin-top: auto;
         }
-        #hair-routine-content .hair-result-card--coming-soon h3 { margin-top: 14px; }
-        #hair-routine-content .hair-result-card--coming-soon p { margin: 0; }
+
+        #hair-routine-content .hair-result-card--coming-soon h3 {
+            margin-top: 14px;
+        }
+
+        #hair-routine-content .hair-result-card--coming-soon p {
+            margin: 0;
+        }
+
         @media (max-width: 576px) {
             #hairConcernRow {
                 justify-content: flex-start !important;
                 gap: 8px;
                 padding-bottom: 0 !important;
             }
+
             #hairConcernRow .concern-item {
                 flex: 0 0 calc((100% - 8px) / 2);
                 min-width: 0;
             }
-            #hairConcernRow .concern-card img { height: 145px; }
+
+            #hairConcernRow .concern-card img {
+                height: 145px;
+            }
         }
+
         @media (max-width: 767px) {
             #hairConcernRow .concern-card {
                 overflow: visible;
@@ -1576,6 +1914,7 @@ $mobileHeroImages = [
                 background: transparent;
                 box-shadow: none;
             }
+
             #hairConcernRow .hair-concern-image {
                 position: relative;
                 display: block;
@@ -1583,6 +1922,7 @@ $mobileHeroImages = [
                 margin-inline: auto;
                 aspect-ratio: 1;
             }
+
             #hairConcernRow .concern-card .hair-concern-image img {
                 position: absolute;
                 inset: 0;
@@ -1595,6 +1935,7 @@ $mobileHeroImages = [
                 transform: none;
                 transition: border-color .3s;
             }
+
             #hairConcernRow .hair-concern-arrow {
                 position: absolute;
                 bottom: 0;
@@ -1614,16 +1955,19 @@ $mobileHeroImages = [
                 transform: translateX(-50%);
                 pointer-events: none;
             }
+
             #hairConcernRow .hair-concern-arrow svg {
                 width: 35%;
                 height: 35%;
             }
+
             #hairConcernRow .concern-overlay {
                 position: static;
                 padding: 14px 8px 0;
                 background: none;
                 text-shadow: none;
             }
+
             #hairConcernRow .concern-card.active-dermat .hair-concern-image img {
                 border-color: var(--nivis-gold, #b02a37);
             }
@@ -1647,7 +1991,9 @@ $mobileHeroImages = [
                     <div class="concern-card">
                         <div class="hair-concern-image">
                             <img src="./assets/img/grey-hair.png" alt="Grey hair care">
-                            <span class="hair-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+                            <span class="hair-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m9 5 7 7-7 7" />
+                                </svg></span>
                         </div>
                         <div class="concern-overlay">Grey Hair</div>
                     </div>
@@ -1657,7 +2003,9 @@ $mobileHeroImages = [
                     <div class="concern-card">
                         <div class="hair-concern-image">
                             <img src="./assets/img/thin-hair.png" alt="Thin hair care">
-                            <span class="hair-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+                            <span class="hair-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m9 5 7 7-7 7" />
+                                </svg></span>
                         </div>
                         <div class="concern-overlay">Thin Hair</div>
                     </div>
@@ -1667,7 +2015,9 @@ $mobileHeroImages = [
                     <div class="concern-card">
                         <div class="hair-concern-image">
                             <img src="./assets/img/hair_fall.png" alt="Hair fall care">
-                            <span class="hair-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+                            <span class="hair-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m9 5 7 7-7 7" />
+                                </svg></span>
                         </div>
                         <div class="concern-overlay">Hair Fall</div>
                     </div>
@@ -1677,7 +2027,9 @@ $mobileHeroImages = [
                     <div class="concern-card">
                         <div class="hair-concern-image">
                             <img src="./assets/img/dandruff.png" alt="Nivis Labs Anti-Aging">
-                            <span class="hair-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+                            <span class="hair-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m9 5 7 7-7 7" />
+                                </svg></span>
                         </div>
                         <div class="concern-overlay">Dandruff </div>
                     </div>
@@ -1704,86 +2056,93 @@ $mobileHeroImages = [
 </section>
 
 <script>
-let hairConcernRequestId = 0;
-let activeHairConcern = '';
+    let hairConcernRequestId = 0;
+    let activeHairConcern = '';
 
-function escapeHairHtml(value) {
-    return String(value ?? '').replace(/[&<>"']/g, character => ({
-        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
-    }[character]));
-}
+    function escapeHairHtml(value) {
+        return String(value ?? '').replace(/[&<>"']/g, character => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        } [character]));
+    }
 
-function hairConcernImage(category) {
-    const imageMap = {
-        'grey-hair': './assets/img/grey-hair.png',
-        'thin-hair': './assets/img/thin-hair.png',
-        'hair-fall': './assets/img/hair_fall.png',
-        'dandruff': './assets/img/dandruff.png'
-    };
-    return imageMap[category] || './assets/img/hair_fall.png';
-}
+    function hairConcernImage(category) {
+        const imageMap = {
+            'grey-hair': './assets/img/grey-hair.png',
+            'thin-hair': './assets/img/thin-hair.png',
+            'hair-fall': './assets/img/hair_fall.png',
+            'dandruff': './assets/img/dandruff.png'
+        };
+        return imageMap[category] || './assets/img/hair_fall.png';
+    }
 
-function hairConcernComingSoonCard(category) {
-    const titleMap = {
-        'grey-hair': 'Grey Hair',
-        'thin-hair': 'Thin Hair',
-        'hair-fall': 'Hair Fall',
-        'dandruff': 'Dandruff'
-    };
-    const title = titleMap[category] || 'Hair Care';
-    const image = hairConcernImage(category);
+    function hairConcernComingSoonCard(category) {
+        const titleMap = {
+            'grey-hair': 'Grey Hair',
+            'thin-hair': 'Thin Hair',
+            'hair-fall': 'Hair Fall',
+            'dandruff': 'Dandruff'
+        };
+        const title = titleMap[category] || 'Hair Care';
+        const image = hairConcernImage(category);
 
-    return `
+        return `
         <div class="hair-result-card hair-result-card--coming-soon" role="status" aria-live="polite">
             <img src="${escapeHairHtml(image)}" alt="${escapeHairHtml(title)}" loading="lazy" onerror="this.onerror=null;this.src='./assets/img/product.webp';">
             <h3>${escapeHairHtml(title)}</h3>
             <p>New products coming soon</p>
         </div>`;
-}
-
-async function showHairConcern(category, element) {
-    const results = document.getElementById('hair-results');
-    const content = document.getElementById('hair-routine-content');
-    if (!results || !content) return;
-    const shouldClose = activeHairConcern === category && results.style.display !== 'none';
-    const requestId = ++hairConcernRequestId;
-    document.querySelectorAll('#hairConcernRow .concern-card').forEach(card => card.classList.remove('active-dermat'));
-
-    if (shouldClose) {
-        activeHairConcern = '';
-        results.style.display = 'none';
-        content.innerHTML = '';
-        return;
     }
 
-    activeHairConcern = category;
-    element?.querySelector('.concern-card')?.classList.add('active-dermat');
-    results.style.display = '';
+    async function showHairConcern(category, element) {
+        const results = document.getElementById('hair-results');
+        const content = document.getElementById('hair-routine-content');
+        if (!results || !content) return;
+        const shouldClose = activeHairConcern === category && results.style.display !== 'none';
+        const requestId = ++hairConcernRequestId;
+        document.querySelectorAll('#hairConcernRow .concern-card').forEach(card => card.classList.remove('active-dermat'));
 
-    if (category === 'dandruff') {
-        content.innerHTML = `<div class="dermat-products-grid text-start">${hairConcernComingSoonCard(category)}</div>`;
-        results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        return;
-    }
+        if (shouldClose) {
+            activeHairConcern = '';
+            results.style.display = 'none';
+            content.innerHTML = '';
+            return;
+        }
 
-    content.innerHTML = '<div class="text-center py-4"><div class="spinner-border text-dark"></div><p>Loading products...</p></div>';
-    try {
-        const response = await fetch(`fetch_category_products.php?category=${encodeURIComponent(category)}`);
-        if (!response.ok) throw new Error('Product request failed');
-        const payload = await response.json();
-        if (payload.error || !Array.isArray(payload.products)) throw new Error(payload.error || 'Invalid product response');
-        if (requestId !== hairConcernRequestId) return;
+        activeHairConcern = category;
+        element?.querySelector('.concern-card')?.classList.add('active-dermat');
+        results.style.display = '';
 
-        const products = payload.products;
-        const productCards = products.map((product, index) => {
-            const key = product.urlKey || product.url_key || product.sku || product.id || product.name || '';
-            const image = product.imageUrl || './assets/img/product.webp';
-            const link = `product-detail.php?product=${encodeURIComponent(key)}`;
-            const price = product.price || '';
-            const priceNumber = Number(String(product.priceNumber || price).replace(/,/g, '').replace(/[^0-9.]/g, '')) || 0;
-            const name = product.name || 'Hair care product';
-            const reviews = product.reviewsCount || 120;
-            return `
+        if (category === 'dandruff') {
+            content.innerHTML = `<div class="dermat-products-grid text-start">${hairConcernComingSoonCard(category)}</div>`;
+            results.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest'
+            });
+            return;
+        }
+
+        content.innerHTML = '<div class="text-center py-4"><div class="spinner-border text-dark"></div><p>Loading products...</p></div>';
+        try {
+            const response = await fetch(`fetch_category_products.php?category=${encodeURIComponent(category)}`);
+            if (!response.ok) throw new Error('Product request failed');
+            const payload = await response.json();
+            if (payload.error || !Array.isArray(payload.products)) throw new Error(payload.error || 'Invalid product response');
+            if (requestId !== hairConcernRequestId) return;
+
+            const products = payload.products;
+            const productCards = products.map((product, index) => {
+                const key = product.urlKey || product.url_key || product.sku || product.id || product.name || '';
+                const image = product.imageUrl || './assets/img/product.webp';
+                const link = `product-detail.php?product=${encodeURIComponent(key)}`;
+                const price = product.price || '';
+                const priceNumber = Number(String(product.priceNumber || price).replace(/,/g, '').replace(/[^0-9.]/g, '')) || 0;
+                const name = product.name || 'Hair care product';
+                const reviews = product.reviewsCount || 120;
+                return `
                 <div class="hair-result-card"
                     data-product-id="${escapeHairHtml(key)}"
                     data-product-name="${escapeHairHtml(name)}"
@@ -1801,15 +2160,18 @@ async function showHairConcern(category, element) {
                         <button type="button" class="hair-result-btn">Add to cart</button>
                     </div>
                 </div>`;
-        }).join('');
+            }).join('');
 
-        content.innerHTML = `<div class="dermat-products-grid text-start">${productCards}${hairConcernComingSoonCard(category)}</div>`;
-    } catch (error) {
-        if (requestId !== hairConcernRequestId) return;
-        content.innerHTML = `<div class="dermat-products-grid text-start">${hairConcernComingSoonCard(category)}</div>`;
+            content.innerHTML = `<div class="dermat-products-grid text-start">${productCards}${hairConcernComingSoonCard(category)}</div>`;
+        } catch (error) {
+            if (requestId !== hairConcernRequestId) return;
+            content.innerHTML = `<div class="dermat-products-grid text-start">${hairConcernComingSoonCard(category)}</div>`;
+        }
+        results.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest'
+        });
     }
-    results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
 </script>
 
 
@@ -1889,12 +2251,12 @@ async function showHairConcern(category, element) {
         </div>
 
 
-        
+
         <div
             class="product-carousel nivis_index_third_section__carousel"
             id="spotlightProductCarousel">
 
-           
+
             <div class="spotlight-loading text-center py-4 w-100">
 
                 <div
@@ -3052,12 +3414,12 @@ async function showHairConcern(category, element) {
 
         function spotlightProductCard(product) {
             const fallbackImage = './assets/img/logo.jpeg';
-            const imageUrl = (product.images && product.images.length > 0)
-                ? product.images[0]
-                : (product.imageUrl || product.primaryImage || fallbackImage);
-            const secondaryImageUrl = (product.images && product.images.length > 1)
-                ? product.images[1]
-                : (product.secondaryImageUrl || imageUrl);
+            const imageUrl = (product.images && product.images.length > 0) ?
+                product.images[0] :
+                (product.imageUrl || product.primaryImage || fallbackImage);
+            const secondaryImageUrl = (product.images && product.images.length > 1) ?
+                product.images[1] :
+                (product.secondaryImageUrl || imageUrl);
             const productKey = product.urlKey || product.url_key || product.sku || product.id || product.name || '';
             const link = `product-detail.php?product=${encodeURIComponent(productKey)}`;
             const subtitle = product.subtitle || product.displayConcern || product.concern || product.category || 'Skincare';
@@ -3131,7 +3493,9 @@ async function showHairConcern(category, element) {
             try {
                 const response = await fetch('fetch_category_products.php?category=all', {
                     cache: 'no-store',
-                    headers: { Accept: 'application/json' }
+                    headers: {
+                        Accept: 'application/json'
+                    }
                 });
                 if (!response.ok) throw new Error('Product request failed');
 
@@ -3316,5 +3680,86 @@ async function showHairConcern(category, element) {
         });
     });
 </script>
+
+
+
+<!-- Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<section class="trust-features-section">
+    <div class="container">
+        <div class="row g-4 justify-content-center">
+
+            <!-- Item 1 -->
+            <div class="col-6 col-md-3">
+                <div class="trust-feature-item">
+                    <div class="trust-icon-box">
+                        <!-- <span class="fda-text">FDA</span> -->
+                         <img src="./assets/img/fdx.png" alt="fdx" class="img-fluid">
+                    </div>
+                    <p class="trust-feature-title">Indian FDA Approved</p>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="col-6 col-md-3">
+                <div class="trust-feature-item">
+                    <div class="trust-icon-box">
+                        <!-- <svg viewBox="0 0 80 80" aria-hidden="true">
+                            <circle cx="31" cy="26" r="12"></circle>
+                            <circle cx="47" cy="45" r="15"></circle>
+                            <circle cx="58" cy="22" r="7"></circle>
+                            <circle cx="17" cy="52" r="6"></circle>
+                            <line x1="22" y1="47" x2="27" y2="36"></line>
+                            <line x1="39" y1="32" x2="43" y2="35"></line>
+                            <line x1="48" y1="29" x2="53" y2="25"></line>
+                        </svg> -->
+
+                            <img src="./assets/img/dermatologically-tested.png" alt="fdx" class="img-fluid">
+                    </div>
+                    <p class="trust-feature-title">Dermatologically Tested</p>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="col-6 col-md-3">
+                <div class="trust-feature-item">
+                    <div class="trust-icon-box">
+                        <!-- <svg viewBox="0 0 80 80" aria-hidden="true">
+                            <path d="M33 11h18"></path>
+                            <path d="M37 11v23l-16 28c-2 4 1 8 5 8h32c4 0 7-4 5-8L47 34V11"></path>
+                            <path d="M31 50h23"></path>
+                            <circle cx="38" cy="57" r="2"></circle>
+                            <circle cx="48" cy="62" r="2"></circle>
+                            <line x1="9" y1="57" x2="69" y2="31"></line>
+                        </svg> -->
+                            <img src="./assets/img/no-toxic-chemicals.png" alt="fdx" class="img-fluid">
+                    </div>
+                    <p class="trust-feature-title">No Toxic Chemicals</p>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="col-6 col-md-3">
+                <div class="trust-feature-item">
+                    <div class="trust-icon-box">
+                        <!-- <svg viewBox="0 0 80 80" aria-hidden="true">
+                            <path d="M34 16h13v7l5 5v31c0 5-4 8-8 8H34c-5 0-8-3-8-8V28l5-5v-7h3"></path>
+                            <path d="M35 44c4-6 10-5 11 0 1 5-4 8-8 11-3-3-7-6-7-10 0-3 2-5 4-5"></path>
+                            <path d="M18 25c7-9 16-14 27-14 10 0 19 4 25 12"></path>
+                            <polyline points="65,15 70,23 61,24"></polyline>
+                            <path d="M62 61c-7 7-15 10-24 10-11 0-20-5-26-13"></path>
+                            <polyline points="17,66 12,58 21,56"></polyline>
+                        </svg> -->
+                            <img src="./assets/img/plastic-positive.png" alt="fdx" class="img-fluid">
+                    </div>
+                    <p class="trust-feature-title">Plastic Positive</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
 
 <?php include 'footer.php'; ?>
