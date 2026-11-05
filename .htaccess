@@ -63,6 +63,15 @@ Options -Indexes
 # Character encoding
 AddDefaultCharset UTF-8
 
+# Keep dynamic PHP pages and product responses out of browser caches.
+<IfModule mod_headers.c>
+    <FilesMatch "\.php$">
+        Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+</IfModule>
+
 # Compression
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript

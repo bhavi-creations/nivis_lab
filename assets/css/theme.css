@@ -1489,40 +1489,27 @@ body.nivis-theme {
     .nivis-theme .accordion-body { font-size: 12px !important; }
 }
 
-/* Match the All Products card colors to Skin Care without changing its layout or imagery. */
+/* Keep All Products cards consistent with the homepage Spotlight cards. */
 .nivis-theme .all-products-theme .products-grid .product-card {
-    border-color: rgba(162, 215, 239, .3) !important;
+    border-color: var(--nivis-border) !important;
     border-radius: 18px !important;
-    background: linear-gradient(145deg, rgba(255, 255, 255, .065), rgba(255, 255, 255, .015)), #032238 !important;
-    color: #f5f8fb !important;
-    box-shadow: 0 14px 28px rgba(0, 8, 18, .24) !important;
+    background: var(--nivis-white) !important;
+    color: var(--nivis-dark) !important;
+    box-shadow: var(--nivis-shadow) !important;
 }
 
 .nivis-theme .all-products-theme .products-grid .product-card:hover {
-    border-color: rgba(237, 197, 142, .72) !important;
-    box-shadow: 0 18px 34px rgba(0, 8, 18, .32) !important;
+    border-color: rgba(7, 85, 99, .35) !important;
+    box-shadow: 0 18px 40px rgba(9, 47, 70, .12) !important;
 }
 
 .nivis-theme .all-products-theme .products-grid .product-card > a,
 .nivis-theme .all-products-theme .products-grid .product-card .product-name {
-    color: #f5f8fb !important;
+    color: var(--nivis-dark) !important;
 }
 
 .nivis-theme .all-products-theme .products-grid .product-card .product-sub {
-    color: #bbccd8 !important;
-}
-
-.nivis-theme .all-products-theme .products-grid .product-card > a,
-.nivis-theme .all-products-theme .products-grid .product-card .product-info {
-    flex: 0 0 auto;
-}
-
-.nivis-theme .all-products-theme .products-grid .product-card .product-info {
-    min-height: 0 !important;
-}
-
-.nivis-theme .all-products-theme .products-grid .product-card .btn-cart {
-    margin-top: 8px !important;
+    color: var(--nivis-muted) !important;
 }
 
 .nivis-theme #productsGrid .product-card .btn-cart {

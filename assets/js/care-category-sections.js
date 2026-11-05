@@ -10,7 +10,9 @@
 
     function spotlightProductCard(product) {
         const name = product.name || 'Product';
-        const image = product.imageUrl || './assets/img/product.webp';
+        const images = Array.isArray(product.images) ? product.images : [];
+        const image = images[0] || product.imageUrl || './assets/img/product.webp';
+        const secondaryImage = images[1] || product.secondaryImageUrl || image;
         const key = product.urlKey || product.url_key || product.sku || product.id || product.name || '';
         const link = `product-detail.php?product=${encodeURIComponent(key)}`;
         const subtitle = product.subtitle || product.displayConcern || product.concern || product.category || 'Skincare';
@@ -27,8 +29,12 @@
                     data-product-image="${escapeHtml(image)}"
                     data-price="${escapeHtml(priceNumber)}">
                     <a href="${escapeHtml(link)}">
-                        <img src="${escapeHtml(image)}" class="w-100 mb-3" alt="${escapeHtml(name)}" loading="lazy"
-                            onerror="this.onerror=null;this.src='./assets/img/product.webp';">
+                        <div class="product-img-wrap spotlight-image-wrap mb-3">
+                            <img class="img-primary" src="${escapeHtml(image)}" alt="${escapeHtml(name)}" loading="lazy"
+                                onerror="this.onerror=null;this.src='./assets/img/product.webp';">
+                            <img class="img-secondary" src="${escapeHtml(secondaryImage)}" alt="${escapeHtml(name)} alternate view" loading="lazy"
+                                onerror="this.onerror=null;this.src=this.closest('.spotlight-image-wrap').querySelector('.img-primary').src;">
+                        </div>
                         <h6 class="fw-bold">${escapeHtml(name)} ${size}</h6>
                         <p class="small text-muted mb-2">/ ${escapeHtml(subtitle)} /</p>
                       
@@ -61,22 +67,44 @@
         const category = section.dataset.backendCategory;
         if (!grid || !category) return;
 
-        try {
-            const response = await fetch(`fetch_category_products.php?category=${encodeURIComponent(category)}`, {
-                headers: { Accept: 'application/json' },
-                cache: 'no-store'
-            });
-            if (!response.ok) throw new Error('Product request failed');
+        let snapshot = null;
+        let requestPending = false;
 
-            const result = await response.json();
-            if (result.error || !Array.isArray(result.products)) {
-                throw new Error(result.error || 'Invalid product response');
+        async function refreshSection() {
+            if (document.hidden || requestPending) return;
+            requestPending = true;
+
+            try {
+                const response = await fetch(`fetch_category_products.php?category=${encodeURIComponent(category)}`, {
+                    headers: { Accept: 'application/json' },
+                    cache: 'no-store'
+                });
+                if (!response.ok) throw new Error('Product request failed');
+
+                const result = await response.json();
+                if (result.error || !Array.isArray(result.products)) {
+                    throw new Error(result.error || 'Invalid product response');
+                }
+
+                const nextSnapshot = JSON.stringify(result.products);
+                if (nextSnapshot !== snapshot) {
+                    grid.innerHTML = result.products.map(spotlightProductCard).join('') + comingSoonCard();
+                    snapshot = nextSnapshot;
+                }
+
+            } catch (error) {
+                if (snapshot === null) {
+                    grid.innerHTML = '<p class="text-center">Unable to load products right now. Please try again later.</p>';
+                } else {
+                    console.error(`Unable to refresh ${category} products:`, error);
+                }
+            } finally {
+                requestPending = false;
             }
-
-            grid.innerHTML = result.products.map(spotlightProductCard).join('') + comingSoonCard();
-        } catch (error) {
-            grid.innerHTML = '<p class="text-center">Unable to load products right now. Please try again later.</p>';
         }
+
+        await refreshSection();
+        window.setInterval(refreshSection, 5000);
     }
 
     const careProductsPage = document.querySelector('.care-products-page');
@@ -99,6 +127,6 @@
             bootstrap.Offcanvas.getOrCreateInstance(drawer).show();
         }
     });
-
+    sections.forEach(loadSection);
     sections.forEach(loadSection);
 }());

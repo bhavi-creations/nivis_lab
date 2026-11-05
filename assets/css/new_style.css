@@ -2243,6 +2243,42 @@
     object-position: center;
 }
 
+.nivis_index_third_section #spotlightProductCarousel .spotlight-image-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border: 1px solid rgba(162, 215, 239, .16);
+    border-radius: 12px;
+    background: #082f49;
+}
+
+.nivis_index_third_section #spotlightProductCarousel .spotlight-image-wrap img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    object-fit: contain;
+    object-position: center;
+    transition: opacity .3s ease, transform .42s ease;
+}
+
+.nivis_index_third_section #spotlightProductCarousel .spotlight-image-wrap .img-secondary {
+    opacity: 0;
+}
+
+.nivis_index_third_section #spotlightProductCarousel .spotlight-card:hover .spotlight-image-wrap .img-secondary,
+.nivis_index_third_section #spotlightProductCarousel .spotlight-card:focus-within .spotlight-image-wrap .img-secondary {
+    opacity: 1;
+}
+
+.nivis_index_third_section #spotlightProductCarousel .spotlight-card:hover .spotlight-image-wrap .img-primary,
+.nivis_index_third_section #spotlightProductCarousel .spotlight-card:focus-within .spotlight-image-wrap .img-primary {
+    opacity: 0;
+}
+
 .nivis_index_third_section #spotlightProductCarousel .spotlight-card h6 {
     color: #f5f8fb;
 }
@@ -7843,6 +7879,7 @@
     .care-products-page .care-compact-hero {
         padding: 32px 15px 68px;
     }
+
 }
 
 @media (max-width: 576px) {
@@ -8307,7 +8344,160 @@ button, .btn-cart, .btn-buy,
 .info-tab.active {
     border-color: var(--nivis-primary) !important;
     color: #ffffff !important;
+}
+
+/* Keep product listings consistent with the white Spotlight cards. */
+.care-products-page .spotlight-card:not(.care-products-coming-soon),
+.products-grid .product-card {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    flex-direction: column;
+    padding: 16px;
+    border: 1px solid var(--nivis-border) !important;
+    border-radius: 18px !important;
+    background: var(--nivis-white) !important;
+    box-shadow: var(--nivis-shadow) !important;
+    color: var(--nivis-dark) !important;
+}
+
+.care-products-page .spotlight-card > a,
+.products-grid .product-card > a {
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+    flex-direction: column;
+    color: var(--nivis-dark) !important;
+    text-decoration: none;
+}
+
+.care-products-page .spotlight-card h6,
+.care-products-page .spotlight-card__price,
+.products-grid .spotlight-card h6,
+.products-grid .spotlight-card__price,
+.products-grid .product-card .product-name {
+    color: var(--nivis-dark) !important;
+}
+
+.care-products-page .spotlight-card > a > p,
+.care-products-page .spotlight-card__popover p,
+.products-grid .spotlight-card > a > p,
+.products-grid .spotlight-card__popover p,
+.products-grid .product-card .product-sub {
+    color: var(--nivis-muted) !important;
+}
+
+.nivis_index_third_section #spotlightProductCarousel .spotlight-image-wrap,
+.care-products-page .spotlight-image-wrap,
+.products-grid .product-img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border: 1px solid var(--nivis-border);
+    border-radius: 12px;
+    background: var(--nivis-white) !important;
+}
+
+.nivis_index_third_section #spotlightProductCarousel .spotlight-image-wrap img,
+.care-products-page .spotlight-image-wrap img,
+.products-grid .product-img-wrap img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0 !important;
+    padding: 10px;
+    border-radius: inherit;
+    background: var(--nivis-white) !important;
+    object-fit: contain;
+    transition: opacity .3s ease;
+}
+
+.nivis_index_third_section #spotlightProductCarousel .spotlight-image-wrap .img-secondary,
+.care-products-page .spotlight-image-wrap .img-secondary,
+.products-grid .product-img-wrap .img-secondary {
+    opacity: 0;
+}
+
+.nivis_index_third_section #spotlightProductCarousel .spotlight-card:hover .spotlight-image-wrap .img-secondary,
+.nivis_index_third_section #spotlightProductCarousel .spotlight-card:focus-within .spotlight-image-wrap .img-secondary,
+.care-products-page .spotlight-card:hover .spotlight-image-wrap .img-secondary,
+.care-products-page .spotlight-card:focus-within .spotlight-image-wrap .img-secondary,
+.products-grid .product-img-wrap:hover .img-secondary,
+.products-grid .product-card:focus-within .product-img-wrap .img-secondary {
+    opacity: 1;
+}
+
+.nivis_index_third_section #spotlightProductCarousel .spotlight-card:hover .spotlight-image-wrap .img-primary,
+.nivis_index_third_section #spotlightProductCarousel .spotlight-card:focus-within .spotlight-image-wrap .img-primary,
+.care-products-page .spotlight-card:hover .spotlight-image-wrap .img-primary,
+.care-products-page .spotlight-card:focus-within .spotlight-image-wrap .img-primary,
+.products-grid .product-img-wrap:hover .img-primary,
+.products-grid .product-card:focus-within .product-img-wrap .img-primary {
+    opacity: 0;
+}
+
+.care-products-page .spotlight-card__btn,
+.products-grid .spotlight-card__btn {
+    margin-top: auto;
+    border: 1px solid var(--nivis-primary) !important;
+    border-radius: 10px !important;
+    background: var(--nivis-primary) !important;
+    color: #fff !important;
+}
+
+.products-grid .product-card .btn-cart {
+    margin-top: auto;
     /* color: var(--nivis-primary) !important; */
+}
+
+.nivis-social-rail {
+    position: fixed;
+    top: 50%;
+    right: 14px;
+    z-index: 1030;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transform: translateY(-50%);
+}
+
+.nivis-social-rail a {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+    border: 1px solid rgba(7, 85, 99, .42);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--nivis-primary);
+    font-size: 17px;
+    text-decoration: none;
+    transition: color .2s ease, border-color .2s ease, transform .2s ease, background .2s ease;
+}
+
+.nivis-social-rail a:hover,
+.nivis-social-rail a:focus-visible {
+    transform: translateX(-3px);
+    border-color: var(--nivis-primary);
+    background: rgba(255, 255, 255, .72);
+    color: var(--nivis-dark);
+}
+
+@media (max-width: 576px) {
+    .nivis-social-rail {
+        right: 8px;
+        gap: 7px;
+    }
+
+    .nivis-social-rail a {
+        width: 34px;
+        height: 34px;
+        font-size: 15px;
+    }
 }
 
 .info-tabs,

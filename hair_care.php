@@ -14,7 +14,7 @@
                 <div class="nivis-search-results nivis-search-results--inline" id="indexGuideSearchResults"></div>
             </div>
             <nav class="d-flex flex-wrap justify-content-center mt-4 index-guide-categories skinthesis-hero__topics" aria-label="Hair care categories">
-                <a href="#grey-hair" class="index_img_section__badge mx-1">Grey Hair</a>
+                <a href="#grey-hair" class="index_img_section__badge mx-1">Grey Hair Serum</a>
                 <a href="#thin-hair" class="index_img_section__badge mx-1">Thin Hair</a>
                 <a href="#hair-fall" class="index_img_section__badge mx-1">Hair Fall</a>
             </nav>
@@ -23,7 +23,7 @@
 
     <?php
     $hairCategories = [
-        ['grey-hair', 'Grey Hair', 'answers'],
+        ['grey-hair', 'Grey Hair Serum ', 'answers'],
         ['thin-hair', 'Thin Hair', 'concerns'],
         ['hair-fall', 'Hair Fall', 'ingredients']
     ];
@@ -45,5 +45,5 @@
     <?php endforeach; ?>
 </main>
 
-<script src="assets/js/care-category-sections.js?v=7" defer></script>
+<script src="assets/js/care-category-sections.js?v=11" defer></script>
 <?php include 'footer.php'; ?>

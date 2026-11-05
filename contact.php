@@ -346,7 +346,7 @@
                     <div>
                         <h5>Email Us</h5>
                         <p>
-                            <strong>contact@nivislabs</strong><br>
+                            <strong>contact@nivislabs.in</strong><br>
                             We respond within 24 hours.
                         </p>
                     </div>
@@ -359,7 +359,7 @@
                     </div>
 
                     <div>
-                        <h5>Our Address</h5>
+                        <h5>Register Office</h5>
                         <p>
                             2-21/632/SF-08-08
 Rushikonda,

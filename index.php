@@ -1,15 +1,18 @@
 ﻿<?php
 include 'navbar.php';
 $newHeroImages = [
+    // ['file' => 'index-slider-img.png', 'alt' => 'Folilock Cream Pro'],
     ['file' => '2.png', 'alt' => 'Foaming Face Wash'],
     ['file' => 'instant-glow-bg.png', 'alt' => 'Instant Glow'],
      ['file' => '6.png', 'alt' => 'Instant Glow'],
     ['file' => '7.png', 'alt' => 'Folilock Cream'],
     ['file' => '8.png', 'alt' => 'Folilock Cream Pro'],
+    
    
 ];
 $mobileHeroImages = [
     // Add mobile-only banners here, for example: ['file' => 'mobile-banner-1.png', 'alt' => 'Mobile banner']
+//  ['file' => 'index-slider-img-sqare.png', 'alt' => 'Foaming Face Wash'],
  ['file' => 'mobile1.png', 'alt' => 'Foaming Face Wash'],
     ['file' => 'mobile2.png', 'alt' => 'Instant Glow'],
      ['file' => 'mobile3.png', 'alt' => 'Instant Glow'],
@@ -3032,6 +3035,8 @@ async function showHairConcern(category, element) {
 <script>
     $(document).ready(function() {
         const spotlightCarousel = $('#spotlightProductCarousel');
+        let lastSpotlightSnapshot = null;
+        let spotlightRequestPending = false;
 
         function escapeSpotlightHtml(value) {
             return String(value ?? '').replace(/[&<>"']/g, function(char) {
@@ -3047,14 +3052,18 @@ async function showHairConcern(category, element) {
 
         function spotlightProductCard(product) {
             const fallbackImage = './assets/img/logo.jpeg';
-            const imageUrl = product.imageUrl || product.primaryImage || fallbackImage;
+            const imageUrl = (product.images && product.images.length > 0)
+                ? product.images[0]
+                : (product.imageUrl || product.primaryImage || fallbackImage);
+            const secondaryImageUrl = (product.images && product.images.length > 1)
+                ? product.images[1]
+                : (product.secondaryImageUrl || imageUrl);
             const productKey = product.urlKey || product.url_key || product.sku || product.id || product.name || '';
             const link = `product-detail.php?product=${encodeURIComponent(productKey)}`;
             const subtitle = product.subtitle || product.displayConcern || product.concern || product.category || 'Skincare';
             const size = product.size ? `<span class="spotlight-product-size">${escapeSpotlightHtml(product.size)}</span>` : '';
             const priceNumber = Number(String(product.priceNumber || product.price || '0').replace(/,/g, '').replace(/[^0-9.]/g, '')) || 0;
             const priceLabel = window.NivisPricing.html(priceNumber);
-            const ratingHtml = '<span class="text-warning">★★★★☆</span>';
 
             return `
                 <div class="px-2">
@@ -3065,7 +3074,10 @@ async function showHairConcern(category, element) {
                         data-product-image="${escapeSpotlightHtml(imageUrl)}"
                         data-price="${escapeSpotlightHtml(priceNumber)}">
                         <a href="${escapeSpotlightHtml(link)}">
-                            <img src="${escapeSpotlightHtml(imageUrl)}" class="w-100 mb-3" alt="${escapeSpotlightHtml(product.name || 'Product')}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImage}';">
+                            <div class="product-img-wrap spotlight-image-wrap mb-3">
+                                <img class="img-primary" src="${escapeSpotlightHtml(imageUrl)}" alt="${escapeSpotlightHtml(product.name || 'Product')}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImage}';">
+                                <img class="img-secondary" src="${escapeSpotlightHtml(secondaryImageUrl)}" alt="${escapeSpotlightHtml(product.name || 'Product')} alternate view" loading="lazy" onerror="this.onerror=null;this.src=this.closest('.spotlight-image-wrap').querySelector('.img-primary').src;">
+                            </div>
                             <h6 class="fw-bold">${escapeSpotlightHtml(product.name || 'Product')} ${size}</h6>
                             <p class="small text-muted mb-2">/ ${escapeSpotlightHtml(subtitle)} /</p>
                             
@@ -3113,29 +3125,64 @@ async function showHairConcern(category, element) {
         }
 
         async function loadSpotlightProducts() {
-            if (!spotlightCarousel.length) return;
+            if (!spotlightCarousel.length || spotlightRequestPending) return;
+            spotlightRequestPending = true;
 
             try {
-                const response = await fetch('fetch_category_products.php?category=all');
+                const response = await fetch('fetch_category_products.php?category=all', {
+                    cache: 'no-store',
+                    headers: { Accept: 'application/json' }
+                });
+                if (!response.ok) throw new Error('Product request failed');
+
                 const result = await response.json();
                 const products = result.products || [];
+                const snapshot = JSON.stringify(products);
+                if (snapshot === lastSpotlightSnapshot) return;
 
+                if (spotlightCarousel.hasClass('slick-initialized')) {
+                    spotlightCarousel.slick('unslick');
+                }
                 if (products.length > 0) {
                     spotlightCarousel.html(products.map(spotlightProductCard).join(''));
                 } else {
                     spotlightCarousel.html('<p class="text-muted mb-0 px-3">No products found.</p>');
                 }
+                lastSpotlightSnapshot = snapshot;
             } catch (error) {
                 console.error('Unable to load spotlight products:', error);
-                spotlightCarousel.html('<p class="text-danger mb-0 px-3">Unable to load products.</p>');
+                if (lastSpotlightSnapshot === null) {
+                    spotlightCarousel.html('<p class="text-danger mb-0 px-3">Unable to load products.</p>');
+                }
+            } finally {
+                spotlightRequestPending = false;
             }
 
             if (spotlightCarousel.children().length > 1) {
                 initProductCarousel();
+                if (spotlightCarousel.is(':hover') || spotlightCarousel[0].contains(document.activeElement)) {
+                    spotlightCarousel.slick('slickPause');
+                }
             }
         }
 
         loadSpotlightProducts();
+        window.setInterval(function() {
+            if (!document.hidden) loadSpotlightProducts();
+        }, 5000);
+
+        spotlightCarousel.on('mouseenter focusin', function() {
+            if (spotlightCarousel.hasClass('slick-initialized')) {
+                spotlightCarousel.slick('slickPause');
+            }
+        });
+
+        spotlightCarousel.on('mouseleave focusout', function() {
+            if (!this.matches(':hover') && !this.contains(document.activeElement) &&
+                spotlightCarousel.hasClass('slick-initialized')) {
+                spotlightCarousel.slick('slickPlay');
+            }
+        });
 
         spotlightCarousel.on('click', '.spotlight-card__btn', function(e) {
             e.preventDefault();
@@ -3216,7 +3263,8 @@ async function showHairConcern(category, element) {
 <!-- explore stylings  -->
 <script>
     $(document).ready(function() {
-        $('.nivis_labs_section__carousel').slick({
+        const labsCarousel = $('.nivis_labs_section__carousel');
+        labsCarousel.slick({
             slidesToShow: 4,
             slidesToScroll: 1,
             autoplay: true,
@@ -3239,6 +3287,15 @@ async function showHairConcern(category, element) {
             ]
         });
 
+        labsCarousel.on('mouseenter focusin', function() {
+            labsCarousel.slick('slickPause');
+        });
+        labsCarousel.on('mouseleave focusout', function() {
+            if (!this.matches(':hover') && !this.contains(document.activeElement)) {
+                labsCarousel.slick('slickPlay');
+            }
+        });
+
         $('.explore_section_carousel').slick({
             slidesToShow: 4,
             slidesToScroll: 1,
@@ -3259,12 +3316,5 @@ async function showHairConcern(category, element) {
         });
     });
 </script>
-
-
-
-
-
-
-
 
 <?php include 'footer.php'; ?>

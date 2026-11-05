@@ -26,7 +26,7 @@
     <!-- image slider   -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <link rel="stylesheet" href="./assets/css/new_style.css?v=24">
+    <link rel="stylesheet" href="./assets/css/new_style.css?v=29">
     <link rel="stylesheet" href="./assets/css/theme.css?v=15">
     <link rel="stylesheet" href="./assets/css/skin-experience.css?v=4">
     <link rel="stylesheet" href="./assets/css/product-pricing.css?v=2">
@@ -258,9 +258,9 @@
             </li>
 
             <!-- REWARDS -->
-            <li class="index_navbar_section__mob-item">
+            <!-- <li class="index_navbar_section__mob-item">
                 <a href="#" class="index_navbar_section__mob-plain" onclick="toggleRewards(event)">Rewards</a>
-            </li>
+            </li> -->
 
             <!-- CONTACT US -->
             <li class="index_navbar_section__mob-item">
@@ -493,7 +493,7 @@
                             <a href="tracking.php" class="new_navbr_section__link">
                                 TRACK MY ORDER
                             </a>
-                            <ul class="new_navbr_section__dropdown new_navbr_section__track_dropdown">
+                            <!-- <ul class="new_navbr_section__dropdown new_navbr_section__track_dropdown">
                                 <li>
                                     <form action="tracking.php" method="post" class="new_navbr_section__track_form">
                                         <label for="navbarTrackOrderId">Order ID</label>
@@ -501,7 +501,7 @@
                                         <button type="submit">Track order</button>
                                     </form>
                                 </li>
-                            </ul>
+                            </ul> -->
                         </li>
 
 
@@ -685,9 +685,9 @@
             <div class="new_navbr_section__offcanvas_head">
 
                 <a href="/"
-                    class="new_navbr_section__mobile_logo">
+                    class="new_navbr_section__mobile_logo" style="border-radius:10px;">
 
-                    <img src="./assets/img/nivis-labs-international.png"
+                    <img src="./assets/img/nivislabs_mobile_device.png"
                         alt="Nivis Labs International">
 
                 </a>
@@ -887,17 +887,20 @@
 
                 </li>
 
-                 <li class="new_navbr_section__mobile_item">
-
-                    <a href="climate-adaptive-skincaare.php"
-                        class="new_navbr_section__mobile_plain">
-
-                        <!-- Skinthesis -->
-                        Climate-Adaptive Skincare
-
-                    </a>
-
+                <li class="new_navbr_section__mobile_item" data-has-sub="true">
+                    <div class="new_navbr_section__mobile_row" role="button" tabindex="0" aria-expanded="false">
+                        <span class="new_navbr_section__mobile_label">Climate-Adaptive Skincare</span>
+                        <span class="new_navbr_section__mobile_plus" aria-hidden="true">
+                            <i class="bi bi-plus"></i>
+                        </span>
+                    </div>
+                    <ul class="new_navbr_section__mobile_sub">
+                        <li><a href="products.php?category=climate-tropical-humid">Tropical &amp; Humid</a></li>
+                        <li><a href="products.php?category=climate-hot-dry">Hot &amp; Dry</a></li>
+                        <li><a href="products.php?category=climate-cold-dry">Cold &amp; Dry</a></li>
+                    </ul>
                 </li>
+              
 
                 
 
@@ -931,12 +934,12 @@
                 </li>
 
                 <li class="new_navbr_section__mobile_item new_navbr_section__mobile_track">
-                    <a href="tracking.php" class="new_navbr_section__mobile_plain">Track My Order</a>
-                    <form action="tracking.php" method="post" class="new_navbr_section__track_form">
+                    <a href="tracking.php" class="new_navbr_section__mobile_plain"> </a>
+                    <!-- <form action="tracking.php" method="post" class="new_navbr_section__track_form">
                         <label for="mobileTrackOrderId">Order ID</label>
                         <input id="mobileTrackOrderId" name="order_id" type="text" maxlength="100" placeholder="Enter your order ID" required>
                         <button type="submit">Track order</button>
-                    </form>
+                    </form> -->
                 </li>
 
             </ul>
@@ -951,26 +954,27 @@
     <script src="./assets/js/graphql-client.js?v=6"></script>
     <script src="./assets/js/search-suggestions.js?v=9"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const track = document.getElementById('newMarqueeTrack');
-            if (!track) return;
+   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const track = document.getElementById('newMarqueeTrack');
+        if (!track) return;
 
-            const offers = [
-                '40% OFF ON FIRSTTIME',
-                'NEW ARRIVAL = FIRSTTIME'
-            ];
-            const items = Array.from({ length: 8 }, () => offers).flat();
+        const offers = [
+            'BUY 1 GET 10% OFF',
+            'BUY 2 GET 20% OFF'
+        ];
 
-            track.innerHTML = items.map(offer => `
-                <div class="new-marquee-item">
-                    <span class="new-marquee-separator">✦</span>
-                    <span>${offer}</span>
-                    <span class="new-marquee-separator">✦</span>
-                </div>
-            `).join('');
-        });
-    </script>
+        const items = Array.from({ length: 8 }, () => offers).flat();
+
+        track.innerHTML = items.map(offer => `
+            <div class="new-marquee-item">
+                <span class="new-marquee-separator">✦</span>
+                <span>${offer}</span>
+                <span class="new-marquee-separator">✦</span>
+            </div>
+        `).join('');
+    });
+</script>
 
     <script>
         /* â”€â”€â”€ Navbar scroll behaviour â”€â”€â”€ */
@@ -1122,7 +1126,8 @@
 
             row.addEventListener('click', function() {
 
-                item.classList.toggle('is-open');
+                const isOpen = item.classList.toggle('is-open');
+                row.setAttribute('aria-expanded', String(isOpen));
 
                 const icon = item.querySelector(
                     '.new_navbr_section__mobile_plus i'
@@ -1142,7 +1147,16 @@
 
             });
 
+            row.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    row.click();
+                }
+            });
+
         });
     </script>
+
+    
 
     <?php include __DIR__ . '/account_drawer.php'; ?>

@@ -5,7 +5,9 @@ ob_start();
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
-header("Cache-Control: no-store");
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Pragma: no-cache");
+header("Expires: 0");
 
 require_once __DIR__ . '/backend_config.php';
 require_once __DIR__ . '/care_category_matching.php';
@@ -851,7 +853,7 @@ $magicCollection = canonicalSeeTheMagicCollection($categorySlug);
 $categorySlug = $careCategory ?: ($climateCollection ?: ($magicCollection ?: $categorySlug));
 $isAllProductsCategory = in_array($categorySlug, ["all", "products", "all-products"], true);
 $cacheDir = __DIR__ . "/cache";
-$cacheVersion = $climateCollection ? "v19" : ($magicCollection ? "v16" : "v15");
+$cacheVersion = $climateCollection ? "v20" : ($magicCollection ? "v16" : "v15");
 $cacheFile = $cacheDir . "/category-products-" . $cacheVersion . "-" . $categorySlug . ".json";
 
 if (!$forceRefresh && is_file($cacheFile) && time() - filemtime($cacheFile) < $cacheTtl) {

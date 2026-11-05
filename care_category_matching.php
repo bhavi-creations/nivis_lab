@@ -86,7 +86,7 @@ function productsInClimateCollection($products, $collection)
             'nivis-labs-korean-moon-light-night-cream-dehydration',
             'nivis-labs-hydrofresh-hydrating-light-moisturiser-lotion',
             'nivis-labs-hydromist-revitalizing-face-calming-mist',
-            'nluv01',
+            'nivis-bright-glutathione-vit-c-face-wash',
             'nivis-labs-uv-aqua-sunscreen-spray-spf-50'
         ]
     ];
@@ -95,7 +95,7 @@ function productsInClimateCollection($products, $collection)
         'nluv01' => 'UV BEST Sunscreen Gel',
         'nivis-labs-hydrofresh-hydrating-light-moisturiser-lotion' => 'HYDROFRESH Moisturising Lotion',
         'nivis-labs-hydromist-revitalizing-face-calming-mist' => 'HYDROMIST Face Mist',
-        'nivis-bright-glutathione-vit-c-face-wash' => 'BRIGHT Face Wash',
+        'nivis-bright-glutathione-vit-c-face-wash' => 'Bright Glutathione + Vit C Face Wash',
         'nivis-labs-uv-aqua-sunscreen-spray-spf-50' => 'UV AQUA Sunscreen Spray'
     ];
     $matchedProducts = array_values(array_filter($products, function ($product) use ($productKeys) {

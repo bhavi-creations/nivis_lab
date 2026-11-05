@@ -7385,7 +7385,8 @@ button:hover {
 
 .concern-card img {
     width: 100%;
-    height: 222px;
+    height: 170px;
+    /* height: 222px; */
     object-fit: cover;
     display: block;
 }
@@ -11019,3 +11020,5 @@ select {
     border-radius: 10px !important;
     color: white !important;
 }
+
+

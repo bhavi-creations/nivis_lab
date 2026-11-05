@@ -13,6 +13,14 @@
         'anti-ageing',
         'dehydration'
     ]);
+    const careCollections = new Set(['skin-care', 'foot-care', 'baby-care', 'hair-care']);
+    const spotlightCollections = new Set([
+        ...climateCollections,
+        ...skinCareCollections,
+        ...careCollections,
+        ...allProductsCollections
+    ]);
+    let activeProductRefresh = false;
     window.toggleFilter = toggleFilter;
     window.updatePrice = updatePrice;
 
@@ -32,12 +40,11 @@
         if (!categoryKey) return;
 
         if (grid) {
-            if (skinCareCollections.has(categoryKey)) {
+            if (skinCareCollections.has(categoryKey) || careCollections.has(categoryKey)) {
                 const productGridWrap = grid.closest('.product-grid-wrap');
                 if (productGridWrap) {
                     productGridWrap.classList.add('care-products-page', 'skincare-style-products-page', 'care-collection-products-page');
                 }
-                bindSpotlightStyleProductCart(grid);
             }
             if (allProductsCollections.has(categoryKey)) {
                 const productGridWrap = grid.closest('.product-grid-wrap');
@@ -51,8 +58,8 @@
                     productGridWrap.classList.add('care-products-page', 'skincare-style-products-page');
                     productGridWrap.classList.add('climate-products-page');
                 }
-                bindSpotlightStyleProductCart(grid);
             }
+            bindSpotlightStyleProductCart(grid);
             patchCaseInsensitiveFilters();
             showLoadingState(grid, count);
             document.body.classList.add('dynamic-products-loading');
@@ -116,47 +123,16 @@
     }
 
     async function fetchCategoryProducts(category) {
-        const collectionVersion = new Set([
-            'hot-humid',
-            'cold-dry',
-            'pollutions',
-            'changing-environments'
-        ]).has(category) ? 'v16' : new Set([
-            'climate-tropical-humid',
-            'climate-hot-dry',
-            'climate-cold-dry'
-        ]).has(category) ? 'v19' : 'v15';
-        const cacheKey = `category-products:${collectionVersion}:${category}`;
-        const cacheTtl = 10000;
-        const cached = sessionStorage.getItem(cacheKey);
+        const response = await fetch(apiUrl(`fetch_category_products.php?category=${encodeURIComponent(category)}`), {
+            cache: 'no-store',
+            headers: { Accept: 'application/json' }
+        });
+        if (!response.ok) throw new Error('Product request failed');
 
-        if (cached) {
-            try {
-                const cachedPayload = JSON.parse(cached);
-                const isFresh = Date.now() - cachedPayload.savedAt < cacheTtl;
-
-                if (isFresh && cachedPayload.result?.products?.length > 0) {
-                    return cachedPayload.result;
-                }
-
-                sessionStorage.removeItem(cacheKey);
-            } catch (error) {
-                sessionStorage.removeItem(cacheKey);
-            }
-        }
-
-        const response = await fetch(apiUrl(`fetch_category_products.php?category=${encodeURIComponent(category)}`));
         const result = await response.json();
 
         if (result.error) {
             throw new Error(result.error);
-        }
-
-        if (result.products?.length > 0) {
-            sessionStorage.setItem(cacheKey, JSON.stringify({
-                savedAt: Date.now(),
-                result
-            }));
         }
 
         return result;
@@ -165,7 +141,27 @@
     async function loadProductsForExistingGrid(category, targetGrid, targetCount) {
         try {
             const result = await fetchCategoryProducts(category);
+            let snapshot = JSON.stringify(result.products || []);
             renderIntoGrid(result.products || [], targetGrid, targetCount, result.category?.name || category);
+
+            window.setInterval(async () => {
+                if (document.hidden || activeProductRefresh) return;
+                activeProductRefresh = true;
+
+                try {
+                    const refreshed = await fetchCategoryProducts(category);
+                    const products = refreshed.products || [];
+                    const nextSnapshot = JSON.stringify(products);
+                    if (nextSnapshot !== snapshot) {
+                        snapshot = nextSnapshot;
+                        renderIntoGrid(products, targetGrid, targetCount, refreshed.category?.name || category);
+                    }
+                } catch (error) {
+                    console.error('Unable to refresh category products:', error);
+                } finally {
+                    activeProductRefresh = false;
+                }
+            }, 5000);
         } catch (error) {
             document.body.classList.remove('dynamic-products-loading');
             document.body.classList.add('dynamic-products-ready');
@@ -577,7 +573,7 @@
         const typeTokens = productTokens(labelFromProduct(product, 'type'));
 
         return `
-            <div class="spotlight-card"
+            <div class="spotlight-card product-card"
                 data-product-id="${escapeHtml(key)}"
                 data-product-name="${escapeHtml(name)}"
                 data-product-price="${escapeHtml(priceNumber)}"
@@ -587,10 +583,10 @@
                 data-ingredient="${escapeHtml(ingredientTokens)}"
                 data-type="${escapeHtml(typeTokens)}">
                 <a href="${escapeHtml(link)}">
-                    <div class="climate-product-image-wrap">
-                        <img class="climate-product-image-primary" src="${escapeHtml(primaryImage)}" alt="${escapeHtml(name)}" loading="lazy"
+                    <div class="product-img-wrap spotlight-image-wrap mb-3">
+                        <img class="img-primary" src="${escapeHtml(primaryImage)}" alt="${escapeHtml(name)}" loading="lazy"
                             onerror="this.onerror=null;this.src='${fallbackImage}';">
-                        <img class="climate-product-image-secondary" src="${escapeHtml(secondaryImage)}" alt="${escapeHtml(name)} alternate view" loading="lazy"
+                        <img class="img-secondary" src="${escapeHtml(secondaryImage)}" alt="${escapeHtml(name)} alternate view" loading="lazy"
                             onerror="this.onerror=null;this.src='${escapeHtml(primaryImage)}';">
                     </div>
                     <h6 class="fw-bold">${escapeHtml(name)} ${size}</h6>
@@ -702,7 +698,7 @@
         syncPriceSliderForProducts(products);
         bindPriceInputs();
         const categoryKey = getCategoryKey();
-        targetGrid.innerHTML = climateCollections.has(categoryKey) || skinCareCollections.has(categoryKey)
+        targetGrid.innerHTML = spotlightCollections.has(categoryKey)
             ? products.map(spotlightStyleProductCard).join('') + spotlightStyleComingSoonCard()
             : products.map(productCard).join('') + `
                 <div class="product-coming-soon-card" role="status">
@@ -838,7 +834,7 @@
                 <a href="${escapeHtml(detailHref)}">
                     <div class="product-img-wrap">
                         <img class="img-primary" src="${escapeHtml(primaryImage)}" alt="${escapeHtml(product.name)}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImage}';" />
-                        <img class="img-secondary" src="${escapeHtml(secondaryImage)}" alt="${escapeHtml(product.name)}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImage}';" />
+                        <img class="img-secondary" src="${escapeHtml(secondaryImage)}" alt="${escapeHtml(product.name)} alternate view" loading="lazy" onerror="this.onerror=null;this.src=this.closest('.product-img-wrap').querySelector('.img-primary').src;" />
                     </div>
 
                     <div class="product-info">

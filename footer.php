@@ -122,7 +122,7 @@
                 </p> -->
 
                 <img class="nivis_footer_new_section__column_logo"
-                    src="./assets/img/nivis-labs-international.png"
+                    src="./assets/img/new_logo_head.png"
                     alt="Nivis Labs International">
 
 
@@ -239,7 +239,7 @@
                     </a>
                 </li>
 
-                <li>
+                <!-- <li>
                     <a href="integrety.php">
                         Ingredients
                     </a>
@@ -249,7 +249,7 @@
                     <a href="https://nivislabs.in/category?category=Face%20Serum">
                         Face Serum
                     </a>
-                </li>
+                </li> -->
 
                 <!-- <li>
                         <a href="#">
@@ -440,6 +440,17 @@
 
 </footer>
 
+<nav class="nivis-social-rail" aria-label="Nivis Labs social media">
+    <a href="https://www.facebook.com/nivislabs.co/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+        <i class="fab fa-facebook-f" aria-hidden="true"></i>
+    </a>
+    <a href="https://www.instagram.com/nivislabs/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <i class="fab fa-instagram" aria-hidden="true"></i>
+    </a>
+    <a href="https://www.youtube.com/@NivisLabs" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+        <i class="fab fa-youtube" aria-hidden="true"></i>
+    </a>
+</nav>
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="cartDrawer">
     <div class="offcanvas-header border-bottom">
@@ -451,7 +462,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<script src="assets/js/category-products.js?v=32"></script>
+<script src="assets/js/category-products.js?v=33"></script>
 
 <script>
     const cartDrawerEl = document.getElementById('cartDrawer');
