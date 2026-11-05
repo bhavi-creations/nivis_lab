@@ -907,7 +907,7 @@
 
 
                 <!-- REWARDS -->
-                <li class="new_navbr_section__mobile_item">
+                <!-- <li class="new_navbr_section__mobile_item">
 
                     <a href="#"
                         onclick="toggleRewards(event)"
@@ -917,7 +917,7 @@
 
                     </a>
 
-                </li>
+                </li> -->
 
 
 
