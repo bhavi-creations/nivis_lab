@@ -10,6 +10,17 @@ $_SESSION['csrf'] = $_SESSION['csrf'] ?? bin2hex(random_bytes(32));
 $signup = ($_GET['mode'] ?? 'signup') !== 'login';
 $error = $_SESSION['auth_error'] ?? '';
 $old = $_SESSION['auth_old'] ?? [];
+$challengeId = (($_SESSION['auth_challenge_purpose'] ?? '') === ($signup ? 'registration' : 'signin')) ? (string)($_SESSION['auth_challenge_id'] ?? '') : '';
+$oldPhone = (string)($old['phone'] ?? '');
+$resendAt = 0;
+$savedPhoneHash = (string)($_SESSION['auth_resend_phone_hash'] ?? '');
+if ($challengeId !== '' && $oldPhone !== '' && preg_match('/^[a-f0-9]{64}$/D', $savedPhoneHash) && hash_equals($savedPhoneHash, hash('sha256', $oldPhone))) {
+    $resendAt = (int)($_SESSION['auth_resend_at_ms'] ?? 0);
+    if ($resendAt <= (int)floor(microtime(true) * 1000) || $resendAt > (int)floor(microtime(true) * 1000) + 120000) $resendAt = 0;
+}
+if (($_SESSION['auth_challenge_purpose'] ?? '') !== ($signup ? 'registration' : 'signin')) {
+    unset($_SESSION['auth_challenge_id'], $_SESSION['auth_challenge_purpose'], $_SESSION['auth_resend_at_ms'], $_SESSION['auth_resend_phone_hash']);
+}
 unset($_SESSION['auth_error'], $_SESSION['auth_old']);
 ?>
 <!DOCTYPE html>
@@ -156,7 +167,7 @@ unset($_SESSION['auth_error'], $_SESSION['auth_old']);
             }
         }
     </style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"><link rel="stylesheet" href="assets/css/theme.css?v=3"><link rel="stylesheet" href="assets/css/account-login.css?v=3"></head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"><link rel="stylesheet" href="assets/css/theme.css?v=3"><link rel="stylesheet" href="assets/css/account-login.css?v=4"></head>
 
 <body class="nivis-theme nivis-login">
     <main class="card">
@@ -167,7 +178,7 @@ unset($_SESSION['auth_error'], $_SESSION['auth_old']);
             <a class="continue" href="index.php">Continue to website</a>
         <?php else: ?>
             <h1><?= $signup ? 'Create your account' : 'Welcome back' ?></h1>
-            <p><?= $signup ? 'Register once to explore Nivis Labs.' : 'Log in with your email and password.' ?></p>
+            <p><?= $signup ? 'Create an account and verify your WhatsApp number.' : 'Sign in securely with a code sent to your WhatsApp number.' ?></p>
             <?php
             $returnOrderId = isset($_GET['order_id']) && is_string($_GET['order_id']) ? trim($_GET['order_id']) : '';
             $returnToTracking = ($_GET['return'] ?? '') === 'tracking.php' && $returnOrderId !== '' && strlen($returnOrderId) <= 100;
@@ -178,7 +189,7 @@ unset($_SESSION['auth_error'], $_SESSION['auth_old']);
             ?>
             <nav class="tabs" aria-label="Account options"><a href="login.php?mode=signup<?= $returnQuery ?>" class="<?= $signup ? 'active' : '' ?>">Sign up</a><a href="login.php?mode=login<?= $returnQuery ?>" class="<?= !$signup ? 'active' : '' ?>">Login</a></nav>
             <?php if ($error !== ''): ?><p class="message error" role="alert"><?= customer_escape($error) ?></p><?php endif; ?>
-            <form action="check_login.php" method="post">
+            <form id="customer-auth-form" action="check_login.php" method="post" data-purpose="<?= $signup ? 'registration' : 'signin' ?>" data-challenge="<?= customer_escape($challengeId) ?>">
                 <input type="hidden" name="csrf" value="<?= customer_escape($_SESSION['csrf']) ?>">
                 <input type="hidden" name="mode" value="<?= $signup ? 'signup' : 'login' ?>">
                 <?php if ($returnTo): ?><input type="hidden" name="return" value="<?= customer_escape($returnTo) ?>"><?php endif; ?>
@@ -195,37 +206,25 @@ unset($_SESSION['auth_error'], $_SESSION['auth_old']);
 <option value="<?= customer_escape($state['code']) ?>" <?= ($old['province'] ?? '') === $state['code'] ? 'selected' : '' ?>><?= customer_escape($state['name']) ?></option>
 <?php endforeach; endforeach; ?></select>
                     <label for="postcode">PIN / Postal code</label><input id="postcode" name="postcode" maxlength="20" value="<?= customer_escape($old['postcode'] ?? '') ?>" autocomplete="postal-code" required>
-                    <label for="phone">Phone number</label><input id="phone" name="phone" type="tel" autocomplete="tel" pattern="\+?[0-9]{10,15}" maxlength="16" title="10 to 15 digits, optionally starting with +" value="<?= customer_escape($old['phone'] ?? '') ?>" required>
                 <?php endif; ?>
-                <label for="email">Email<?= $signup ? '' : ' / Username' ?></label><input id="email" name="email" type="email" autocomplete="username" maxlength="254" value="<?= customer_escape($old['email'] ?? '') ?>" required>
-                <?php if (!$signup): ?>
-                    <label for="password">Password</label>
-                    <div class="password-field">
-                        <input id="password" name="password" type="password" autocomplete="current-password" required>
-                        <button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="password">
-                            <i class="bi bi-eye" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                <?php endif; ?>
-                <p class="hint"><?= $signup ? 'Your email will be your username. Your phone number, exactly as entered, will be your password. We will email your login credentials to you.' : 'Use your current password (your phone number until you change it).' ?></p>
-                <button type="submit"><?= $signup ? 'Create account' : 'Login' ?></button>
+                <label for="phone">WhatsApp number</label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="\+[1-9][0-9]{7,14}" maxlength="16" title="Include the country code, for example +919876543210" value="<?= customer_escape($old['phone'] ?? '') ?>" required>
+                <?php if ($signup): ?><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" value="<?= customer_escape($old['email'] ?? '') ?>" required><?php endif; ?>
+                <p class="hint"><?= $signup ? 'Enter your number with country code. We will send a one-time code to verify it.' : 'Enter the WhatsApp number linked to your account, including its country code.' ?></p>
+                <input type="hidden" id="challenge_id" name="challenge_id" value="<?= customer_escape($challengeId) ?>">
+                <input type="hidden" id="resend_at_ms" value="<?= $resendAt ?>">
+                <div id="otp-step" <?= $challengeId === '' ? 'hidden' : '' ?>>
+                    <label for="otp_code">WhatsApp verification code</label>
+                    <input id="otp_code" name="otp_code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" aria-describedby="otp-message" <?= $challengeId !== '' ? 'required' : 'disabled' ?>>
+                </div>
+                <p id="otp-message" class="message" role="status" aria-live="polite" <?= $challengeId === '' ? 'hidden' : '' ?>><?= $challengeId !== '' ? 'Enter the code sent to your WhatsApp number.' : '' ?></p>
+                <button type="button" id="request-otp" <?= $challengeId !== '' ? 'hidden' : '' ?>>Send WhatsApp code</button>
+                <button type="submit" id="finish-auth" <?= $challengeId === '' ? 'hidden' : '' ?>><?= $signup ? 'Create account' : 'Sign in' ?></button>
             </form>
-            <?php if (!$signup): ?><form action="forgot_password.php" method="get"><button type="submit" style="margin-top:12px">Forgot password?</button></form><?php endif; ?>
+            <?php if (!$signup): ?><p class="hint">Each sign-in uses a new code. You do not need a password.</p><?php endif; ?>
         <?php endif; ?>
     </main>
 <script src="assets/js/account-address.js?v=2" defer></script>
-<script>
-    document.querySelectorAll('.password-toggle').forEach(button => {
-        button.addEventListener('click', () => {
-            const input = document.getElementById(button.getAttribute('aria-controls'));
-            const showing = input.type === 'password';
-            input.type = showing ? 'text' : 'password';
-            button.setAttribute('aria-label', showing ? 'Hide password' : 'Show password');
-            button.setAttribute('aria-pressed', String(showing));
-            button.innerHTML = `<i class="bi ${showing ? 'bi-eye-slash' : 'bi-eye'}" aria-hidden="true"></i>`;
-        });
-    });
-</script>
+<script src="assets/js/customer-otp.js?v=3" defer></script>
 </body>
 
 </html>

@@ -73,6 +73,24 @@
     border: 1px solid var(--nivis-border)
 }
 
+.nivis-login #otp-step {
+    margin-top: 16px
+}
+
+.nivis-login #otp-step label {
+    margin-top: 0
+}
+
+.nivis-login #otp-message {
+    margin: 12px 0 0;
+    font-size: 13px
+}
+
+.nivis-login button:disabled {
+    opacity: .65;
+    cursor: wait
+}
+
 .nivis-login .error {
     background: #fff0ed;
     color: #982f24;

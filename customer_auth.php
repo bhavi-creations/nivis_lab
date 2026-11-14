@@ -23,7 +23,7 @@ function customer_login($customer) {
     $_SESSION['logged_in'] = true;
     $_SESSION['website_login'] = true;
 }
-function customer_welcome($name, $email, $phone) {
+function customer_welcome($name, $email) {
     require_once __DIR__ . '/vendor/autoload.php';
     require __DIR__ . '/smtp_settings.php';
     $mail = new PHPMailer\PHPMailer\PHPMailer(true);
@@ -38,7 +38,7 @@ function customer_welcome($name, $email, $phone) {
     $mail->CharSet = 'UTF-8';
     $mail->setFrom($smtpUser, 'Nivis Labs International');
     $mail->addAddress($email, $name);
-    $mail->Subject = 'Welcome to Nivis Labs International - Login credentials';
-    $mail->Body = "Hello {$name},\n\nThank you for login Nivis Labs International.\n\nLogin credentials\nUsername: {$email}\nPassword: {$phone}\n\nUse your email and phone number to log in next time.\n\nNivis Labs International";
+    $mail->Subject = 'Welcome to Nivis Labs International';
+    $mail->Body = "Hello {$name},\n\nWelcome to Nivis Labs International. Your account has been created with {$email}.\n\nTo sign in, enter your WhatsApp number on our website and verify the code sent to you.\n\nNivis Labs International";
     $mail->send();
 }
