@@ -1648,3 +1648,69 @@ body.nivis-theme {
 .nivis-theme #hair-routine-content .hair-result-card--coming-soon p {
     color: var(--nivis-muted);
 }
+
+/* =========================================================
+   Header icons, section dividers and footer logo sizing
+   (#075563 matches the scrolling offer bar)
+========================================================= */
+.nivis-theme .new_navbr_section__navbar .new_navbr_section__icon {
+    background: #075563 !important;
+    color: #ffffff !important;
+    border-color: #075563 !important;
+}
+
+.nivis-theme .new_navbr_section__navbar .new_navbr_section__icon::after {
+    border-bottom-color: transparent;
+}
+
+.nivis-theme .new_navbr_section__navbar .new_navbr_section__icon:is(:hover, :focus-visible) {
+    background: #0a6b7c !important;
+    color: #ffffff !important;
+    border-color: #c7a66a !important;
+}
+
+.nivis-theme .new_navbr_section__navbar .new_navbr_section__cart_badge {
+    background: #c7a66a !important;
+    border-color: #ffffff !important;
+    color: #092f46 !important;
+}
+
+/* No divider lines between homepage sections, on any screen size. */
+.nivis-theme .index_img_section,
+.nivis-theme .img_section_container,
+.nivis-theme .dermat-routine-section,
+.nivis-theme .nivis_index_third_section {
+    border-top: 0 !important;
+    border-bottom: 0 !important;
+}
+
+.nivis-theme .nivis_footer_new_section__column_logo {
+    width: 130px;
+}
+
+.nivis-theme .nivis_footer_new_section__brand_logo {
+    width: min(300px, 70vw);
+}
+
+@media (max-width: 767px) {
+    .nivis-theme .nivis_footer_new_section__column_logo {
+        width: 105px;
+    }
+
+    .nivis-theme .nivis_footer_new_section__brand_logo {
+        width: min(230px, 65vw);
+    }
+}
+
+/* Show the hero "Buy Now" button on phones too (it was hidden below 640px). */
+@media (max-width: 640px) {
+    .nivis-theme .index_img_section__cta {
+        display: flex;
+        right: 12px;
+        bottom: 12px;
+        gap: 6px;
+        padding: 6px 12px;
+        font-size: 10px !important;
+        letter-spacing: .14em;
+    }
+}

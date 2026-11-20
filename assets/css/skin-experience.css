@@ -627,3 +627,9 @@
     .skin-assessment-primary,
     .skin-assessment-secondary { transition: none; }
 }
+
+/* Social shortcuts (Instagram, Facebook, WhatsApp) only on desktop (>= 992px).
+   Mobile and tablet keep just the Skin Care Help launcher. */
+@media (max-width: 991.98px) {
+    .nivis-support-social { display: none !important; }
+}

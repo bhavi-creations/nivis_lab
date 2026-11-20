@@ -481,8 +481,8 @@
         const priceEl = card.querySelector('.product-price');
         const imgEl = card.querySelector('.product-img-wrap img.img-primary, .product-img-wrap img, img');
         const name = nameEl ? nameEl.textContent.trim() : 'Product';
-        const salePriceEl = card.querySelector('[data-sale-price]');
-        const priceText = String(card.dataset.price || card.dataset.productPrice || salePriceEl?.dataset.salePrice || priceEl?.textContent || '0')
+        const salePriceEl = card.querySelector('[data-list-price]');
+        const priceText = String(card.dataset.price || card.dataset.productPrice || salePriceEl?.dataset.listPrice || priceEl?.textContent || '0')
             .replace(/,/g, '').replace(/[^0-9.]/g, '').trim();
         const sku = card.dataset.sku || card.dataset.productSku || card.dataset.productCode || '';
 
@@ -601,7 +601,8 @@
             return;
         }
 
-        const totalAmount = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        const listTotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        const totalAmount = window.NivisPricing ? window.NivisPricing.sale(listTotal) : listTotal;
 
         const productHtml = cartItems.map(item => `
             <div class="nivis-cart-item mb-3 pb-3 border-bottom">
@@ -610,7 +611,7 @@
                 </div>
                 <div class="nivis-cart-item__copy">
                     <div class="fw-bold" style="font-size: 14px;">${item.name}</div>
-                    <div class="text-muted small">${window.NivisPricing.html(item.price)} x ${item.quantity}</div>
+                    <div class="text-muted small">${window.NivisPricing.format(window.NivisPricing.sale(item.price))} × ${item.quantity}</div>
                 </div>
                 <div class="nivis-cart-item__total fw-bold">${window.NivisPricing.html(item.price * item.quantity)}</div>
                 <button onclick="removeFromCart('${item.id}')" class="nivis-cart-item__remove btn btn-sm btn-dark" title="Remove">
@@ -751,7 +752,7 @@
         });
 
         if (!existingScript) {
-            script.src = 'assets/js/graphql-client.js?v=6';
+            script.src = 'assets/js/graphql-client.js?v=7';
             document.head.appendChild(script);
         } else {
             waitForCart();

@@ -55,3 +55,17 @@
     min-width: 0;
     overflow-wrap: anywhere;
 }
+.nivis-price-pair .nivis-price-off {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: #075563;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .4px;
+    line-height: 1.5;
+    white-space: nowrap;
+    align-self: center;
+}
+.step-price .nivis-price-pair .nivis-price-off { align-self: flex-end; }

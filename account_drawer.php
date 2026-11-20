@@ -7,5 +7,5 @@ $accountBasePath = $accountBasePath === '/' || $accountBasePath === '.' ? '' : r
     <div class="offcanvas-body" id="accountDrawerContent" data-base-path="<?= htmlspecialchars($accountBasePath, ENT_QUOTES, 'UTF-8') ?>" aria-live="polite"></div>
     <div class="nivis-account-footer" id="accountDrawerFooter" hidden><a href="logout.php">Logout <i class="bi bi-box-arrow-right" aria-hidden="true"></i></a></div>
 </div>
-<link rel="stylesheet" href="<?= htmlspecialchars($accountBasePath, ENT_QUOTES, 'UTF-8') ?>/assets/css/account.css?v=6">
+<link rel="stylesheet" href="<?= htmlspecialchars($accountBasePath, ENT_QUOTES, 'UTF-8') ?>/assets/css/account.css?v=8">
 <script src="<?= htmlspecialchars($accountBasePath, ENT_QUOTES, 'UTF-8') ?>/assets/js/account.js?v=11" defer></script>

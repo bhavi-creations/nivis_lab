@@ -1,4 +1,4 @@
-<?php include 'navbar.php'; ?>
+﻿<?php include 'navbar.php'; ?>
 <style>
     html:has(#indexHero),
     body:has(#indexHero) {
@@ -118,42 +118,42 @@
                 <source media="(max-width: 640px)" srcset="./assets/img/mobile1.png">
                 <img class="index_img_section__product" src="./assets/img/2.png" alt="Nivis Labs featured skincare" fetchpriority="high">
             </picture>
-            <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
+            <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div>
         </a>
         <!-- <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/instant-glow-bg.png');">
             <picture>
                 <source media="(max-width: 640px)" srcset="./assets/img/mobile2.png">
                 <img class="index_img_section__product" src="./assets/img/instant-glow-bg.png" alt="Nivis Labs Instant Glow" loading="lazy">
             </picture>
-            <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
+            <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div>
         </a> -->
         <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/6.png');">
             <picture>
                 <source media="(max-width: 640px)" srcset="./assets/img/mobile3.png">
                 <img class="index_img_section__product" src="./assets/img/6.png" alt="Nivis Labs Nivis-Glow serum" loading="lazy">
             </picture>
-            <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
+            <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div>
         </a>
         <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/7.png');">
             <picture>
                 <source media="(max-width: 640px)" srcset="./assets/img/mobile4.png">
                 <img class="index_img_section__product" src="./assets/img/7.png" alt="Nivis Labs UV Aqua sunscreen" loading="lazy">
             </picture>
-            <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
+            <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div>
         </a>
         <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/8.png');">
             <picture>
                 <source media="(max-width: 640px)" srcset="./assets/img/mobile5.png">
                 <img class="index_img_section__product" src="./assets/img/8.png" alt="Nivis Labs Folilock Cream Pro" loading="lazy">
             </picture>
-            <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
+            <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div>
         </a>
         <!-- <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/folilock-cream-pro-bg.png');">
             <picture>
                 <source media="(max-width: 640px)" srcset="./assets/img/mobile6.png">
                 <img class="index_img_section__product" src="./assets/img/folilock-cream-pro-bg.png" alt="Nivis Labs Folilock Cream Pro" loading="lazy">
             </picture>
-            <div class="index_img_section__cta"><span>Read More</span><i class="bi bi-arrow-right-circle"></i></div>
+            <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div>
         </a> -->
     </div>
     <button type="button" class="index_img_section__nav index_img_section__nav--prev" id="classicHeroPrev" aria-label="Previous image">
@@ -2364,6 +2364,11 @@
 
 <?php include __DIR__ . '/skin_assessment.php'; ?>
 
+
+
+
+
+
 <!-- <section class="index_straight-up_section">
     <div class="container">
 
@@ -3107,7 +3112,8 @@
                 slidesToShow: 4,
                 slidesToScroll: 1,
                 autoplay: true,
-                autoplaySpeed: 2500,
+                autoplaySpeed: 1000,
+                speed: 450,
                 responsive: [{
                         breakpoint: 1024,
                         settings: {
@@ -3404,6 +3410,10 @@
         </div>
     </div>
 </section>
+
+
+
+<?php include __DIR__ . '/reviews.php'; ?>
 
 
 <?php include 'footer.php'; ?>

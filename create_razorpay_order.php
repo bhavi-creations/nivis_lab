@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/razorpay_config.php';
 require_once __DIR__ . '/customer_auth.php';
+require_once __DIR__ . '/site_discount.php';
 
 header('Content-Type: application/json');
 
@@ -495,6 +496,10 @@ if ($cartId === '') {
         ], 500);
     }
 }
+
+// Make sure EverShop applies the site-wide discount before it totals the order
+// (keeps a customer coupon if one is already on the cart).
+site_discount_apply($cartId);
 
 $paymentMethodCode = trim((string) ($input['payment_method'] ?? 'razorpay'));
 $availableMethodsResult = postJson($baseUrl . '/graphql', [

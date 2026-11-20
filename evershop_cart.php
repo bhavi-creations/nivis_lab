@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/backend_config.php';
 require_once __DIR__ . '/customer_auth.php';
+require_once __DIR__ . '/site_discount.php';
 header('Content-Type: application/json');
 
 function jsonResponse($payload, int $status = 200): void
@@ -214,10 +215,14 @@ function applyCouponToCart(string $cartId, string $coupon): array
 function reapplySessionCoupon(string $cartId): ?string
 {
     $coupon = couponSessionCode();
-    if ($coupon === '') return null;
+    if ($coupon === '') {
+        site_discount_apply($cartId);
+        return null;
+    }
     $result = applyCouponToCart($cartId, $coupon);
     if (empty($result['success'])) {
         setCouponSessionCode('');
+        site_discount_apply($cartId);
         return $result['error'] ?? 'The coupon could not be reapplied to your updated cart.';
     }
     return null;
@@ -352,14 +357,22 @@ if ($action === 'apply_coupon' || $action === 'remove_coupon' || $action === 'ca
         if ($coupon === '' || preg_match('/\s/', $coupon)) {
             jsonResponse(['success' => false, 'message' => 'Enter a valid coupon code.'], 400);
         }
-        $result = applyCouponToCart($cartId, $coupon);
-        if (empty($result['success'])) {
-            jsonResponse(['success' => false, 'message' => $result['error'] ?? 'Coupon could not be applied.'], 422);
+        if (site_discount_is_site_coupon($coupon)) {
+            site_discount_apply($cartId);
+        } else {
+            // EverShop allows one coupon per cart: the customer's code replaces
+            // the site discount, which comes back if their code fails.
+            site_discount_remove($cartId);
+            $result = applyCouponToCart($cartId, $coupon);
+            if (empty($result['success'])) {
+                site_discount_apply($cartId);
+                jsonResponse(['success' => false, 'message' => $result['error'] ?? 'Coupon could not be applied.'], 422);
+            }
+            setCouponSessionCode($coupon);
         }
-        setCouponSessionCode($coupon);
     } elseif ($action === 'remove_coupon') {
         $coupon = trim((string) ($input['coupon'] ?? couponSessionCode()));
-        if ($coupon !== '') {
+        if ($coupon !== '' && !site_discount_is_site_coupon($coupon)) {
             $result = requestJson('DELETE', rtrim(EVERSHOP_BASE_URL, '/') . "/api/carts/{$cartId}/coupons/" . rawurlencode($coupon));
             $decoded = json_decode((string) $result['response'], true);
             if ($result['error'] || $result['http_code'] < 200 || $result['http_code'] >= 300 || !empty($decoded['error'])) {
@@ -367,12 +380,17 @@ if ($action === 'apply_coupon' || $action === 'remove_coupon' || $action === 'ca
             }
         }
         setCouponSessionCode('');
+        site_discount_apply($cartId);
+    } else {
+        // cart_summary: carts created before the site discount existed get it now.
+        site_discount_apply($cartId);
     }
 
     $summary = getCartPricingSummary($cartId);
     if (!is_array($summary)) {
         jsonResponse(['success' => false, 'message' => 'Coupon updated, but cart totals could not be refreshed. Please retry.'], 502);
     }
+    $summary['siteDiscount'] = site_discount_is_site_coupon($summary['coupon'] ?? '');
     jsonResponse(['success' => true, 'cart_id' => $cartId, 'summary' => $summary]);
 }
 

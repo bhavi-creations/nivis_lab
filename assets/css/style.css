@@ -10897,7 +10897,7 @@ select {
     align-items:center;
     width:max-content;
     white-space:nowrap;
-    animation:newMarqueeScroll 22s linear infinite;
+    animation:newMarqueeScroll 90s linear infinite;
 }
 
 .new-marquee-item{

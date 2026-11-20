@@ -128,7 +128,7 @@ include 'navbar.php';
                         <strong id="checkoutSubtotal">₹0</strong>
                     </div>
                     <div class="d-flex justify-content-between mb-2 d-none" id="checkoutDiscountRow">
-                        <span>Discount</span>
+                        <span class="checkout-discount-label">Discount</span>
                         <strong class="text-success" id="checkoutDiscount">−₹0</strong>
                     </div>
                     <div class="d-flex justify-content-between mb-2">
@@ -157,7 +157,7 @@ include 'navbar.php';
                 <div id="shippingConfirmItems" class="d-grid gap-3 mb-3" style="max-height: 260px; overflow-y: auto;"></div>
                 <div class="border-top pt-3">
                     <div class="d-flex justify-content-between mb-2"><span>Subtotal</span><strong id="shippingConfirmSubtotal"></strong></div>
-                    <div class="d-flex justify-content-between mb-2 d-none" id="shippingConfirmDiscountRow"><span>Discount</span><strong class="text-success" id="shippingConfirmDiscount"></strong></div>
+                    <div class="d-flex justify-content-between mb-2 d-none" id="shippingConfirmDiscountRow"><span class="checkout-discount-label">Discount</span><strong class="text-success" id="shippingConfirmDiscount"></strong></div>
                     <div class="d-flex justify-content-between mb-2"><span>Shipping</span><strong id="shippingConfirmAmount"></strong></div>
                     <div class="d-flex justify-content-between border-top pt-2 fs-5"><span class="fw-semibold">Total</span><strong id="shippingConfirmTotal"></strong></div>
                 </div>
@@ -264,7 +264,12 @@ include 'navbar.php';
         discountRowEl.classList.toggle('d-none', discount <= 0);
         discountEl.textContent = `−${formatPrice(discount)}`;
         totalEl.textContent = priceText(cartPricing?.grandTotal, cart.total);
-        appliedCoupon = String(cartPricing?.coupon || '');
+        // The automatic site-wide 20% coupon is not a customer code: keep the box free.
+        const siteDiscount = Boolean(cartPricing?.siteDiscount);
+        document.querySelectorAll('.checkout-discount-label').forEach((label) => {
+            label.textContent = siteDiscount ? `Discount (${window.NivisPricing?.DISCOUNT_PERCENT || 20}% off)` : 'Discount';
+        });
+        appliedCoupon = siteDiscount ? '' : String(cartPricing?.coupon || '');
         couponInput.value = appliedCoupon;
         applyCouponBtn.classList.toggle('d-none', Boolean(appliedCoupon));
         removeCouponBtn.classList.toggle('d-none', !appliedCoupon);
@@ -363,7 +368,7 @@ include 'navbar.php';
                 </div>
                 <div class="nivis-checkout-item__copy">
                     <div class="fw-semibold">${item.name || 'Product'}</div>
-                    <div class="text-muted small">${window.NivisPricing.html(item.price)} x ${item.quantity || 1}</div>
+                    <div class="text-muted small">${window.NivisPricing.format(window.NivisPricing.sale(item.price))} × ${item.quantity || 1}</div>
                 </div>
                 <div class="nivis-checkout-item__total fw-semibold">${window.NivisPricing.html(Number(item.price || 0) * Number(item.quantity || 1))}</div>
             </div>
@@ -387,12 +392,12 @@ include 'navbar.php';
             name.textContent = item.name || 'Product';
             const quantity = document.createElement('div');
             quantity.className = 'small text-muted';
-            quantity.textContent = `${formatPrice(item.price)} × ${item.quantity || 1}`;
+            quantity.textContent = `${formatPrice(window.NivisPricing.sale(item.price))} × ${item.quantity || 1}`;
             details.append(name, quantity);
 
             const lineTotal = document.createElement('strong');
             lineTotal.className = 'text-nowrap';
-            lineTotal.textContent = formatPrice(Number(item.price || 0) * Number(item.quantity || 1));
+            lineTotal.textContent = formatPrice(window.NivisPricing.sale(Number(item.price || 0) * Number(item.quantity || 1)));
             row.append(details, lineTotal);
             shippingConfirmItemsEl.append(row);
         });

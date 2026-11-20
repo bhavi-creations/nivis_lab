@@ -4,11 +4,15 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const pricing = require('../assets/js/product-pricing.js');
 
-test('comparison price adds exactly 10 percent to the actual product price', () => {
-    assert.equal(pricing.reference(1000), 1100);
-    assert.equal(pricing.reference(500), 550);
-    assert.equal(pricing.reference(649), 713.9);
-    assert.equal(pricing.reference(1000.5), 1100.55);
+test('catalogue price is the struck-through original and the sale price is 20 percent lower', () => {
+    assert.equal(pricing.DISCOUNT_PERCENT, 20);
+    assert.equal(pricing.reference(1000), 1000);
+    assert.equal(pricing.sale(100), 80);
+    assert.equal(pricing.sale(1000), 800);
+    assert.equal(pricing.sale(649), 519.2);
+    assert.equal(pricing.sale(1424.5), 1139.6);
+    assert.equal(pricing.sale('Rs. 1,000'), 800);
+    assert.equal(pricing.sale(0), 0);
 });
 
 test('rupee formats and decimals retain the actual sale amount', () => {
@@ -19,11 +23,13 @@ test('rupee formats and decimals retain the actual sale amount', () => {
     assert.equal(pricing.format(713.9), '\u20b9713.90');
 });
 
-test('markup strikes the comparison price and keeps a separate sale value for cart parsing', () => {
+test('markup strikes the original price and shows the 20 percent discounted price', () => {
     const html = pricing.html(1000);
-    assert.match(html, /<s[^>]+>\u20b91,100<\/s>/);
-    assert.match(html, /data-sale-price="1000"/);
-    assert.match(html, />\u20b91,000<\/span>/);
+    assert.match(html, /<s[^>]+>\u20b91,000<\/s>/);
+    assert.match(html, /data-list-price="1000"/);
+    assert.match(html, /data-sale-price="800"/);
+    assert.match(html, />\u20b9800<\/span>/);
+    assert.match(html, />20% OFF<\/span>/);
     for (const price of [0, -100, null, undefined, Infinity, 'Unavailable', '<script>1000</script>']) {
         assert.equal(pricing.html(price), '');
     }
@@ -42,5 +48,5 @@ test('legacy price observation starts during parsing before the body exists', ()
     assert.equal(observed.target, document.documentElement);
     assert.equal(observed.options.subtree, true);
     assert.equal(observed.options.childList, true);
-    assert.equal(window.NivisPricing.reference(1000), 1100);
+    assert.equal(window.NivisPricing.sale(1000), 800);
 });

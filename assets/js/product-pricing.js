@@ -54,24 +54,36 @@
         const number = Number(clean);
         return Number.isFinite(number) && number > 0 ? number : 0;
     }
+    // The catalogue (EverShop) price is the original price and is shown struck
+    // through; the customer price is 20% lower (e.g. ₹100 crossed out, then ₹80).
+    // Cart items keep the catalogue price; totals are discounted with sale().
+    const DISCOUNT_PERCENT = 20;
+    function round2(value) {
+        return Math.round((value + Number.EPSILON) * 100) / 100;
+    }
     function reference(value) {
-        return Math.round((amount(value) * 1.1 + Number.EPSILON) * 100) / 100;
+        return round2(amount(value));
+    }
+    function sale(value) {
+        return round2(amount(value) * (100 - DISCOUNT_PERCENT) / 100);
     }
     function format(value) {
         const price = amount(value);
-        return '\u20b9' + price.toLocaleString('en-IN', {
+        return '₹' + price.toLocaleString('en-IN', {
             minimumFractionDigits: Number.isInteger(price) ? 0 : 2,
             maximumFractionDigits: 2
         });
     }
     function html(value) {
-        const price = amount(value);
-        if (!price) return '';
-        const oldLabel = format(reference(price));
+        const original = reference(value);
+        if (!original) return '';
+        const price = sale(original);
+        const oldLabel = format(original);
         const saleLabel = format(price);
         return '<span class="nivis-price-pair">' +
-            '<s class="nivis-price-reference" aria-label="Reference price ' + oldLabel + '">' + oldLabel + '</s>' +
-            '<span class="nivis-price-current" data-sale-price="' + price + '" aria-label="Price ' + saleLabel + '">' + saleLabel + '</span></span>';
+            '<s class="nivis-price-reference" aria-label="Original price ' + oldLabel + '">' + oldLabel + '</s>' +
+            '<span class="nivis-price-current" data-list-price="' + original + '" data-sale-price="' + price + '" aria-label="Price ' + saleLabel + '">' + saleLabel + '</span>' +
+            '<span class="nivis-price-off">' + DISCOUNT_PERCENT + '% OFF</span></span>';
     }
-    return { amount, reference, format, html };
+    return { amount, reference, sale, format, html, DISCOUNT_PERCENT };
 }));

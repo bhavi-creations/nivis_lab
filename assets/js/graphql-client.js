@@ -446,8 +446,15 @@ const NivisCart = {
     return items.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
   },
 
-  total(items = this.read()) {
+  // Catalogue total before the site-wide discount.
+  listTotal(items = this.read()) {
     return items.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 0), 0);
+  },
+
+  // Amount payable after the site-wide discount (see product-pricing.js).
+  total(items = this.read()) {
+    const listTotal = this.listTotal(items);
+    return window.NivisPricing ? window.NivisPricing.sale(listTotal) : listTotal;
   },
 
   toCart(items = this.read()) {
@@ -463,12 +470,12 @@ const NivisCart = {
 
     const nameEl = card.querySelector('.product-name, h6, [data-product-name]');
     const priceEl = card.querySelector('.product-price, [data-product-price]');
-    const salePriceEl = card.querySelector('[data-sale-price]');
+    const salePriceEl = card.querySelector('[data-list-price]');
     const imgEl = card.querySelector('.product-img-wrap img.img-primary, .product-img-wrap img, img');
     const name = card.dataset.productName || nameEl?.textContent?.trim() || 'Product';
     const parsePrice = (value) => Number(String(value || '').replace(/,/g, '').replace(/[^0-9.]/g, '')) || 0;
     const price = parsePrice(card.dataset.price) || parsePrice(card.dataset.productPrice) ||
-      parsePrice(salePriceEl?.dataset.salePrice) || parsePrice(priceEl?.textContent);
+      parsePrice(salePriceEl?.dataset.listPrice) || parsePrice(priceEl?.textContent);
     const sku = String(card.dataset.sku || card.dataset.productSku || card.dataset.productCode || '').trim();
     const idSource = sku || card.dataset.productId || name;
     const id = String(idSource).trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
