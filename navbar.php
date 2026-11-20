@@ -10,9 +10,20 @@
     <title>Nivis Labs</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon-32.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="./assets/img/favicon-192.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="./assets/img/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon-32.png?v=3" />
+    <link rel="icon" type="image/png" sizes="192x192" href="./assets/img/favicon-192.png?v=3" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/img/apple-touch-icon.png?v=3" />
+    <script>
+        // The home page renders these tags inside <body>, where browsers ignore icons.
+        // Move them into <head> so the favicon shows on every page.
+        (function () {
+            var head = document.head;
+            if (!head) return;
+            document.querySelectorAll('link[rel~="icon"], link[rel="apple-touch-icon"]').forEach(function (link) {
+                if (link.parentNode !== head) head.appendChild(link);
+            });
+        })();
+    </script>
     <meta name="theme-color" content="#075563" />
 
     <!-- Open CDN connections early so CSS/fonts start downloading sooner -->
