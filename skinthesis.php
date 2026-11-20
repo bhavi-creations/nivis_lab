@@ -73,7 +73,7 @@
             <div class="col-md-4">
                 <div class="skinthesis-card h-100">
                     <div class="card-img-wrapper">
-                        <img src="./assets/img/nivis_korean_moonlight.png"
+                        <img src="./assets/img/nivis_korean_moonlight.webp"
                             class="card-img-top" alt="Vitamin C">
                     </div>
                     <div class="card-body p-4">
@@ -89,7 +89,7 @@
             <div class="col-md-4">
                 <div class="skinthesis-card h-100">
                     <div class="card-img-wrapper">
-                        <img src="./assets/img/nivis_glow_face_serum.png"
+                        <img src="./assets/img/nivis_glow_face_serum.webp"
                             class="card-img-top" alt="Layer Skincare">
                     </div>
                     <div class="card-body p-4">
@@ -107,7 +107,7 @@
             <div class="col-md-4">
                 <div class="skinthesis-card h-100">
                     <div class="card-img-wrapper">
-                        <img src="./assets/img/nivis_uv_aqua_sunscreen.png"
+                        <img src="./assets/img/nivis_uv_aqua_sunscreen.webp"
                             class="card-img-top" alt="Skin Type">
                     </div>
                     <div class="card-body p-4">
@@ -145,7 +145,7 @@
             <div class="col-md-4">
                 <div class="skinthesis-card h-100">
                     <div class="card-img-wrapper">
-                        <img src="./assets/img/Skin Glow.png"
+                        <img src="./assets/img/Skin Glow.webp"
                             class="card-img-top" alt="Skin Glow">
                     </div>
                     <div class="card-body p-4">
@@ -163,7 +163,7 @@
             <div class="col-md-4">
                 <div class="skinthesis-card h-100">
                     <div class="card-img-wrapper">
-                        <img src="./assets/img/acne_new.png"
+                        <img src="./assets/img/acne_new.webp"
                             class="card-img-top" alt="Treat Acne">
                     </div>
                     <div class="card-body p-4">
@@ -222,7 +222,7 @@
             <div class="col-md-4">
                 <div class="skinthesis-card h-100">
                     <div class="card-img-wrapper">
-                        <img src="./assets/img/Squalane.png"
+                        <img src="./assets/img/Squalane.webp"
                             class="card-img-top" alt="Squalane">
                     </div>
                     <div class="card-body p-4">
@@ -240,7 +240,7 @@
             <div class="col-md-4">
                 <div class="skinthesis-card h-100">
                     <div class="card-img-wrapper">
-                        <img src="./assets/img/Shea Butter.png"
+                        <img src="./assets/img/Shea Butter.webp"
                             class="card-img-top" alt="Shea Butter">
                     </div>
                     <div class="card-body p-4">
@@ -258,7 +258,7 @@
             <div class="col-md-4">
                 <div class="skinthesis-card h-100">
                     <div class="card-img-wrapper">
-                        <img src="./assets/img/Peptazin.png"
+                        <img src="./assets/img/Peptazin.webp"
                             class="card-img-top" alt="Peptazin">
                     </div>
                     <div class="card-body p-4">

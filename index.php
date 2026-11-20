@@ -113,45 +113,45 @@
         <line class="ray ray-3" x1="820" y1="380" x2="600" y2="800" />
     </svg>
     <div class="index_img_section__slides" id="indexHeroSlides" aria-live="polite">
-        <a class="index_img_section__slide active" href="products.php" style="--hero-img: url('./assets/img/2.png');">
+        <a class="index_img_section__slide active" href="products.php" style="--hero-img: url('./assets/img/2.webp');">
             <picture>
-                <source media="(max-width: 640px)" srcset="./assets/img/mobile1.png">
-                <img class="index_img_section__product" src="./assets/img/2.png" alt="Nivis Labs featured skincare" fetchpriority="high">
+                <source media="(max-width: 640px)" srcset="./assets/img/mobile1.webp">
+                <img class="index_img_section__product" src="./assets/img/2.webp" alt="Nivis Labs featured skincare" fetchpriority="high">
             </picture>
             <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div>
         </a>
-        <!-- <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/instant-glow-bg.png');">
+        <!-- <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/instant-glow-bg.webp');">
             <picture>
-                <source media="(max-width: 640px)" srcset="./assets/img/mobile2.png">
-                <img class="index_img_section__product" src="./assets/img/instant-glow-bg.png" alt="Nivis Labs Instant Glow" loading="lazy">
+                <source media="(max-width: 640px)" srcset="./assets/img/mobile2.webp">
+                <img class="index_img_section__product" src="./assets/img/instant-glow-bg.webp" alt="Nivis Labs Instant Glow" loading="lazy">
             </picture>
             <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div>
         </a> -->
-        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/6.png');">
+        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/6.webp');">
             <picture>
-                <source media="(max-width: 640px)" srcset="./assets/img/mobile3.png">
-                <img class="index_img_section__product" src="./assets/img/6.png" alt="Nivis Labs Nivis-Glow serum" loading="lazy">
+                <source media="(max-width: 640px)" srcset="./assets/img/mobile3.webp">
+                <img class="index_img_section__product" src="./assets/img/6.webp" alt="Nivis Labs Nivis-Glow serum" loading="lazy">
             </picture>
             <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div>
         </a>
-        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/7.png');">
+        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/7.webp');">
             <picture>
-                <source media="(max-width: 640px)" srcset="./assets/img/mobile4.png">
-                <img class="index_img_section__product" src="./assets/img/7.png" alt="Nivis Labs UV Aqua sunscreen" loading="lazy">
+                <source media="(max-width: 640px)" srcset="./assets/img/mobile4.webp">
+                <img class="index_img_section__product" src="./assets/img/7.webp" alt="Nivis Labs UV Aqua sunscreen" loading="lazy">
             </picture>
             <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div>
         </a>
-        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/8.png');">
+        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/8.webp');">
             <picture>
-                <source media="(max-width: 640px)" srcset="./assets/img/mobile5.png">
-                <img class="index_img_section__product" src="./assets/img/8.png" alt="Nivis Labs Folilock Cream Pro" loading="lazy">
+                <source media="(max-width: 640px)" srcset="./assets/img/mobile5.webp">
+                <img class="index_img_section__product" src="./assets/img/8.webp" alt="Nivis Labs Folilock Cream Pro" loading="lazy">
             </picture>
             <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div>
         </a>
-        <!-- <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/folilock-cream-pro-bg.png');">
+        <!-- <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/folilock-cream-pro-bg.webp');">
             <picture>
-                <source media="(max-width: 640px)" srcset="./assets/img/mobile6.png">
-                <img class="index_img_section__product" src="./assets/img/folilock-cream-pro-bg.png" alt="Nivis Labs Folilock Cream Pro" loading="lazy">
+                <source media="(max-width: 640px)" srcset="./assets/img/mobile6.webp">
+                <img class="index_img_section__product" src="./assets/img/folilock-cream-pro-bg.webp" alt="Nivis Labs Folilock Cream Pro" loading="lazy">
             </picture>
             <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div>
         </a> -->
@@ -379,29 +379,29 @@
         <div class="row g-2 justify-content-center">
 
             <div class="col-lg-2-custom">
-                <div class="concern-card"><img src="./assets/img/logo.jpeg" alt="2">
+                <div class="concern-card"><img loading="lazy" decoding="async" src="./assets/img/logo.webp" alt="2">
                     <div class="concern-overlay">Acne </div>
                 </div>
             </div>
 
             <div class="col-lg-2-custom">
-                <div class="concern-card"><img src="./assets/img/logo.jpeg" alt="1">
+                <div class="concern-card"><img loading="lazy" decoding="async" src="./assets/img/logo.webp" alt="1">
                     <div class="concern-overlay">Pigmentation </div>
                 </div>
             </div>
             <div class="col-lg-2-custom">
-                <div class="concern-card"><img src="./assets/img/logo.jpeg" alt="3">
+                <div class="concern-card"><img loading="lazy" decoding="async" src="./assets/img/logo.webp" alt="3">
                     <div class="concern-overlay">Acne Marks </div>
                 </div>
             </div>
 
             <div class="col-lg-2-custom">
-                <div class="concern-card"><img src="./assets/img/logo.jpeg" alt="1">
+                <div class="concern-card"><img loading="lazy" decoding="async" src="./assets/img/logo.webp" alt="1">
                     <div class="concern-overlay">Dark Spot </div>
                 </div>
             </div>
             <div class="col-lg-2-custom">
-                <div class="concern-card"><img src="./assets/img/logo.jpeg" alt="1">
+                <div class="concern-card"><img loading="lazy" decoding="async" src="./assets/img/logo.webp" alt="1">
                     <div class="concern-overlay">Anti-Ageing </div>
                 </div>
             </div>
@@ -412,12 +412,12 @@
 
 
             <div class="col-lg-2-custom">
-                <div class="concern-card"><img src="./assets/img/logo.jpeg" alt="4">
+                <div class="concern-card"><img loading="lazy" decoding="async" src="./assets/img/logo.webp" alt="4">
                     <div class="concern-overlay">Dehydration</div>
                 </div>
             </div>
             <div class="col-lg-2-custom">
-                <div class="concern-card"><img src="./assets/img/logo.jpeg" alt="5">
+                <div class="concern-card"><img loading="lazy" decoding="async" src="./assets/img/logo.webp" alt="5">
                     <div class="concern-overlay">Eczema </div>
                 </div>
             </div>
@@ -541,7 +541,7 @@
             <div class="concern-item" onclick="showDermatRoutine('acne', this, 1)">
                 <div class="concern-card">
                     <div class="routine-concern-image" style="--concern-photo-zoom: 2; --concern-photo-position: 75% center;">
-                        <div class="routine-concern-photo"><img src="./assets/img/acne.png" alt="Nivis Labs Acne"></div>
+                        <div class="routine-concern-photo"><img src="./assets/img/acne.webp" loading="lazy" decoding="async" alt="Nivis Labs Acne"></div>
                         <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="m9 5 7 7-7 7" />
                             </svg></span>
@@ -555,7 +555,7 @@
             <div class="concern-item" onclick="showDermatRoutine('pigmentation', this, 2)">
                 <div class="concern-card">
                     <div class="routine-concern-image" style="--concern-photo-zoom: 2; --concern-photo-origin: 65% 25%;">
-                        <div class="routine-concern-photo"><img src="./assets/img/Pigmentation.png" alt="Nivis Labs Pigmentation"></div>
+                        <div class="routine-concern-photo"><img src="./assets/img/Pigmentation.webp" loading="lazy" decoding="async" alt="Nivis Labs Pigmentation"></div>
                         <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="m9 5 7 7-7 7" />
                             </svg></span>
@@ -567,7 +567,7 @@
             <div class="concern-item" onclick="showDermatRoutine('acne-marks', this, 3)">
                 <div class="concern-card">
                     <div class="routine-concern-image" style="--concern-photo-zoom: 1.3;">
-                        <div class="routine-concern-photo"><img src="./assets/img/Acne Marks.png" alt="Nivis Labs Acne Marks"></div>
+                        <div class="routine-concern-photo"><img src="./assets/img/Acne Marks.webp" loading="lazy" decoding="async" alt="Nivis Labs Acne Marks"></div>
                         <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="m9 5 7 7-7 7" />
                             </svg></span>
@@ -579,7 +579,7 @@
             <div class="concern-item" onclick="showDermatRoutine('dark-spots', this, 4)">
                 <div class="concern-card">
                     <div class="routine-concern-image" style="--concern-photo-zoom: 1.2;">
-                        <div class="routine-concern-photo"><img src="./assets/img/Dark Spots.png" alt="Nivis Labs Dark Spots"></div>
+                        <div class="routine-concern-photo"><img src="./assets/img/Dark Spots.webp" loading="lazy" decoding="async" alt="Nivis Labs Dark Spots"></div>
                         <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="m9 5 7 7-7 7" />
                             </svg></span>
@@ -591,7 +591,7 @@
             <div class="concern-item" onclick="showDermatRoutine('anti-ageing', this, 5)">
                 <div class="concern-card">
                     <div class="routine-concern-image">
-                        <div class="routine-concern-photo"><img src="./assets/img/Anti-Aging.png" alt="Nivis Labs Anti-Aging"></div>
+                        <div class="routine-concern-photo"><img src="./assets/img/Anti-Aging.webp" loading="lazy" decoding="async" alt="Nivis Labs Anti-Aging"></div>
                         <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="m9 5 7 7-7 7" />
                             </svg></span>
@@ -603,7 +603,7 @@
             <div class="concern-item" onclick="showDermatRoutine('dehydration', this, 6)">
                 <div class="concern-card">
                     <div class="routine-concern-image" style="--concern-photo-zoom: 1.2;">
-                        <div class="routine-concern-photo"><img src="./assets/img/Dehydration.png" alt="Nivis Labs Dehydration"></div>
+                        <div class="routine-concern-photo"><img src="./assets/img/Dehydration.webp" loading="lazy" decoding="async" alt="Nivis Labs Dehydration"></div>
                         <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="m9 5 7 7-7 7" />
                             </svg></span>
@@ -689,7 +689,7 @@
                     type: 'Treatment',
                     priceNumber: 500,
                     price: 'Rs. 500',
-                    imageUrl: './assets/img/acne.png'
+                    imageUrl: './assets/img/acne.webp'
                 },
                 {
                     name: 'Acne Marks Care',
@@ -699,7 +699,7 @@
                     type: 'Treatment',
                     priceNumber: 520,
                     price: 'Rs. 520',
-                    imageUrl: './assets/img/Acne Marks.png'
+                    imageUrl: './assets/img/Acne Marks.webp'
                 }
             ],
             pigmentation: [{
@@ -710,7 +710,7 @@
                     type: 'Treatment',
                     priceNumber: 520,
                     price: 'Rs. 520',
-                    imageUrl: './assets/img/Pigmentation.png'
+                    imageUrl: './assets/img/Pigmentation.webp'
                 },
                 {
                     name: 'Dark Spots Correcting Care',
@@ -720,7 +720,7 @@
                     type: 'Treatment',
                     priceNumber: 500,
                     price: 'Rs. 500',
-                    imageUrl: './assets/img/Dark Spots.png'
+                    imageUrl: './assets/img/Dark Spots.webp'
                 }
             ],
             'acne-marks': [{
@@ -731,7 +731,7 @@
                     type: 'Treatment',
                     priceNumber: 520,
                     price: 'Rs. 520',
-                    imageUrl: './assets/img/Acne Marks.png'
+                    imageUrl: './assets/img/Acne Marks.webp'
                 },
                 {
                     name: 'Post Acne Spot Care',
@@ -741,7 +741,7 @@
                     type: 'Treatment',
                     priceNumber: 500,
                     price: 'Rs. 500',
-                    imageUrl: './assets/img/acne.png'
+                    imageUrl: './assets/img/acne.webp'
                 }
             ],
             'dark-spots': [{
@@ -752,7 +752,7 @@
                     type: 'Treatment',
                     priceNumber: 500,
                     price: 'Rs. 500',
-                    imageUrl: './assets/img/Dark Spots.png'
+                    imageUrl: './assets/img/Dark Spots.webp'
                 },
                 {
                     name: 'Brightening Support Care',
@@ -762,7 +762,7 @@
                     type: 'Treatment',
                     priceNumber: 520,
                     price: 'Rs. 520',
-                    imageUrl: './assets/img/Pigmentation.png'
+                    imageUrl: './assets/img/Pigmentation.webp'
                 }
             ],
             'anti-ageing': [{
@@ -773,7 +773,7 @@
                     type: 'Treatment',
                     priceNumber: 540,
                     price: 'Rs. 540',
-                    imageUrl: './assets/img/Anti-Aging.png'
+                    imageUrl: './assets/img/Anti-Aging.webp'
                 },
                 {
                     name: 'Night Repair Cream',
@@ -783,7 +783,7 @@
                     type: 'Night Cream',
                     priceNumber: 360,
                     price: 'Rs. 360',
-                    imageUrl: './assets/img/night cream.jpeg'
+                    imageUrl: './assets/img/night cream.webp'
                 }
             ],
             dehydration: [{
@@ -794,7 +794,7 @@
                     type: 'Moisturizer',
                     priceNumber: 500,
                     price: 'Rs. 500',
-                    imageUrl: './assets/img/Dehydration.png'
+                    imageUrl: './assets/img/Dehydration.webp'
                 },
                 {
                     name: 'Hydromist Moisturizing Spray',
@@ -804,7 +804,7 @@
                     type: 'Spray',
                     priceNumber: 260,
                     price: 'Rs. 260',
-                    imageUrl: './assets/img/face spray.jpeg'
+                    imageUrl: './assets/img/face spray.webp'
                 }
             ]
         };
@@ -827,7 +827,7 @@
 
         const normalized = String(image).toLowerCase();
         const isUsableImage = !normalized.includes('/assets/img/product.webp') &&
-            !normalized.includes('/assets/img/logo.jpeg');
+            !normalized.includes('/assets/img/logo.webp');
 
         return isUsableImage &&
             (normalized.includes('localhost:3000') ||
@@ -1626,7 +1626,7 @@
 
                 <!-- <div class="concern-item" onclick="showDermatRoutine('acne', this, 1)">
                     <div class="concern-card">
-                        <img src="./assets/img/acne.png" alt="Nivis Labs Acne">
+                        <img src="./assets/img/acne.webp" loading="lazy" decoding="async" alt="Nivis Labs Acne">
                         <div class="concern-overlay">Acne</div>
                     </div>
                 </div> -->
@@ -1634,7 +1634,7 @@
                 <div class="concern-item" onclick="showHairConcern('grey-hair', this)">
                     <div class="concern-card">
                         <div class="hair-concern-image">
-                            <img src="./assets/img/grey-hair.png" alt="Grey hair care">
+                            <img src="./assets/img/grey-hair.webp" loading="lazy" decoding="async" alt="Grey hair care">
                             <span class="hair-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="m9 5 7 7-7 7" />
                                 </svg></span>
@@ -1646,7 +1646,7 @@
                 <div class="concern-item" onclick="showHairConcern('thin-hair', this)">
                     <div class="concern-card">
                         <div class="hair-concern-image">
-                            <img src="./assets/img/thin-hair.png" alt="Thin hair care">
+                            <img src="./assets/img/thin-hair.webp" loading="lazy" decoding="async" alt="Thin hair care">
                             <span class="hair-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="m9 5 7 7-7 7" />
                                 </svg></span>
@@ -1658,7 +1658,7 @@
                 <div class="concern-item" onclick="showHairConcern('hair-fall', this)">
                     <div class="concern-card">
                         <div class="hair-concern-image">
-                            <img src="./assets/img/hair_fall.png" alt="Hair fall care">
+                            <img src="./assets/img/hair_fall.webp" loading="lazy" decoding="async" alt="Hair fall care">
                             <span class="hair-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="m9 5 7 7-7 7" />
                                 </svg></span>
@@ -1670,7 +1670,7 @@
                 <div class="concern-item" onclick="showHairConcern('dandruff', this)">
                     <div class="concern-card">
                         <div class="hair-concern-image">
-                            <img src="./assets/img/dandruff.png" alt="Nivis Labs Anti-Aging">
+                            <img src="./assets/img/dandruff.webp" loading="lazy" decoding="async" alt="Nivis Labs Anti-Aging">
                             <span class="hair-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="m9 5 7 7-7 7" />
                                 </svg></span>
@@ -1681,7 +1681,7 @@
 
                 <!-- <div class="concern-item" onclick="showDermatRoutine('dehydration', this, 6)">
                     <div class="concern-card">
-                        <img src="./assets/img/Dehydration.png" alt="Nivis Labs Dehydration">
+                        <img src="./assets/img/Dehydration.webp" loading="lazy" decoding="async" alt="Nivis Labs Dehydration">
                         <div class="concern-overlay">Dehydration</div>
                     </div>
                 </div> -->
@@ -1715,12 +1715,12 @@
 
     function hairConcernImage(category) {
         const imageMap = {
-            'grey-hair': './assets/img/grey-hair.png',
-            'thin-hair': './assets/img/thin-hair.png',
-            'hair-fall': './assets/img/hair_fall.png',
-            'dandruff': './assets/img/dandruff.png'
+            'grey-hair': './assets/img/grey-hair.webp',
+            'thin-hair': './assets/img/thin-hair.webp',
+            'hair-fall': './assets/img/hair_fall.webp',
+            'dandruff': './assets/img/dandruff.webp'
         };
-        return imageMap[category] || './assets/img/hair_fall.png';
+        return imageMap[category] || './assets/img/hair_fall.webp';
     }
 
     function hairConcernComingSoonCard(category) {
@@ -2136,8 +2136,7 @@
 
 
 
-
-
+<script src="https://cdn.jsdelivr.net/npm/swiper@14.4.0/swiper-bundle.min.js"></script>
 <script>
     var swiper = new Swiper(".team-slider", {
         slidesPerView: 3, // Show 3 slides at a time
@@ -2180,7 +2179,7 @@
                                 <h4>SERUMS</h4>
                                 <p>Derm-backed actives for pigmentation, aging & acne.</p>
                             </div>
-                            <img src="./assets/img/logo.jpeg" class="explore_section_img" alt="Serums">
+                            <img loading="lazy" decoding="async" src="./assets/img/logo.webp" class="explore_section_img" alt="Serums">
                             <a href="#" class="explore_section_shop_now">SHOP NOW</a>
                         </div>
                     </div>
@@ -2195,7 +2194,7 @@
                                 <h4>SERUMS</h4>
                                 <p>Derm-backed actives for pigmentation, aging & acne.</p>
                             </div>
-                            <img src="./assets/img/logo.jpeg" class="explore_section_img" alt="Serums">
+                            <img loading="lazy" decoding="async" src="./assets/img/logo.webp" class="explore_section_img" alt="Serums">
                             <a href="#" class="explore_section_shop_now">SHOP NOW</a>
                         </div>
                     </div>
@@ -2209,7 +2208,7 @@
                                 <h4>SERUMS</h4>
                                 <p>Derm-backed actives for pigmentation, aging & acne.</p>
                             </div>
-                            <img src="./assets/img/logo.jpeg" class="explore_section_img" alt="Serums">
+                            <img loading="lazy" decoding="async" src="./assets/img/logo.webp" class="explore_section_img" alt="Serums">
                             <a href="#" class="explore_section_shop_now">SHOP NOW</a>
                         </div>
                     </div>
@@ -2223,7 +2222,7 @@
                                 <h4>SERUMS</h4>
                                 <p>Derm-backed actives for pigmentation, aging & acne.</p>
                             </div>
-                            <img src="./assets/img/logo.jpeg" class="explore_section_img" alt="Serums">
+                            <img loading="lazy" decoding="async" src="./assets/img/logo.webp" class="explore_section_img" alt="Serums">
                             <a href="#" class="explore_section_shop_now">SHOP NOW</a>
                         </div>
                     </div>
@@ -2435,19 +2434,19 @@
     <div class="container">
         <div class="row text-center">
             <div class="col-6 col-md-3 mb-3 icon-box">
-                <img src="https://cdn-icons-png.flaticon.com/512/2833/2833315.png" style="width: 100px;">
+                <img loading="lazy" decoding="async" src="https://cdn-icons-png.flaticon.com/512/2833/2833315.png" style="width: 100px;">
                 <p>Quality-Focused Formulas</p>
             </div>
             <div class="col-6 col-md-3 mb-3 icon-box">
-                <img src="https://cdn-icons-png.flaticon.com/512/3063/3063822.png" style="width: 100px;">
+                <img loading="lazy" decoding="async" src="https://cdn-icons-png.flaticon.com/512/3063/3063822.png" style="width: 100px;">
                 <p>Skin-Friendly Approach</p>
             </div>
             <div class="col-6 col-md-3 mb-3 icon-box">
-                <img src="https://cdn-icons-png.flaticon.com/512/2913/2913564.png" style="width: 100px;">
+                <img loading="lazy" decoding="async" src="https://cdn-icons-png.flaticon.com/512/2913/2913564.png" style="width: 100px;">
                 <p>Thoughtful Ingredient Selection</p>
             </div>
             <div class="col-6 col-md-3 mb-3 icon-box">
-                <img src="https://cdn-icons-png.flaticon.com/512/802/802826.png" style="width: 100px;">
+                <img loading="lazy" decoding="async" src="https://cdn-icons-png.flaticon.com/512/802/802826.png" style="width: 100px;">
                 <p>Built for Daily Routines</p>
             </div>
         </div>
@@ -2469,7 +2468,7 @@
                         <h4>Face Serum</h4>
                         <p>Targeted actives for glow, acne marks, and uneven tone.</p>
                     </div>
-                    <img src="./assets/img/FACE SERUM.jpeg" class="explore_section_img" alt="Face Serum">
+                    <img loading="lazy" decoding="async" src="./assets/img/FACE SERUM.webp" class="explore_section_img" alt="Face Serum">
                     <span class="explore_section_shop_now">SHOP NOW</span>
 
                 </a>
@@ -2483,7 +2482,7 @@
                         <h4>Moisturizers</h4>
                         <p>Hydration and barrier repair for daily skin comfort.</p>
                     </div>
-                    <img src="./assets/img/foot cream.jpeg" class="explore_section_img" alt="Moisturizers">
+                    <img loading="lazy" decoding="async" src="./assets/img/foot cream.webp" class="explore_section_img" alt="Moisturizers">
                     <span class="explore_section_shop_now">SHOP NOW</span>
                 </a>
 
@@ -2496,7 +2495,7 @@
                         <h4>Sunscreen</h4>
                         <p>Advanced UV protection for everyday outdoor care.</p>
                     </div>
-                    <img src="./assets/img/face spray.jpeg" class="explore_section_img" alt="Sunscreen">
+                    <img loading="lazy" decoding="async" src="./assets/img/face spray.webp" class="explore_section_img" alt="Sunscreen">
                     <span class="explore_section_shop_now">SHOP NOW</span>
                 </a>
 
@@ -2508,7 +2507,7 @@
                         <h4>Face Cleanser</h4>
                         <p>Gentle daily cleansing for fresh, balanced skin.</p>
                     </div>
-                    <img src="./assets/img/SUNSCFREEN.jpeg" class="explore_section_img" alt="Face Cleanser">
+                    <img loading="lazy" decoding="async" src="./assets/img/SUNSCFREEN.webp" class="explore_section_img" alt="Face Cleanser">
                     <span class="explore_section_shop_now">SHOP NOW</span>
                 </a>
             </div>
@@ -2602,37 +2601,37 @@
 
             <div class="col-6 col-md-4 col-lg-2">
                 <div class="last_section">
-                    <img src="./assets/img/FACE SERUM.jpeg" alt="products" class="img-fluid">
+                    <img loading="lazy" decoding="async" src="./assets/img/FACE SERUM.webp" alt="products" class="img-fluid">
                 </div>
             </div>
 
             <div class="col-6 col-md-4 col-lg-2">
                 <div class="last_section">
-                    <img src="./assets/img/face spray.jpeg" alt="product" class="img-fluid">
+                    <img loading="lazy" decoding="async" src="./assets/img/face spray.webp" alt="product" class="img-fluid">
                 </div>
             </div>
 
             <div class="col-6 col-md-4 col-lg-2">
                 <div class="last_section">
-                    <img src="./assets/img/foot cream.jpeg" alt="product" class="img-fluid">
+                    <img loading="lazy" decoding="async" src="./assets/img/foot cream.webp" alt="product" class="img-fluid">
                 </div>
             </div>
 
             <div class="col-6 col-md-4 col-lg-2">
                 <div class="last_section">
-                    <img src="./assets/img/SUNSCFREEN.jpeg" alt="product" class="img-fluid">
+                    <img loading="lazy" decoding="async" src="./assets/img/SUNSCFREEN.webp" alt="product" class="img-fluid">
                 </div>
             </div>
 
             <div class="col-6 col-md-4 col-lg-2">
                 <div class="last_section">
-                    <img src="./assets/img/INSTA GLOW.jpeg" alt="product" class="img-fluid">
+                    <img loading="lazy" decoding="async" src="./assets/img/INSTA GLOW.webp" alt="product" class="img-fluid">
                 </div>
             </div>
 
             <div class="col-6 col-md-4 col-lg-2">
                 <div class="last_section">
-                    <img src="./assets/img/face spray.jpeg" alt="product" class="img-fluid">
+                    <img loading="lazy" decoding="async" src="./assets/img/face spray.webp" alt="product" class="img-fluid">
                 </div>
             </div>
 
@@ -2699,7 +2698,7 @@
 
                     <div class="nivis_index_fifth_section__product">
 
-                        <img src="./assets/img/FACE SERUM.png"
+                        <img loading="lazy" decoding="async" src="./assets/img/FACE SERUM.webp"
                             alt="Face Serum">
 
                     </div>
@@ -2742,7 +2741,7 @@
 
                     <div class="nivis_index_fifth_section__product">
 
-                        <img src="./assets/img/foot cream.png"
+                        <img loading="lazy" decoding="async" src="./assets/img/foot cream.webp"
                             alt="Moisturizers">
 
                     </div>
@@ -2785,7 +2784,7 @@
 
                     <div class="nivis_index_fifth_section__product">
 
-                        <img src="./assets/img/face spray.png"
+                        <img loading="lazy" decoding="async" src="./assets/img/face spray.webp"
                             alt="Sunscreen">
 
                     </div>
@@ -2828,7 +2827,7 @@
 
                     <div class="nivis_index_fifth_section__product">
 
-                        <img src="./assets/img/SUNSCFREEN.png"
+                        <img loading="lazy" decoding="async" src="./assets/img/SUNSCFREEN.webp"
                             alt="Face Cleanser">
 
                     </div>
@@ -3040,8 +3039,6 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
 
 <script>
     $(document).ready(function() {
@@ -3062,7 +3059,7 @@
         }
 
         function spotlightProductCard(product) {
-            const fallbackImage = './assets/img/logo.jpeg';
+            const fallbackImage = './assets/img/logo.webp';
             const imageUrl = (product.images && product.images.length > 0) ?
                 product.images[0] :
                 (product.imageUrl || product.primaryImage || fallbackImage);
@@ -3333,7 +3330,7 @@
 
 
 
-<!-- Bootstrap 5 -->
+<!-- Bootstrap 5 (re-applied after the page styles; kept so the existing look does not change) -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <section class="trust-features-section">
@@ -3345,7 +3342,7 @@
                 <div class="trust-feature-item">
                     <div class="trust-icon-box">
                         <!-- <span class="fda-text">FDA</span> -->
-                         <img src="./assets/img/fdx.png" alt="fdx" class="img-fluid">
+                         <img loading="lazy" decoding="async" src="./assets/img/fdx.png" alt="fdx" class="img-fluid">
                     </div>
                     <p class="trust-feature-title">Indian FDA Approved</p>
                 </div>
@@ -3365,7 +3362,7 @@
                             <line x1="48" y1="29" x2="53" y2="25"></line>
                         </svg> -->
 
-                            <img src="./assets/img/dermatologically-tested.png" alt="fdx" class="img-fluid">
+                            <img loading="lazy" decoding="async" src="./assets/img/dermatologically-tested.png" alt="fdx" class="img-fluid">
                     </div>
                     <p class="trust-feature-title">Dermatologically Tested</p>
                 </div>
@@ -3383,7 +3380,7 @@
                             <circle cx="48" cy="62" r="2"></circle>
                             <line x1="9" y1="57" x2="69" y2="31"></line>
                         </svg> -->
-                            <img src="./assets/img/no-toxic-chemicals.png" alt="fdx" class="img-fluid">
+                            <img loading="lazy" decoding="async" src="./assets/img/no-toxic-chemicals.png" alt="fdx" class="img-fluid">
                     </div>
                     <p class="trust-feature-title">No Toxic Chemicals</p>
                 </div>
@@ -3401,7 +3398,7 @@
                             <path d="M62 61c-7 7-15 10-24 10-11 0-20-5-26-13"></path>
                             <polyline points="17,66 12,58 21,56"></polyline>
                         </svg> -->
-                            <img src="./assets/img/plastic-positive.png" alt="fdx" class="img-fluid">
+                            <img loading="lazy" decoding="async" src="./assets/img/plastic-positive.png" alt="fdx" class="img-fluid">
                     </div>
                     <p class="trust-feature-title">Plastic Positive</p>
                 </div>

@@ -58,7 +58,7 @@
 
                     </div> -->
 
-                    <img src="./assets/img/about-side-img.png" alt="about-img" class="img-fluid">
+                    <img src="./assets/img/about-side-img.webp" alt="about-img" class="img-fluid">
 
                 </div>
 
@@ -208,7 +208,7 @@
 
                                 <div class="foundation-icon">
                                     <!-- <i class="bi bi-bezier2"></i> -->
-                                     <img src="./assets/img/dna-strand.png" alt="globe" style="width: 50px; height:50px;">
+                                     <img src="./assets/img/dna-strand.webp" alt="globe" style="width: 50px; height:50px;">
                                 </div>
 
                                 <p>
@@ -228,8 +228,8 @@
 
                                 <div class="foundation-icon">
                                     <!-- <i class="bi bi-leaf"></i> -->
-                                                                          <!-- <img src="./assets/img/globe.png" alt="globe" style="width: 50px; height:50px;"> -->
-                                     <img src="./assets/img/leaf.png" alt="globe" style="width: 50px; height:50px;">
+                                                                          <!-- <img src="./assets/img/globe.webp" alt="globe" style="width: 50px; height:50px;"> -->
+                                     <img src="./assets/img/leaf.webp" alt="globe" style="width: 50px; height:50px;">
 
                                 </div>
 
@@ -250,8 +250,8 @@
 
                                 <div class="foundation-icon">
                                     <!-- <i class="bi bi-layers"></i> -->
-                                                                          <!-- <img src="./assets/img/globe.png" alt="globe" style="width: 50px; height:50px;"> -->
-                                     <img src="./assets/img/layers.png" alt="globe" style="width: 50px; height:50px;">
+                                                                          <!-- <img src="./assets/img/globe.webp" alt="globe" style="width: 50px; height:50px;"> -->
+                                     <img src="./assets/img/layers.webp" alt="globe" style="width: 50px; height:50px;">
 
                                 </div>
 

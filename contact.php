@@ -331,7 +331,7 @@
                     <div>
                         <h5>Call Us</h5>
                         <p>
-                            <strong>+91 9666690910</strong><br>
+                            <strong><a href="tel:+919676188787" style="color:inherit;text-decoration:none;">+91 96761 88787</a></strong><br>
                             Mon - Sat, 10:00 AM - 6:00 PM
                         </p>
                     </div>
@@ -462,7 +462,7 @@ Vishakahapatnam -530045.
                 <div class="office-image-wrap">
                     <!-- Replace with your exact Nivis Labs office image -->
                     <img
-                        src="./assets/img/FACE SERUM.png"
+                        src="./assets/img/FACE SERUM.webp"
                         alt="Nivis Labs Office"
                     >
                 </div>

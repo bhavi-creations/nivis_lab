@@ -264,10 +264,19 @@ include 'navbar.php';
         discountRowEl.classList.toggle('d-none', discount <= 0);
         discountEl.textContent = `−${formatPrice(discount)}`;
         totalEl.textContent = priceText(cartPricing?.grandTotal, cart.total);
-        // The automatic site-wide 20% coupon is not a customer code: keep the box free.
+        // The automatic site-wide coupon (10% off) is not a customer code: keep the box free.
+        // A customer coupon replaces it in EverShop and carries the site 10% plus its own.
         const siteDiscount = Boolean(cartPricing?.siteDiscount);
+        const sitePercent = window.NivisPricing?.DISCOUNT_PERCENT || 10;
+        const subtotalValue = Number(cartPricing?.subTotal?.value || 0);
+        const discountPercent = subtotalValue > 0 ? Math.round(discount / subtotalValue * 100) : 0;
+        const discountLabel = siteDiscount
+            ? `Discount (${sitePercent}% off)`
+            : (discountPercent > sitePercent
+                ? `Discount (${sitePercent}% + ${discountPercent - sitePercent}% coupon)`
+                : (discount > 0 ? 'Coupon discount' : 'Discount'));
         document.querySelectorAll('.checkout-discount-label').forEach((label) => {
-            label.textContent = siteDiscount ? `Discount (${window.NivisPricing?.DISCOUNT_PERCENT || 20}% off)` : 'Discount';
+            label.textContent = discountLabel;
         });
         appliedCoupon = siteDiscount ? '' : String(cartPricing?.coupon || '');
         couponInput.value = appliedCoupon;

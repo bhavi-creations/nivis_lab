@@ -171,7 +171,7 @@ unset($_SESSION['auth_error'], $_SESSION['auth_old']);
 
 <body class="nivis-theme nivis-login">
     <main class="card">
-        <div class="brand"><img src="assets/img/nivis-labs-international.png" alt="Nivis Labs International"></div>
+        <div class="brand"><img src="assets/img/nivis-labs-international.webp" alt="Nivis Labs International"></div>
         <?php if ($notice !== ''): ?>
             <h1>Welcome to Nivis Labs</h1>
             <p class="message" role="status"><?= customer_escape($notice) ?></p>

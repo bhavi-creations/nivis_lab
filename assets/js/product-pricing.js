@@ -55,9 +55,9 @@
         return Number.isFinite(number) && number > 0 ? number : 0;
     }
     // The catalogue (EverShop) price is the original price and is shown struck
-    // through; the customer price is 20% lower (e.g. ₹100 crossed out, then ₹80).
+    // through; the customer price is 10% lower (e.g. ₹100 crossed out, then ₹90).
     // Cart items keep the catalogue price; totals are discounted with sale().
-    const DISCOUNT_PERCENT = 20;
+    const DISCOUNT_PERCENT = 10;
     function round2(value) {
         return Math.round((value + Number.EPSILON) * 100) / 100;
     }

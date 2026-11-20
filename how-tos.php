@@ -46,21 +46,21 @@
     const posts = [{
             title: "How To Make Skin Glow?",
             cat: "brightening",
-            img: "./assets/img/Skin Glow.png",
+            img: "./assets/img/Skin Glow.webp",
             desc: "Healthy, glowing skin isn't about chasing trends or changing your natural color. For us Indians, true radiance comes from consistent, science-backed skincare...",
             url: "how_to_make_skin_glow.php"
         },
         {
             title: "How To Treat Acne?",
             cat: "acne",
-            img: "./assets/img/acne_new.png",
+            img: "./assets/img/acne_new.webp",
             desc: "Acne isn't limited to teenagers—adults experience it too. Managing breakouts requires a consistent, evidence-based routine with ingredients like Salicylic Acid...",
             url: "how_to_treat_acne.php"
         },
         {
             title: "How To Get Rid of Acne Sequelae (or Scars)?",
             cat: "acne",
-            img: "./assets/img/Acne Sequelae.png",
+            img: "./assets/img/Acne Sequelae.webp",
             desc: "Acne scars—whether pits, raised bumps, or stubborn dark spots—can linger long after breakouts fade, especially in busy Indian cities where pollution is high...",
             url: "how_to_get_rid_of_acne_scars.php"
         }

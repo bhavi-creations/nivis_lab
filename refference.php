@@ -1,5 +1,5 @@
 <?php include 'navbar.php'; ?>
-<img src="./assets/img/refer&earn.png" alt="" class="img-fluid">
+<img src="./assets/img/refer&earn.webp" alt="" class="img-fluid">
 
 <div class="refer_earn_container">
     <p>Give your friends a reward and claim your own when they make a purchase.</p>
@@ -91,7 +91,6 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
     // Leaderboard Filter Logic

@@ -945,7 +945,6 @@
 </div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     // ── Star picker ──
     let pickedStars = 0;
@@ -1118,7 +1117,7 @@
     // ─── Image data (using placeholder SVGs that mimic each section) ───
     const images = [{
             label: "Main",
-            svg: `<svg xmlns="./assets/img/sample1.png" viewBox="0 0 220 320">
+            svg: `<svg xmlns="./assets/img/sample1.webp" viewBox="0 0 220 320">
         <rect width="220" height="320" fill="#f8f4f0"/>
         <rect x="70" y="20" width="80" height="240" rx="8" fill="#b01b2e"/>
         <text x="110" y="130" font-family="Arial" font-size="18" font-weight="bold" fill="white" text-anchor="middle">Nivis Labs</text>
@@ -1131,7 +1130,7 @@
         },
         {
             label: "Angle",
-            svg: `<svg xmlns="./assets/img/sample1.png" viewBox="0 0 220 320">
+            svg: `<svg xmlns="./assets/img/sample1.webp" viewBox="0 0 220 320">
         <rect width="220" height="320" fill="#f0ede9"/>
         <rect x="60" y="30" width="75" height="230" rx="8" fill="#9a1626" transform="rotate(-6,97,145)"/>
         <text x="105" y="145" font-family="Arial" font-size="14" font-weight="bold" fill="white" text-anchor="middle" transform="rotate(-6,105,145)">Nivis Labs</text>
@@ -1140,7 +1139,7 @@
         },
         {
             label: "Skin",
-            svg: `<svg xmlns="./assets/img/sample1.png" viewBox="0 0 220 220">
+            svg: `<svg xmlns="./assets/img/sample1.webp" viewBox="0 0 220 220">
         <rect width="220" height="220" fill="#d4a882"/>
         <ellipse cx="110" cy="110" rx="90" ry="90" fill="#c49060"/>
         <text x="110" y="100" font-family="Arial" font-size="11" fill="white" text-anchor="middle">FOR</text>
@@ -1150,7 +1149,7 @@
         },
         {
             label: "Bottle",
-            svg: `<svg xmlns="./assets/img/sample1.png" viewBox="0 0 220 220">
+            svg: `<svg xmlns="./assets/img/sample1.webp" viewBox="0 0 220 220">
         <rect width="220" height="220" fill="#8a1522"/>
         <rect x="80" y="30" width="60" height="160" rx="6" fill="#b01b2e"/>
         <rect x="80" y="30" width="60" height="20" rx="3" fill="#333"/>
@@ -1160,7 +1159,7 @@
         },
         {
             label: "Texture",
-            svg: `<svg xmlns="./assets/img/sample1.png" viewBox="0 0 220 220">
+            svg: `<svg xmlns="./assets/img/sample1.webp" viewBox="0 0 220 220">
         <rect width="220" height="220" fill="#e8d5bb"/>
         <circle cx="110" cy="110" r="70" fill="rgba(200,169,110,0.4)"/>
         <text x="110" y="95" font-family="Arial" font-size="10" fill="#333" text-anchor="middle">LIGHTWEIGHT</text>
@@ -1170,7 +1169,7 @@
         },
         {
             label: "Badge",
-            svg: `<svg xmlns="./assets/img/sample1.png" viewBox="0 0 220 220">
+            svg: `<svg xmlns="./assets/img/sample1.webp" viewBox="0 0 220 220">
         <rect width="220" height="220" fill="#f8f4f0"/>
         <circle cx="110" cy="110" r="80" fill="none" stroke="#b01b2e" stroke-width="3"/>
         <text x="110" y="90" font-family="Arial" font-size="12" font-weight="bold" fill="#b01b2e" text-anchor="middle">NEW GEN</text>
@@ -1232,7 +1231,6 @@
 
 
 <?php include 'footer.php'; ?>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

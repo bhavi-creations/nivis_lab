@@ -72,7 +72,7 @@
                             </div>
                             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
                                 ${products.map(product => {
-                                    const imageUrl = product.imageUrl || product.primaryImage || './assets/img/logo.jpeg';
+                                    const imageUrl = product.imageUrl || product.primaryImage || './assets/img/logo.webp';
                                     const productName = product.name || 'Product Name';
                                     const productPrice = product.price?.regular?.text || product.price || '₹0';
                                     const concern = product.concern || 'Skincare';

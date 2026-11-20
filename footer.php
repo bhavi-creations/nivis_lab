@@ -122,7 +122,7 @@
                 </p> -->
 
                 <img class="nivis_footer_new_section__column_logo"
-                    src="./assets/img/new_logo_head.png"
+                    src="./assets/img/new_logo_head.webp"
                     alt="Nivis Labs International">
 
 
@@ -396,7 +396,7 @@
         <div class="nivis_footer_new_section__brand">
 
             <img class="nivis_footer_new_section__brand_logo"
-                src="./assets/img/nivis-labs-international.png"
+                src="./assets/img/nivis-labs-international.webp"
                 alt="Nivis Labs International">
 
             <!-- <p>
@@ -460,8 +460,10 @@
     <div class="offcanvas-body" id="cartContent"></div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<?php /* Bootstrap JS is already loaded once by navbar.php. Razorpay is only needed on checkout. */ ?>
+<?php if (basename($_SERVER['SCRIPT_FILENAME'] ?? '') === 'checkout.php'): ?>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<?php endif; ?>
 <script src="assets/js/category-products.js?v=33"></script>
 
 <script>

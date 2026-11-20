@@ -221,7 +221,7 @@
 
                     <div class="climate-image-wrap">
                         <img
-                            src="assets/img/humid.png"
+                            src="assets/img/humid.webp"
                             alt="Tropical and Humid Climate"
                             class="img-fluid"
                         >
@@ -262,7 +262,7 @@
 
                     <div class="climate-image-wrap">
                         <img
-                            src="assets/img/hot.png"
+                            src="assets/img/hot.webp"
                             alt="Hot and Dry Climate"
                             class="img-fluid"
                         >
@@ -303,7 +303,7 @@
 
                     <div class="climate-image-wrap">
                         <img
-                            src="assets/img/cold.png"
+                            src="assets/img/cold.webp"
                             alt="Cold and Dry Climate"
                             class="img-fluid"
                         >

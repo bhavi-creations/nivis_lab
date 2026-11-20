@@ -21,7 +21,7 @@
         <div class="col-md-4">
             <div class="skinthesis-card h-100">
                 <div class="card-img-wrapper">
-                    <img src="./assets/img/vitamin_c.png"
+                    <img src="./assets/img/vitamin_c.webp"
                         class="card-img-top" alt="Vitamin C">
                 </div>
                 <div class="card-body p-4">
@@ -39,7 +39,7 @@
         <div class="col-md-4">
             <div class="skinthesis-card h-100">
                 <div class="card-img-wrapper">
-                    <img src="./assets/img/Layer Skincare.png"
+                    <img src="./assets/img/Layer Skincare.webp"
                         class="card-img-top" alt="Layer Skincare">
                 </div>
                 <div class="card-body p-4">
@@ -57,7 +57,7 @@
         <div class="col-md-4">
             <div class="skinthesis-card h-100">
                 <div class="card-img-wrapper">
-                    <img src="./assets/img/Skin Type.png"
+                    <img src="./assets/img/Skin Type.webp"
                         class="card-img-top" alt="Skin Type">
                 </div>
                 <div class="card-body p-4">

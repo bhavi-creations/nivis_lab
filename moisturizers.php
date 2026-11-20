@@ -174,7 +174,6 @@
 </div>
 <!-- /shop-layout -->
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
   /* ── Toggle filter sections ── */
   function toggleFilter(header) {
@@ -254,11 +253,11 @@ async function loadMoisturizerProducts() {
           <a href="${product.link || '#'}">
             <div class="product-img-wrap">
               <img class="img-primary"
-                src="${product.primaryImage || './assets/img/logo.jpeg'}"
+                src="${product.primaryImage || './assets/img/logo.webp'}"
                 alt="${product.name}">
 
               <img class="img-secondary"
-                src="${product.secondaryImage || product.primaryImage || './assets/img/logo.jpeg'}"
+                src="${product.secondaryImage || product.primaryImage || './assets/img/logo.webp'}"
                 alt="${product.name}">
             </div>
 

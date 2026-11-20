@@ -3155,10 +3155,10 @@ input[type="range"]::-ms-thumb {
 .salicylic_acid_first_section {
     /* Background image path ikkada ivvandi */
     background: linear-gradient(rgba(0, 0, 0, 0.332), rgba(0, 0, 0, 0.281)),
-        url('../img/all_service_bg_img.png');
+        url('../img/all_service_bg_img.webp');
 
     /* background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-        url('../img/all_service_bg_img.png'); */
+        url('../img/all_service_bg_img.webp'); */
 
 
     background-size: cover;
@@ -5636,8 +5636,8 @@ button:hover {
 .our_section_2 {
     background-color: #fcfbf7;
     /* Light cream background */
-    background-image: url('../img/all_service_bg_img.png');
-    /* background-image: url('../img/5.png'); */
+    background-image: url('../img/all_service_bg_img.webp');
+    /* background-image: url('../img/5.webp'); */
     /* Background image path ikkada ivvandi */
     background-size: cover;
     background-position: center;
@@ -5724,7 +5724,7 @@ button:hover {
 .last {
     min-height: 50vh;
     /* Screen motham cover avvadaniki */
-    /* background-image: url('../img/5.png'); */
+    /* background-image: url('../img/5.webp'); */
     /* Nee image path ikkada ivvu */
     background-size: cover;
     background-position: center;

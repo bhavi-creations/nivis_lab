@@ -15,6 +15,12 @@
     <link rel="apple-touch-icon" sizes="180x180" href="./assets/img/apple-touch-icon.png" />
     <meta name="theme-color" content="#075563" />
 
+    <!-- Open CDN connections early so CSS/fonts start downloading sooner -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Bootstrap Icons -->
@@ -23,21 +29,19 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="./assets/css/style.css?v=25">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
+    <link rel="stylesheet" href="./assets/css/style.css?v=26">
+    <?php if (basename($_SERVER['SCRIPT_FILENAME'] ?? '') === 'index.php'): ?>
+    <!-- Slick and Swiper carousels are only used on the home page. -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
-
-    <!-- image slider   -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@14.4.0/swiper-bundle.min.css">
+    <?php endif; ?>
     <link rel="stylesheet" href="./assets/css/new_style.css?v=29">
     <link rel="stylesheet" href="./assets/css/theme.css?v=16">
     <link rel="stylesheet" href="./assets/css/skin-experience.css?v=6">
     <link rel="stylesheet" href="./assets/css/product-pricing.css?v=3">
     <link rel="stylesheet" href="./assets/css/order-tracking.css?v=1">
-    <script src="./assets/js/product-pricing.js?v=3"></script>
+    <script src="./assets/js/product-pricing.js?v=4"></script>
 
 </head>
 
@@ -196,7 +200,7 @@
 
         <div class="index_navbar_section__offcanvas-head">
             <span class="index_navbar_section__offcanvas-logo">
-                <img src="./assets/img/nivis-labs-international.png" alt="Nivis Labs International">
+                <img src="./assets/img/nivis-labs-international.webp" alt="Nivis Labs International">
             </span>
             <button class="index_navbar_section__offcanvas-close" id="navClose">
                 <i class="bi bi-x-lg"></i>
@@ -307,7 +311,7 @@
                 <a href="index.php"
                     class="new_navbr_section__logo " style="padding: 10px 0px;">
 
-                    <img src="./assets/img/nivis-labs-international.png"
+                    <img src="./assets/img/nivis-labs-international.webp"
                         alt="Nivis Labs International">
 
                 </a>
@@ -693,7 +697,7 @@
                 <a href="/"
                     class="new_navbr_section__mobile_logo" style="border-radius:10px;">
 
-                    <img src="./assets/img/nivislabs_mobile_device.png"
+                    <img src="./assets/img/nivislabs_mobile_device.webp" loading="lazy" decoding="async"
                         alt="Nivis Labs International">
 
                 </a>
