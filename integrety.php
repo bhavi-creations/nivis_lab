@@ -164,7 +164,7 @@
           name: "Polyglutamic Acid (PGA)",
           cat: "Lines and Wrinkles",
           link: "polyglutamic_acid.php",
-            image:"./assets/img/acne.webp",
+            image:"./assets/img/Acne.webp",
           emoji: "⚡",
           bg: "#f0f0b8",
           desc: "Polyglutamic Acid (PGA) is a powerful hydration booster that helps your skin retain moisture, stay plump, and feel ultra-soft. Known for its ability to hold up to 5,000 times its weight in water, PGA"

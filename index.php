@@ -541,7 +541,7 @@
             <div class="concern-item" onclick="showDermatRoutine('acne', this, 1)">
                 <div class="concern-card">
                     <div class="routine-concern-image" style="--concern-photo-zoom: 2; --concern-photo-position: 75% center;">
-                        <div class="routine-concern-photo"><img src="./assets/img/acne.webp" loading="lazy" decoding="async" alt="Nivis Labs Acne"></div>
+                        <div class="routine-concern-photo"><img src="./assets/img/Acne.webp" loading="lazy" decoding="async" alt="Nivis Labs Acne"></div>
                         <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="m9 5 7 7-7 7" />
                             </svg></span>
@@ -555,7 +555,7 @@
             <div class="concern-item" onclick="showDermatRoutine('pigmentation', this, 2)">
                 <div class="concern-card">
                     <div class="routine-concern-image" style="--concern-photo-zoom: 2; --concern-photo-origin: 65% 25%;">
-                        <div class="routine-concern-photo"><img src="./assets/img/Pigmentation.webp" loading="lazy" decoding="async" alt="Nivis Labs Pigmentation"></div>
+                        <div class="routine-concern-photo"><img src="./assets/img/pigmentation.webp" loading="lazy" decoding="async" alt="Nivis Labs Pigmentation"></div>
                         <span class="routine-concern-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="m9 5 7 7-7 7" />
                             </svg></span>
@@ -689,7 +689,7 @@
                     type: 'Treatment',
                     priceNumber: 500,
                     price: 'Rs. 500',
-                    imageUrl: './assets/img/acne.webp'
+                    imageUrl: './assets/img/Acne.webp'
                 },
                 {
                     name: 'Acne Marks Care',
@@ -710,7 +710,7 @@
                     type: 'Treatment',
                     priceNumber: 520,
                     price: 'Rs. 520',
-                    imageUrl: './assets/img/Pigmentation.webp'
+                    imageUrl: './assets/img/pigmentation.webp'
                 },
                 {
                     name: 'Dark Spots Correcting Care',
@@ -741,7 +741,7 @@
                     type: 'Treatment',
                     priceNumber: 500,
                     price: 'Rs. 500',
-                    imageUrl: './assets/img/acne.webp'
+                    imageUrl: './assets/img/Acne.webp'
                 }
             ],
             'dark-spots': [{
@@ -762,7 +762,7 @@
                     type: 'Treatment',
                     priceNumber: 520,
                     price: 'Rs. 520',
-                    imageUrl: './assets/img/Pigmentation.webp'
+                    imageUrl: './assets/img/pigmentation.webp'
                 }
             ],
             'anti-ageing': [{
@@ -1626,7 +1626,7 @@
 
                 <!-- <div class="concern-item" onclick="showDermatRoutine('acne', this, 1)">
                     <div class="concern-card">
-                        <img src="./assets/img/acne.webp" loading="lazy" decoding="async" alt="Nivis Labs Acne">
+                        <img src="./assets/img/Acne.webp" loading="lazy" decoding="async" alt="Nivis Labs Acne">
                         <div class="concern-overlay">Acne</div>
                     </div>
                 </div> -->
