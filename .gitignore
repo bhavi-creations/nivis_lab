@@ -6,6 +6,7 @@ cache/shiprocket/
 .env
 shiprocket_config.php
 shiprocket_config.local.php
+contact_mail.local.php
 
 # macOS resource-fork metadata
 __MACOSX/

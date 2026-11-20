@@ -20,8 +20,16 @@ $phone = postValue('phone');
 $subject = postValue('subject');
 $message = postValue('message');
 
-if ($name === '' || $email === '' || $phone === '' || $subject === '' || $message === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    echo "<script>alert('Please fill all fields with a valid email address.'); window.history.back();</script>";
+// Phone and subject are optional on the contact page form.
+if ($subject === '') {
+    $subject = 'Website Enquiry';
+}
+if ($phone === '') {
+    $phone = 'Not provided';
+}
+
+if ($name === '' || $email === '' || $message === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo "<script>alert('Please fill all required fields with a valid email address.'); window.history.back();</script>";
     exit;
 }
 
@@ -31,9 +39,17 @@ $safePhone = htmlspecialchars($phone, ENT_QUOTES, 'UTF-8');
 $safeSubject = htmlspecialchars($subject, ENT_QUOTES, 'UTF-8');
 $safeMessage = nl2br(htmlspecialchars($message, ENT_QUOTES, 'UTF-8'));
 
-$smtpUser = getenv('NIVIS_SMTP_USER') ?: 'nivislabs@gmail.com';
-$smtpPass = getenv('NIVIS_SMTP_PASS') ?: 'vkdkmluomshwgatj';
-$toEmail = getenv('NIVIS_CONTACT_TO') ?: 'nivislabs@gmail.com';
+// Credentials: environment variables first, then contact_mail.local.php (not in git).
+$contactMail = is_file(__DIR__ . '/contact_mail.local.php') ? (require __DIR__ . '/contact_mail.local.php') : [];
+$smtpUser = getenv('NIVIS_CONTACT_SMTP_USER') ?: ($contactMail['user'] ?? '');
+$smtpPass = getenv('NIVIS_CONTACT_SMTP_PASS') ?: ($contactMail['pass'] ?? '');
+$toEmail = getenv('NIVIS_CONTACT_TO') ?: ($contactMail['to'] ?? $smtpUser);
+
+if ($smtpUser === '' || $smtpPass === '') {
+    error_log('Contact form mail failed: contact_mail.local.php is missing or incomplete.');
+    echo "<script>alert('Mail sending failed. Please try again later.'); window.history.back();</script>";
+    exit;
+}
 
 $mail = new PHPMailer(true);
 

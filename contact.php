@@ -393,7 +393,7 @@ Vishakahapatnam -530045.
 
                     <h2 class="form-title">Send Us a Message</h2>
 
-                    <form action="#" method="post">
+                    <form action="contact-process.php" method="post">
 
                         <div class="mb-3">
                             <label class="contact-label">

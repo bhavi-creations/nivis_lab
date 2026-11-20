@@ -117,7 +117,7 @@ RewriteRule ^([a-zA-Z0-9_-]+)$ fullblog.php?id=$1 [L,QSA]
 </IfModule>
 
 <IfModule mod_authz_core.c>
-    <FilesMatch "^shiprocket_config\.php$">
+    <FilesMatch "^(shiprocket_config|contact_mail\.local)\.php$">
         Require all denied
     </FilesMatch>
 </IfModule>
