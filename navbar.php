@@ -233,7 +233,7 @@
             <!-- CATEGORY -->
             <li class="index_navbar_section__mob-item" data-has-sub="true">
                 <div class="index_navbar_section__mob-row">
-                    <span class="index_navbar_section__mob-label">Category</span>
+                    <a href="products.php" class="index_navbar_section__mob-label" style="color: inherit; text-decoration: none;">Category</a>
                     <span class="index_navbar_section__mob-plus"><i class="bi bi-plus"></i></span>
                 </div>
                 <ul class="index_navbar_section__mob-sub" id="navbarCategoryMobile">
@@ -769,9 +769,10 @@
 
                     <div class="new_navbr_section__mobile_row">
 
-                        <span class="new_navbr_section__mobile_label">
+                        <a href="products.php" class="new_navbr_section__mobile_label"
+                            style="color: inherit; text-decoration: none;">
                             Category
-                        </span>
+                        </a>
 
                         <span class="new_navbr_section__mobile_plus">
                             <i class="bi bi-plus"></i>
@@ -1058,7 +1059,12 @@
         document.querySelectorAll('.index_navbar_section__mob-item[data-has-sub]').forEach(item => {
             const row = item.querySelector('.index_navbar_section__mob-row');
             if (!row) return;
-            row.addEventListener('click', () => {
+            row.addEventListener('click', (event) => {
+                const link = event.target.closest('a');
+                if (link) {
+                    if (item.classList.contains('open')) return;
+                    event.preventDefault();
+                }
                 const isOpen = item.classList.contains('open');
                 // Close all others
                 document.querySelectorAll('.index_navbar_section__mob-item.open').forEach(el => el.classList.remove('open'));
@@ -1149,7 +1155,37 @@
         window.addEventListener('nivis-cart:updated', updateCartBadge);
     </script>
 
+    <style>
+        .new_navbr_section__item.is-touch-open .new_navbr_section__dropdown {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translate(-50%, 0);
+        }
+    </style>
     <script>
+        // Touch devices (no hover): first tap on a top menu link with a dropdown
+        // shows the sub-categories, second tap opens the page.
+        if (window.matchMedia('(hover: none)').matches) {
+            document.querySelectorAll('.new_navbr_section__item').forEach(function(item) {
+                const link = item.querySelector(':scope > .new_navbr_section__link');
+                const dropdown = item.querySelector(':scope > .new_navbr_section__dropdown');
+                if (!link || !dropdown) return;
+                link.addEventListener('click', function(event) {
+                    if (item.classList.contains('is-touch-open')) return;
+                    event.preventDefault();
+                    document.querySelectorAll('.new_navbr_section__item.is-touch-open')
+                        .forEach(function(el) { el.classList.remove('is-touch-open'); });
+                    item.classList.add('is-touch-open');
+                });
+            });
+            document.addEventListener('click', function(event) {
+                if (event.target.closest('.new_navbr_section__item')) return;
+                document.querySelectorAll('.new_navbr_section__item.is-touch-open')
+                    .forEach(function(el) { el.classList.remove('is-touch-open'); });
+            });
+        }
+
         document.querySelectorAll(
             '.new_navbr_section__mobile_item[data-has-sub="true"]'
         ).forEach(function(item) {
@@ -1160,7 +1196,15 @@
 
             if (!row) return;
 
-            row.addEventListener('click', function() {
+            row.addEventListener('click', function(event) {
+
+                // Like desktop hover + click: first tap on "Category" shows the
+                // sub-categories, tapping it again opens the products page.
+                const link = event.target.closest('a');
+                if (link) {
+                    if (item.classList.contains('is-open')) return;
+                    event.preventDefault();
+                }
 
                 const isOpen = item.classList.toggle('is-open');
                 row.setAttribute('aria-expanded', String(isOpen));
