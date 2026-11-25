@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <meta name="title" content="Nivis Labs | Dermatologist-Tested Skincare Products for Healthy Skin" />
-    <meta name="descriptions" content="Discover Nivis Labs' dermatologist-tested skincare range including serums, moisturizers, sunscreens, and cleansers. Target acne, pigmentation, dark spots, dehydration, and aging with science-backed formulations." />
+    <meta name="description" content="Science backed skincare formulated for every climate." />
+    <meta property="og:title" content="Nivis Labs" />
+    <meta property="og:description" content="Science backed skincare formulated for every climate." />
+    <meta property="og:site_name" content="Nivis Labs" />
     <title>Nivis Labs</title>
 
     <!-- Favicon -->
