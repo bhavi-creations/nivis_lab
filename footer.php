@@ -228,7 +228,7 @@
             <ul>
 
                 <li>
-                    <a href="our-story.php">
+                    <a href="about.php">
                         About Nivis Labs
                     </a>
                 </li>
