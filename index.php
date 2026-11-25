@@ -634,7 +634,7 @@
     const dermatCategoryMap = {
         acne: 'acne',
         pigmentation: 'pigmentation',
-        'acne-marks': 'acne-marks',
+        'acne-marks': 'acne',
         'dark-spots': 'pigmentation',
         'anti-ageing': 'anti-aging',
         dehydration: 'dehydration',
@@ -644,7 +644,7 @@
         dandruff: 'dandruff',
         'sun-protection': 'sunscreen'
     };
-    const dermatAssignedTopics = new Set(['acne', 'pigmentation', 'anti-ageing', 'dehydration']);
+    const dermatAssignedTopics = new Set(['acne', 'acne-marks', 'pigmentation', 'anti-ageing', 'dehydration']);
 
     let dermatSelectedIndex = 1;
     let dermatCurrentType = '';
@@ -1038,32 +1038,12 @@
         const choicesHtml = includeChoices ?
             `<div class="dermat-products-grid dermat-choice-grid text-start">${visibleProducts.map((product, index) => dermatProductCard(product, index, true, index === selectedProductIndex)).join('')}</div>` :
             '';
-        const selectedImage = dermatProductImage(selectedProduct);
-        const selectedSubtitle = selectedProduct.subtitle || selectedProduct.displayConcern || selectedProduct.concern || selectedProduct.category || 'Selected skincare product';
-        const selectedCardHtml = `
-            <div class="dermat-selected-product-card" ${dermatCartAttrs(selectedProduct)}>
-                <div class="dermat-selected-product-media">
-                    <img src="${escapeDermatHtml(selectedImage)}" alt="${escapeDermatHtml(selectedProduct.name || 'Product')}" loading="lazy" onerror="this.onerror=null;this.src='./assets/img/product.webp';">
-                </div>
-                <div class="dermat-selected-product-copy">
-                    <div class="dermat-selected-kicker">Selected product</div>
-                    <h3>${escapeDermatHtml(selectedProduct.name || 'Product')}</h3>
-                    <p>${escapeDermatHtml(selectedSubtitle)}</p>
-                    <strong class="dermat-selected-price">${window.NivisPricing.html(dermatPriceNumber(selectedProduct))}</strong>
-                </div>
-                <div class="dermat-selected-actions">
-                    <button class="dermat-direct-cart" type="button">ADD</button>
-                </div>
-            </div>
-        `;
-
         if (hint) {
             hint.textContent = 'Selected product and related routine:';
         }
 
         contentArea.innerHTML = `
             ${choicesHtml}
-            ${selectedCardHtml}
 
             <div class="dermat-routine-card">
                 <div class="dermat-routine-head">
@@ -1095,6 +1075,7 @@
         const hint = document.getElementById('dermatResultHint');
         if (!contentArea) return;
 
+        visibleProducts = dedupeDermatProducts(visibleProducts);
         dermatCurrentType = type;
         dermatVisibleProducts = visibleProducts;
         dermatCurrentRoutine = [];
@@ -1110,16 +1091,31 @@
         `;
     }
 
-    function mergeDermatProducts(type, products) {
-        const mergedProducts = (products || []).filter(dermatHasNivisImage);
-        const seenProducts = new Set();
+    // Drop repeats: same id/sku, same product name, or same image file (even if hosted under a different folder).
+    function dedupeDermatProducts(products) {
+        const seen = new Set();
 
-        return mergedProducts.filter(product => {
-            const key = String(product.id || product.sku || product.urlKey || product.url_key || product.name || '').toLowerCase();
-            if (!key || seenProducts.has(key)) return false;
-            seenProducts.add(key);
+        return (products || []).filter(product => {
+            const idKey = String(product.id || product.sku || product.urlKey || product.url_key || '').trim().toLowerCase();
+            const nameKey = String(product.name || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+            const image = String(dermatProductImage(product) || '').split(/[?#]/)[0];
+            const imageFile = image.split('/').pop().toLowerCase();
+            const imageKey = imageFile && !imageFile.startsWith('product.') ? imageFile : '';
+
+            const keys = [
+                idKey && `id:${idKey}`,
+                nameKey && `name:${nameKey}`,
+                imageKey && `img:${imageKey}`
+            ].filter(Boolean);
+
+            if (!keys.length || keys.some(key => seen.has(key))) return false;
+            keys.forEach(key => seen.add(key));
             return true;
         });
+    }
+
+    function mergeDermatProducts(type, products) {
+        return dedupeDermatProducts((products || []).filter(dermatHasNivisImage));
     }
 
     function dermatConcernProductsFromAll(type, products) {
@@ -1254,7 +1250,7 @@
             if (selectionCard) {
                 const selectedIndex = Number(selectionCard.dataset.dermatSelect || 0);
                 renderDermatRoutineMode(dermatCurrentType, dermatVisibleProducts, selectedIndex, true);
-                document.querySelector('.dermat-selected-product-card')?.scrollIntoView({
+                document.querySelector('.dermat-routine-card')?.scrollIntoView({
                     behavior: 'smooth',
                     block: 'nearest'
                 });

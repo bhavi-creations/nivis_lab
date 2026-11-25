@@ -7761,7 +7761,7 @@ button:hover {
 
 .dermat-routine-step {
     display: grid;
-    grid-template-columns: 22px 44px minmax(0, 1fr) 48px;
+    grid-template-columns: 22px 44px minmax(0, 1fr) 64px;
     gap: 12px;
     align-items: center;
     padding: 16px 14px;

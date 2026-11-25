@@ -1714,3 +1714,20 @@ body.nivis-theme {
         letter-spacing: .14em;
     }
 }
+
+/* Routine step ADD button: keep the label centred inside the box */
+.dermat-routine-step .dermat-direct-cart {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 64px;
+    min-width: 0 !important;
+    height: 34px !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    line-height: 1 !important;
+    text-align: center !important;
+    justify-self: end;
+    align-self: center;
+}
