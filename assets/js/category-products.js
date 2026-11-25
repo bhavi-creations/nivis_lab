@@ -673,7 +673,50 @@
         }
     }
 
+    function isProductsPage() {
+        const file = (window.location.pathname.split('/').pop() || '').toLowerCase();
+        return file === 'products.php' || file === 'products';
+    }
+
+    // Products page only: show each product once, even if it was uploaded
+    // several times in the backend (e.g. "Foaming Face Wash" and
+    // "Foaming Face Wash - Acne" with the same photos). Matches on id, SKU,
+    // URL key, base name (text before " - ") or main image file name.
+    function normalizeProductName(name) {
+        return String(name || '').trim().toLowerCase().replace(/\s+/g, ' ').replace(/[.\s]+$/, '');
+    }
+
+    function mainImageFileName(product) {
+        const url = (Array.isArray(product.images) && product.images[0]) || product.imageUrl || '';
+        const file = String(url).split('?')[0].split('/').pop().toLowerCase();
+        if (!file || file.length < 8 || file === 'product.webp') return '';
+        return file;
+    }
+
+    function uniqueProducts(products) {
+        const seen = new Set();
+        return products.filter(product => {
+            const name = normalizeProductName(product.name);
+            const baseName = name.split(' - ')[0].trim();
+            const imageFile = mainImageFileName(product);
+            const keys = [
+                product.id && `id:${product.id}`,
+                product.sku && `sku:${String(product.sku).trim().toLowerCase()}`,
+                (product.urlKey || product.url_key) && `url:${String(product.urlKey || product.url_key).trim().toLowerCase()}`,
+                name && `name:${name}`,
+                baseName && `name:${baseName}`,
+                imageFile && `img:${imageFile}`
+            ].filter(Boolean);
+            if (keys.some(key => seen.has(key))) return false;
+            keys.forEach(key => seen.add(key));
+            return true;
+        });
+    }
+
     function renderIntoGrid(products, targetGrid, targetCount, categoryName) {
+        if (isProductsPage()) {
+            products = uniqueProducts(products);
+        }
         document.body.classList.remove('dynamic-products-loading');
         document.body.classList.add('dynamic-products-ready');
 

@@ -464,7 +464,7 @@
 <?php if (basename($_SERVER['SCRIPT_FILENAME'] ?? '') === 'checkout.php'): ?>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <?php endif; ?>
-<script src="assets/js/category-products.js?v=33"></script>
+<script src="assets/js/category-products.js?v=35"></script>
 
 <script>
     const cartDrawerEl = document.getElementById('cartDrawer');

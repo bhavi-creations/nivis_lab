@@ -115,46 +115,46 @@
     <div class="index_img_section__slides" id="indexHeroSlides" aria-live="polite">
         <a class="index_img_section__slide active" href="products.php" style="--hero-img: url('./assets/img/2.webp');">
             <picture>
-                <source media="(max-width: 640px)" srcset="./assets/img/mobile1.webp">
+                <source media="(max-width: 640px)" srcset="./assets/img/mobile1.jpeg">
                 <img class="index_img_section__product" src="./assets/img/2.webp" alt="Nivis Labs featured skincare" fetchpriority="high">
             </picture>
-            <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div>
+            <!-- <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div> -->
         </a>
         <!-- <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/instant-glow-bg.webp');">
             <picture>
                 <source media="(max-width: 640px)" srcset="./assets/img/mobile2.webp">
                 <img class="index_img_section__product" src="./assets/img/instant-glow-bg.webp" alt="Nivis Labs Instant Glow" loading="lazy">
             </picture>
-            <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div>
-        </a> -->
+            <!-- <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div> -->
+        </a>
         <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/6.webp');">
             <picture>
-                <source media="(max-width: 640px)" srcset="./assets/img/mobile3.webp">
+                <source media="(max-width: 640px)" srcset="./assets/img/mobile2.jpeg">
                 <img class="index_img_section__product" src="./assets/img/6.webp" alt="Nivis Labs Nivis-Glow serum" loading="lazy">
             </picture>
-            <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div>
+            <!-- <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div> -->
         </a>
         <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/7.webp');">
             <picture>
-                <source media="(max-width: 640px)" srcset="./assets/img/mobile4.webp">
+                <source media="(max-width: 640px)" srcset="./assets/img/mobile3.jpeg">
                 <img class="index_img_section__product" src="./assets/img/7.webp" alt="Nivis Labs UV Aqua sunscreen" loading="lazy">
             </picture>
-            <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div>
+            <!-- <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div> -->
         </a>
         <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/8.webp');">
             <picture>
-                <source media="(max-width: 640px)" srcset="./assets/img/mobile5.webp">
+                <source media="(max-width: 640px)" srcset="./assets/img/mobile4.jpeg">
                 <img class="index_img_section__product" src="./assets/img/8.webp" alt="Nivis Labs Folilock Cream Pro" loading="lazy">
             </picture>
-            <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div>
+            <!-- <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div> -->
         </a>
         <!-- <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/folilock-cream-pro-bg.webp');">
             <picture>
                 <source media="(max-width: 640px)" srcset="./assets/img/mobile6.webp">
                 <img class="index_img_section__product" src="./assets/img/folilock-cream-pro-bg.webp" alt="Nivis Labs Folilock Cream Pro" loading="lazy">
             </picture>
-            <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div>
-        </a> -->
+            <!-- <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div> -->
+        </a> 
     </div>
     <button type="button" class="index_img_section__nav index_img_section__nav--prev" id="classicHeroPrev" aria-label="Previous image">
         <i class="bi bi-chevron-left" aria-hidden="true"></i>
@@ -3409,8 +3409,11 @@
 </section>
 
 
+<div class="container">
+<!-- Elfsight Google Reviews | Untitled Google Reviews -->
+<script src="https://elfsightcdn.com/platform.js" async></script>
+<div class="elfsight-app-e10707f0-5f47-402a-be3c-6a08ac424bb1" data-elfsight-app-lazy></div>
 
-<?php include __DIR__ . '/reviews.php'; ?>
-
+</div>
 
 <?php include 'footer.php'; ?>

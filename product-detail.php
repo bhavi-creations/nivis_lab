@@ -230,8 +230,18 @@
     galleryTimer = null;
   }
 
+  // True while the mouse cursor is over the image area: auto-slide stays paused.
+  let galleryHovered = false;
+
+  function isCursorOnGallery() {
+    const section = document.getElementById('imgSection');
+    return galleryHovered ||
+      (!!section && window.matchMedia('(hover: hover)').matches && section.matches(':hover'));
+  }
+
   function startGalleryAutoSlide() {
     stopGalleryAutoSlide();
+    if (isCursorOnGallery()) return;
     if (galleryImages.length > 1) {
       galleryTimer = setInterval(() => setImage(currentImageIndex + 1), 3000);
     }
@@ -450,8 +460,16 @@
   document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('arrowLeft')?.addEventListener('click', () => goToGalleryImage(currentImageIndex - 1));
     document.getElementById('arrowRight')?.addEventListener('click', () => goToGalleryImage(currentImageIndex + 1));
-    document.getElementById('imgSection')?.addEventListener('mouseenter', stopGalleryAutoSlide);
-    document.getElementById('imgSection')?.addEventListener('mouseleave', startGalleryAutoSlide);
+    document.getElementById('imgSection')?.addEventListener('pointerenter', event => {
+      if (event.pointerType !== 'mouse') return;
+      galleryHovered = true;
+      stopGalleryAutoSlide();
+    });
+    document.getElementById('imgSection')?.addEventListener('pointerleave', event => {
+      if (event.pointerType !== 'mouse') return;
+      galleryHovered = false;
+      startGalleryAutoSlide();
+    });
     document.getElementById('imgSection')?.addEventListener('focusin', pauseGalleryOnFocus);
     document.getElementById('imgSection')?.addEventListener('focusout', event => {
       if (!event.currentTarget.contains(event.relatedTarget)) {
