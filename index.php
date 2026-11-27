@@ -115,7 +115,7 @@
     <div class="index_img_section__slides" id="indexHeroSlides" aria-live="polite">
         <a class="index_img_section__slide active" href="products.php" style="--hero-img: url('./assets/img/2.webp');">
             <picture>
-                <source media="(max-width: 640px)" srcset="./assets/img/mobile1.jpeg">
+                <source media="(max-width: 640px)" srcset="./assets/img/1000.jpeg">
                 <img class="index_img_section__product" src="./assets/img/2.webp" alt="Nivis Labs featured skincare" fetchpriority="high">
             </picture>
             <!-- <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div> -->
