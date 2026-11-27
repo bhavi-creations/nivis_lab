@@ -443,20 +443,6 @@
 
 </footer>
 
-<!-- Page view counter: eye button on every page -->
-<div class="nivis-page-views" id="nivisPageViews">
-    <button type="button" class="nivis-page-views__btn" id="nivisPageViewsBtn" aria-expanded="false" aria-controls="nivisPageViewsPanel" aria-label="See how many people viewed this page">
-        <i class="bi bi-eye" aria-hidden="true"></i>
-    </button>
-    <div class="nivis-page-views__panel" id="nivisPageViewsPanel" role="status" hidden>
-        <i class="bi bi-eye-fill" aria-hidden="true"></i>
-        <div>
-            <strong id="nivisPageViewsCount">…</strong>
-            <span>people viewed this page</span>
-        </div>
-    </div>
-</div>
-
 <style>
     /* ---- Premium footer tagline badge ---- */
     .nivis-footer-tagline {
@@ -588,7 +574,7 @@
             justify-content: center;
         }
 
-        /* Leave room so the floating eye / help buttons do not cover the badge. */
+        /* Leave room so the floating help button does not cover the badge. */
         .nivis_footer_new_section__bottom {
             padding-bottom: 72px;
         }
@@ -600,161 +586,7 @@
             display: none;
         }
     }
-
-    .nivis-page-views {
-        position: fixed;
-        left: 18px;
-        bottom: max(20px, env(safe-area-inset-bottom));
-        z-index: 1040;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .nivis-page-views__btn {
-        width: 48px;
-        height: 48px;
-        border: 1px solid rgba(226, 179, 115, .7);
-        border-radius: 50%;
-        background: #075563;
-        color: #fff;
-        font-size: 22px;
-        display: grid;
-        place-items: center;
-        box-shadow: 0 6px 18px rgba(6, 36, 58, .28);
-        cursor: pointer;
-        transition: transform .2s ease, background .2s ease;
-    }
-
-    .nivis-page-views__btn:hover,
-    .nivis-page-views__btn[aria-expanded="true"] {
-        background: #06243a;
-        transform: scale(1.06);
-    }
-
-    .nivis-page-views__btn:focus-visible {
-        outline: 3px solid #e2b373;
-        outline-offset: 2px;
-    }
-
-    .nivis-page-views__panel {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 10px 16px;
-        border-radius: 12px;
-        background: #fff;
-        color: #06243a;
-        border: 1px solid #e2b373;
-        box-shadow: 0 8px 24px rgba(6, 36, 58, .22);
-        white-space: nowrap;
-        animation: nivisPageViewsIn .2s ease;
-    }
-
-    .nivis-page-views__panel[hidden] {
-        display: none;
-    }
-
-    .nivis-page-views__panel > i {
-        font-size: 20px;
-        color: #075563;
-    }
-
-    .nivis-page-views__panel strong {
-        display: block;
-        font-size: 18px;
-        line-height: 1.1;
-    }
-
-    .nivis-page-views__panel span {
-        font-size: 12px;
-        color: #4a6272;
-    }
-
-    @keyframes nivisPageViewsIn {
-        from { opacity: 0; transform: translateX(-6px); }
-        to { opacity: 1; transform: none; }
-    }
-
-    @media (max-width: 767px) {
-        .nivis-page-views {
-            left: 12px;
-            bottom: max(14px, env(safe-area-inset-bottom));
-        }
-
-        .nivis-page-views__btn {
-            width: 42px;
-            height: 42px;
-            font-size: 19px;
-        }
-    }
 </style>
-
-<script>
-    (function() {
-        const btn = document.getElementById('nivisPageViewsBtn');
-        const panel = document.getElementById('nivisPageViewsPanel');
-        const countEl = document.getElementById('nivisPageViewsCount');
-        if (!btn || !panel || !countEl) return;
-
-        const page = window.location.pathname + window.location.search;
-        const endpoint = new URL('page_views.php', window.location.href).href;
-        const sessionKey = 'nivisPageViewed:' + page;
-
-        function showCount(views) {
-            const total = Number(views) || 0;
-            countEl.textContent = total.toLocaleString('en-IN');
-        }
-
-        // Count each page once per browser session, so refreshing does not inflate it.
-        let alreadyCounted = false;
-        try {
-            alreadyCounted = sessionStorage.getItem(sessionKey) === '1';
-        } catch (e) {}
-
-        const request = alreadyCounted ?
-            fetch(endpoint + '?page=' + encodeURIComponent(page), { cache: 'no-store' }) :
-            fetch(endpoint, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'page=' + encodeURIComponent(page)
-            });
-
-        request
-            .then(response => response.json())
-            .then(data => {
-                if (typeof data.views === 'undefined') return;
-                showCount(data.views);
-                if (!alreadyCounted) {
-                    try { sessionStorage.setItem(sessionKey, '1'); } catch (e) {}
-                }
-            })
-            .catch(() => {
-                countEl.textContent = '—';
-            });
-
-        function setOpen(open) {
-            panel.hidden = !open;
-            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-        }
-
-        btn.addEventListener('click', function(event) {
-            event.stopPropagation();
-            setOpen(panel.hidden);
-        });
-
-        document.addEventListener('click', function(event) {
-            if (!panel.hidden && !event.target.closest('#nivisPageViews')) setOpen(false);
-        });
-
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape' && !panel.hidden) {
-                setOpen(false);
-                btn.focus();
-            }
-        });
-    })();
-</script>
 
 <!-- <nav class="nivis-social-rail" aria-label="Nivis Labs social media">
     <a href="https://www.facebook.com/nivislabs.co/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
