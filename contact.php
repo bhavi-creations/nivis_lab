@@ -461,10 +461,15 @@ Vishakahapatnam -530045.
 
                 <div class="office-image-wrap">
                     <!-- Replace with your exact Nivis Labs office image -->
-                    <img
-                        src="./assets/img/FACE SERUM.webp"
+                   
+                     <img
+                        src="./assets/img/contact-img.png"
                         alt="Nivis Labs Office"
                     >
+                     <!-- <img
+                        src="./assets/img/FACE SERUM.webp"
+                        alt="Nivis Labs Office"
+                    > -->
                 </div>
 
             </div>
