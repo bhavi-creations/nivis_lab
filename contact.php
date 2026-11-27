@@ -295,6 +295,22 @@
         font-size:21px;
     }
 }
+
+/* Tablet & mobile: show the whole office image, no cropping. */
+@media (max-width:991.98px){
+    .new-contact-us-page .contact-image-col .office-image-wrap{
+        height:auto !important;
+        min-height:0 !important;
+        background:transparent;
+    }
+
+    .new-contact-us-page .contact-image-col .office-image-wrap img{
+        width:100%;
+        height:auto !important;
+        max-height:none;
+        object-fit:contain !important;
+    }
+}
 </style>
 
 
