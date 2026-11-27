@@ -77,6 +77,69 @@
         }
     </style>
 
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["Organization", "OnlineStore"],
+      "@id": "https://nivislabs.in/#organization",
+      "name": "NIVIS LABS INTERNATIONAL",
+      "alternateName": "Nivis Labs",
+      "url": "https://nivislabs.in/",
+      "description": "Nivis Labs International offers science-led skincare, haircare and personal wellness products designed for diverse skin needs and climatic conditions.",
+      "brand": {
+        "@id": "https://nivislabs.in/#brand"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "India"
+      },
+      "knowsAbout": [
+        "Skincare",
+        "Haircare",
+        "Skin and Hair Wellness",
+        "Climate-Adaptive Skincare",
+        "Sun Protection",
+        "Skin Hydration",
+        "Personal Care"
+      ]
+    },
+    {
+      "@type": "Brand",
+      "@id": "https://nivislabs.in/#brand",
+      "name": "NIVIS LABS"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://nivislabs.in/#website",
+      "url": "https://nivislabs.in/",
+      "name": "NIVIS LABS INTERNATIONAL",
+      "alternateName": "Nivis Labs",
+      "publisher": {
+        "@id": "https://nivislabs.in/#organization"
+      },
+      "inLanguage": "en-IN"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://nivislabs.in/#webpage",
+      "url": "https://nivislabs.in/",
+      "name": "NIVIS LABS INTERNATIONAL | Skin & Hair Wellness",
+      "description": "Explore science-led skincare, haircare and personal wellness solutions from Nivis Labs International.",
+      "isPartOf": {
+        "@id": "https://nivislabs.in/#website"
+      },
+      "about": {
+        "@id": "https://nivislabs.in/#organization"
+      },
+      "inLanguage": "en-IN"
+    }
+  ]
+}
+</script>
+
 </head>
 
 <body class="nivis-theme">

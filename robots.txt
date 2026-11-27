@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /cart
+Disallow: /checkout
+Disallow: /login
+Disallow: /register
+Disallow: /account
+Disallow: /dashboard
+Disallow: /track-order
+Disallow: /search
+Disallow: /logout
+Disallow: /payment
+Disallow: /order-success
+
+Sitemap: https://nivislabs.in/sitemap.xml
