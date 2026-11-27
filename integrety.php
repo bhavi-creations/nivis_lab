@@ -2,6 +2,23 @@
 
 <body class="">
 
+  <style>
+    /* Filter buttons: hover keeps the normal colours so the text stays readable. */
+    body #filterBar .filter-btn,
+    body #filterBar .filter-btn:hover {
+      background: #f3f5f5 !important;
+      border-color: #dfe7e8 !important;
+      color: #526a74 !important;
+    }
+
+    body #filterBar .filter-btn.active,
+    body #filterBar .filter-btn.active:hover {
+      background: #075563 !important;
+      border-color: #075563 !important;
+      color: #ffffff !important;
+    }
+  </style>
+
   <h1 class="page-title">Ingredients</h1>
 
   <!-- Filter tabs -->
@@ -12,7 +29,7 @@
     <button class="filter-btn" data-cat="Eczema">Eczema</button>
     <button class="filter-btn" data-cat="Hydration">Hydration</button>
     <button class="filter-btn" data-cat="Lines and Wrinkles">Lines and Wrinkles</button>
-    <button class="filter-btn" data-cat="Pigmentation">Pigmentation</button>
+    <!-- <button class="filter-btn" data-cat="Pigmentation">Pigmentation</button> -->
   </div>
   <div class="container my-5">
     <!-- Grid -->

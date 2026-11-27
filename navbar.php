@@ -57,6 +57,26 @@
     <link rel="stylesheet" href="./assets/css/order-tracking.css?v=1">
     <script src="./assets/js/product-pricing.js?v=4"></script>
 
+    <style>
+        /* A global "button:hover { background:#7d0c14 }" rule turned these navbar buttons
+           dark red when tapped on phones. Use the marquee teal instead. */
+        #navbarSearchButton,
+        #navBurger,
+        #navClose,
+        .nivis-search-panel button,
+        #navbarSearchInput {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body .new_navbr_section #navbarSearchButton:is(:hover, :active, :focus, :focus-visible),
+        body .new_navbr_section #navBurger:is(:hover, :active, :focus, :focus-visible),
+        body .new_navbr_section #navClose:is(:hover, :active, :focus, :focus-visible) {
+            background: #075563 !important;
+            border-color: #075563 !important;
+            color: #ffffff !important;
+        }
+    </style>
+
 </head>
 
 <body class="nivis-theme">
@@ -959,7 +979,7 @@
                 </li>
 
                 <li class="new_navbr_section__mobile_item new_navbr_section__mobile_track">
-                    <a href="tracking.php" class="new_navbr_section__mobile_plain"> </a>
+                    <a href="tracking.php" class="new_navbr_section__mobile_plain">Track My Order</a>
                     <!-- <form action="tracking.php" method="post" class="new_navbr_section__track_form">
                         <label for="mobileTrackOrderId">Order ID</label>
                         <input id="mobileTrackOrderId" name="order_id" type="text" maxlength="100" placeholder="Enter your order ID" required>
