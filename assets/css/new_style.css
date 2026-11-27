@@ -9127,3 +9127,22 @@ button, .btn-cart, .btn-buy,
     line-height: 1.4;
     text-align: center;
 }
+
+/* Put the coming-soon card on its own row, centred, one card wide. */
+.all-products-theme .products-grid .care-products-coming-soon {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc((100% - 32px) / 3);
+}
+
+@media (max-width: 768px) {
+    .all-products-theme .products-grid .care-products-coming-soon {
+        width: calc((100% - 16px) / 2);
+    }
+}
+
+@media (max-width: 479px) {
+    .all-products-theme .products-grid .care-products-coming-soon {
+        width: 100%;
+    }
+}

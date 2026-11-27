@@ -50,8 +50,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@14.4.0/swiper-bundle.min.css">
     <?php endif; ?>
-    <link rel="stylesheet" href="./assets/css/new_style.css?v=30">
-    <link rel="stylesheet" href="./assets/css/theme.css?v=16">
+    <link rel="stylesheet" href="./assets/css/new_style.css?v=31">
+    <link rel="stylesheet" href="./assets/css/theme.css?v=17">
     <link rel="stylesheet" href="./assets/css/skin-experience.css?v=6">
     <link rel="stylesheet" href="./assets/css/product-pricing.css?v=3">
     <link rel="stylesheet" href="./assets/css/order-tracking.css?v=1">

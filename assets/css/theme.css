@@ -521,7 +521,7 @@ body.nivis-theme {
 
 .nivis-theme .skinthesis-page .read-more-link:hover,
 .nivis-theme .skinthesis-page .read-more-link:focus-visible {
-    color: var(--nivis-ink) !important;
+    color: #ffffff !important;
     background: var(--nivis-button);
 }
 
