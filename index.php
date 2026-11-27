@@ -141,10 +141,10 @@
             </picture>
             <!-- <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div> -->
         </a>
-        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/8.webp');">
+        <a class="index_img_section__slide" href="products.php" style="--hero-img: url('./assets/img/8.jpeg');">
             <picture>
                 <source media="(max-width: 640px)" srcset="./assets/img/mobile4.jpeg">
-                <img class="index_img_section__product" src="./assets/img/8.webp" alt="Nivis Labs Folilock Cream Pro" loading="lazy">
+                <img class="index_img_section__product" src="./assets/img/8.jpeg" alt="Nivis Labs Folilock Cream Pro" loading="lazy">
             </picture>
             <!-- <div class="index_img_section__cta"><span>Buy Now</span><i class="bi bi-arrow-right-circle"></i></div> -->
         </a>
@@ -1781,7 +1781,6 @@
                 const price = product.price || '';
                 const priceNumber = Number(String(product.priceNumber || price).replace(/,/g, '').replace(/[^0-9.]/g, '')) || 0;
                 const name = product.name || 'Hair care product';
-                const reviews = product.reviewsCount || 120;
                 return `
                 <div class="hair-result-card"
                     data-product-id="${escapeHairHtml(key)}"
@@ -1795,7 +1794,6 @@
                     </a>
                     <div class="hair-result-card__body">
                         <h3>${escapeHairHtml(name)}</h3>
-                        <div class="hair-result-meta"><span>★ ★ ★ ★ ☆</span> <span>(${escapeHairHtml(reviews)} reviews)</span></div>
                         <div class="hair-result-price">${window.NivisPricing.html(priceNumber)}</div>
                         <button type="button" class="hair-result-btn">Add to cart</button>
                     </div>
@@ -1838,6 +1836,57 @@
      NIVIS INDEX THIRD SECTION
      SHOP OUR SPOTLIGHTS
 ========================================================= -->
+
+<style>
+    .nivis_index_third_section #spotlightProductCarousel .spotlight-image-slider .spotlight-slides {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        transition: transform .6s ease-in-out;
+        will-change: transform;
+    }
+
+    .nivis_index_third_section #spotlightProductCarousel .spotlight-image-slider .spotlight-slides img.spotlight-slide {
+        position: relative;
+        inset: auto;
+        flex: 0 0 100%;
+        width: 100%;
+        height: 100%;
+        opacity: 1 !important;
+        object-fit: contain;
+    }
+
+    .nivis_index_third_section #spotlightProductCarousel .spotlight-slide-dots {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 8px;
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        pointer-events: none;
+    }
+
+    .nivis_index_third_section #spotlightProductCarousel .spotlight-slide-dots span {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(8, 47, 73, .25);
+        transition: background .3s ease, width .3s ease;
+    }
+
+    .nivis_index_third_section #spotlightProductCarousel .spotlight-slide-dots span.is-active {
+        width: 14px;
+        border-radius: 3px;
+        background: #082f49;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .nivis_index_third_section #spotlightProductCarousel .spotlight-image-slider .spotlight-slides {
+            transition: none;
+        }
+    }
+</style>
 
 <section class="nivis_index_third_section">
 
@@ -3059,9 +3108,24 @@
             const imageUrl = (product.images && product.images.length > 0) ?
                 product.images[0] :
                 (product.imageUrl || product.primaryImage || fallbackImage);
-            const secondaryImageUrl = (product.images && product.images.length > 1) ?
-                product.images[1] :
-                (product.secondaryImageUrl || imageUrl);
+            const slideImages = [
+                ...(Array.isArray(product.images) ? product.images : []),
+                product.imageUrl,
+                product.primaryImage,
+                product.secondaryImageUrl
+            ].filter(Boolean)
+                .filter((image, index, list) => list.indexOf(image) === index)
+                .filter(image => !String(image).toLowerCase().includes('/assets/img/product.webp'));
+            if (!slideImages.length) slideImages.push(imageUrl);
+            // A copy of the first image goes at the end, so the last image slides
+            // forward into the first one instead of rewinding back through all of them.
+            const loopImages = slideImages.length > 1 ? [...slideImages, slideImages[0]] : slideImages;
+            const slidesHtml = loopImages.map((image, index) => `
+                <img class="spotlight-slide" src="${escapeSpotlightHtml(image)}" alt="${index >= slideImages.length ? '' : `${escapeSpotlightHtml(product.name || 'Product')}${index ? ` view ${index + 1}` : ''}`}"${index >= slideImages.length ? ' aria-hidden="true"' : ''} loading="lazy" onerror="this.onerror=null;this.src='${fallbackImage}';">
+            `).join('');
+            const dotsHtml = slideImages.length > 1 ?
+                `<div class="spotlight-slide-dots">${slideImages.map((_, index) => `<span class="${index === 0 ? 'is-active' : ''}"></span>`).join('')}</div>` :
+                '';
             const productKey = product.urlKey || product.url_key || product.sku || product.id || product.name || '';
             const link = `product-detail.php?product=${encodeURIComponent(productKey)}`;
             const subtitle = product.subtitle || product.displayConcern || product.concern || product.category || 'Skincare';
@@ -3078,12 +3142,12 @@
                         data-product-image="${escapeSpotlightHtml(imageUrl)}"
                         data-price="${escapeSpotlightHtml(priceNumber)}">
                         <a href="${escapeSpotlightHtml(link)}">
-                            <div class="product-img-wrap spotlight-image-wrap mb-3">
-                                <img class="img-primary" src="${escapeSpotlightHtml(imageUrl)}" alt="${escapeSpotlightHtml(product.name || 'Product')}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImage}';">
-                                <img class="img-secondary" src="${escapeSpotlightHtml(secondaryImageUrl)}" alt="${escapeSpotlightHtml(product.name || 'Product')} alternate view" loading="lazy" onerror="this.onerror=null;this.src=this.closest('.spotlight-image-wrap').querySelector('.img-primary').src;">
+                            <div class="product-img-wrap spotlight-image-wrap spotlight-image-slider mb-3" data-slide-index="0" data-slide-count="${slideImages.length}">
+                                <div class="spotlight-slides">${slidesHtml}</div>
+                                ${dotsHtml}
                             </div>
                             <h6 class="fw-bold">${escapeSpotlightHtml(product.name || 'Product')} ${size}</h6>
-                            <p class="small text-muted mb-2">/ ${escapeSpotlightHtml(subtitle)} /</p>
+                            <p class="small text-muted mb-2">${escapeSpotlightHtml(subtitle)}</p>
                             
                             <div class="spotlight-card__price mb-3"><span class="ms-1">${priceLabel}</span></div>
                         </a>
@@ -3105,7 +3169,8 @@
                 slidesToShow: 4,
                 slidesToScroll: 1,
                 autoplay: true,
-                autoplaySpeed: 1000,
+                // Slow enough that each card's image slider is visible before the cards move on.
+                autoplaySpeed: 4000,
                 speed: 450,
                 responsive: [{
                         breakpoint: 1024,
@@ -3244,6 +3309,52 @@
         spotlightCarousel.on('mouseleave focusout', '.spotlight-card', function() {
             this.classList.remove('is-hovered');
         });
+
+        // Each spotlight card cycles through all of its product images with a slide animation.
+        // Slides 0..count-1 are the real images; slide `count` is the copy of the first one.
+        const SPOTLIGHT_SLIDE_MS = 600;
+
+        const spotlightReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+        function setSpotlightTrack(track, index, animate) {
+            track.style.transition = animate && !spotlightReducedMotion.matches ?`transform ${SPOTLIGHT_SLIDE_MS}ms ease-in-out` : 'none';
+            track.style.transform = `translateX(-${index * 100}%)`;
+        }
+
+        function advanceSpotlightSlide(slider) {
+            const count = Number(slider.dataset.slideCount) || 1;
+            const track = slider.querySelector('.spotlight-slides');
+            if (!track || count < 2) return;
+
+            let current = Number(slider.dataset.slideIndex) || 0;
+            // If the previous step ended on the copy, jump back to the real first image unseen.
+            if (current >= count) {
+                current = 0;
+                setSpotlightTrack(track, 0, false);
+                void track.offsetWidth;
+            }
+
+            const next = current + 1;
+            slider.dataset.slideIndex = String(next);
+            setSpotlightTrack(track, next, true);
+
+            slider.querySelectorAll('.spotlight-slide-dots span').forEach((dot, dotIndex) => {
+                dot.classList.toggle('is-active', dotIndex === next % count);
+            });
+
+            if (next === count) {
+                window.setTimeout(function() {
+                    if (Number(slider.dataset.slideIndex) !== count) return;
+                    slider.dataset.slideIndex = '0';
+                    setSpotlightTrack(track, 0, false);
+                }, SPOTLIGHT_SLIDE_MS + 50);
+            }
+        }
+
+        window.setInterval(function() {
+            if (document.hidden) return;
+            document.querySelectorAll('#spotlightProductCarousel .spotlight-image-slider').forEach(advanceSpotlightSlide);
+        }, 1800);
 
         // 2. Countdown Timer Logic
         function startTimer(duration) {
@@ -3405,11 +3516,37 @@
 </section>
 
 
-<div class="container">
+<style>
+    /* Keep the Google reviews block close to the footer. */
+    .index-google-reviews {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .index-google-reviews [class*="elfsight-app-"] {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .index-google-reviews + .nivis_footer_new_section {
+        margin-top: 0;
+        padding-top: 40px;
+    }
+
+    @media (max-width: 767px) {
+        .index-google-reviews + .nivis_footer_new_section {
+            padding-top: 24px;
+        }
+    }
+</style>
+
+<section class="review_section_index">
+    <div class="container index-google-reviews">
 <!-- Elfsight Google Reviews | Untitled Google Reviews -->
 <script src="https://elfsightcdn.com/platform.js" async></script>
 <div class="elfsight-app-e10707f0-5f47-402a-be3c-6a08ac424bb1" data-elfsight-app-lazy></div>
 
 </div>
+</section>
 
 <?php include 'footer.php'; ?>

@@ -590,7 +590,7 @@
                             onerror="this.onerror=null;this.src='${escapeHtml(primaryImage)}';">
                     </div>
                     <h6 class="fw-bold">${escapeHtml(name)} ${size}</h6>
-                    <p class="small text-muted mb-2">/ ${escapeHtml(subtitle)} /</p>
+                    <p class="small text-muted mb-2">${escapeHtml(subtitle)}</p>
                     <div class="spotlight-card__price mb-3"><span class="ms-1">${priceLabel}</span></div>
                 </a>
                 <div class="spotlight-card__popover">
@@ -882,7 +882,7 @@
 
                     <div class="product-info">
                         <div class="product-name">${escapeHtml(product.name)}${productSize ? ` <span class="spotlight-product-size">${escapeHtml(productSize)}</span>` : ''}</div>
-                        <div class="product-sub">/ ${escapeHtml(product.subtitle || product.concern || 'Skincare')} /</div>
+                        <div class="product-sub">${escapeHtml(product.subtitle || product.concern || 'Skincare')}</div>
                        
                     </div>
 

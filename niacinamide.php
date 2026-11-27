@@ -170,8 +170,7 @@
                         </div>
                         <div class="product-info">
                             <div class="product-name">10% Niacinamide Spot Correcting Serum</div>
-                            <div class="product-sub">/ Solution for pore, acne marks and blemishes /</div>
-                            <div><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span><span class="review-count">(344 reviews)</span></div>
+                            <div class="product-sub">Solution for pore, acne marks and blemishes</div>
                             <div class="product-price">₹649</div>
                             <span class="bought-tag">196+ bought in past month</span>
 
@@ -192,8 +191,7 @@
                         </div>
                         <div class="product-info">
                             <div class="product-name">3% Niacinamide Oil-Free Moisturizer</div>
-                            <div class="product-sub">/ Non-greasy moisturizer to regulate sebum production and promote healthy looking skin /</div>
-                            <div><span class="stars">★★★★</span><span class="review-count">( 91 reviews)</span></div>
+                            <div class="product-sub">Non-greasy moisturizer to regulate sebum production and promote healthy looking skin</div>
                             <div class="product-price">₹549</div>
                             <span class="bought-tag">129+ bought in past month</span>
 
@@ -214,8 +212,7 @@
                         </div>
                         <div class="product-info">
                             <div class="product-name">Niacinamide Dry Touch Matte Sunscreen</div>
-                            <div class="product-sub">/ Provides broad-spectrum UVA and UVB protection, oil control, and a smooth matte finish /</div>
-                            <div><span class="stars">★★★★★</span><span class="review-count">(128 reviews)</span></div>
+                            <div class="product-sub">Provides broad-spectrum UVA and UVB protection, oil control, and a smooth matte finish</div>
                             <div class="product-price">₹699</div>
                             <span class="bought-tag">58+ bought in past month</span>
 
@@ -236,8 +233,7 @@
                         </div>
                         <div class="product-info">
                             <div class="product-name">10% Vitamin C Brightening Serum</div>
-                            <div class="product-sub">/ Solution for dark spots, uneven skin tone, dull skin /</div>
-                            <div><span class="stars">★★★★</span><span class="review-count">( 154 reviews)</span></div>
+                            <div class="product-sub">Solution for dark spots, uneven skin tone, dull skin</div>
                             <div class="product-price">₹699</div>
                             <span class="bought-tag">58+ bought in past month</span>
 
@@ -258,8 +254,7 @@
                         </div>
                         <div class="product-info">
                             <div class="product-name">2% Salicylic Acid Anti-Acne Serum</div>
-                            <div class="product-sub">/ Solution for acne, clogged pores and sebum regulation /</div>
-                            <div><span class="stars">★★★★</span><span class="review-count">(83 reviews)</span></div>
+                            <div class="product-sub">Solution for acne, clogged pores and sebum regulation</div>
                             <div class="product-price">₹649</div>
                             <span class="bought-tag">58+ bought in past month</span>
 
@@ -279,8 +274,7 @@
                     </div>
                     <div class="product-info">
                         <div class="product-name">Salicylic Acid Acne Spot Treatment Gel</div>
-                        <div class="product-sub">/ Solution for rapid healing of acne, pimples and breakouts /</div>
-                        <div><span class="stars">★★★★★</span><span class="review-count">(47 reviews)</span></div>
+                        <div class="product-sub">Solution for rapid healing of acne, pimples and breakouts</div>
                         <div class="product-price">₹495</div>
                         <span class="bought-tag">46+ bought in past month</span>
                         <button class="btn-cart">Add to Cart</button>
@@ -298,8 +292,7 @@
                     </div>
                     <div class="product-info">
                         <div class="product-name">2% Niacinamide Acid Dewy Skin Serum</div>
-                        <div class="product-sub">/ Solution for compromised skin barrier, dull, dry and dehydrated skin /</div>
-                        <div><span class="stars">★★★★</span><span class="review-count">(9 reviews)</span></div>
+                        <div class="product-sub">Solution for compromised skin barrier, dull, dry and dehydrated skin</div>
                         <div class="product-price">₹649</div>
                         <span class="bought-tag">500+ bought in past month</span>
                         <button class="btn-cart">Add to Cart</button>

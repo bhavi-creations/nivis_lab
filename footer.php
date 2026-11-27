@@ -428,9 +428,12 @@
                     © 2026 Nivis Labs. All rights reserved.
                 </p>
 
-                <p>
-                    SKIN TODAY. BRIGHTER TOMORROW.
-                </p>
+                <div class="nivis-footer-tagline">
+                    <span class="nivis-footer-tagline__seal" aria-hidden="true">
+                        <i class="bi bi-patch-check-fill"></i>
+                    </span>
+                    <span class="nivis-footer-tagline__lead">Complete Care for Every Generation</span>
+                </div>
 
             </div>
 
@@ -439,6 +442,319 @@
     </div>
 
 </footer>
+
+<!-- Page view counter: eye button on every page -->
+<div class="nivis-page-views" id="nivisPageViews">
+    <button type="button" class="nivis-page-views__btn" id="nivisPageViewsBtn" aria-expanded="false" aria-controls="nivisPageViewsPanel" aria-label="See how many people viewed this page">
+        <i class="bi bi-eye" aria-hidden="true"></i>
+    </button>
+    <div class="nivis-page-views__panel" id="nivisPageViewsPanel" role="status" hidden>
+        <i class="bi bi-eye-fill" aria-hidden="true"></i>
+        <div>
+            <strong id="nivisPageViewsCount">…</strong>
+            <span>people viewed this page</span>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* ---- Premium footer tagline badge ---- */
+    .nivis-footer-tagline {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 9px 22px 9px 9px;
+        border: 1px solid rgba(199, 166, 106, .55);
+        border-radius: 999px;
+        background:
+            linear-gradient(135deg, rgba(199, 166, 106, .16), rgba(255, 255, 255, .03) 45%, rgba(199, 166, 106, .10));
+        box-shadow:
+            0 0 0 4px rgba(199, 166, 106, .06),
+            0 10px 30px rgba(0, 0, 0, .25),
+            inset 0 1px 0 rgba(255, 255, 255, .12);
+        font-family: 'Inter', 'Jost', Arial, sans-serif;
+        text-transform: uppercase;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    /* Slow light sweep across the badge. */
+    .nivis-footer-tagline::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -40%;
+        width: 30%;
+        background: linear-gradient(100deg, transparent, rgba(255, 236, 196, .22), transparent);
+        transform: skewX(-20deg);
+        animation: nivisTaglineSweep 5.5s ease-in-out infinite;
+        pointer-events: none;
+    }
+
+    .nivis-footer-tagline__seal {
+        display: grid;
+        place-items: center;
+        width: 30px;
+        height: 30px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        background: linear-gradient(145deg, #f4dfb4, #c7a66a 55%, #9c7a3f);
+        color: #092f46;
+        font-size: 15px;
+        box-shadow: 0 3px 10px rgba(199, 166, 106, .45);
+    }
+
+    .nivis-footer-tagline__lead {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 2.6px;
+        background: linear-gradient(90deg, #f6e3bb, #d9b878 50%, #f6e3bb);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .nivis-footer-tagline__rule {
+        width: 1px;
+        height: 18px;
+        background: linear-gradient(180deg, transparent, rgba(199, 166, 106, .9), transparent);
+    }
+
+    .nivis-footer-tagline__ranges {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 2.4px;
+        color: rgba(255, 255, 255, .9);
+    }
+
+    .nivis-footer-tagline__ranges i {
+        font-style: normal;
+        font-size: 8px;
+        color: #c7a66a;
+    }
+
+    @keyframes nivisTaglineSweep {
+        0%, 55% { left: -40%; }
+        100% { left: 120%; }
+    }
+
+    @media (max-width: 991px) {
+        .nivis-footer-tagline {
+            gap: 10px;
+            padding: 7px 16px 7px 7px;
+        }
+
+        .nivis-footer-tagline__seal {
+            width: 26px;
+            height: 26px;
+            font-size: 13px;
+        }
+
+        .nivis-footer-tagline__lead {
+            font-size: 10px;
+            letter-spacing: 1.8px;
+        }
+
+        .nivis-footer-tagline__ranges {
+            gap: 6px;
+            font-size: 9.5px;
+            letter-spacing: 1.6px;
+        }
+    }
+
+    /* Phones: stack the two parts inside a rounded card. */
+    @media (max-width: 575px) {
+        .nivis-footer-tagline {
+            flex-wrap: wrap;
+            justify-content: center;
+            row-gap: 6px;
+            padding: 10px 16px;
+            border-radius: 16px;
+            white-space: normal;
+            text-align: center;
+        }
+
+        .nivis-footer-tagline__rule {
+            display: none;
+        }
+
+        .nivis-footer-tagline__ranges {
+            flex-basis: 100%;
+            justify-content: center;
+        }
+
+        /* Leave room so the floating eye / help buttons do not cover the badge. */
+        .nivis_footer_new_section__bottom {
+            padding-bottom: 72px;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .nivis-footer-tagline::after {
+            animation: none;
+            display: none;
+        }
+    }
+
+    .nivis-page-views {
+        position: fixed;
+        left: 18px;
+        bottom: max(20px, env(safe-area-inset-bottom));
+        z-index: 1040;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .nivis-page-views__btn {
+        width: 48px;
+        height: 48px;
+        border: 1px solid rgba(226, 179, 115, .7);
+        border-radius: 50%;
+        background: #075563;
+        color: #fff;
+        font-size: 22px;
+        display: grid;
+        place-items: center;
+        box-shadow: 0 6px 18px rgba(6, 36, 58, .28);
+        cursor: pointer;
+        transition: transform .2s ease, background .2s ease;
+    }
+
+    .nivis-page-views__btn:hover,
+    .nivis-page-views__btn[aria-expanded="true"] {
+        background: #06243a;
+        transform: scale(1.06);
+    }
+
+    .nivis-page-views__btn:focus-visible {
+        outline: 3px solid #e2b373;
+        outline-offset: 2px;
+    }
+
+    .nivis-page-views__panel {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 16px;
+        border-radius: 12px;
+        background: #fff;
+        color: #06243a;
+        border: 1px solid #e2b373;
+        box-shadow: 0 8px 24px rgba(6, 36, 58, .22);
+        white-space: nowrap;
+        animation: nivisPageViewsIn .2s ease;
+    }
+
+    .nivis-page-views__panel[hidden] {
+        display: none;
+    }
+
+    .nivis-page-views__panel > i {
+        font-size: 20px;
+        color: #075563;
+    }
+
+    .nivis-page-views__panel strong {
+        display: block;
+        font-size: 18px;
+        line-height: 1.1;
+    }
+
+    .nivis-page-views__panel span {
+        font-size: 12px;
+        color: #4a6272;
+    }
+
+    @keyframes nivisPageViewsIn {
+        from { opacity: 0; transform: translateX(-6px); }
+        to { opacity: 1; transform: none; }
+    }
+
+    @media (max-width: 767px) {
+        .nivis-page-views {
+            left: 12px;
+            bottom: max(14px, env(safe-area-inset-bottom));
+        }
+
+        .nivis-page-views__btn {
+            width: 42px;
+            height: 42px;
+            font-size: 19px;
+        }
+    }
+</style>
+
+<script>
+    (function() {
+        const btn = document.getElementById('nivisPageViewsBtn');
+        const panel = document.getElementById('nivisPageViewsPanel');
+        const countEl = document.getElementById('nivisPageViewsCount');
+        if (!btn || !panel || !countEl) return;
+
+        const page = window.location.pathname + window.location.search;
+        const endpoint = new URL('page_views.php', window.location.href).href;
+        const sessionKey = 'nivisPageViewed:' + page;
+
+        function showCount(views) {
+            const total = Number(views) || 0;
+            countEl.textContent = total.toLocaleString('en-IN');
+        }
+
+        // Count each page once per browser session, so refreshing does not inflate it.
+        let alreadyCounted = false;
+        try {
+            alreadyCounted = sessionStorage.getItem(sessionKey) === '1';
+        } catch (e) {}
+
+        const request = alreadyCounted ?
+            fetch(endpoint + '?page=' + encodeURIComponent(page), { cache: 'no-store' }) :
+            fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'page=' + encodeURIComponent(page)
+            });
+
+        request
+            .then(response => response.json())
+            .then(data => {
+                if (typeof data.views === 'undefined') return;
+                showCount(data.views);
+                if (!alreadyCounted) {
+                    try { sessionStorage.setItem(sessionKey, '1'); } catch (e) {}
+                }
+            })
+            .catch(() => {
+                countEl.textContent = '—';
+            });
+
+        function setOpen(open) {
+            panel.hidden = !open;
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+
+        btn.addEventListener('click', function(event) {
+            event.stopPropagation();
+            setOpen(panel.hidden);
+        });
+
+        document.addEventListener('click', function(event) {
+            if (!panel.hidden && !event.target.closest('#nivisPageViews')) setOpen(false);
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && !panel.hidden) {
+                setOpen(false);
+                btn.focus();
+            }
+        });
+    })();
+</script>
 
 <!-- <nav class="nivis-social-rail" aria-label="Nivis Labs social media">
     <a href="https://www.facebook.com/nivislabs.co/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">

@@ -42,6 +42,159 @@
     display: none;
   }
 
+  /* ---- Rating summary (score, stars, count) with hover breakdown ---- */
+  .product-detail-page .pd-rating {
+    position: relative;
+    margin: 4px 0 16px;
+  }
+
+  .product-detail-page .pd-rating[hidden] {
+    display: none;
+  }
+
+  .product-detail-page .pd-rating__trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 0;
+    border: 0;
+    background: none;
+    color: #257aa0;
+    font-weight: 700;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .product-detail-page .pd-rating__trigger:focus-visible {
+    outline: 2px solid #e2b373;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .product-detail-page .pd-rating__chevron {
+    font-size: 12px;
+    transition: transform .2s ease;
+  }
+
+  .product-detail-page .pd-rating__trigger[aria-expanded="true"] .pd-rating__chevron {
+    transform: rotate(180deg);
+  }
+
+  .product-detail-page .pd-rating__count {
+    color: #257aa0;
+  }
+
+  .product-detail-page .pd-rating__trigger:hover .pd-rating__count {
+    text-decoration: underline;
+  }
+
+  /* Five stars: an outlined base with a solid layer clipped to the rating. */
+  .pd-stars {
+    position: relative;
+    display: inline-block;
+    font-size: 20px;
+    line-height: 1;
+    letter-spacing: 1px;
+    color: transparent;
+    -webkit-text-stroke: 1.2px #ff6a00;
+    white-space: nowrap;
+  }
+
+  .pd-stars::before {
+    content: "★★★★★";
+  }
+
+  .pd-stars::after {
+    content: "★★★★★";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--fill, 0%);
+    overflow: hidden;
+    color: #ff6a00;
+  }
+
+  .pd-stars--lg {
+    font-size: 24px;
+  }
+
+  .pd-rating__popover {
+    position: fixed;
+    z-index: 1060;
+    width: min(340px, calc(100vw - 24px));
+    padding: 20px 20px 14px;
+    border: 1px solid #d5d9d9;
+    border-radius: 10px;
+    background: #fff;
+    color: #0f1111;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 8px 28px rgba(15, 17, 17, .22);
+  }
+
+  .pd-rating__popover[hidden] {
+    display: none;
+  }
+
+  .pd-rating__close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #888c8c;
+    border-radius: 6px;
+    background: #fff;
+    font-size: 20px;
+    line-height: 1;
+    color: #0f1111;
+    cursor: pointer;
+  }
+
+  .pd-rating__head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-right: 34px;
+  }
+
+  .pd-rating__head strong {
+    font-size: 18px;
+  }
+
+  .pd-rating__total {
+    margin: 8px 0 14px;
+    color: #565959;
+    font-size: 14px;
+  }
+
+  .pd-rating__row {
+    display: grid;
+    grid-template-columns: 52px 1fr 42px;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    color: #2162a1;
+    font-size: 14px;
+  }
+
+  .pd-rating__row span:last-child {
+    text-align: right;
+  }
+
+  .pd-rating__bar {
+    height: 20px;
+    border: 1px solid #888c8c;
+    border-radius: 5px;
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .pd-rating__bar i {
+    display: block;
+    height: 100%;
+    background: #ff6a00;
+  }
+
   @media (min-width: 768px) {
     .product-detail-page {
       min-height: 0;
@@ -108,9 +261,23 @@
       <h1 class="product-title" id="productTitle">Loading product...</h1>
       <div class="product-subtitle" id="productSubtitle"></div>
 
-      <div class="star-row">
-        <span class="stars" id="productStars"></span>
-        <span class="review-count" id="productReviews"></span>
+      <div class="pd-rating" id="productRating" hidden>
+        <button type="button" class="pd-rating__trigger" id="productRatingTrigger" aria-expanded="false" aria-controls="productRatingPopover">
+          <span class="pd-rating__value" id="productRatingValue"></span>
+          <span class="pd-stars" id="productRatingStars" aria-hidden="true"></span>
+          <i class="fa fa-chevron-down pd-rating__chevron" aria-hidden="true"></i>
+          <span class="pd-rating__count" id="productRatingCount"></span>
+        </button>
+
+        <div class="pd-rating__popover" id="productRatingPopover" role="dialog" aria-label="Customer ratings" hidden>
+          <button type="button" class="pd-rating__close" id="productRatingClose" aria-label="Close ratings">&times;</button>
+          <div class="pd-rating__head">
+            <span class="pd-stars pd-stars--lg" id="productRatingPopStars" aria-hidden="true"></span>
+            <strong id="productRatingOutOf"></strong>
+          </div>
+          <div class="pd-rating__total" id="productRatingTotal"></div>
+          <div class="pd-rating__bars" id="productRatingBars"></div>
+        </div>
       </div>
 
       <div class="spf-badge" id="typeBadge" style="display:none"></div>
@@ -194,9 +361,140 @@
     if (el) el.textContent = value || '';
   }
 
-  function setRatingStars() {
-    const el = document.getElementById('productStars');
-    if (el) el.innerHTML = '&#9733;&#9733;&#9733;&#9733;&#9734;';
+  // Stable hash, so each product always gets the same rating.
+  function hashString(value) {
+    let hash = 2166136261;
+    for (const char of String(value)) {
+      hash ^= char.charCodeAt(0);
+      hash = Math.imul(hash, 16777619);
+    }
+    return hash >>> 0;
+  }
+
+  // Rating between 4.5 and 4.9 (different per product) plus a star breakdown
+  // in whole percentages that sums to 100 and averages exactly to the rating.
+  function buildProductRating(product) {
+    const key = product.urlKey || product.url_key || product.sku || product.id || product.name || 'product';
+    const hash = hashString(key);
+    const average = 4.5 + (hash % 5) / 10;
+    const total = 150 + (Math.floor(hash / 5) % 800);
+
+    const spread = (5 - average) / 0.5;
+    const one = Math.round(4 * spread);
+    const two = Math.round(2 * spread);
+    const three = Math.round(5 * spread);
+    const rest = 100 - one - two - three;
+    const target = Math.round(average * 100) - (one + 2 * two + 3 * three);
+    const five = target - 4 * rest;
+    const four = rest - five;
+
+    return {
+      average,
+      total,
+      percents: { 5: five, 4: four, 3: three, 2: two, 1: one }
+    };
+  }
+
+  function compactCount(value) {
+    if (value >= 1000) {
+      return (Math.round(value / 100) / 10).toLocaleString('en-IN') + 'K';
+    }
+    return String(value);
+  }
+
+  function setStarFill(el, average) {
+    if (el) el.style.setProperty('--fill', `${(average / 5) * 100}%`);
+  }
+
+  function setRatingStars(product) {
+    const rating = buildProductRating(product);
+    const label = rating.average.toFixed(1);
+
+    setText('productRatingValue', label);
+    setText('productRatingCount', `(${compactCount(rating.total)})`);
+    setText('productRatingOutOf', `${label} out of 5`);
+    setText('productRatingTotal', `${rating.total.toLocaleString('en-IN')} global ratings`);
+    setStarFill(document.getElementById('productRatingStars'), rating.average);
+    setStarFill(document.getElementById('productRatingPopStars'), rating.average);
+
+    document.getElementById('productRatingTrigger')
+      ?.setAttribute('aria-label', `Rated ${label} out of 5 from ${rating.total.toLocaleString('en-IN')} ratings. Show rating breakdown`);
+
+    document.getElementById('productRatingBars').innerHTML = [5, 4, 3, 2, 1].map(star => `
+      <div class="pd-rating__row">
+        <span>${star} star</span>
+        <span class="pd-rating__bar" role="img" aria-label="${rating.percents[star]}% of ratings are ${star} star"><i style="width:${rating.percents[star]}%"></i></span>
+        <span>${rating.percents[star]}%</span>
+      </div>
+    `).join('');
+
+    document.getElementById('productRating').hidden = false;
+  }
+
+  function initRatingPopover() {
+    const wrap = document.getElementById('productRating');
+    const trigger = document.getElementById('productRatingTrigger');
+    const popover = document.getElementById('productRatingPopover');
+    const closeBtn = document.getElementById('productRatingClose');
+    if (!wrap || !trigger || !popover) return;
+
+    let hideTimer = null;
+    const canHover = window.matchMedia('(hover: hover)').matches;
+
+    function place() {
+      const rect = trigger.getBoundingClientRect();
+      const width = popover.offsetWidth;
+      const left = Math.max(12, Math.min(rect.left, window.innerWidth - width - 12));
+      let top = rect.bottom + 8;
+      if (top + popover.offsetHeight > window.innerHeight - 12) {
+        top = Math.max(12, rect.top - popover.offsetHeight - 8);
+      }
+      popover.style.left = `${left}px`;
+      popover.style.top = `${top}px`;
+    }
+
+    function open() {
+      clearTimeout(hideTimer);
+      popover.hidden = false;
+      trigger.setAttribute('aria-expanded', 'true');
+      place();
+    }
+
+    function close() {
+      clearTimeout(hideTimer);
+      popover.hidden = true;
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+
+    function closeSoon() {
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(close, 200);
+    }
+
+    if (canHover) {
+      [trigger, popover].forEach(el => {
+        el.addEventListener('mouseenter', open);
+        el.addEventListener('mouseleave', closeSoon);
+      });
+    }
+
+    trigger.addEventListener('click', () => (popover.hidden ? open() : close()));
+    closeBtn?.addEventListener('click', () => {
+      close();
+      trigger.focus();
+    });
+
+    document.addEventListener('click', event => {
+      if (!popover.hidden && !wrap.contains(event.target)) close();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !popover.hidden) {
+        close();
+        trigger.focus();
+      }
+    });
+    window.addEventListener('resize', () => !popover.hidden && place());
+    document.addEventListener('scroll', () => !popover.hidden && place(), true);
   }
 
   function setImage(index) {
@@ -333,8 +631,8 @@
     const subtitle = product.subtitle || product.description || product.concern || '';
     setText('productSubtitle', subtitle);
     document.getElementById('productSubtitle').style.display = subtitle ? '' : 'none';
-    setRatingStars();
-    
+    setRatingStars(product);
+
     document.getElementById('productPrice').innerHTML = window.NivisPricing.html(product.priceNumber || product.price);
     // Show the summary once beneath the product name, without a second copy here.
     setText('productDesc', '');
@@ -477,6 +775,7 @@
       }
     });
     document.getElementById('addToCartBtn')?.addEventListener('click', addCurrentProductToCart);
+    initRatingPopover();
 
     document.querySelectorAll('.info-tab').forEach(tab => {
       tab.addEventListener('click', () => {

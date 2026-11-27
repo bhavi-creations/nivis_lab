@@ -112,7 +112,6 @@
             <div class="product-info">
               <div class="product-name">3% Niacinamide Oil-Free Moisturizer</div>
               <div class="product-sub">/ Non-greasy moisturizer to regulate sebum production and promote healthy looking skin/</div>
-              <div><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span><span class="review-count">( 91 reviews)</span></div>
               <div class="product-price">₹549</div>
               <span class="bought-tag">196+ bought in past month</span>
 
@@ -134,8 +133,7 @@
             </div>
             <div class="product-info">
               <div class="product-name">Vitamin C Brightening Moisturizer</div>
-              <div class="product-sub">/ Lightweight moisturizer that brightens and hydrates skin /</div>
-              <div><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span><span class="review-count">( 106 reviews)</span></div>
+              <div class="product-sub">Lightweight moisturizer that brightens and hydrates skin</div>
               <div class="product-price">₹549</div>
               <span class="bought-tag">129+ bought in past month</span>
 
@@ -157,8 +155,7 @@
           </div>
           <div class="product-info">
             <div class="product-name">1% Ceramides Intensive Repair Cream</div>
-            <div class="product-sub">/ Helps relieve the symptoms of dry, irritated, eczema-prone skin. /</div>
-            <div><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span><span class="review-count">( 22 reviews) </span></div>
+            <div class="product-sub">Helps relieve the symptoms of dry, irritated, eczema-prone skin.</div>
             <div class="product-price">₹549</div>
             <span class="bought-tag">58+ bought in past month</span>
 
@@ -265,14 +262,8 @@ async function loadMoisturizerProducts() {
               <div class="product-name">${product.name}</div>
 
               <div class="product-sub">
-                / ${product.subtitle || ''} /
+                ${product.subtitle || ''}
               </div>
-
-              <div>
-                <span class="stars">${product.stars || '?????'}</span>
-                <span class="review-count">( ${product.reviewsCount || 0} reviews)</span>
-              </div>
-
               <div class="product-price">${window.NivisPricing.html(product.price)}</div>
 
               <span class="bought-tag">

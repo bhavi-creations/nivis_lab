@@ -167,13 +167,7 @@
 
             <div class="product-info">
               <div class="product-name">${productName}</div>
-              <div class="product-sub">/ ${concern} /</div>
-
-              <div>
-                <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-                <span class="review-count">(120 reviews)</span>
-              </div>
-
+              <div class="product-sub">${concern}</div>
               <div class="product-price">${window.NivisPricing.html(priceNumber)}</div>
 
               <span class="bought-tag">

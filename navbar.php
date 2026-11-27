@@ -986,17 +986,12 @@
             if (!track) return;
 
             const offers = [{
-                    text: 'BUY 1 GET 10% OFF',
-                    coupon: 'COUPON: FIRSTTIME'
-                },
-                {
-                    text: 'BUY 2 GET 20% OFF',
-                    coupon: 'COUPON: SECONDTIME'
-                }
-            ];
+                text: 'GET 10% OFF',
+                coupon: 'USE COUPON CODE: BYEONE'
+            }];
 
             const items = Array.from({
-                length: 8
+                length: 16
             }, () => offers).flat();
 
             track.innerHTML = items.map(offer => `

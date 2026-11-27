@@ -1436,7 +1436,7 @@
             document.title = 'Nivis Labs';
             text('.breadcrumb-bar a:last-child', name);
             text('.product-title', name);
-            text('.product-subtitle', `/ ${subtitle} /`);
+            text('.product-subtitle', `${subtitle}`);
             text('.product-desc', product.description || subtitle);
             text('.product-what-is', product.whatIs || `${name} is a ${product.type || 'skincare product'} for ${product.concern || 'your skincare routine'}.`);
             document.querySelector('.price-main').innerHTML = window.NivisPricing.html(product.priceNumber || product.price);

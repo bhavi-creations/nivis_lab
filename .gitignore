@@ -11,3 +11,5 @@ contact_mail.local.php
 # macOS resource-fork metadata
 __MACOSX/
 .DS_Store
+
+storage/page-views.json

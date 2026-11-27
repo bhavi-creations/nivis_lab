@@ -76,8 +76,6 @@
                                     const productName = product.name || 'Product Name';
                                     const productPrice = product.price?.regular?.text || product.price || '₹0';
                                     const concern = product.concern || 'Skincare';
-                                    const stars = product.stars || '★★★★★';
-                                    const reviews = product.reviewsCount || 120;
 
                                     return `
                                         <div class="col">
@@ -88,16 +86,12 @@
                                                     </div>
                                                     <div class="card-body d-flex flex-column justify-content-between p-3">
                                                         <div>
-                                                            <p class="text-muted small mb-1 text-uppercase">/ ${escapeHtml(concern)} /</p>
+                                                            <p class="text-muted small mb-1 text-uppercase">${escapeHtml(concern)}</p>
                                                             <h5 class="card-title fs-6 mb-2" style="font-weight: 500; min-height: 40px;">
                                                                 ${escapeHtml(productName)}
                                                             </h5>
                                                         </div>
                                                         <div>
-                                                            <div class="mb-2">
-                                                                <span class="text-warning small">${escapeHtml(stars)}</span>
-                                                                <span class="text-muted small">(${escapeHtml(reviews)})</span>
-                                                            </div>
                                                             <p class="card-text fw-bold text-dark mb-0">${window.NivisPricing.html(productPrice)}</p>
                                                         </div>
                                                     </div>
